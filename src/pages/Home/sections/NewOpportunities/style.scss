@@ -1,0 +1,38 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#new-opportunities {
+  @include layout-break;
+  .new-opportunities-img {
+    @include background;
+    background-image: url("../../../../../public/img/oportunities.jpg");
+  }
+
+  .new-opportunities-text {
+    @include layout-break-text;
+    @include section-tag;
+  }
+
+  .opportunities-icons {
+    .icon-container {
+      min-height: 0;
+      margin-bottom: 36px;
+      font-size: 16px;
+
+      .icon {
+        padding: 12px;
+        margin-right: 12px;
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    .new-opportunities-text {
+      padding: 4% 8%!important;
+    }
+
+    .new-opportunities-img {
+      height: 20em;
+    }
+  }
+}

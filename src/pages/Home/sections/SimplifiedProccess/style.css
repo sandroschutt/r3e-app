@@ -1,0 +1,38 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#simplified-proccess {
+  padding: 0 8%;
+  padding-top: 76px;
+  padding-bottom: 76px;
+}
+#simplified-proccess p,
+#simplified-proccess button {
+  font-size: 16px;
+}
+@media (max-width: 960px) {
+  #simplified-proccess .icon-container {
+    min-height: auto;
+    margin: 40px auto;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

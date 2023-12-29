@@ -1,0 +1,55 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#contact {
+  padding: 0 8%;
+  padding-top: 76px;
+  padding-bottom: 76px;
+  background-color: var(--palette-light-grey);
+}
+#contact .content h6 {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--palette-grey);
+}
+#contact .content span {
+  margin-right: 16px;
+  font-size: 32px;
+  color: var(--palette-green);
+}
+#contact .content .description {
+  max-width: 60%;
+  font-size: 16px;
+}
+#contact .content .contact-info p,
+#contact .content .contact-info span {
+  font-size: 20px;
+}
+@media (max-width: 960px) {
+  #contact .content h4 {
+    font-size: 1.2em;
+  }
+  #contact .content .description {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

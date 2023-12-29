@@ -1,0 +1,21 @@
+.register-success {
+  color: var(--palette-green);
+}
+.register-success h1 {
+  font-size: 2em;
+  font-weight: normal;
+}
+.register-success p {
+  padding: 3em 16em;
+}
+.register-success img {
+  height: 360px;
+  width: auto;
+}
+@media (max-width: 960px) {
+  .register-success p {
+    padding: 2em;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

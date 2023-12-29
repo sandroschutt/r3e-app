@@ -1,0 +1,33 @@
+@import "../../styles/mixins/home";
+
+#zipcodeForm {
+  @include baseForm;
+  width: 400px;
+  margin: 128px auto;
+  text-align: center;
+
+  p, div {
+    margin: 0 auto;
+  }
+
+  p {
+    max-width: 75%;
+    font-size: 16px;
+  }
+
+  button {
+    margin-bottom: 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .later {
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

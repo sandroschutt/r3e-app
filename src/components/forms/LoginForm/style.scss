@@ -1,0 +1,45 @@
+@import "../../../styles/mixins/home";
+
+$greenBorder: 1px solid var(--palette-green);
+
+#loginForm {
+  @include baseForm;
+
+  max-width: 400px;
+  margin: 128px auto;
+
+  p {
+    font-size: 16px;
+  }
+
+  .password-input-container {
+    @include radius-16;
+    display: flex;
+    margin-bottom: 16px;
+    border: $greenBorder;
+
+    #password {
+      max-width: 80%;
+      border: none;
+      border-right: $greenBorder;
+      border-radius: 16px 0 0 16px;
+      -webkit-border-radius: 16px 0 0 16px;
+      -moz-border-radius: 16px 0 0 16px;
+      -ms-border-radius: 16px 0 0 16px;
+      -o-border-radius: 16px 0 0 16px;
+    }
+
+    #icon {
+      width: 20%;
+      height: 100%;
+      text-align: center;
+      align-self: center;
+      color: var(--palette-green);
+      opacity: 0.5;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

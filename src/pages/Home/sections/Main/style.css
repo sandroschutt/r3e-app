@@ -1,0 +1,57 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#main {
+  padding: 0 8%;
+  padding-top: 76px;
+  padding-bottom: 76px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  background-image: url("../../../../../public/img/home-1st-section-bg.jpg");
+}
+#main h1,
+#main p {
+  max-width: 60%;
+  color: var(--palette-white);
+  text-shadow: 2px 2px var(--text-shadow);
+}
+#main button {
+  margin-right: 16px;
+}
+@media (max-width: 960px) {
+  #main {
+    min-height: auto;
+    background-position: right;
+  }
+  #main h1 {
+    font-size: 1.7em;
+  }
+  #main h1,
+  #main p {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

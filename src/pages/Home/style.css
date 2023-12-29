@@ -1,0 +1,27 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.row {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+#home-container {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+#home-container #public-navigation {
+  background-color: var(--palette-green) !important;
+}
+#home-container .navbar-brand,
+#home-container .navbar-toggler-icon {
+  color: var(--palette-white);
+}
+
+/*# sourceMappingURL=style.css.map */

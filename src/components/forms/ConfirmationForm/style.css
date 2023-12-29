@@ -1,0 +1,77 @@
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#confirmationForm {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.062745098);
+  padding: 1rem;
+  align-self: center;
+  background-color: var(--palette-white);
+  width: 400px;
+  margin: 128px auto;
+  text-align: center;
+}
+#confirmationForm label {
+  font-weight: 400 !important;
+  font-size: 0.8em;
+}
+#confirmationForm label,
+#confirmationForm input,
+#confirmationForm h4,
+#confirmationForm p {
+  text-align: center;
+}
+#confirmationForm label,
+#confirmationForm h4,
+#confirmationForm p {
+  color: var(--palette-green);
+}
+#confirmationForm a {
+  color: var(--palette-auth-link);
+  text-decoration: none;
+}
+#confirmationForm input,
+#confirmationForm button {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  width: 100%;
+  padding: 8px;
+}
+#confirmationForm input {
+  margin-bottom: 16px;
+  border: 1px solid var(--palette-green);
+}
+#confirmationForm button {
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  border: none;
+}
+#confirmationForm .validation-message {
+  color: red;
+  font-weight: 500;
+}
+#confirmationForm p, #confirmationForm div {
+  margin: 0 auto;
+}
+#confirmationForm p {
+  max-width: 75%;
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=style.css.map */

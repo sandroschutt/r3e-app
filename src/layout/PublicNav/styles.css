@@ -1,0 +1,39 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --palette-auth-light-grey: #F7F8F9;
+  --palette-auth-link: #5095D4;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+@media (min-width: 960px) {
+  #public-navigation {
+    padding: 0 8%;
+  }
+}
+#public-navigation a {
+  font-size: 16px;
+}
+#public-navigation .navbar-toggler:focus,
+#public-navigation .navbar-toggler:active,
+#public-navigation .navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/*# sourceMappingURL=styles.css.map */

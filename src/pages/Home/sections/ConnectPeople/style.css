@@ -1,0 +1,54 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#connect-people {
+  background-color: var(--palette-light-grey);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#connect-people .connect-people-img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../../../../public/img/connect-people.jpeg");
+}
+#connect-people .connect-people-text {
+  margin: 0 auto;
+  padding: 48px;
+  font-size: 16px;
+}
+#connect-people .icon-container {
+  min-height: 0;
+}
+#connect-people .icon-container .icon {
+  padding: 8px;
+  margin-right: 12px;
+}
+@media (max-width: 960px) {
+  #connect-people .connect-people-img {
+    height: 20em;
+  }
+  #connect-people .connect-people-text {
+    padding: 4% 8% !important;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

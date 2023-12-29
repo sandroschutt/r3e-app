@@ -1,0 +1,48 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#our-principles {
+  padding: 0 8%;
+  padding-top: 76px;
+  padding-bottom: 76px;
+  display: block;
+  align-items: center;
+  min-height: 65vh;
+}
+#our-principles .principles-text {
+  padding-left: 4%;
+}
+#our-principles p {
+  font-size: 20px;
+}
+#our-principles .col {
+  align-self: center;
+}
+#our-principles .image {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 20em;
+  margin-bottom: 40px;
+  background-image: url("./our-principles.jpeg");
+}
+
+/*# sourceMappingURL=style.css.map */

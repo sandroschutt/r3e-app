@@ -1,0 +1,23 @@
+.register-success {
+  color: var(--palette-green);
+
+  h1 {
+    font-size: 2em;
+    font-weight: normal;
+  }
+
+  p {
+    padding: 3em 16em;
+  }
+
+  img {
+    height: 360px;
+    width: auto;
+  }
+
+  @media (max-width: 960px) {
+    p {
+        padding: 2em;
+    }
+  }
+}

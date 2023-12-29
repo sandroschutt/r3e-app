@@ -1,0 +1,84 @@
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#zipcodeForm {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.062745098);
+  padding: 1rem;
+  align-self: center;
+  background-color: var(--palette-white);
+  width: 400px;
+  margin: 128px auto;
+  text-align: center;
+}
+#zipcodeForm label {
+  font-weight: 400 !important;
+}
+#zipcodeForm label,
+#zipcodeForm input,
+#zipcodeForm h4,
+#zipcodeForm p {
+  text-align: center;
+}
+#zipcodeForm label,
+#zipcodeForm h4,
+#zipcodeForm p {
+  color: var(--palette-green);
+}
+#zipcodeForm a {
+  color: var(--palette-auth-link);
+  text-decoration: none;
+}
+#zipcodeForm input,
+#zipcodeForm button {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  width: 100%;
+  padding: 8px;
+}
+#zipcodeForm input {
+  margin-bottom: 32px;
+  border: 1px solid var(--palette-green);
+}
+#zipcodeForm button {
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  border: none;
+}
+#zipcodeForm p, #zipcodeForm div {
+  margin: 0 auto;
+}
+#zipcodeForm p {
+  max-width: 75%;
+  font-size: 16px;
+}
+#zipcodeForm button {
+  margin-bottom: 12px;
+}
+#zipcodeForm button:hover {
+  cursor: pointer;
+}
+#zipcodeForm .later {
+  opacity: 0.5;
+}
+#zipcodeForm .later:hover {
+  opacity: 1;
+}
+
+/*# sourceMappingURL=style.css.map */

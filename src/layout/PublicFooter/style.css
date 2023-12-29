@@ -1,0 +1,35 @@
+:root {
+  --palette-white: #ffffff;
+  --palette-light-grey: #F7F8F9;
+  --palette-grey: #808080;
+  --palette-green: #198754;
+  --palette-dark-blue: #263238;
+  --palette-auth-light-grey: #F7F8F9;
+  --palette-auth-link: #5095D4;
+  --text-shadow: #00000050;
+}
+
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+footer {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+  font-size: 16px;
+}
+footer p {
+  margin-bottom: 0;
+  color: var(--palette-green);
+}
+
+/*# sourceMappingURL=style.css.map */

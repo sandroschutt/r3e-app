@@ -1,0 +1,50 @@
+@import "../../../styles/mixins/home";
+
+#donation {
+  @include baseForm;
+  @include wideForm;
+
+  select, input {
+    font-size: .8em;
+  }
+
+  input {
+    margin-bottom: 0;
+    padding: 6px;
+
+    &[type="file"] {
+        border: none;
+        font-size: .5em;
+    }
+  }
+
+  button {
+    margin-top: 24px;
+    opacity: 1;
+
+    &:hover {
+        opacity: .5;
+    }
+
+    &:active {
+        opacity: 1;
+    }
+  }
+
+  #mascot {
+    @include background;
+    background-image: url("./r3d3_contorno_success.png");
+    background-size: contain;
+    height: 300px;
+  }
+
+  @media (min-width: 900px) {
+    .columnOne {
+      padding-right: 12px;
+    }
+
+    .columnTwo {
+      padding-left: 12px;
+    }
+  }
+}

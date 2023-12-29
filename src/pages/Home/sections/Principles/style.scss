@@ -1,0 +1,31 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#our-principles {
+  @include layout;
+  @include section-vertical-padding;
+
+  display: block;
+  align-items: center;
+  min-height: 65vh;
+
+  .principles-text {
+    padding-left: 4%;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .col {
+    align-self: center;
+  }
+
+  .image {
+    @include background;
+    
+    height: 20em;
+    margin-bottom: 40px;
+    background-image: url("./our-principles.jpeg");
+  }
+}

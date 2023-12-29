@@ -1,0 +1,19 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#steps {
+  @include layout;
+  padding-top: 32px;
+  padding-bottom: 32px;
+
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+
+  h6 {
+    font-size: 20px!important;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

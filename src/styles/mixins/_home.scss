@@ -1,0 +1,160 @@
+@mixin layout {
+  padding: 0 8%;
+}
+
+@mixin layout-break {
+  background-color: var(--palette-light-grey);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@mixin layout-break-text {
+  margin: 0 auto;
+  padding: 48px;
+  font-size: 16px;
+}
+
+@mixin public-container {
+  height: 100vh;
+  background-color: var(--palette-auth-light-grey);
+
+  .content {
+    height: 88vh;
+  }
+}
+
+@mixin section-tag {
+  h6 {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--palette-grey);
+  }
+}
+
+@mixin section-vertical-padding {
+  padding-top: 76px;
+  padding-bottom: 76px;
+}
+
+@mixin background {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@mixin boxShadow {
+  box-shadow: 4px 4px 4px #00000010;
+}
+
+@mixin radius-16 {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+
+@mixin baseForm {
+  @include radius-16;
+  @include boxShadow;
+  padding: 1rem;
+  align-self: center;
+  background-color: var(--palette-white);
+
+  label {
+    font-weight: 400 !important;
+    font-size: 0.8em;
+  }
+
+  label,
+  input,
+  h4,
+  p {
+    text-align: center;
+  }
+
+  label,
+  h4,
+  p {
+    color: var(--palette-green);
+  }
+
+  a {
+    color: var(--palette-auth-link);
+    text-decoration: none;
+  }
+
+  input,
+  button {
+    @include radius-16;
+    width: 100%;
+    padding: 8px;
+  }
+
+  input {
+    margin-bottom: 16px;
+    border: 1px solid var(--palette-green);
+  }
+
+  button {
+    background-color: var(--palette-green);
+    color: var(--palette-white);
+    border: none;
+  }
+
+  .validation-message {
+    color: red;
+    font-weight: 500;
+  }
+}
+
+@mixin wideForm {
+  width: 900px;
+  margin: 128px auto;
+  text-align: left;
+
+  h4 {
+    text-align: left;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 20px;
+    color: var(--palette-grey);
+  }
+
+  select {
+    @include radius-16;
+    width: 100%;
+    padding: 8px;
+    background-color: transparent;
+    color: var(--palette-green);
+    border: 1px solid var(--palette-green);
+  }
+
+  button {
+    margin-bottom: 12px;
+    font-size: 0.8em;
+    opacity: 0.5;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.icon-container {
+  min-height: 250px;
+
+  .icon {
+    width: 36px;
+    padding: 6px;
+    background-color: var(--palette-green);
+    color: var(--palette-white);
+    text-align: center;
+    border-radius: 50%;
+  }
+}

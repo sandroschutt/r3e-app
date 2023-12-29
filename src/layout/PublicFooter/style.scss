@@ -1,0 +1,13 @@
+@import "../../styles/root", "../../styles/mixins/home";
+
+footer {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+  font-size: 16px;
+
+  p {
+    margin-bottom: 0;
+    color: var(--palette-green);
+  }
+}

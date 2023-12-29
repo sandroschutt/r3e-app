@@ -1,0 +1,17 @@
+@import "../../../styles/mixins/home";
+
+#confirmationForm {
+  @include baseForm;
+  width: 400px;
+  margin: 128px auto;
+  text-align: center;
+
+  p, div {
+    margin: 0 auto;
+  }
+
+  p {
+    max-width: 75%;
+    font-size: 16px;
+  }
+}

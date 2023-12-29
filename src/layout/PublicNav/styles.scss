@@ -1,0 +1,18 @@
+@import "../../styles/root", "../../styles/mixins/home";
+
+#public-navigation {
+  @media (min-width: 960px) {
+    @include layout;
+  }
+
+  a {
+    font-size: 16px;
+  }
+
+  .navbar-toggler:focus,
+  .navbar-toggler:active,
+  .navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}

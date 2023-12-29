@@ -1,0 +1,56 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#success-cases {
+  @include layout;
+  @include section-vertical-padding;
+
+  .success-cases-text {
+    @include section-tag;
+    margin: auto 0;
+
+    p,
+    button {
+      font-size: 20px;
+      max-width: 350px;
+    }
+  }
+
+  .success-cases-images {
+    p {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+    }
+  }
+
+  .case-image-tall,
+  .case-image-short {
+    width: 100%;
+    background-color: var(--palette-light-grey);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+  }
+
+  .case-image-tall {
+    height: 300px;
+  }
+
+  .case-image-short {
+    height: 225px;
+  }
+
+  @media (max-width: 960px) {
+    .success-cases-images {
+      margin: 40px 0;
+      
+      .col {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  }
+}

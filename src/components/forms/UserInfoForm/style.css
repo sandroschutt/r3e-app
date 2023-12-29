@@ -1,0 +1,100 @@
+.icon-container {
+  min-height: 250px;
+}
+.icon-container .icon {
+  width: 36px;
+  padding: 6px;
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  text-align: center;
+  border-radius: 50%;
+}
+
+#userInfoForm {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.062745098);
+  padding: 1rem;
+  align-self: center;
+  background-color: var(--palette-white);
+  width: 900px;
+  margin: 128px auto;
+  text-align: left;
+}
+#userInfoForm label {
+  font-weight: 400 !important;
+  font-size: 0.8em;
+}
+#userInfoForm label,
+#userInfoForm input,
+#userInfoForm h4,
+#userInfoForm p {
+  text-align: center;
+}
+#userInfoForm label,
+#userInfoForm h4,
+#userInfoForm p {
+  color: var(--palette-green);
+}
+#userInfoForm a {
+  color: var(--palette-auth-link);
+  text-decoration: none;
+}
+#userInfoForm input,
+#userInfoForm button {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  width: 100%;
+  padding: 8px;
+}
+#userInfoForm input {
+  margin-bottom: 16px;
+  border: 1px solid var(--palette-green);
+}
+#userInfoForm button {
+  background-color: var(--palette-green);
+  color: var(--palette-white);
+  border: none;
+}
+#userInfoForm .validation-message {
+  color: red;
+  font-weight: 500;
+}
+#userInfoForm h4 {
+  text-align: left;
+}
+#userInfoForm p {
+  font-size: 16px;
+}
+#userInfoForm input {
+  font-size: 20px;
+  color: var(--palette-grey);
+}
+#userInfoForm select {
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  width: 100%;
+  padding: 8px;
+  background-color: transparent;
+  color: var(--palette-green);
+  border: 1px solid var(--palette-green);
+}
+#userInfoForm button {
+  margin-bottom: 12px;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+#userInfoForm button:hover {
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */

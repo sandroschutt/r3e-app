@@ -1,0 +1,6 @@
+@import "../../styles/root";
+@import "../../styles/mixins/home";
+
+#auth-container {
+    @include public-container;
+}

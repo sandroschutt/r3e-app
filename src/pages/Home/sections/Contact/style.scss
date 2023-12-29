@@ -1,0 +1,42 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#contact {
+  @include layout;
+  @include section-vertical-padding;
+  background-color: var(--palette-light-grey);
+
+  .content {
+    @include section-tag;
+
+    span {
+      margin-right: 16px;
+      font-size: 32px;
+      color: var(--palette-green);
+    }
+
+    .description {
+      max-width: 60%;
+      font-size: 16px;
+    }
+
+    .contact-info {
+      p,
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 960px) {
+    .content {
+      h4 {
+        font-size: 1.2em;
+      }
+
+      .description {
+        max-width: 100%;
+      }
+    }
+  }
+}

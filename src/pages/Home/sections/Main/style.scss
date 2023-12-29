@@ -1,0 +1,38 @@
+@import "../../../../styles/root";
+@import "../../../../styles/mixins/home";
+
+#main {
+  @include layout;
+  @include section-vertical-padding;
+  @include background;
+
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  background-image: url("../../../../../public/img/home-1st-section-bg.jpg");
+
+  h1,
+  p {
+    max-width: 60%;
+    color: var(--palette-white);
+    text-shadow: 2px 2px var(--text-shadow);
+  }
+
+  button {
+    margin-right: 16px;
+  }
+
+  @media (max-width: 960px) {
+    min-height: auto;
+    background-position: right;
+
+    h1 {
+      font-size: 1.7em;
+    }
+
+    h1,
+    p {
+      max-width: 100%;
+    }
+  }
+}
