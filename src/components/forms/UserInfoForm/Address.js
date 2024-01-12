@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ValidateInputs from "../../../validations/Inputs";
 import { handleInput } from "./handles";
 
-export default function Address(props) {
+export default function Address() {
   const { userData } = useUserAuthContext();
   const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
@@ -45,24 +45,8 @@ export default function Address(props) {
     }
   }
 
-  function handleUserAddress(event) {
-    if (event.target.value === "" || ValidateInputs.text(event)) {
-        props.setAddress([]);
-    }
-
-    try {
-      if (
-        ValidateInputs.formData([zipcode, street, state, city]).valid
-      ) {
-        props.setAddress([zipcode, street, state, city]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
-    <Col>
+    <Col id="userAddress">
       <h4 className="px-2">Endereço</h4>
       <Row>
         <Col sm={12} lg={6}>
@@ -73,7 +57,7 @@ export default function Address(props) {
             id="zipcode"
             value={zipcode}
             onChange={(event) => handleZipcode(event)}
-            onBlur={(event) => handleUserAddress(event)}
+            onBlur={(event) => ValidateInputs.text(event)}
             maxLength={9}
           />
         </Col>
@@ -88,7 +72,7 @@ export default function Address(props) {
             id="street"
             value={street}
             onChange={(event) => handleInput(event, setStreet)}
-            onBlur={(event) => handleUserAddress(event)}
+            onBlur={(event) => ValidateInputs.text(event)}
           />
         </Col>
       </Row>
@@ -98,9 +82,10 @@ export default function Address(props) {
           <label htmlFor="state">Estado: *</label>
           <input
             type="text"
+            name="state"
             value={state}
             onChange={(event) => handleInput(event, setState)}
-            onBlur={(event) => handleUserAddress(event)}
+            onBlur={(event) => ValidateInputs.text(event)}
             maxLength={2}
           />
         </Col>
@@ -112,7 +97,7 @@ export default function Address(props) {
             id="city"
             value={city}
             onChange={(event) => handleInput(event, setCity)}
-            onBlur={(event) => handleUserAddress(event)}
+            onBlur={(event) => ValidateInputs.text(event)}
           />
         </Col>
       </Row>

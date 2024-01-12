@@ -1,10 +1,10 @@
 import { Col, Row } from "react-bootstrap";
 import { useUserAuthContext } from "../../../context/UserAuthentication";
 import { useEffect, useState } from "react";
-import ValidateInputs from "../../../validations/Inputs";
 import { handleInput } from "./handles";
+import ValidateInputs from "../../../validations/Inputs";
 
-export default function Info(props) {
+export default function Info() {
   const { userData } = useUserAuthContext();
 
   const [name, setName] = useState("");
@@ -31,39 +31,8 @@ export default function Info(props) {
     }
   }
 
-  //   criar validações para rg e cpf e números
-  function handleUserInfo(event) {
-    if (
-      (event.target.value === "" && event.target.name === "phone") ||
-      (event.target.value === "" && event.target.name === "docValue")
-    ) {
-      defineInfo([]);
-    }
-
-    try {
-      ValidateInputs.text(event);
-      let isValidInfo = ValidateInputs.formData([
-        name,
-        email,
-        phone,
-        docType,
-        docValue,
-      ]);
-
-      if (isValidInfo.valid) {
-        defineInfo([name, email, phone, docType, docValue]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  function defineInfo(info) {
-    props.setInfo(info);
-  }
-
   return (
-    <Col>
+    <Col id="userInfo">
       <h4 className="px-2">Suas informações</h4>
       <div className="d-block px-2">
         <label htmlFor="name">Nome: *</label>
@@ -73,7 +42,7 @@ export default function Info(props) {
           id="name"
           value={name}
           onChange={(event) => handleInput(event, setName)}
-          onBlur={(event) => handleUserInfo(event)}
+          onBlur={(event) => ValidateInputs.text(event)}
         />
       </div>
 
@@ -86,7 +55,8 @@ export default function Info(props) {
             id="email"
             value={email}
             onChange={(event) => handleInput(event, setEmail)}
-            onBlur={(event) => handleUserInfo(event)}
+            onBlur={(event) => ValidateInputs.text(event)}
+
           />
         </Col>
         <Col>
@@ -97,7 +67,7 @@ export default function Info(props) {
             id="phone"
             value={phone}
             onChange={(event) => handleInput(event, setPhone)}
-            onBlur={(event) => handleUserInfo(event, setPhone)}
+            onBlur={(event) => ValidateInputs.text(event)}
             maxLength={11}
             required
           />
@@ -107,7 +77,7 @@ export default function Info(props) {
       <Row>
         <Col>
           <label htmlFor="doctype">Documento: *</label>
-          <select value={docType} onChange={(event) => handleDocType(event)}>
+          <select value={docType} name="doctype" onChange={(event) => handleDocType(event)}>
             <option value="rg" key="rg">
               --RG
             </option>
@@ -117,14 +87,14 @@ export default function Info(props) {
           </select>
         </Col>
         <Col>
-          <label htmlFor="docValue">Nº Documento: *</label>
+          <label htmlFor="docvalue">Nº Documento: *</label>
           <input
             type="text"
-            name="docValue"
+            name="docvalue"
             id="docValue"
             value={docValue}
             onChange={(event) => handleInput(event, setDocValue)}
-            onBlur={(event) => handleUserInfo(event, setDocValue)}
+            onBlur={(event) => ValidateInputs.text(event)}
             maxLength={docLength}
             required
           />

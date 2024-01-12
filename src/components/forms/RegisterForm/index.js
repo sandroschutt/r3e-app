@@ -1,15 +1,24 @@
 import "./style.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ValidateInputs from "../../../validations/Inputs";
 import { useUserAuthContext } from "../../../context/UserAuthentication";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
-  const { updateUserData } = useUserAuthContext();
+  const { userData, updateUserData } = useUserAuthContext();
   const [email, setEmail] = useState("");
   const [emailConfirmation, setEmailConfirmation] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  // async function teste() {
+  //   let req = await fetch("http://localhost:9000/auth");
+  //   let res = await req.json();
+
+  //   console.log(res);
+  // }
+  // }, [email])
 
   function handleSubmit() {
     let isValidEmail = ValidateInputs.registrationEmail([
@@ -19,10 +28,10 @@ export default function RegisterForm() {
 
     if (isValidEmail.valid === true) {
       updateUserData({ email: email });
-      navigate("/auth/confirmation");
+      // navigate("/auth/confirmation");
       // request para enviar email com o código
     } else {
-      setValidationMessage(isValidEmail.message)
+      setValidationMessage(isValidEmail.message);
     }
   }
 

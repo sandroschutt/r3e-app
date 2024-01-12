@@ -2,25 +2,27 @@ import "./style.css";
 import { Col, Row } from "react-bootstrap";
 import { useState } from "react";
 import { useUserAuthContext } from "../../../context/UserAuthentication";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Info from "./Info";
 import Address from "./Address";
 import ValidateInputs from "../../../validations/Inputs";
+import { getFormValues, handleSubmissionEvaluation } from "./handles";
 
 export default function UserInfoForm() {
-  const { userData, updateUserData } = useUserAuthContext();
+  const { updateUserData } = useUserAuthContext();
   const [info, setInfo] = useState([]);
   const [address, setAddress] = useState([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [termsAgreement, setTermsAgreement] = useState(false);
 
   function handleTermsAndConditions() {
+    getFormValues(setInfo, setAddress);
+    console.log(info, address);
     if (isButtonDisabled === true) {
       setTermsAgreement(true);
       setIsButtonDisabled(false);
-      console.log(userData)
       document.querySelector("#submit-button").style.opacity = "1";
     } else {
       setTermsAgreement(false);
@@ -29,30 +31,29 @@ export default function UserInfoForm() {
     }
   }
 
-  function handleInfo(infoData) {
-    return setInfo(infoData);
-  }
-
-  function handleAddress(addressData) {
-    return setAddress(addressData);
-  }
-
   function handleSubmit() {
     let isValidInfo = ValidateInputs.formData([info]);
     let isValidAddress = ValidateInputs.formData([address]);
 
-    if (info[0] !== undefined && address[0] !== undefined) {
+    handleSubmissionEvaluation();
+    getFormValues(setInfo, setAddress);
+
+    console.log(info, address);
+
+    if (
+      (info[0] !== undefined && info[0] !== "") &&
+      (address[0] !== undefined && address[0] !== "")
+    ) {
       if (isValidInfo.valid && isValidAddress.valid) {
         updateUserData([...info, ...address, termsAgreement]);
-        navigate("/auth/registration-success");
+        // ESPERAR CONFIRMAÇÃO DO SERVIDOR ANTES DE REDIRECIONAR
+        // navigate("/auth/registration-success");
       } else {
         alert(ValidateInputs.formData([...info, ...address]).message);
       }
     } else {
       alert(isValidInfo.message);
-      ValidateInputs.allSubmitedInputs(
-        document.querySelectorAll("input")
-      );
+      ValidateInputs.allSubmitedInputs(document.querySelectorAll("input"));
     }
   }
 
@@ -60,8 +61,8 @@ export default function UserInfoForm() {
     <div className="d-flex">
       <form id="userInfoForm">
         <Row>
-          <Info setInfo={handleInfo} />
-          <Address setAddress={handleAddress} />
+          <Info />
+          <Address />
         </Row>
 
         <Row className="d-flex justify-content-between px-2">

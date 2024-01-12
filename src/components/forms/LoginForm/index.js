@@ -44,7 +44,6 @@ export default function LoginForm() {
             value={username}
             placeholder="seu@email.com"
             onChange={(event) => handleUsername(event)}
-            onBlur={(event) => ValidateInputs.email(event)}
           />
           <label htmlFor="password">Senha:</label>
           <div className="password-input-container">
@@ -55,7 +54,6 @@ export default function LoginForm() {
               className="mb-0"
               value={password}
               onChange={(event) => handlePassword(event)}
-              onBlur={(event) => ValidateInputs.text(event)}
             />
             <div id="icon">
               <FontAwesomeIcon

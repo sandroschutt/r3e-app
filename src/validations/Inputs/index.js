@@ -3,12 +3,29 @@ import { validateHtml } from "../validateHtml";
 
 export default class ValidateInputs {
   static emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  static passwordRegex = /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+  static passwordRegex =
+    /^(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   static text(event) {
     let value = event.target.value;
-    let isValidInput = this.escape(value).valid;
     let element = event.target.style;
+    let isValidInput = this.escape(value).valid;
+
+    if (!isValidInput) {
+      element.border = "2px solid red";
+      element.color = "red";
+      return false;
+    } else {
+      element.border = "1px solid #198754";
+      element.color = "#198754";
+      return true;
+    }
+  }
+
+  static textBySelection(input) {
+    let value = input.value;
+    let element = input.style;
+    let isValidInput = this.escape(value).valid;
 
     if (!isValidInput) {
       element.border = "2px solid red";
@@ -127,7 +144,11 @@ export default class ValidateInputs {
   }
 
   static password(input = String) {
-    if (input.length >= 8 && input.length <= 16 && this.passwordRegex.test(input)) {
+    if (
+      input.length >= 8 &&
+      input.length <= 16 &&
+      this.passwordRegex.test(input)
+    ) {
       return true;
     } else return false;
   }
