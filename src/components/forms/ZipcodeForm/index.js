@@ -1,18 +1,26 @@
 import { useUserAuthContext } from "../../../context/UserAuthentication";
 import { useNavigate } from "react-router-dom";
-import { createRef, useState } from "react";
+import { createRef, useEffect, useState } from "react";
+import { checkAuthorizedCode } from "../../../validations/clientAuthorization";
 import InputMask from "react-input-mask";
 import "./style.css";
 
 export default function ZipcodeForm() {
   const { userData, updateUserData } = useUserAuthContext();
   const [zipcode, setZipcode] = useState("");
-  const navigate = useNavigate();
+  const [authorized, setAuthorized] = useState(false);
   const inputRef = createRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!authorized) {
+      checkAuthorizedCode(userData, setAuthorized, navigate);
+    }
+  }, [userData, updateUserData, authorized, setAuthorized, navigate]);
 
   function handleUserZipcode(event) {
     let zipcodeValue = event.target.value;
-      setZipcode(zipcodeValue);
+    setZipcode(zipcodeValue);
   }
 
   function handleUserAddress() {

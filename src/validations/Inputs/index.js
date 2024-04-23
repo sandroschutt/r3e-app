@@ -118,6 +118,16 @@ export default class ValidateInputs {
     }
   }
 
+  static loginEmail(email) {
+    try {
+      if (this.emailRegex.test(email)) {
+        return true;
+      } else throw new Error("E-mail inválido");
+    } catch (error) {
+      return false;
+    }
+  }
+
   static registrationCode(input = String) {
     try {
       if (input === "") {

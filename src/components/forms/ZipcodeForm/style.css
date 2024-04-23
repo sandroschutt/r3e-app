@@ -26,6 +26,7 @@
 }
 #zipcodeForm label {
   font-weight: 400 !important;
+  font-size: 0.8em;
 }
 #zipcodeForm label,
 #zipcodeForm input,
@@ -53,13 +54,17 @@
   padding: 8px;
 }
 #zipcodeForm input {
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   border: 1px solid var(--palette-green);
 }
 #zipcodeForm button {
   background-color: var(--palette-green);
   color: var(--palette-white);
   border: none;
+}
+#zipcodeForm .validation-message {
+  color: red;
+  font-weight: 500;
 }
 #zipcodeForm p, #zipcodeForm div {
   margin: 0 auto;

@@ -11,14 +11,37 @@ export default function RegisterForm() {
   const [validationMessage, setValidationMessage] = useState("");
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  // async function teste() {
-  //   let req = await fetch("http://localhost:9000/auth");
-  //   let res = await req.json();
+  useEffect(() => {
+    async function handleApiCall() {
+      await fetch(
+        `http://localhost:9000/auth/email?email=${encodeURIComponent(email)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to initiate verification email");
+          }
+          return response.json();
+        })
+        .then(() => {
+          console.log("Verification email initiated successfully");
+          navigate("/auth/confirmation");
+        })
+        .catch((error) => {
+          setValidationMessage(`O email ${email} já está cadastrado`);
+          console.error(error);
+        });
+    }
 
-  //   console.log(res);
-  // }
-  // }, [email])
+    if (userData.email !== "" && userData.email !== undefined) {
+      handleApiCall();
+    }
+  }, [email, userData, updateUserData, navigate]);
 
   function handleSubmit() {
     let isValidEmail = ValidateInputs.registrationEmail([
@@ -28,8 +51,6 @@ export default function RegisterForm() {
 
     if (isValidEmail.valid === true) {
       updateUserData({ email: email });
-      // navigate("/auth/confirmation");
-      // request para enviar email com o código
     } else {
       setValidationMessage(isValidEmail.message);
     }

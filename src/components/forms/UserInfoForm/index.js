@@ -1,25 +1,65 @@
 import "./style.css";
-import { Col, Row } from "react-bootstrap";
-import { useState } from "react";
-import { useUserAuthContext } from "../../../context/UserAuthentication";
-// import { useNavigate } from "react-router-dom";
 import Info from "./Info";
 import Address from "./Address";
 import ValidateInputs from "../../../validations/Inputs";
+import { Col, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useUserAuthContext } from "../../../context/UserAuthentication";
 import { getFormValues, handleSubmissionEvaluation } from "./handles";
+import { checkAuthorizedCode } from "../../../validations/clientAuthorization";
+import { useNavigate } from "react-router-dom";
 
 export default function UserInfoForm() {
-  const { updateUserData } = useUserAuthContext();
+  const { userData, updateUserData } = useUserAuthContext();
+  const [authorized, setAuthorized] = useState(false);
+  const [reqBody, setReqBody] = useState({});
   const [info, setInfo] = useState([]);
   const [address, setAddress] = useState([]);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [termsAgreement, setTermsAgreement] = useState(false);
 
+  useEffect(() => {
+    if (!authorized) {
+      checkAuthorizedCode(userData, setAuthorized, navigate);
+    }
+
+    async function createUser(reqBody) {
+      try {
+        fetch("http://localhost:9000/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(reqBody),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json(); // Parse the JSON response
+          })
+          .then((result) => {
+            updateUserData({...userData, registered: true})
+            navigate("/auth/registration-success")
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        setReqBody({});
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    if (reqBody.userInfo !== undefined) {
+      createUser(reqBody);
+    }
+  }, [userData, updateUserData, authorized, reqBody, navigate]);
+
   function handleTermsAndConditions() {
     getFormValues(setInfo, setAddress);
-    console.log(info, address);
     if (isButtonDisabled === true) {
       setTermsAgreement(true);
       setIsButtonDisabled(false);
@@ -38,16 +78,38 @@ export default function UserInfoForm() {
     handleSubmissionEvaluation();
     getFormValues(setInfo, setAddress);
 
-    console.log(info, address);
-
     if (
-      (info[0] !== undefined && info[0] !== "") &&
-      (address[0] !== undefined && address[0] !== "")
+      info[0] !== undefined &&
+      info[0] !== "" &&
+      address[0] !== undefined &&
+      address[0] !== ""
     ) {
       if (isValidInfo.valid && isValidAddress.valid) {
-        updateUserData([...info, ...address, termsAgreement]);
-        // ESPERAR CONFIRMAÇÃO DO SERVIDOR ANTES DE REDIRECIONAR
-        // navigate("/auth/registration-success");
+        const userInfo = {
+          name: info[0],
+          email: info[1],
+          phone: info[2],
+          role: 2,
+          accept_policy: termsAgreement,
+        };
+
+        const userAddress = {
+          zipcode: address[0],
+          street: address[1],
+          state: address[2],
+          city: address[3],
+        };
+
+        const userDocument = {
+          documentNumber: info[3],
+          type: info[4],
+        };
+
+        setReqBody({
+          userInfo: userInfo,
+          userAddress: userAddress,
+          userDocument: userDocument,
+        });
       } else {
         alert(ValidateInputs.formData([...info, ...address]).message);
       }

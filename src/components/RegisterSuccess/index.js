@@ -2,10 +2,26 @@ import "./style.css";
 import mascot from "./r3d3_green_outline.png";
 import { Row } from "react-bootstrap";
 import { useUserAuthContext } from "../../context/UserAuthentication";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterSuccess() {
   const {userData} = useUserAuthContext();
-  console.log(userData)
+  const [registered, setRegistered] = useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    if(!registered && userData.registered === true) {
+      setRegistered(true)
+    } else if(registered) {
+      setTimeout(() => {
+        navigate("/auth/login")
+      }, 5000)
+    } else {
+      navigate("/404")
+    }
+  },[registered, userData, navigate])
+
   return (
     <div className="register-success">
       <Row className="d-flex justify-content-center">
