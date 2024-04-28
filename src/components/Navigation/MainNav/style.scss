@@ -1,0 +1,93 @@
+$colorMain: #25983d;
+
+.nav-width-open {
+  width: 24vw;
+}
+
+.nav-width-closed {
+  width: auto;
+}
+
+.hidden {
+  display: none!important;
+}
+
+nav#main-nav {
+  // position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+
+  .profile,
+  ul {
+    background-color: black;
+    border-radius: 20px;
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    height: 15%;
+    padding: 24px;
+
+    .icon {
+      color: $colorMain;
+    }
+
+    .info {
+      h4,
+      p {
+        margin-bottom: 0;
+      }
+
+      h4 {
+        font-size: 0.9rem;
+        color: white;
+      }
+
+      p {
+        color: $colorMain;
+      }
+    }
+  }
+
+  ul {
+    min-height: 83%;
+    margin-bottom: 0;
+    padding: 40px 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 8px 24px;
+      list-style: none;
+      color: $colorMain;
+
+      .nav-link {
+        text-decoration: none;
+      }
+
+      .collapse-icon {
+        margin-right: 20px;
+      }
+
+      &:hover {
+        background-color: $colorMain;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    .hide {
+        position: absolute;
+        bottom: 32px;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}
