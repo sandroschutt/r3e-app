@@ -1,0 +1,27 @@
+$colorMain: #25983d;
+
+main {
+    display: flex;
+  
+    .content {
+      width: 100%;
+      padding: 12px 48px;
+    }
+  }
+
+.notifications {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  padding: 12px 14px;
+  background-color: black;
+  color: white;
+
+  border-radius: 50%;
+
+  &:hover {
+    background-color: $colorMain;
+    cursor: pointer;
+  }
+}

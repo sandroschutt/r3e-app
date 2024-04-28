@@ -1,31 +1,3 @@
-$colorMain: #25983d;
-
-.notifications {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-
-  padding: 12px 14px;
-  background-color: black;
-  color: white;
-
-  border-radius: 50%;
-
-  &:hover {
-    background-color: $colorMain;
-    cursor: pointer;
-  }
-}
-
-main {
-  display: flex;
-
-  .content {
-    width: 100%;
-    padding: 12px 24px;
-  }
-}
-
 .profile-view {
   .user-card,
   .user-info {
