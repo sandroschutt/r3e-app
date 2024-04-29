@@ -1,0 +1,98 @@
+$colorMain: #25983d;
+$colorScrollbarThumb: rgb(134, 184, 134);
+$colorDeviceBackground: rgb(227, 238, 227);
+
+.public-devices {
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+
+    ul {
+      display: flex;
+      gap: 8px;
+      padding: 0;
+
+      li {
+        list-style: none;
+        padding-right: 8px;
+        border-right: 1px solid black;
+
+        &:hover {
+            color: $colorMain;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .3s;
+        }
+      }
+    }
+  }
+
+  .device-list {
+    height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    ul {
+      padding: 0;
+      padding-right: 8px;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        list-style: none;
+        padding: 24px;
+        margin-bottom: 8px;
+        min-height: 128px;
+        background-color: #EBECED;
+        border-radius: 12px;
+
+        img {
+            width: 10%;
+            border-radius: 12px;
+        }
+
+        h6 {
+            width: 15%;
+        }
+
+        h6, p {
+            color: $colorMain;
+        }
+
+        div {
+            display: flex;
+            gap: 12px;
+            width: 75%;
+
+            span {
+                margin-left: 4px;
+                color: black;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: $colorDeviceBackground;
+        }
+      }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: lightgrey;
+    border-radius: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $colorScrollbarThumb;
+    border-radius: 12px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $colorMain;
+  }
+}

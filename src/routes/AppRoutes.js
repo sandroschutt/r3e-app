@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import AuthLayout from "../layout/AuthLayout";
 import AuthRoutes from "./AuthRoutes";
 import Dashboard from "../pages/User/Dashboard";
+import PublicDevices from "../pages/User/PublicDevices";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
           }
         />
         <Route path="/dashboard/role" element={<Dashboard />} />
+        <Route path="/public/devices" element={<PublicDevices />} />
       </Routes>
     </BrowserRouter>
   );
