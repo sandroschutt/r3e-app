@@ -1,7 +1,7 @@
 import "./style.css";
 import mascot from "./r3d3_green_outline.png";
 import { Row } from "react-bootstrap";
-import { useUserAuthContext } from "../../context/UserAuthentication";
+import { useUserAuthContext } from "../../context/UserAuthenticationContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 

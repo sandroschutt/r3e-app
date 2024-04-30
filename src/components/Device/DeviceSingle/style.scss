@@ -19,6 +19,30 @@ h1 {
       }
     }
 
+    .single-device--actions {
+      display: flex;
+      gap: 20px;
+      
+      p {
+        padding: 12px;
+        font-weight: 500;
+        color: rgb(188, 185, 185);
+        border: 2px solid lightgrey;
+        border-radius: 12px;
+        
+        span {
+          margin-left: 8px;
+        }
+
+        &:hover {
+          cursor: pointer;
+          border-color: green;
+          color: green;
+        }
+      }
+
+    }
+
     .single-device--badge {
       height: 5%;
       width: 6%;

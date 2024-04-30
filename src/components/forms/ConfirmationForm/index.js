@@ -1,6 +1,6 @@
 import "./style.css";
 import { useEffect, useState } from "react";
-import { useUserAuthContext } from "../../../context/UserAuthentication";
+import { useUserAuthContext } from "../../../context/UserAuthenticationContext";
 import { useNavigate } from "react-router-dom";
 import ValidateInputs from "../../../validations/Inputs";
 import { checkAuthorizedEmail } from "../../../validations/clientAuthorization";

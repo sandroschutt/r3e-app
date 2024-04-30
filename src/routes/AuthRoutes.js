@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
+import { UserAuthContext } from "../context/UserAuthenticationContext";
 import LoginForm from "../components/forms/LoginForm";
 import RegisterForm from "../components/forms/RegisterForm";
 import ConfirmationForm from "../components/forms/ConfirmationForm";
 import ZipcodeForm from "../components/forms/ZipcodeForm";
 import UserInfoForm from "../components/forms/UserInfoForm";
 import RegisterSuccess from "../components/RegisterSuccess";
-import { UserAuthContext } from "../context/UserAuthentication";
 
 export default function AuthRoutes() {
   return (

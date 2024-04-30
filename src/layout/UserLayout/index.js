@@ -9,7 +9,6 @@ export default function UserLayout(props) {
       <MainNav />
       <FontAwesomeIcon className="notifications" icon={faBell} />
       <div className="content">
-        <h1>{props.view.title}</h1>
         {props.children}
       </div>
     </main>

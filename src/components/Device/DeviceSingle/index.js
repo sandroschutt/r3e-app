@@ -1,6 +1,8 @@
 import "./style.scss";
 import dummyDeviceImg from "./dummy-single-device-mobile.jpg";
 import dummyMapImg from "./map.jpg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart, faMessage, faTruck, faTruckPickup } from "@fortawesome/free-solid-svg-icons";
 
 export default function DeviceSingle() {
   return (
@@ -53,6 +55,21 @@ export default function DeviceSingle() {
             </span>
             <span>Rua Exemplo, 200, Bairro Exemplo</span>
           </p>
+
+          <div className="single-device--actions">
+            <p>
+              <FontAwesomeIcon icon={faTruck} />
+              <span>Icon text</span>
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMessage} />
+              <span>Icon text</span>
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faHeart} />
+              <span>Icon text</span>
+            </p>
+          </div>
         </div>
         <p className="single-device--badge">C</p>
       </div>

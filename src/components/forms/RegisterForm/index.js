@@ -1,7 +1,7 @@
 import "./style.css";
 import { useEffect, useState } from "react";
 import ValidateInputs from "../../../validations/Inputs";
-import { useUserAuthContext } from "../../../context/UserAuthentication";
+import { useUserAuthContext } from "../../../context/UserAuthenticationContext";
 import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {

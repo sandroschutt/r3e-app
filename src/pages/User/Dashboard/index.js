@@ -1,17 +1,17 @@
 import "./style.scss";
-import MainNav from "../../../components/Navigation/MainNav";
+import { useUserDataContext } from "../../../context/UserDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 import profileDummyAvatar from "./r3d3_profile_avatar.png";
-import UserLayout from "../../../layout/UserLayout";
-
-/**
- * Must have only the template and the view title
- */
 
 export default function Dashboard() {
+  const { userData, updateUserData } = useUserDataContext();
+
+  console.log(userData);
+
   return (
-    <UserLayout view={{title: "Dashboard"}}>
+    <>
+      <h1>Dashboard</h1>
       <div className="profile-view">
         <div className="user-card">
           <img src={profileDummyAvatar} />
@@ -99,6 +99,6 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </UserLayout>
+    </>
   );
 }

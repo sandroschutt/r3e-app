@@ -1,15 +1,17 @@
 import "./style.scss";
-import UserLayout from "../../../layout/UserLayout";
 import DeviceList from "../../../components/Device/DeviceList";
 
 export default function PublicDevices() {
-  let dummyDevicesArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let dummyDevicesArray = Array();
+
+  for(let i = 0; i <= 9; i++) {
+    dummyDevicesArray.push(1)
+  }
 
   return (
     <>
-      <UserLayout view={{ title: "Devices" }}>
-        <DeviceList data={dummyDevicesArray}/>
-      </UserLayout>
+      <h1>Devices</h1>
+      <DeviceList data={dummyDevicesArray} />
     </>
   );
 }

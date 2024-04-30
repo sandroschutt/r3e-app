@@ -4,7 +4,7 @@ import Address from "./Address";
 import ValidateInputs from "../../../validations/Inputs";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { useUserAuthContext } from "../../../context/UserAuthentication";
+import { useUserAuthContext } from "../../../context/UserAuthenticationContext";
 import { getFormValues, handleSubmissionEvaluation } from "./handles";
 import { checkAuthorizedCode } from "../../../validations/clientAuthorization";
 import { useNavigate } from "react-router-dom";
