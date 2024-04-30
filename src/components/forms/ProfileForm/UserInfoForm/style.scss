@@ -1,0 +1,8 @@
+@import "../../../../styles/mixins/home";
+
+#userInfoForm {
+  @include baseForm;
+  @include wideForm;
+
+  align-items: center;
+}

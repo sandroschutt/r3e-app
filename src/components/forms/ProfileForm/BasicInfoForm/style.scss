@@ -1,0 +1,45 @@
+@import "../../../../styles/mixins/home";
+
+
+.profile--basic-info--form {
+  @include baseForm;
+  width: 20%;
+  height: 100%;
+
+  .profile--picture {
+
+    .profile--picture--wrapper,
+    .profile--picture--actions {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .profile--picture--actions p {
+      padding-top: 12px;
+
+      &:hover {
+        cursor: pointer;
+        font-weight: bold;
+      }
+    }
+
+    img {
+      height: 128px;
+      width: 128px;
+    }
+  }
+
+  form {
+
+    p {
+      margin-bottom: 0;
+
+      label {
+        width: 100%;
+        text-align: left;
+        font-weight: bold !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import "../../../styles/mixins/home";
+
+nav#main-nav .profile {
+    background: #25983d;
+    
+    svg,
+    p {
+        color: white!important;
+    }
+}
+
+.profile-view {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin: 64px auto;
+}
+
+.profile-view.profile-view--actions {
+    input {
+        min-width: 128px;
+        padding: 8px;
+        color: white;
+        background-color: #008000;
+        border: none;
+        border-radius: 12px;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        -ms-border-radius: 12px;
+        -o-border-radius: 12px;
+
+        &:hover {
+            background-color: #00800090;
+        }
+    }
+}

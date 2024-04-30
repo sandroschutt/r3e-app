@@ -1,10 +1,10 @@
 import "./style.css";
+import Cookies from "js-cookie";
 import ValidateInputs from "../../../validations/Inputs";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
