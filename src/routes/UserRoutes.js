@@ -10,6 +10,7 @@ import Dashboard from "../pages/User/Dashboard";
 import PublicDevices from "../pages/User/PublicDevices";
 import SingleDevices from "../pages/User/SingleDevices";
 import Profile from "../pages/User/Profile";
+import Pickups from "../pages/User/Pickups";
 
 export default function UserRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function UserRoutes() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/public-devices" element={<PublicDevices />} />
         <Route path="/single-device" element={<SingleDevices />} />
+        <Route path={"/pickups"} element={<Pickups />} />
       </Routes>
     </UserDataContext>
   );
