@@ -12,6 +12,7 @@ import SingleDevices from "../pages/User/SingleDevices";
 import Profile from "../pages/User/Profile";
 import Pickups from "../pages/User/Pickups";
 import PickupLocations from "../pages/User/PickupLocations";
+import SinglePickupLocation from "../pages/User/SinglePickupLocation";
 
 export default function UserRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function UserRoutes() {
         <Route path="/single-device" element={<SingleDevices />} />
         <Route path={"/pickups"} element={<Pickups />} />
         <Route path={"/pickup-locations"} element={<PickupLocations />} />
+        <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
       </Routes>
     </UserDataContext>
   );
