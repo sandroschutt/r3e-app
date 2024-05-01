@@ -1,5 +1,6 @@
 import "./style.scss";
 import DeviceList from "../../../components/Device/DeviceList";
+import SearchForm from "../../../components/forms/SearchForm";
 
 export default function PublicDevices() {
   let dummyDevicesArray = Array();
@@ -9,9 +10,12 @@ export default function PublicDevices() {
   }
 
   return (
-    <>
-      <h1>Devices</h1>
+    <div id="public-devices--view">
+      <header>
+        <h1>Devices</h1>
+        <SearchForm />
+      </header>
       <DeviceList data={dummyDevicesArray} view={"public-devices"} />
-    </>
+    </div>
   );
 }

@@ -3,6 +3,7 @@ import FilterUserPickups from "../../../components/Device/DeviceList/FilterUserP
 import DeviceList from "../../../components/Device/DeviceList";
 import DummyDeviceImage from "../../../assets/images/motog2 1.jpg";
 import DummyDeviceMap from "../../../assets/images/pickups-dummy-map.png";
+import SearchForm from "../../../components/forms/SearchForm";
 
 export default function Pickups() {
   let dummyDevices = Array();
@@ -15,7 +16,7 @@ export default function Pickups() {
     <div id="pickups-view">
       <header>
         <h1>Coletas</h1>
-        <input type="text" placeholder="Pesquise algo..." />
+        <SearchForm />
       </header>
 
       <div className="pagination">

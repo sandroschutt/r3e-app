@@ -1,0 +1,12 @@
+@import "../../../styles/mixins/device-list";
+
+#public-devices--view {
+  header {
+    @include deviceListHeader;
+    margin-bottom: 32px;
+  }
+
+  h1 {
+    margin-bottom: 0;
+  }
+}

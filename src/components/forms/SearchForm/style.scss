@@ -1,0 +1,7 @@
+@import "../../../styles/mixins/home";
+@import "../../../styles/mixins/device-list";
+
+input {
+  @include boxShadow;
+  @include deviceListHeaderSearchInput;
+}
