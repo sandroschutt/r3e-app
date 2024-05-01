@@ -4,31 +4,27 @@ export default function ListPublicDevices() {
   return (
     <li>
       <img src={dummyDeviceImg} />
-      <h6>Motorla Moto G2 2014</h6>
+      <h6>Moto G2</h6>
       <div>
         <p>
-          <strong>Key:</strong>
-          <span>value</span>
+          <strong>Marca:</strong><br/>
+          <span>Motorola</span>
         </p>
         <p>
-          <strong>Key:</strong>
-          <span>value</span>
+          <strong>Ano:</strong><br/>
+          <span>2014</span>
         </p>
         <p>
-          <strong>Key:</strong>
-          <span>value</span>
+          <strong>Proprietário:</strong><br/>
+          <span>Nome Cliente</span>
         </p>
         <p>
-          <strong>Key:</strong>
-          <span>value</span>
+          <strong>Estado:</strong><br/>
+          <span>bom</span>
         </p>
         <p>
-          <strong>Key:</strong>
-          <span>value</span>
-        </p>
-        <p>
-          <strong>Key:</strong>
-          <span>value</span>
+          <strong>Local:</strong><br/>
+          <span>Rua Exemplo, 200, Bairro Exemplo</span>
         </p>
       </div>
     </li>

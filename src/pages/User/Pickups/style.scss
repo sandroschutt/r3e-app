@@ -1,137 +1,27 @@
 @import "../../../styles/mixins/home";
-
-$colorMain: #25983d;
+@import "../../../styles/mixins/device-list";
 
 #pickups-view {
   header {
-    display: flex;
-    align-items: center;
-    gap: 64px;
-
-    h1 {
-      margin-bottom: 0;
-    }
+    @include deviceListHeader;
 
     input {
       @include boxShadow;
-      width: 75%;
-      height: 54px;
-      padding-left: 32px;
-      border: none;
-      border-radius: 32px;
+      @include deviceListHeaderSearchInput;
     }
   }
 
   .pagination {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 64px;
-    font-size: 12px;
-
-    ul {
-      display: flex;
-      gap: 8px;
-      padding: 0;
-
-      li {
-        list-style: none;
-        padding-right: 8px;
-        border-right: 1px solid black;
-
-        &:hover {
-          color: $colorMain;
-          font-weight: bold;
-          cursor: pointer;
-          transition: 0.3s;
-        }
-      }
-    }
+    @include deviceListPagination;
   }
 
-  .pickpus--list-view {
-    display: flex;
-    gap: 16px;
-
-    .device-list {
-      max-height: 75vh;
-    }
-
-    div {
-      width: 100%;
-      height: 100%;
-
-      .public-devices .device-list ul {
-        display: block;
-
-        li {
-          min-height: 1px;
-          padding: 8px 24px;
-
-          .pickup--filter {
-            width: 100%;
-            font-size: 0.8em;
-          }
-
-          p {
-            margin-bottom: 0;
-          }
-        }
-      }
-    }
+  .pickups--list-view {
+    @include deviceListViewParent;
+    @include deviceListView;
 
     .pickups--view-item {
       @include baseForm;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .item-header,
-      .text .main {
-        display: flex;
-        justify-content: space-between;
-        align-items: top;
-        gap: 20px;
-      }
-
-      .item-header {
-        img {
-          width: 32%;
-          border-radius: 12px;
-        }
-      }
-
-      .text {
-        .details {
-          width: 50%;
-          font-size: 0.8em;
-          text-align: left;
-          color: green;
-
-          span {
-            margin: auto 4px;
-          }
-        }
-      }
-
-      ul {
-        padding-left: 0;
-
-        li {
-          list-style: none;
-
-          p {
-            margin-bottom: 0;
-            text-align: left;
-            font-size: 0.6em;
-          }
-        }
-      }
-
-      .item-body {
-        img {
-          width: 100%;
-        }
-      }
+      @include deviceListViewItem;
     }
   }
 }

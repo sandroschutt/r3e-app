@@ -1,10 +1,11 @@
+import "./style.scss";
 import FilterPublicDevices from "./FilterPublicDevices";
 import ListPublicDevices from "./ListPublicDevices";
 import ListUserPickups from "./ListUserPickups";
-import "./style.scss";
+import ListVendorPickupLocations from "./ListVendorPickupLocations";
 
 export default function DeviceList(props) {
-  const filterDislpay = props.view === "pickups" ? "none" : "flex";
+  const filterDislpay = props.view === "pickups" || props.view === "pickup-locations" ? "none" : "flex";
   function defineListFilters() {
     if (props.view === "public-devices") {
       return (
@@ -27,6 +28,10 @@ export default function DeviceList(props) {
     if (props.view === "pickups") {
       return <ListUserPickups />;
     }
+
+    if (props.view === "pickup-locations") {
+      return <ListVendorPickupLocations />;
+    }
   }
 
   return (
@@ -35,7 +40,7 @@ export default function DeviceList(props) {
         <ul className="filters">{defineListFilters()}</ul>
         <p className="page-index">{"Página 1 - 100"}</p>
       </div>
-      <div className="device-list">
+      <div className="list">
         <ul>{props.data.map(() => defineListStyle())}</ul>
       </div>
     </div>

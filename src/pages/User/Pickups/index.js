@@ -25,8 +25,8 @@ export default function Pickups() {
         <p className="page-index">{"Página 1 - 100"}</p>
       </div>
 
-      <div className="pickpus--list-view">
-        <div className="deive-list">
+      <div className="pickups--list-view">
+        <div className="device-list">
           <DeviceList data={dummyDevices} view={"pickups"} />
         </div>
         <div className="pickups--view-item">

@@ -28,7 +28,7 @@ $colorDeviceBackground: rgb(227, 238, 227);
     }
   }
 
-  .device-list {
+  .list {
     height: 80vh;
     overflow: scroll;
     overflow-x: hidden;
@@ -42,16 +42,21 @@ $colorDeviceBackground: rgb(227, 238, 227);
         justify-content: space-between;
         align-items: center;
         gap: 20px;
-        list-style: none;
-        padding: 24px;
         margin-bottom: 8px;
-        min-height: 128px;
+        list-style: none;
+        padding: 12px 24px;
+        max-height: 128px;
         background-color: #EBECED;
         border-radius: 12px;
 
         img {
-            width: 10%;
-            border-radius: 12px;
+            width: 6%;
+            overflow: hidden;
+        }
+
+        p {
+          font-size: .8em;
+          margin-bottom: 0;
         }
 
         h6 {
@@ -64,8 +69,9 @@ $colorDeviceBackground: rgb(227, 238, 227);
 
         div {
             display: flex;
+            justify-content: space-between;
             gap: 12px;
-            width: 75%;
+            min-width: 75%;
 
             span {
                 margin-left: 4px;
