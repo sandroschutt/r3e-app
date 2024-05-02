@@ -1,5 +1,9 @@
 import "./style.scss";
 
 export default function SearchForm() {
-  return <input type="text" placeholder="Pesquise algo..." />;
+  return (
+    <div className="search-bar">
+      <input type="text" placeholder="Pesquise algo..." />
+    </div>
+  )
 }

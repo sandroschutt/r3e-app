@@ -1,7 +1,11 @@
 @import "../../../styles/mixins/home";
 @import "../../../styles/mixins/device-list";
 
-input {
-  @include boxShadow;
-  @include deviceListHeaderSearchInput;
+.search-bar {
+  width: 80%;
+
+  input {
+      @include boxShadow;
+      @include deviceListHeaderSearchInput;
+    }
 }

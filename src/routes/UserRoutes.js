@@ -13,11 +13,13 @@ import Profile from "../pages/User/Profile";
 import Pickups from "../pages/User/Pickups";
 import PickupLocations from "../pages/User/PickupLocations";
 import SinglePickupLocation from "../pages/User/SinglePickupLocation";
+import MapView from "../pages/User/MapView";
 
 export default function UserRoutes() {
   return (
     <UserDataContext>
       <Routes>
+        <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/public-devices" element={<PublicDevices />} />
@@ -25,6 +27,7 @@ export default function UserRoutes() {
         <Route path={"/pickups"} element={<Pickups />} />
         <Route path={"/pickup-locations"} element={<PickupLocations />} />
         <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
+        <Route path="/map" element={<MapView />} />
       </Routes>
     </UserDataContext>
   );

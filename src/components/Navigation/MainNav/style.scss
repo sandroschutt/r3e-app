@@ -1,8 +1,6 @@
 $colorMain: #25983d;
 
-.nav-width-open {
-  width: 24vw;
-}
+
 
 .nav-width-closed {
   width: auto;
@@ -14,6 +12,7 @@ $colorMain: #25983d;
 
 nav#main-nav {
   // position: absolute;
+  // z-index: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

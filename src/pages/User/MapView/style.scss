@@ -1,0 +1,40 @@
+@import "../../../styles/mixins/home";
+
+nav#main-nav {
+    position: absolute;
+    z-index: 1;
+}
+
+main .content {
+    padding: 0!important;
+}
+
+#map-view {
+    width: 100vw;
+    height: 100vh;
+    
+    .search-bar {
+        position: absolute;
+        z-index: 1;
+        display: flex;
+        justify-content: right;
+        width: 100%;
+        padding: 12px;
+
+        input {
+            width: 50%;
+        }
+    }
+
+    .map-component {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+
+        .leaflet-container {
+            width: 100vw;
+            height: 100vh;
+        }
+    }
+}
