@@ -1,0 +1,21 @@
+#device-evaluation {
+    margin: 64px auto;;
+
+    form {
+        div {
+            width: 100%;
+            margin: 64px auto;
+            
+            .main-label {
+                width: 164px;
+            }
+
+            select {
+                margin: auto 16px;
+                padding: 8px 16px;
+                border: none;
+                border-radius: 12px;
+            }
+        }
+    }
+}
