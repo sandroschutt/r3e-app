@@ -1,0 +1,26 @@
+.admin-dashboard-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+
+  .admin-dashboard--item {
+    max-height: 80vh;
+    width: 33%;
+
+    .admin-dashboard--info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px auto;
+
+      p {
+        margin-bottom: 0;
+        color: grey;
+
+        strong {
+            margin-right: 6px;
+        }
+      }
+    }
+  }
+}

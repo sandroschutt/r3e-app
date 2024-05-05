@@ -1,0 +1,54 @@
+@import "../../styles/styles.scss";
+
+.global-list {
+  height: 78%;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  ul {
+    padding: 0;
+    padding-right: 8px;
+
+    li {
+      width: 100%;
+      margin-bottom: 8px;
+      list-style: none;
+      padding: 12px 24px;
+      background-color: #ebeced;
+      border-radius: 12px;
+
+      p {
+        margin-bottom: 0;
+
+        strong {
+          margin-right: 6px;
+        }
+
+        span {
+          margin-right: 12px;
+        }
+      }
+
+      h5 {
+        color: $colorMain;
+      }
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        min-width: 75%;
+
+        span {
+          margin-left: 4px;
+          color: black;
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: $colorDeviceBackground;
+      }
+    }
+  }
+}
