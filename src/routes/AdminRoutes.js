@@ -9,6 +9,7 @@ import { UserDataContext } from "../context/UserDataContext";
 import Dashboard from "../pages/User/Dashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageStudents from "../pages/Admin/ManageStudents";
+import ManageReturncategories from "../pages/Admin/ManageReturncategories";
 
 export default function AdminRoutes() {
   return (
@@ -17,7 +18,7 @@ export default function AdminRoutes() {
         <Route path="/" element={<Dashboard user={"admin"}/>} />
         <Route path="/users" element={<ManageUsers />} />
         <Route path="/students" element={<ManageStudents />} />
-        <Route path="/recycling-settings" element={<ManageUsers />} />
+        <Route path="/recycling-settings" element={<ManageReturncategories />} />
       </Routes>
     </UserDataContext>
   );

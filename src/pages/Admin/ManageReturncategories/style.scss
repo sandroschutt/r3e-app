@@ -1,0 +1,43 @@
+@import "../../../styles/styles.scss";
+@import "../../../styles/mixins/default";
+
+.manage-return-categories--view {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .manage-return-categories--category--options,
+    .manage-return-categories--actions {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .manage-return-categories--category--options {
+        .main-label, select {
+            margin-bottom: 24px;
+        }
+
+        .main-label {
+            font-weight: bold;
+        }
+
+        select {
+            margin: auto 16px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 12px;
+        }
+    }
+
+    .manage-return-categories--actions {
+        button {
+            @include defaultButton;
+            margin-right: 12px;
+            font-size: 1.3em;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+}

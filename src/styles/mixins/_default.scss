@@ -1,0 +1,9 @@
+@import "./home";
+
+@mixin defaultButton {
+    @include radius-8;
+    padding: 8px;
+    background-color: var(--palette-green);
+    color: var(--palette-white);
+    border: none;
+}
