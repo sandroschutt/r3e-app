@@ -1,0 +1,30 @@
+@import "../../../styles/styles.scss";
+@import "../../../styles/mixins/home";
+
+#admin-users--view {
+  .admin-users--filter {
+    color: inherit;
+  }
+
+  .admin-users--items {
+    display: flex;
+    gap: 12px;
+    height: 80vh;
+
+    .admin-users--list {
+      width: 50%;
+      height: 100%;
+    }
+
+    .admin-users--list {
+      .global-list {
+        height: 100%;
+
+        ul li {
+          display: flex;
+          gap: 16px;
+        }
+      }
+    }
+  }
+}

@@ -19,7 +19,7 @@ export default function UserRoutes() {
   return (
     <UserDataContext>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard user={"user"} />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/public-devices" element={<PublicDevices />} />

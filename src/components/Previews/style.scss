@@ -1,0 +1,63 @@
+@import "../../styles/mixins/home";
+
+.admin-users--preview {
+  @include baseForm;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  height: 100%;
+  padding: 4%;
+
+  .admin-users--preview--header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    p {
+      text-align: left;
+    }
+
+    img {
+      height: 128px;
+      width: auto;
+    }
+  }
+
+  .admin-users-preview--children {
+    display: flex;
+    flex-wrap: wrap;
+
+    ul {
+      padding-left: 0;
+      margin-right: 32px;
+      margin-bottom: 32px;
+
+      li {
+        list-style: none;
+
+        p {
+          margin-bottom: 0;
+          text-align: left;
+          font-size: 1.2em;
+          color: grey;
+
+          strong {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  .admin-users--preview--actions {
+    display: flex;
+    gap: 20px;
+
+    button {
+      background: transparent;
+      border: 2px solid var(--palette-green);
+      color: var(--palette-green);
+    }
+  }
+}
