@@ -2,7 +2,6 @@ import "./style.scss";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchForm from "../../../components/forms/SearchForm"
 import { MapContainer, TileLayer, Marker, Popup, ZoomControl} from 'react-leaflet';
-import markerIconPng from "leaflet/dist/images/marker-icon.png"
 import "leaflet/dist/leaflet.css";
 
 export default function MapView() {

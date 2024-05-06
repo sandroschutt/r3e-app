@@ -1,6 +1,17 @@
+@import "./mixins/device-list";
+
 $colorMain: #25983d;
 $colorScrollbarThumb: rgb(134, 184, 134);
 $colorDeviceBackground: rgb(227, 238, 227);
+
+.view-header {
+  @include deviceListHeader;
+  margin-bottom: 32px;
+
+  .view-title {
+    margin-bottom: 0;
+  }
+}
 
 ::-webkit-scrollbar {
   width: 10px;

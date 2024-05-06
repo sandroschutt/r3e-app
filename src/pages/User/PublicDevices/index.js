@@ -3,7 +3,7 @@ import DeviceList from "../../../components/Device/DeviceList";
 import SearchForm from "../../../components/forms/SearchForm";
 
 export default function PublicDevices() {
-  let dummyDevicesArray = Array();
+  let dummyDevicesArray = [];
 
   for (let i = 0; i <= 9; i++) {
     dummyDevicesArray.push(1);

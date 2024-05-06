@@ -28,6 +28,30 @@ export function UserList() {
   );
 }
 
+export function StudentsList() {
+  const data = getListData();
+
+  return (
+    <div className="global-list">
+      <ul>
+        {data.map(() => {
+          return (
+            <li>
+              <h5>Student Name</h5>
+              <p>
+                <strong>Status:</strong>
+                <span>ativo</span>
+                <strong>Data:</strong>
+                <span>31/12/1999</span>
+              </p>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 export function PickupsList() {
   const data = getListData();
 
@@ -85,7 +109,7 @@ export function DeviceList() {
 }
 
 function getListData() {
-  let listData = Array();
+  let listData = [];
 
   for (let i = 0; i <= 19; i++) {
     listData.push(null);

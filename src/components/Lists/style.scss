@@ -1,5 +1,30 @@
 @import "../../styles/styles.scss";
 
+.pagination {
+  display: flex;
+  justify-content: left;
+  font-size: 12px;
+
+  ul {
+    display: flex;
+    gap: 8px;
+    padding: 0;
+
+    li {
+      list-style: none;
+      padding-right: 8px;
+      border-right: 1px solid black;
+
+      &:hover {
+        color: $colorMain;
+        font-weight: bold;
+        cursor: pointer;
+        transition: .3s;
+      }
+    }
+  }
+}
+
 .global-list {
   height: 78%;
   overflow: scroll;

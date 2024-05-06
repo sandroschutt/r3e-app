@@ -7,9 +7,9 @@ export function AdminUsersPreview(props) {
       <div className="admin-users--preview--header">
         <img src={DummyAvatarImage} alt="" />
         <div>
-          <h3>Nome de Usuário</h3>
+          <h2>Nome de Usuário</h2>
           <p>
-            <strong>Cliente</strong>email@usuario.com
+            <strong>{props.users === "student" ? "Estudante" : "Cliente"}</strong>email@usuario.com
           </p>
         </div>
       </div>
