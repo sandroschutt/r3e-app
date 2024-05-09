@@ -1,6 +1,8 @@
 import "./style.scss";
-import DeviceList from "../../../components/Device/DeviceList";
-import SearchForm from "../../../components/forms/SearchForm";
+import { PublicDevicesList } from "../../../components/Lists";
+import { FilterPublicDevices } from "../../../components/Lists/Flters";
+import UserHeader from "../../../components/UserHeader";
+import { Col, Row } from "react-bootstrap";
 
 export default function PublicDevices() {
   let dummyDevicesArray = [];
@@ -10,12 +12,14 @@ export default function PublicDevices() {
   }
 
   return (
-    <div id="public-devices--view">
-      <header>
-        <h1>Devices</h1>
-        <SearchForm />
-      </header>
-      <DeviceList data={dummyDevicesArray} view={"public-devices"} />
-    </div>
+    <Row id="public-devices--view" className="flex-column">
+      <Col>
+        <UserHeader pageTitle={"Dispisitivos"} />
+      </Col>
+      <Col>
+        <FilterPublicDevices />
+        <PublicDevicesList data={dummyDevicesArray} />
+      </Col>
+    </Row>
   );
 }

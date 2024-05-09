@@ -1,36 +1,29 @@
 import "./style.scss";
-import FilterUserPickups from "../../../components/Device/DeviceList/FilterUserPickups";
-import DeviceList from "../../../components/Device/DeviceList";
+import { Row, Col } from "react-bootstrap";
+import { FilterUserPickups } from "../../../components/Lists/Flters";
+import { PublicDevicesList } from "../../../components/Lists";
 import DummyDeviceImage from "../../../assets/images/motog2 1.jpg";
 import DummyDeviceMap from "../../../assets/images/pickups-dummy-map.png";
-import SearchForm from "../../../components/forms/SearchForm";
+import UserHeader from "../../../components/UserHeader";
 
 export default function Pickups() {
-  let dummyDevices = Array();
+  let dummyDevices = [];
 
   for (let i = 0; i <= 29; i++) {
     dummyDevices.push(null);
   }
 
   return (
-    <div id="pickups-view">
-      <header>
-        <h1>Coletas</h1>
-        <SearchForm />
-      </header>
-
-      <div className="pagination">
-        <ul>
+    <Row id="pickups-view" className="flex-column">
+      <Col>
+        <UserHeader pageTitle={"Coletas"} />
+      </Col>
+      <Col className="pickups--list-view">
+        <Col>
           <FilterUserPickups />
-        </ul>
-        <p className="page-index">{"Página 1 - 100"}</p>
-      </div>
-
-      <div className="pickups--list-view">
-        <div className="device-list">
-          <DeviceList data={dummyDevices} view={"pickups"} />
-        </div>
-        <div className="pickups--view-item">
+          <PublicDevicesList data={dummyDevices} />
+        </Col>
+        <Col className="pickups--item-view">
           <div className="item-header">
             <img src={DummyDeviceImage} alt="" />
             <div className="text">
@@ -67,10 +60,10 @@ export default function Pickups() {
             </div>
           </div>
           <div className="item-body">
-            <img src={DummyDeviceMap} />
+            <img src={DummyDeviceMap} alt={""} />
           </div>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Col>
+    </Row>
   );
 }

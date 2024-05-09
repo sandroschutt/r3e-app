@@ -1,25 +1,14 @@
 @import "../../../styles/mixins/home";
+@import "../../../styles/mixins/layout";
 @import "../../../styles/mixins/device-list";
 
 #pickups-view {
-  header {
-    @include deviceListHeader;
-
-    input {
-      @include boxShadow;
-      @include deviceListHeaderSearchInput;
-    }
-  }
-
-  .pagination {
-    @include deviceListPagination;
-  }
-
   .pickups--list-view {
-    @include deviceListViewParent;
-    @include deviceListView;
+    .col {
+      padding: 0;
+    }
 
-    .pickups--view-item {
+    .pickups--item-view {
       @include baseForm;
       @include deviceListViewItem;
     }

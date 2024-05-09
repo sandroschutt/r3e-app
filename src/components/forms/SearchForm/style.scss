@@ -2,8 +2,6 @@
 @import "../../../styles/mixins/device-list";
 
 .search-bar {
-  width: 80%;
-
   input {
       @include boxShadow;
       @include deviceListHeaderSearchInput;

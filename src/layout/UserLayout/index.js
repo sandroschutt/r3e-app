@@ -1,16 +1,16 @@
 import "./style.scss";
 import MainNav from "../../components/Navigation/MainNav";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row } from "react-bootstrap";
 
 export default function UserLayout(props) {
   return (
-    <main>
-      <MainNav />
-      <FontAwesomeIcon className="notifications" icon={faBell} />
-      <div className="content">
+    <Row className="justify-content-between">
+      <Col className="col-2 p-0">
+        <MainNav />
+      </Col>
+      <Col className="content col-10 p-3">
         {props.children}
-      </div>
-    </main>
+      </Col>
+    </Row>
   );
 }

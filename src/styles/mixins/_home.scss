@@ -54,6 +54,14 @@
   -o-border-radius: 8px;
 }
 
+@mixin radius-12 {
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
 @mixin radius-16 {
   border-radius: 16px;
   -webkit-border-radius: 16px;
@@ -104,11 +112,11 @@
     border: 1px solid var(--palette-green);
   }
 
-  button {
-    background-color: var(--palette-green);
-    color: var(--palette-white);
-    border: none;
-  }
+  // button {
+  //   background-color: var(--palette-green);
+  //   color: var(--palette-white);
+  //   border: none;
+  // }
 
   .validation-message {
     color: red;

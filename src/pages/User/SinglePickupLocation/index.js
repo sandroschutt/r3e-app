@@ -1,39 +1,40 @@
 import "./style.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DummyPickupLocationMap from "../../../assets/images/dummy-single-pickup-location-map.jpg";
+import { Col, Row } from "react-bootstrap";
 
 export default function SinglePickupLocation() {
   return (
     <>
       <h1>{"Pontos de Coleta / Cooperita"}</h1>
-      <div className="single-pickup-location">
-        <div className="single-pickup-location--card">
-          <div className="card-header">
-            <h2>Cooperita</h2>
-          </div>
+      <Row className="single-pickup-location flex-column row-gap-5">
+        <Col className="single-pickup-location--card flex-column">
+          <Col className="card-header d-flex align-items-end p-3">
+            <h2 className="text-light">Cooperita</h2>
+          </Col>
 
-          <div className="card-body">
+          <Col className="p-3">
             <p>
-              <strong>Endereço:</strong> Lorem ipsum dolor sit amet, 300, Lorem
+              <strong className="me-2">Endereço:</strong> Lorem ipsum dolor sit amet, 300, Lorem
               Ipsum, Lorem Ipsum - LP, Lorem
             </p>
             <p>
-              <strong>CEP:</strong> 99999-999
+              <strong className="me-2">CEP:</strong> 99999-999
             </p>
             <p>
-              <strong>Resíduos:</strong> plástico, vidro, papel,
+              <strong className="me-2">Resíduos:</strong> plástico, vidro, papel,
               eletroeletrônicos
             </p>
             <p>
-              <strong>Filiação:</strong> Cooperita
+              <strong className="me-2">Filiação:</strong> Cooperita
             </p>
             <p>
-              <strong>CNPJ:</strong> 9999999999
+              <strong className="me-2">CNPJ:</strong> 9999999999
             </p>
-          </div>
-        </div>
-        <div className="single-pickup-location--description">
-          <h4>Descrição</h4>
+          </Col>
+        </Col>
+        <Col>
+          <h4 className="mb-3">Descrição</h4>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -43,13 +44,13 @@ export default function SinglePickupLocation() {
             pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
             culpa qui officia deserunt mollit anim id est laborum.
           </p>
-        </div>
+        </Col>
 
-        <div className="single-pickup-location--map">
-          <h4>Localização e Distância</h4>
+        <Col className="single-pickup-location--map">
+          <h4 className="mb-3">Localização e Distância</h4>
           <img src={DummyPickupLocationMap} alt="" />
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   );
 }

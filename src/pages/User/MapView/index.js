@@ -1,15 +1,16 @@
 import "./style.scss";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchForm from "../../../components/forms/SearchForm"
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl} from 'react-leaflet';
+import UserHeader from "../../../components/UserHeader";
 import "leaflet/dist/leaflet.css";
+import { MapContainer, Marker, Popup, TileLayer, ZoomControl } from "react-leaflet";
+import { Row } from "react-bootstrap";
+
 
 export default function MapView() {
     const position = [-23.5896, -48.0530];
 
     return (
-        <div id="map-view">
-            <SearchForm />
+        <Row id="map-view" className="flex-column">
+            <UserHeader pageTitle={"Dispositivos"} />
             <div className="map-component">
                 <MapContainer className="map-container" center={position} zoom={13} scrollWheelZoom={true} zoomControl={false}>
                     <TileLayer
@@ -24,6 +25,6 @@ export default function MapView() {
                     </Marker>
                 </MapContainer>
             </div>
-        </div>
+        </Row>
     )
 }

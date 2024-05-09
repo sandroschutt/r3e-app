@@ -18,7 +18,7 @@ export default function SingleDeviceClient() {
       </div>
       <div className="single-device--map">
         <h4>Localização e distância</h4>
-        <img src={dummyMapImg} />
+        <img src={dummyMapImg} alt=""/>
       </div>
     </>
   );

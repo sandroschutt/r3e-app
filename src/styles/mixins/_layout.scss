@@ -1,0 +1,26 @@
+@mixin twoColumns {
+    .columns {
+        display: flex;
+        gap: 12px;
+        height: 80vh;
+
+        .col-one,
+        .col-two {
+            width: 50%;
+            height: 100%;
+
+            .col-list {
+                height: 100%;
+
+                ul li {
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+
+        .col--preview {
+            width: 50%;
+        }
+    }
+}

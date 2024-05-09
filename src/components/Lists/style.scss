@@ -1,28 +1,10 @@
+@import "../../styles/root";
 @import "../../styles/styles.scss";
+@import "../../styles/mixins/home";
+@import "../../styles/mixins/device-list";
 
 .pagination {
-  display: flex;
-  justify-content: left;
-  font-size: 12px;
-
-  ul {
-    display: flex;
-    gap: 8px;
-    padding: 0;
-
-    li {
-      list-style: none;
-      padding-right: 8px;
-      border-right: 1px solid black;
-
-      &:hover {
-        color: $colorMain;
-        font-weight: bold;
-        cursor: pointer;
-        transition: .3s;
-      }
-    }
-  }
+  @include deviceListPagination;
 }
 
 .global-list {
@@ -36,10 +18,8 @@
 
     li {
       width: 100%;
-      margin-bottom: 8px;
       list-style: none;
       padding: 12px 24px;
-      background-color: #ebeced;
       border-radius: 12px;
 
       p {
@@ -55,7 +35,7 @@
       }
 
       h5 {
-        color: $colorMain;
+        color: var(--palette-green);
       }
 
       div {
@@ -66,13 +46,55 @@
 
         span {
           margin-left: 4px;
-          color: black;
+          color: var(--palette-black);
         }
       }
 
       &:hover {
         cursor: pointer;
-        background-color: $colorDeviceBackground;
+        background-color: var(--palette-beige);
+      }
+    }
+  }
+}
+
+.public-devices {
+  .list {
+    height: 80vh;
+    overflow: scroll;
+    overflow-x: hidden;
+
+    ul {
+      li {
+        @include radius-12;
+        padding: 12px 24px;
+        margin-bottom: 8px;
+        list-style: none;
+        background-color: var(--palette-beige);
+
+        img {
+          overflow: hidden;
+        }
+
+        p {
+          font-size: .8em;
+        }
+
+        h6,
+        p {
+          color: var(--palette-green);
+        }
+
+        div {
+          span {
+            color: var(--palette-black);
+          }
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: var(--palette-beige);
+        }
       }
     }
   }

@@ -27,3 +27,34 @@ export function StudentsFilter() {
         </div>
     )
 }
+
+export function FilterPublicDevices() {
+    return (
+        <div className="pagination">
+            <ul>
+                <li>Todos</li>
+                <li>Smartphones</li>
+                <li>Tablets</li>
+                <li>Notebooks</li>
+                <li>Computadores</li>
+                <li style={{ border: "none" }}>Periféricos</li>
+            </ul>
+            <p>{"1 - 100"}</p>
+        </div>
+    );
+}
+
+export function FilterUserPickups() {
+    return (
+        <div className="pagination">
+            <ul>
+                <li>Todos</li>
+                <li>Concluídas</li>
+                <li>Pagamento pendente</li>
+                <li>Coleta pendente</li>
+                <li style={{ border: "none" }}>Coletados</li>
+            </ul>
+            <p>{"1 - 100"}</p>
+        </div>
+    );
+}

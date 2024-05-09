@@ -1,15 +1,8 @@
 .admin-dashboard-wrapper {
-  display: flex;
-  gap: 20px;
-  width: 100%;
-
   .admin-dashboard--item {
-    max-height: 80vh;
-    width: 33%;
+    max-height: 86vh;
 
     .admin-dashboard--info {
-      display: flex;
-      flex-wrap: wrap;
       gap: 12px;
       margin: 20px auto;
 

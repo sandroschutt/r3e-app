@@ -86,19 +86,4 @@ $colorDeviceBackground: rgb(227, 238, 227);
       }
     }
   }
-
-  ::-webkit-scrollbar {
-    width: 10px;
-    background-color: lightgrey;
-    border-radius: 12px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: $colorScrollbarThumb;
-    border-radius: 12px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: $colorMain;
-  }
 }

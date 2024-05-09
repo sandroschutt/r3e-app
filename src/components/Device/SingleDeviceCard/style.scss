@@ -1,51 +1,21 @@
-.single-device--card {
-  display: flex;
-  gap: 32px;
+@import "../../../styles/mixins/home";
 
+.single-device--card {
   img {
-    width: 30%;
+    width: 100%;
   }
 
   .single-device--data {
-    width: 64%;
-
     strong {
       margin-right: 8px;
     }
   }
 
-  .single-device--actions {
-    display: flex;
-    gap: 20px;
-
-    p {
-      padding: 12px;
-      font-weight: 500;
-      color: rgb(188, 185, 185);
-      border: 2px solid lightgrey;
-      border-radius: 12px;
-
-      span {
-        margin-left: 8px;
-      }
-
-      &:hover {
-        cursor: pointer;
-        border-color: green;
-        color: green;
-      }
-    }
-  }
-
   .single-device--badge {
-    height: 5%;
-    width: 6%;
-    background-color: black;
-    color: white;
-    text-align: center;
+    @include radius-12;
+    height: 72px;
+    width: 72px;
     font-size: 2.5rem;
     font-weight: bold;
-
-    border-radius: 12px;
   }
 }

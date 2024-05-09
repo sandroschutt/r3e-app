@@ -13,13 +13,13 @@ export default function UserInfoForm() {
   // const navigate = useNavigate();
 
   return (
-    <div className="d-flex">
-      <form id="userInfoForm" style={{margin: 0, height: "100%"}}>
+    <Col className="d-flex">
+      <form id="userInfoForm">
         <Row>
           <Info />
           <Address />
         </Row>
       </form>
-    </div>
+    </Col>
   );
 }

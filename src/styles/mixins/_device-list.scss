@@ -1,11 +1,9 @@
-$colorMain: #25983d;
-
 @mixin deviceListViewParent {
   display: flex;
 
   .list-view,
   .item-view {
-    height: 75vh;
+    height: 76vh;
     width: 50%;
   }
 }
@@ -22,7 +20,7 @@ $colorMain: #25983d;
 
 @mixin deviceListHeaderSearchInput {
   width: 100%;
-  height: 54px;
+  height: 48px;
   padding-left: 32px;
   border: none;
   border-radius: 32px;
@@ -31,7 +29,6 @@ $colorMain: #25983d;
 @mixin deviceListPagination {
   display: flex;
   justify-content: space-between;
-  margin-top: 64px;
   font-size: 12px;
 
   ul {
@@ -45,7 +42,7 @@ $colorMain: #25983d;
       border-right: 1px solid black;
 
       &:hover {
-        color: $colorMain;
+        color: var(--palette-green);
         font-weight: bold;
         cursor: pointer;
         transition: 0.3s;
@@ -59,7 +56,7 @@ $colorMain: #25983d;
   gap: 16px;
 
   .list {
-    max-height: 75vh;
+    max-height: 78vh;
   }
 
   div {
@@ -72,6 +69,7 @@ $colorMain: #25983d;
       li {
         min-height: 1px;
         padding: 8px 24px;
+        background-color: var(--palette-beige);
 
         .pickup--filter {
           width: 100%;
@@ -90,18 +88,18 @@ $colorMain: #25983d;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
 
   .item-header,
   .text .main {
     display: flex;
-    justify-content: space-between;
-    align-items: top;
+    align-items: center;
     gap: 20px;
   }
 
   .item-header {
     img {
-      width: 32%;
+      width: 20%;
       border-radius: 12px;
     }
   }
@@ -111,7 +109,7 @@ $colorMain: #25983d;
       width: 50%;
       font-size: 0.8em;
       text-align: left;
-      color: green;
+      color: var(--palette-green);
 
       span {
         margin: auto 4px;
@@ -128,14 +126,14 @@ $colorMain: #25983d;
       p {
         margin-bottom: 0;
         text-align: left;
-        font-size: 0.6em;
+        font-size: .9em;
       }
     }
   }
 
   .item-body {
     img {
-      width: 100%;
+      height: 100%;
     }
   }
 }

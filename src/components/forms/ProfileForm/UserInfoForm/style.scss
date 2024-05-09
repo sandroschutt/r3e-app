@@ -2,7 +2,5 @@
 
 #userInfoForm {
   @include baseForm;
-  @include wideForm;
-
   align-items: center;
 }

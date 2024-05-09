@@ -6,31 +6,13 @@ nav#main-nav {
 }
 
 #map-view {
-    width: 100vw;
-    height: 100vh;
-    
-    .search-bar {
-        position: absolute;
-        z-index: 1;
-        display: flex;
-        justify-content: right;
-        width: 100%;
-        padding: 12px;
-
-        input {
-            width: 50%;
-        }
-    }
+    width: 100%;
 
     .map-component {
-        position: absolute;
-        z-index: 0;
-        top: 0;
-        left: 0;
-
         .leaflet-container {
-            width: 100vw;
-            height: 100vh;
+            @include radius-12;
+            height: 90vh;
+            width: auto;
         }
     }
 }

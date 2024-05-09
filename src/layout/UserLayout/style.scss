@@ -1,35 +1,8 @@
-$colorMain: #25983d;
-
 body {
   background-color: #f7f8f9 !important;
 }
 
-main {
-  display: flex;
-
-  .content {
-    width: 100%;
-    padding: 12px 48px;
-  }
-
-  h1 {
-    margin-bottom: 40px;
-  }
-}
-
-.notifications {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-
-  padding: 12px 14px;
-  background-color: black;
-  color: white;
-
-  border-radius: 50%;
-
-  &:hover {
-    background-color: $colorMain;
-    cursor: pointer;
-  }
+.content {
+  width: 100%;
+  padding: 12px 48px;
 }

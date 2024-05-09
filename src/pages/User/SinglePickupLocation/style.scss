@@ -1,43 +1,11 @@
-h1 {
-  font-weight: 300 !important;
-}
-
 .single-pickup-location {
   .single-pickup-location--card {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-
-    .card-header,
-    .card-body {
-      padding: 24px;
-    }
-
     .card-header {
       display: flex;
-      height: 320px;
+      min-height: 320px;
+      max-height: 320px;
       background-image: url("../../../assets/images/dummy-single-pickuo-location-image.jpg");
       background-size: cover;
-
-      h2 {
-        align-self: end;
-        color: white;
-      }
-    }
-
-    .card-body {
-      strong {
-        margin-right: 8px;
-      }
-    }
-  }
-
-  .single-pickup-location--description,
-  .single-pickup-location--map {
-    margin: 64px auto;
-
-    h4 {
-        margin-bottom: 20px;
     }
   }
 
