@@ -11,6 +11,11 @@ export default function MainNav() {
   const [navWidth, setNavWidth] = useState("nav-width-open");
   const [profileIconWidth, setProfileIconWidth] = useState("64px");
   const [showHideItem, setShowHideItem] = useState("");
+  const menuOptions = [];
+
+  for (let i = 0; i <= 9; i++) {
+    menuOptions.push(null)
+  }
 
   function hideNavigation() {
     if (navWidth === "nav-width-open") {
@@ -38,28 +43,17 @@ export default function MainNav() {
         </div>
       </div>
       <ul>
-        <li>
-          <FontAwesomeIcon icon={faLink} />
-          <a className={"nav-link " + showHideItem}>Item 1</a>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faLink} />
-          <a className={"nav-link " + showHideItem}>Item 2</a>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faLink} />
-          <a className={"nav-link " + showHideItem}>Item 3</a>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faLink} />
-          <a className={"nav-link " + showHideItem}>Item 4</a>
-        </li>
-        <li>
-          <FontAwesomeIcon icon={faLink} />
-          <a className={"nav-link " + showHideItem}>Item 5</a>
-        </li>
+        {menuOptions.map((option) => {
+          return (
+            <li>
+              <FontAwesomeIcon icon={faLink} />
+              <a className={"nav-link " + showHideItem}>Item 1</a>
+            </li>
+          )
+        })}
         <li className="hide">
           <FontAwesomeIcon className="hide-icon" icon={faChevronLeft} />
+          {/* Isso não deve ser um link */}
           <a
             className={"nav-link " + showHideItem}
             onClick={() => {
@@ -73,3 +67,9 @@ export default function MainNav() {
     </nav>
   );
 }
+
+
+// {
+//   icon: <Icon />
+//   label: "label"
+// }

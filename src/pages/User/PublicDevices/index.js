@@ -8,7 +8,7 @@ export default function PublicDevices() {
   let dummyDevicesArray = [];
 
   for (let i = 0; i <= 9; i++) {
-    dummyDevicesArray.push(1);
+    dummyDevicesArray.push(null);
   }
 
   return (
