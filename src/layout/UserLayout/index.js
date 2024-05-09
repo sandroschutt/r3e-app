@@ -8,7 +8,7 @@ export default function UserLayout(props) {
       <Col className="col-2 p-0">
         <MainNav />
       </Col>
-      <Col className="content col-10 p-3">
+      <Col className="content col-10 p-3 px-0">
         {props.children}
       </Col>
     </Row>

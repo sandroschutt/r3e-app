@@ -7,15 +7,15 @@ export default function AuthLayout({children}) {
   return (
     <div id="auth-container">
       <Row className="flex-column g-0 justify-content-between">
-        <Col className="pe-0 ps-0">
+        <Col className="px-0">
           <PublicNav />
         </Col>
-        <Col className="pe-0 ps-0 content">
+        <Col className="px-0 content">
           <div className="content">
             {children}
           </div>
         </Col>
-        <Col className="pe-0 ps-0">
+        <Col className="px-0">
           <PublicFooter />
         </Col>
       </Row>

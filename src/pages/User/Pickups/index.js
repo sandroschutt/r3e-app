@@ -16,11 +16,13 @@ export default function Pickups() {
   return (
     <Row id="pickups-view" className="flex-column">
       <Col>
-        <UserHeader pageTitle={"Coletas"} />
+        <UserHeader pageTitle={"Minhas Coletas"} />
       </Col>
-      <Col className="pickups--list-view">
+      <Col>
+        <FilterUserPickups />
+      </Col>
+      <Row className="pickups--list-view">
         <Col>
-          <FilterUserPickups />
           <PublicDevicesList data={dummyDevices} />
         </Col>
         <Col className="pickups--item-view">
@@ -63,7 +65,7 @@ export default function Pickups() {
             <img src={DummyDeviceMap} alt={""} />
           </div>
         </Col>
-      </Col>
+      </Row>
     </Row>
   );
 }
