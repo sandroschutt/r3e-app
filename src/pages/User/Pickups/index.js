@@ -1,10 +1,10 @@
 import "./style.scss";
 import { Row, Col } from "react-bootstrap";
+import UserHeader from "../../../components/UserHeader";
 import { FilterUserPickups } from "../../../components/Lists/Flters";
 import { PublicDevicesList } from "../../../components/Lists";
+import { ListViewMap } from "../../../components/Maps";
 import DummyDeviceImage from "../../../assets/images/motog2 1.jpg";
-import DummyDeviceMap from "../../../assets/images/pickups-dummy-map.png";
-import UserHeader from "../../../components/UserHeader";
 
 export default function Pickups() {
   let dummyDevices = [];
@@ -62,7 +62,7 @@ export default function Pickups() {
             </div>
           </div>
           <div className="item-body">
-            <img src={DummyDeviceMap} alt={""} />
+            <ListViewMap />
           </div>
         </Col>
       </Row>

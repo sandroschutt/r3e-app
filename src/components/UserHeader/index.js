@@ -14,7 +14,7 @@ export default function UserHeader(props) {
                 <Col className="col-7">
                     <SearchForm />
                 </Col>
-                <Col className="col-1 text-end">
+                <Col className="col-1 text-end pe-0">
                     <FontAwesomeIcon className="notifications" icon={faBell} />
                 </Col>
             </Row>

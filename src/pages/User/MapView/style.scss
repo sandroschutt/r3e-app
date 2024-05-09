@@ -7,12 +7,4 @@ nav#main-nav {
 
 #map-view {
     width: 100%;
-
-    .map-component {
-        .leaflet-container {
-            @include radius-12;
-            height: 90vh;
-            width: auto;
-        }
-    }
 }

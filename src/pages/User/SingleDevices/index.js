@@ -5,7 +5,7 @@ export default function SingleDevices() {
   return (
     <Row>
       <h1>{"Devices / Type / Brand / Model"}</h1>
-      <DeviceSingle role={"technician"}/>
+      <DeviceSingle role={"client"}/>
     </Row>
   );
 }

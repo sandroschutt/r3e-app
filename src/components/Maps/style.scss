@@ -1,0 +1,26 @@
+@import "../../styles/mixins/home";
+
+.leaflet-container {
+    @include radius-12;
+    width: auto;
+}
+
+.default-map {
+    .leaflet-container {
+        height: 80vh;
+    }
+}
+
+.single-view-map {
+    .leaflet-container {
+        height: 500px;
+        width: 50%;
+    }
+}
+
+.list-view-map {
+    .leaflet-container {
+        height: 460px;
+        width: 100%;
+    }
+}

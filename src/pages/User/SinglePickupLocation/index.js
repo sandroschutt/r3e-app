@@ -1,7 +1,6 @@
 import "./style.scss";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import DummyPickupLocationMap from "../../../assets/images/dummy-single-pickup-location-map.jpg";
 import { Col, Row } from "react-bootstrap";
+import { SingleViewMap } from "../../../components/Maps";
 
 export default function SinglePickupLocation() {
   return (
@@ -48,7 +47,7 @@ export default function SinglePickupLocation() {
 
         <Col className="single-pickup-location--map">
           <h4 className="mb-3">Localização e Distância</h4>
-          <img src={DummyPickupLocationMap} alt="" />
+          <SingleViewMap />
         </Col>
       </Row>
     </>

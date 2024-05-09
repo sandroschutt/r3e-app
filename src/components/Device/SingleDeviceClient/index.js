@@ -1,5 +1,5 @@
 import "./style.scss";
-import dummyMapImg from "../../../assets/images/dummy-single-device-map.jpg";
+import { SingleViewMap } from "../../Maps";
 
 export default function SingleDeviceClient() {
   return (
@@ -18,7 +18,7 @@ export default function SingleDeviceClient() {
       </div>
       <div className="single-device--map">
         <h4>Localização e distância</h4>
-        <img src={dummyMapImg} alt=""/>
+        <SingleViewMap />
       </div>
     </>
   );
