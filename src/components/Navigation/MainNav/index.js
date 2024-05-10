@@ -10,7 +10,7 @@ import { Col, Row } from "react-bootstrap";
 
 export default function MainNav() {
   const [navWidth, setNavWidth] = useState("nav-width-open");
-  const [profileIconWidth, setProfileIconWidth] = useState("48px");
+  const [profileIconWidth, setProfileIconWidth] = useState("56px");
   const [showHideItem, setShowHideItem] = useState("");
   const menuOptions = [];
 
@@ -32,8 +32,8 @@ export default function MainNav() {
 
   return (
     <nav id="main-nav">
-      <Row className="nav-container flex-column position-fixed">
-        <Col className="profile col-4 d-flex flex-row w-100 px-1 pe-5 pt-4 pb-0 column-gap-2 align-items-center">
+      <Row className="nav-container d-flex flex-column position-sticky justify-content-around">
+        <Col className="profile col-2 d-flex flex-row w-100 p-3 column-gap-3 align-items-center">
           <FontAwesomeIcon
             className="icon"
             style={{ height: profileIconWidth }}
@@ -45,11 +45,11 @@ export default function MainNav() {
           </div>
         </Col>
 
-        <Col className="col-11 p-1 justify-end">
-          <ul className="h-100">
+        <Col className="col-10 w-100 p-0">
+          <ul className="ps-0">
             {menuOptions.map((option) => {
               return (
-                <li className="row column-gap-2 p-1">
+                <li className="row column-gap-2 px-3 py-2 align-items-center">
                   <Col className="col-1 p-0"><FontAwesomeIcon icon={faLink} /></Col>
                   <Col><a className={"nav-link p-0" + showHideItem} href="/user">Item 1</a></Col>
                 </li>
@@ -57,13 +57,14 @@ export default function MainNav() {
             })}
           </ul>
         </Col>
-        <Col className="p-1">
+
+        <Col className="col-1 px-3 py-0">
           <ul className="p-0">
-            <li className="hide position-absolute bottom-0 row column-gap-2 p-1">
-              <Col className="col-1 p-0"><FontAwesomeIcon className="hide-icon" icon={faChevronLeft} /></Col>
-              <Col className="p-0">
+            <li className="hide d-flex flex-row align-items-center">
+              <Col className="col-1 p-0 me-4"><FontAwesomeIcon className="hide-icon" icon={faChevronLeft} /></Col>
+              <Col>
                 <p
-                  className={"nav-link " + showHideItem}
+                  className={"nav-link mb-0 " + showHideItem}
                   onClick={() => {
                     hideNavigation();
                   }}

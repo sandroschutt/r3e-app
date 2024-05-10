@@ -24,14 +24,13 @@ nav#main-nav {
     }
 
     .info {
-
       h4,
       p {
         margin-bottom: 0;
+        font-size: 1.2em;
       }
 
       h4 {
-        font-size: 0.9rem;
         color: var(--palette-white);
       }
 
@@ -44,7 +43,6 @@ nav#main-nav {
   ul {
     min-height: 83%;
     margin-bottom: 0;
-    padding: 40px 0;
 
     li {
       list-style: none;
@@ -52,10 +50,7 @@ nav#main-nav {
 
       .nav-link {
         text-decoration: none;
-      }
-
-      .collapse-icon {
-        margin-right: 20px;
+        font-size: 1.2em;
       }
 
       &:hover {
