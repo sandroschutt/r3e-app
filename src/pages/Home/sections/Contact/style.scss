@@ -4,7 +4,7 @@
 #contact {
   @include layout;
   @include section-vertical-padding;
-  background-color: var(--palette-light-grey);
+  background-color: var(--palette-grey-lightest);
 
   .content {
     @include section-tag;

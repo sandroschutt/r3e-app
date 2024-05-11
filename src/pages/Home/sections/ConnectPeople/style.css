@@ -1,6 +1,6 @@
 :root {
   --palette-white: #ffffff;
-  --palette-light-grey: #F7F8F9;
+  --palette-grey-lightest: #F7F8F9;
   --palette-grey: #808080;
   --palette-green: #198754;
   --palette-dark-blue: #263238;
@@ -20,7 +20,7 @@
 }
 
 #connect-people {
-  background-color: var(--palette-light-grey);
+  background-color: var(--palette-grey-lightest);
   padding-top: 0;
   padding-bottom: 0;
 }

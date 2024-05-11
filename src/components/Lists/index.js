@@ -40,22 +40,24 @@ export function StudentsList() {
   const data = getListData();
 
   return (
-    <div className="global-list">
-      <ul>
-        {data.map(() => {
-          return (
-            <li>
-              <h5>Student Name</h5>
-              <p>
-                <strong>Status:</strong>
-                <span>ativo</span>
-                <strong>Data:</strong>
-                <span>31/12/1999</span>
-              </p>
-            </li>
-          );
-        })}
-      </ul>
+    <div className="public-devices">
+      <div className="list">
+        <ul className="ps-0 pe-1">
+          {data.map(() => {
+            return (
+              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center">
+                <h5>Student Name</h5>
+                <p>
+                  <strong>Status:</strong>
+                  <span>ativo</span>
+                  <strong>Data:</strong>
+                  <span>31/12/1999</span>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -204,7 +206,7 @@ export function UserPickupsList(props) {
   );
 }
 
-export default function VendorPickupLocationsList(props) {
+export function VendorPickupLocationsList(props) {
   return (
     <div className="public-devices">
       <div className="list">

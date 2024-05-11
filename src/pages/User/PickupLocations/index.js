@@ -1,7 +1,7 @@
 import "./style.scss";
 import { Button, Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
-import VendorPickupLocationsList, { PublicDevicesList } from "../../../components/Lists";
+import { VendorPickupLocationsList } from "../../../components/Lists";
 import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";

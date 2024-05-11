@@ -1,6 +1,6 @@
 :root {
   --palette-white: #ffffff;
-  --palette-light-grey: #F7F8F9;
+  --palette-grey-lightest: #F7F8F9;
   --palette-grey: #808080;
   --palette-green: #198754;
   --palette-dark-blue: #263238;
@@ -23,7 +23,7 @@
   padding: 0 8%;
   padding-top: 76px;
   padding-bottom: 76px;
-  background-color: var(--palette-light-grey);
+  background-color: var(--palette-grey-lightest);
 }
 #contact .content h6 {
   font-size: 14px;

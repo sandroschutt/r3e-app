@@ -1,21 +1,20 @@
 import "./style.scss";
-import SearchForm from "../../../components/forms/SearchForm";
 import { UsersFilter } from "../../../components/Lists/Flters";
 import { UserList } from "../../../components/Lists";
 import { AdminUsersPreview } from "../../../components/Previews";
+import UserHeader from "../../../components/UserHeader";
+import { Col, Row } from "react-bootstrap";
 
 export default function ManageUsers() {
   return (
-    <>
-      <header className="view-header">
-        <h1 className="view-title">Users</h1>
-        <SearchForm />
-      </header>
-      <div id="admin-users--view">
-        <div className="admin-users--filters">
+      <Row id="admin-users--view" className="flex-column">
+        <Col>
+          <UserHeader pageTitle={"Users"} />
+        </Col>
+        <Col className="admin-users--filters">
           <UsersFilter />
-        </div>
-        <div className="admin-users--items">
+        </Col>
+        <Col className="admin-users--items">
           <div className="admin-users--list">
             <UserList />
           </div>
@@ -91,8 +90,7 @@ export default function ManageUsers() {
               </li>
             </ul>
           </AdminUsersPreview>
-        </div>
-      </div>
-    </>
+        </Col>
+      </Row>
   );
 }
