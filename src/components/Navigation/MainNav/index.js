@@ -1,9 +1,20 @@
 import './style.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCircleUser, faChevronLeft, faTableColumns,
-  faLocationDot, faTablet, faTruck,
-  faRecycle, faPowerOff, faGear
+  faCircleUser,
+  faChevronLeft,
+  faTableColumns,
+  faLocationDot,
+  faTablet,
+  faTruck,
+  faRecycle,
+  faPowerOff,
+  faGear,
+  faCode,
+  faWrench,
+  faUserGroup,
+  faGraduationCap,
+  faSeedling
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
@@ -12,21 +23,46 @@ export default function MainNav () {
   const [navWidth, setNavWidth] = useState('nav-width-open')
   const [profileIconWidth, setProfileIconWidth] = useState('56px')
   const [showHideItem, setShowHideItem] = useState('')
+  const role = "adimin"
   const defaultOptions = [
     createMenuOptions('Home', '/', faTableColumns),
     createMenuOptions('Mapa', '/map', faLocationDot),
     createMenuOptions('Lista de dispositivos', '/pickup-locations', faTablet),
     createMenuOptions('Coleta', '/pickups', faTruck),
-    createMenuOptions('Pontos de Coleta', '/pickup-location', faRecycle),
+    createMenuOptions('Pontos de Coleta', '/pickup-location', faRecycle)
   ]
 
-  const finalOptions = [
-    createMenuOptions('Configurações', '/config', faGear),
-    createMenuOptions('Logout', '', faPowerOff)
-  ]
+  const configuracoes = createMenuOptions('Configurações', '/config', faGear)
+  const logout = createMenuOptions('Logout', '', faPowerOff)
 
-  const roleOptions = [] 
-  const menuOptions = [...defaultOptions, ...roleOptions, ...finalOptions]
+  let options = []
+  if (role === "tecnician") {
+    options = [
+      createMenuOptions('Home', '/', faTableColumns),
+      createMenuOptions('Lista de dispositivos', '/pickup-locations', faTablet),
+      configuracoes,
+      logout
+    ]
+  }
+  if (role === "adimin") {
+    options = [...defaultOptions,
+      createMenuOptions('Oficina', '/workshop', faWrench),
+      createMenuOptions('Usuários', '/users', faUserGroup),
+      createMenuOptions('Estudantes', '/studants', faGraduationCap),
+      createMenuOptions('Tratativas de Retorno', '/recycling-settings', faSeedling),
+      createMenuOptions('Integrações', '/integrations', faCode),
+      configuracoes, logout]
+  }
+  if (role === "client") {
+    options = [...defaultOptions, configuracoes, logout]
+  }
+  if (role === "business") {
+    options = [...defaultOptions,
+      createMenuOptions('Integrações', '/integrations', faCode),
+      configuracoes, logout]
+  }
+
+  const menuOptions = [...options]
 
   function hideNavigation () {
     if (navWidth === 'nav-width-open') {
@@ -62,7 +98,10 @@ export default function MainNav () {
                 <li className='row column-gap-2 px-3 py-2 align-items-center'>
                   <Col className='col-1 p-0'>{option.icon}</Col>
                   <Col>
-                    <a className={'nav-link p-0 fs-6 text' + showHideItem} href={`/user${option.link}`}>
+                    <a
+                      className={'nav-link p-0 fs-6 text' + showHideItem}
+                      href={`/user${option.link}`}
+                    >
                       {option.label}
                     </a>
                   </Col>
