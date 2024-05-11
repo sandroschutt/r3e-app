@@ -49,7 +49,7 @@
     .card-img {
       @include background;
       height: 125px;
-      background-color: var(--palette-light-grey);
+      background-color: var(--palette-grey-lightest);
     }
 
     .card-img.first-img {

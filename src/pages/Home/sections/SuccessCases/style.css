@@ -1,6 +1,6 @@
 :root {
   --palette-white: #ffffff;
-  --palette-light-grey: #F7F8F9;
+  --palette-grey-lightest: #F7F8F9;
   --palette-grey: #808080;
   --palette-green: #198754;
   --palette-dark-blue: #263238;
@@ -45,7 +45,7 @@
 #success-cases .case-image-tall,
 #success-cases .case-image-short {
   width: 100%;
-  background-color: var(--palette-light-grey);
+  background-color: var(--palette-grey-lightest);
   border-radius: 8px;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
