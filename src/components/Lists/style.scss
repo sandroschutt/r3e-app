@@ -38,16 +38,9 @@
         color: var(--palette-green);
       }
 
-      div {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        min-width: 75%;
-
-        span {
-          margin-left: 4px;
-          color: var(--palette-black);
-        }
+      span {
+        margin-left: 4px;
+        color: var(--palette-black);
       }
 
       &:hover {
@@ -60,11 +53,27 @@
 
 .public-devices {
   .list {
-    height: 80vh;
+    height: 78vh;
     overflow: scroll;
     overflow-x: hidden;
 
     ul {
+      .admin-dashboard-list-item {
+
+        h6, p {
+          margin-bottom: 0;
+        }
+
+        strong,
+        span {
+          font-size: medium;
+        }
+
+        span {
+          margin: auto 8px;
+        }
+      }
+
       li {
         @include radius-12;
         padding: 12px 24px;
@@ -77,15 +86,12 @@
         }
 
         p {
-          font-size: .8em;
-        }
-
-        h6,
-        p {
           color: var(--palette-green);
-        }
 
-        div {
+          strong {
+            font-size: large;
+          }
+
           span {
             color: var(--palette-black);
           }
