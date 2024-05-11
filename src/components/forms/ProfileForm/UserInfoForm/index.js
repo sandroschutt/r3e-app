@@ -14,7 +14,7 @@ export default function UserInfoForm() {
 
   return (
     <Col className="d-flex">
-      <form id="userInfoForm">
+      <form id="userInfoForm" className="my-0">
         <Row>
           <Info />
           <Address />

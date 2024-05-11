@@ -34,7 +34,7 @@ export default function PickupLocations() {
               <h2>Cooperita</h2>
             </Col>
             <Col className="item-body d-flex flex-column justify-content-between p-3">
-              <div>
+              <Row className="flex-column mb-4">
                 <p className="text-start">
                   <strong>Descrição:</strong> Lorem ipsum dolor sit amet,
                   consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -50,9 +50,9 @@ export default function PickupLocations() {
                 <p className="text-start">
                   <strong>CEP:</strong> 99999-999
                 </p>
-              </div>
+              </Row>
 
-              <Row className="justify-content-between column-gap-2">
+              <Row className="d-flex column-gap-2 justify-content-between">
                 <Col>
                   <Button variant="outline-primary" className="btn btn-outline-success">
                     <FontAwesomeIcon icon={faPenToSquare} />
