@@ -1,7 +1,7 @@
 import "./style.scss";
 import { Button, Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
-import { PublicDevicesList } from "../../../components/Lists";
+import VendorPickupLocationsList, { PublicDevicesList } from "../../../components/Lists";
 import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
@@ -26,7 +26,7 @@ export default function PickupLocations() {
 
       <Col className="pickup-location--list-view">
         <Col>
-          <PublicDevicesList data={dummyDevices} />
+          <VendorPickupLocationsList data={dummyDevices} />
         </Col>
         <Col className="item-view p-0">
           <Row className="flex-column flex-wrap">

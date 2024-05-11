@@ -2,7 +2,7 @@ import "./style.scss";
 import { Row, Col } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
 import { FilterUserPickups } from "../../../components/Lists/Flters";
-import { PublicDevicesList } from "../../../components/Lists";
+import { UserPickupsList } from "../../../components/Lists";
 import { ListViewMap } from "../../../components/Maps";
 import DummyDeviceImage from "../../../assets/images/motog2 1.jpg";
 
@@ -23,7 +23,7 @@ export default function Pickups() {
       </Col>
       <Row className="pickups--list-view">
         <Col>
-          <PublicDevicesList data={dummyDevices} />
+          <UserPickupsList data={dummyDevices} />
         </Col>
         <Col className="pickups--item-view">
           <div className="item-header">
