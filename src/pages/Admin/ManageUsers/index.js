@@ -7,17 +7,18 @@ import { Col, Row } from "react-bootstrap";
 
 export default function ManageUsers() {
   return (
-      <Row id="admin-users--view" className="flex-column">
-        <Col>
-          <UserHeader pageTitle={"Users"} />
+    <Row id="admin-users--view" className="flex-column">
+      <Col>
+        <UserHeader pageTitle={"Users"} />
+      </Col>
+      <Col className="admin-users--filters">
+        <UsersFilter />
+      </Col>
+      <Row className="admin-users--items ps-0">
+        <Col className="admin-users--list col-5">
+          <UserList />
         </Col>
-        <Col className="admin-users--filters">
-          <UsersFilter />
-        </Col>
-        <Col className="admin-users--items">
-          <div className="admin-users--list">
-            <UserList />
-          </div>
+        <Col className="ps-0 col-7">
           <AdminUsersPreview
             actions={["editar", "desativar", "excluir", "mensagem"]}
           >
@@ -92,5 +93,6 @@ export default function ManageUsers() {
           </AdminUsersPreview>
         </Col>
       </Row>
+    </Row>
   );
 }
