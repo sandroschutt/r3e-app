@@ -25,7 +25,7 @@
 }
 
 #loginForm h4 {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 500;
 }
 
@@ -102,12 +102,13 @@
   color: var(--palette-green);
   opacity: 0.5;
 }
+
 #loginForm .password-input-container #icon:hover {
   cursor: pointer;
 }
 
 #loginForm .text-size-12px {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 #loginForm .custom-color {

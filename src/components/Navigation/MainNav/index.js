@@ -82,12 +82,12 @@ export default function MainNav () {
         <Col className='profile col-2 d-flex flex-row w-100 p-3 column-gap-3 align-items-center'>
           <FontAwesomeIcon
             className={'icon'}
-            style={{ height: profileIconWidth }}
+            style={{ height: profileIconWidth, color: '#54a444'}}
             icon={faCircleUser}
           />
           <div className={'info ' + showHideItem}>
-            <h4>Nome de usuário</h4>
-            <p>Role</p>
+            <h4 style={{color: '#54a444'}}>Nome de usuário</h4>
+            <p style={{color: '#54a444'}}>Role</p>
           </div>
         </Col>
 

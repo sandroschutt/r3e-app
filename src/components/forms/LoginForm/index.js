@@ -73,12 +73,12 @@ export default function LoginForm () {
   return (
     <div className='d-flex'>
       <form id='loginForm'>
-        <h4 className='h4' style={{ color: '#54a444' }}>
+        <h4 className='h4 mt-4' style={{ color: '#54a444' }}>
           LOGIN
         </h4>
 
         <div className='d-block m-4'>
-          <label htmlFor='username' className='text-left font-weight-very-heavy custom-color fs-6 mt-4 mb-2'>
+          <label htmlFor='username' className='text-left font-weight-very-heavy custom-color fs-6 mt-2 mb-2'>
             Nome de usuário ou e-mail:
           </label>
           <input
@@ -119,17 +119,18 @@ export default function LoginForm () {
             style={{ opacity: username !== '' && password !== '' ? '1' : '.5', backgroundColor:'#54a444'}}
             onClick={() => handleSubmit()}
             disabled={username !== '' && password !== '' ? false : true}
+            className='mt-2 mb-2'
           >
             ENTRAR
           </button>
-          <p className='text-center font-weight-heavy custom-color text-size-12px mt-4 mb-0'>
+          <p className='text-center font-weight-heavy custom-color text-size-12px mt-4 mb-2'>
             Ainda não tem uma conta?{' '}
             <a href='/auth/register' className='text-primary'>
               Clique aqui.
             </a>
           </p>
-          <p className='text-center font-weight-heavy text-size-12px text-primary'>
-            <a href='/#' className='text-primary'>Esqueceu a senha?</a>
+          <p className='text-center font-weight-heavy text-size-12px text-primary mt-2 mb-4'>
+            <a href='/#' className='text-primary mb-4'>Esqueceu a senha?</a>
           </p>
         </div>
       </form>

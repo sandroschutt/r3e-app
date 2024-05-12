@@ -8,6 +8,7 @@ export default function Address() {
   // const { userData } = useUserAuthContext();
   const [address, setAddress] = useState("");
   const [zipcode, setZipcode] = useState("");
+  const [number, setNumber] = useState("");
   const [street, setStreet] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
@@ -47,10 +48,10 @@ export default function Address() {
 
   return (
     <Col id="userAddress">
-      <h4 className="px-2">Endereço</h4>
+      <h4 className="px-2" style={{color: '#54a444'}}>Endereço</h4>
       <Row>
         <Col sm={12} lg={6}>
-          <label htmlFor="zipcode">Cep: *</label>
+          <label htmlFor="zipcode" className="custom-text">Cep: *</label>
           <input
             type="text"
             name="zipcode"
@@ -61,11 +62,24 @@ export default function Address() {
             maxLength={9}
           />
         </Col>
+      
+        <Col sm={12} lg={4}>
+          <label htmlFor="number" className="custom-text">Número: *</label>
+          <input
+            type="text"
+            name="number"
+            id="number"
+            value={number}
+            onChange={(event) => handleInput(event, setNumber)}
+            onBlur={(event) => ValidateInputs.text(event)}
+            maxLength={9}
+          />
+        </Col>
       </Row>
 
       <Row>
         <Col sm={12}>
-          <label htmlFor="street">Rua: *</label>
+          <label htmlFor="street" className="custom-text">Rua: *</label>
           <input
             type="text"
             name="street"
@@ -79,7 +93,7 @@ export default function Address() {
 
       <Row>
         <Col>
-          <label htmlFor="state">Estado: *</label>
+          <label htmlFor="state" className="custom-text">Estado: *</label>
           <input
             type="text"
             name="state"
@@ -90,7 +104,7 @@ export default function Address() {
           />
         </Col>
         <Col>
-          <label htmlFor="city">Cidade: *</label>
+          <label htmlFor="city" className="custom-text">Cidade: *</label>
           <input
             type="text"
             name="city"
