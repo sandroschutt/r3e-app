@@ -78,7 +78,7 @@ export default function LoginForm () {
         </h4>
 
         <div className='d-block m-4'>
-          <label htmlFor='username' className='text-left font-weight-very-heavy custom-color fs-6 mt-4 mb-0'>
+          <label htmlFor='username' className='text-left font-weight-very-heavy custom-color fs-6 mt-4 mb-2'>
             Nome de usuário ou e-mail:
           </label>
           <input
@@ -91,7 +91,7 @@ export default function LoginForm () {
           />
           <label
             htmlFor='password'
-            className='text-left font-weight-very-heavy custom-color fs-6 mt-0 mb-0'
+            className='text-left font-weight-very-heavy custom-color fs-6 mt-0 mb-2'
           >
             Senha:
           </label>
