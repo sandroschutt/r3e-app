@@ -23,6 +23,12 @@
   max-width: 400px;
   margin: 128px auto;
 }
+
+#loginForm h4 {
+  font-size: 40px;
+  font-weight: 500;
+}
+
 #loginForm label {
   font-weight: 400 !important;
   font-size: 0.8em;
@@ -100,4 +106,23 @@
   cursor: pointer;
 }
 
+#loginForm .text-size-12px {
+  font-size: 14px;
+}
+
+#loginForm .custom-color {
+  color: #54a444;
+}
+
+#loginForm .custom-button-bg-color {
+  background-color: #54a444;
+}
+
+#loginForm .font-weight-very-heavy {
+  font-weight: 800 !important;
+}
+
+#loginForm .font-weight-heavy {
+  font-weight: 500 !important;
+}
 /*# sourceMappingURL=style.css.map */

@@ -11,7 +11,7 @@ export default function SuccessCases() {
       <Row>
         <Col lg={6} sm={12} className="success-cases-text">
           <h6>Portfolio</h6>
-          <h4>Cases de Sucesso</h4>
+          <h4>Casos de Sucesso</h4>
           <p>Confira o trabalho desenvolvido por nossos parceiros</p>
           <Button variant="outline-success">Ver todos</Button>
         </Col>
