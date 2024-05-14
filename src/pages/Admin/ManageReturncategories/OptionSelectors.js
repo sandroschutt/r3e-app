@@ -1,3 +1,5 @@
+import { Col, Form, Row } from "react-bootstrap";
+
 export function DefaultSelectors(props) {
     const defaultOptions = [
         {
@@ -43,22 +45,22 @@ export function DefaultSelectors(props) {
     ];
 
     return (
-        <div className="manage-return-categories--category--options">
+        <Row className="manage-return-categories--category--options ps-0">
             {
                 defaultOptions.map(option => {
                     return (
-                        <div>
-                            <label className="main-label">{`${option.label}:`}</label>
-                            <select>
+                        <div className="ps-0">
+                            <label className="main-label mb-2">{`${option.label}:`}</label>
+                            <Form.Select className="mb-3">
                                 {option.values.map(value => {
                                     return <option key={value} value={value}>{value}</option>
                                 })}
-                            </select>
+                            </Form.Select>
                         </div>
                     )
                 })
             }
             {props.children}
-        </div>
+        </Row>
     )
 }

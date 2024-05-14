@@ -13,7 +13,7 @@ export function UserList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center">
+              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => {alert("Mus display single user in a modal or static view")}}>
                 <h6 className="mb-0">User Name</h6>
                 <div className="col-12 d-flex">
                   <p className="mb-0">
@@ -45,7 +45,7 @@ export function StudentsList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center">
+              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Mus display single student card view") }}>
                 <h5>Student Name</h5>
                 <p>
                   <strong>Status:</strong>
@@ -71,7 +71,7 @@ export function PickupsList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center">
+              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Must display single pickups in modal or single view") }}>
                 <h6 className="col-12">Motorla Moto G2</h6>
                 <div className="col-12 d-flex">
                   <p>
@@ -105,7 +105,7 @@ export function DeviceList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center">
+              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Must display single devices in modal or single view") }}>
                 <h6>Motorla Moto G2</h6>
                 <div className="col-12 d-flex">
                   <p>
@@ -134,7 +134,7 @@ export function PublicDevicesList(props) {
       <div className="list">
         <ul className="p-0 pe-1">{props.data.map(() => {
           return (
-            <li className="d-flex flex-row justify-content-between align-items-center">
+            <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single devices in single view") }}>
               <Col className="col-2">
                 <img src={dummyDeviceImg} alt="" />
               </Col>
@@ -190,7 +190,7 @@ export function UserPickupsList(props) {
         <ul className="ps-0 pe-1">
           {props.data.map(() => {
             return (
-              <li className="d-flex flex-row justify-content-between align-items-center">
+              <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single pickup in single view") }}>
                 <p className="icon">
                   <FontAwesomeIcon icon={faCircleCheck} />
                 </p>
@@ -212,7 +212,7 @@ export function VendorPickupLocationsList(props) {
       <div className="list">
         <ul className="ps-0 pe-1">
           {props.data.map(() =>
-            <li className="d-flex flex-row justify-content-between align-items-center">
+            <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single pickup in single view") }}>
               <p>Ponto de Coleta</p>
               <p>
                 <strong>Status:</strong>{" Ativo"}

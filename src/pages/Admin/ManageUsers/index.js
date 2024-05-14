@@ -9,7 +9,7 @@ export default function ManageUsers() {
   return (
     <Row id="admin-users--view" className="flex-column">
       <Col>
-        <UserHeader pageTitle={"Users"} />
+        <UserHeader pageTitle={"Usuários"} />
       </Col>
       <Col className="admin-users--filters">
         <UsersFilter />

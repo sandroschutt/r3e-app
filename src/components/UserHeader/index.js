@@ -15,7 +15,7 @@ export default function UserHeader(props) {
                     <SearchForm />
                 </Col>
                 <Col className="col-1 text-end pe-0">
-                    <FontAwesomeIcon className="notifications" icon={faBell} />
+                    <FontAwesomeIcon className="notifications" icon={faBell} onClick={() => { alert("Show unread notifications component") }} />
                 </Col>
             </Row>
         </header>

@@ -5,7 +5,9 @@ import { SingleViewMap } from "../../../components/Maps";
 export default function SinglePickupLocation() {
   return (
     <>
-      <h1>{"Pontos de Coleta / Cooperita"}</h1>
+      <Row>
+        <h1 className="mb-5">{"Pontos de Coleta / Cooperita"}</h1>
+      </Row>
       <Row className="single-pickup-location flex-column row-gap-5">
         <Col className="single-pickup-location--card flex-column">
           <Col className="card-header d-flex align-items-end p-3">

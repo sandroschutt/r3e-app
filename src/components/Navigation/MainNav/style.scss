@@ -33,6 +33,15 @@ nav#main-nav {
         color: var(--palette-green);
       }
     }
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--palette-green);
+
+      .icon, p {
+        color: var(--palette-white);
+      }
+    }
   }
 
   .collapse-col {

@@ -1,6 +1,6 @@
 import "./style.scss";
 import DummyAvatarImage from "../../assets/images/r3d3_profile_avatar.png";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 
 export function AdminUsersPreview(props) {
   return (
@@ -10,19 +10,19 @@ export function AdminUsersPreview(props) {
         <div>
           <h2>Nome de Usuário</h2>
           <p>
-            <strong>{props.users === "student" ? "Estudante" : "Cliente"}</strong>email@usuario.com
+            <strong className="me-2">{props.users === "student" ? "Estudante" : "Cliente"}</strong>email@usuario.com
           </p>
         </div>
       </Col>
       <Col className="admin-users-preview--children col-8 w-100">{props.children}</Col>
-      <Col className="admin-users--preview--actions col-2 w-100">
-        <Row className="w-100">
+      <Col className="admin-users--preview--actions col-2 w-100 d-flex">
+        <Row className="w-100 justify-content-around align-items-center">
           {props.actions.map((action) => {
             return (
               <Col>
-                <button className="admin-users--preview--actions--item">
+                <Button variant="outline-success" className="w-100" onClick={() => alert(`${action} usuário ou estudante`)}>
                   {action}
-                </button>
+                </Button>
               </Col>
             );
           })}

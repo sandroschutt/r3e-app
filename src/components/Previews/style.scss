@@ -41,16 +41,4 @@
       }
     }
   }
-
-  .admin-users--preview--actions {
-    display: flex;
-    gap: 20px;
-
-    button {
-      width: 100%;
-      background: transparent;
-      border: 2px solid var(--palette-green);
-      color: var(--palette-green);
-    }
-  }
 }

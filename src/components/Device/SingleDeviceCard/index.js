@@ -63,22 +63,30 @@ export default function SingleDeviceCard() {
           </p>
 
           <div className="single-device--actions d-flex">
-            <Button className="me-2" variant="outline-success">
+            <Button className="me-2" variant="outline-success" onClick={() => {
+              alert("Send API request to create new pickup and redirect user there after creation");
+            }}>
               <FontAwesomeIcon icon={faTruck} />
-              <span className="ms-1">Icon text</span>
+              <span className="ms-1">Coletar</span>
             </Button>
-            <Button className="me-2" variant="outline-success">
+            <Button className="me-2" variant="outline-success" onClick={() => {
+              alert("Opens modal with a user's contact info and optional message form");
+            }}>
               <FontAwesomeIcon icon={faMessage} />
-              <span className="ms-1">Icon text</span>
+              <span className="ms-1">Contato</span>
             </Button>
-            <Button className="me-2" variant="outline-success">
+            <Button className="me-2" variant="outline-success" onClick={() => {
+              alert("Mark device as favorite (if this option is available)");
+            }}>
               <FontAwesomeIcon icon={faHeart} />
-              <span className="ms-1">Icon text</span>
+              <span className="ms-1">Favoritar</span>
             </Button>
           </div>
         </div>
       </Col>
-      <p className="single-device--badge bg-dark text-white text-center">C</p>
+      <div className="single-device--badge d-flex align-items-center bg-dark text-center">
+        <p className="w-100 mb-0 text-white">C</p>
+      </div>
     </Row>
   );
 }

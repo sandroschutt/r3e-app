@@ -14,7 +14,7 @@ export default function PublicDevices() {
   return (
     <Row id="public-devices--view" className="flex-column">
       <Col>
-        <UserHeader pageTitle={"Dispisitivos"} />
+        <UserHeader pageTitle={"Dispositivos"} />
       </Col>
       <Col>
         <FilterPublicDevices />
