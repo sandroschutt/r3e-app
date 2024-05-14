@@ -100,8 +100,7 @@
     text-decoration: none;
   }
 
-  input,
-  button {
+  input {
     @include radius-16;
     width: 100%;
     padding: 8px;
@@ -111,12 +110,6 @@
     margin-bottom: 16px;
     border: 1px solid var(--palette-green);
   }
-
-  // button {
-  //   background-color: var(--palette-green);
-  //   color: var(--palette-white);
-  //   border: none;
-  // }
 
   .validation-message {
     color: red;

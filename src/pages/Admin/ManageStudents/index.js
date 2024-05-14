@@ -9,7 +9,7 @@ export default function ManageStudents() {
   return (
     <Row className="flex-column">
       <Col>
-        <UserHeader pageTitle={"Students"} />
+        <UserHeader pageTitle={"Estudantes"} />
       </Col>
 
       <Col id="admin-users--view">
@@ -23,7 +23,7 @@ export default function ManageStudents() {
           <Col className="ps-0">
             <AdminUsersPreview
               users={"student"}
-              actions={["aprovar", "reprovar", "contemplar", "mensagem"]}
+              actions={["Aprovar", "Reprovar", "Contemplar", "Mensagem"]}
             >
               <div>
                 <ul>

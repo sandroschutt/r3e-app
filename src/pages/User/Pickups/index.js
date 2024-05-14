@@ -33,9 +33,9 @@ export default function Pickups() {
                 <h5>{"Motorola Moto G2 2014"}</h5>
               </div>
               <p className="details">
-                <span>Ver</span>
-                <span>Contato</span>
-                <span>Cancelar</span>
+                <span onClick={() => {alert("Display single device view")}}><strong>Ver</strong></span>
+                <span onClick={() => {alert("Show contact info and optional e-mail message form")}}><strong>Contato</strong></span>
+                <span onClick={() => {alert("Change pickup status to canceled (opens a confirmation modal before)")}}><strong>Cancelar</strong></span>
               </p>
               <ul>
                 <li>

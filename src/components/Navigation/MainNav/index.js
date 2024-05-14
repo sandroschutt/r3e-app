@@ -22,15 +22,14 @@ import { Col, Row } from 'react-bootstrap'
 export default function MainNav() {
   const [navWidth, setNavWidth] = useState('nav-width-open')
   const [showHideItem, setShowHideItem] = useState('open')
-  const role = "business"
+  const role = "admin"
   const defaultOptions = [
     ['Home', '/', faTableColumns],
     ['Mapa', '/map', faLocationDot],
-    ['Lista de dispositivos', '/pickup-locations', faTablet],
+    ['Lista de dispositivos', '/public-devices', faTablet],
     ['Coleta', '/pickups', faTruck],
-    ['Pontos de Coleta', '/pickup-location', faRecycle],
+    ['Pontos de Coleta', '/pickup-locations', faRecycle],
     ['Configurações', '/config', faGear],
-    ['Logout', '', faPowerOff]
   ];
 
   let roleOptions = []
@@ -47,7 +46,7 @@ export default function MainNav() {
       ...defaultOptions,
       ['Oficina', '/workshop', faWrench],
       ['Usuários', '/users', faUserGroup],
-      ['Estudantes', '/studants', faGraduationCap],
+      ['Estudantes', '/students', faGraduationCap],
       ['Tratativas de Retorno', '/recycling-settings', faSeedling],
       ['Integrações', '/integrations', faCode]
     ]
@@ -64,6 +63,8 @@ export default function MainNav() {
     ]
   }
 
+  roleOptions = [...roleOptions, ['Logout', '/logout', faPowerOff]];
+
   function hideNavigation() {
     if (navWidth === 'nav-width-open') {
       setNavWidth('nav-width-closed')
@@ -77,7 +78,7 @@ export default function MainNav() {
   return (
     <nav id='main-nav' className='sticky-top'>
       <Row className='nav-container flex-column justify-content-start gap-1'>
-        <Col className='profile col-1 d-flex flex-row w-100 p-3 column-gap-3 align-items-center'>
+        <Col className='profile col-1 d-flex flex-row w-100 p-3 column-gap-3 align-items-center' onClick={() => { window.location.href = `/${role}/profile` }}>
           <FontAwesomeIcon
             className={'icon'}
             style={{ height: "32px" }}
@@ -111,7 +112,7 @@ export default function MainNav() {
                     <Col className={showHideItem}>
                       <a
                         className={`nav-link p-0 text`}
-                        href={`/user${optionObj.link}`}
+                        href={`/${role}${optionObj.link}`}
                       >
                         {optionObj.label}
                       </a>

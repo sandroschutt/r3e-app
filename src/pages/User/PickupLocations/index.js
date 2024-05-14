@@ -54,19 +54,25 @@ export default function PickupLocations() {
 
               <Row className="d-flex column-gap-2 justify-content-between">
                 <Col>
-                  <Button variant="outline-primary" className="btn btn-outline-success">
+                  <Button variant="outline-primary" className="btn btn-outline-success" onClick={() => {
+                    alert("Open pickup location in editing mode");
+                  }}>
                     <FontAwesomeIcon icon={faPenToSquare} />
                     <span className="ms-1">Editar</span>
                   </Button>
                 </Col>
                 <Col>
-                  <Button variant="outline-primary" className="btn btn-outline-success">
+                  <Button variant="outline-primary" className="btn btn-outline-success" onClick={() => {
+                    alert("Send API request to deactivate the pickup location");
+                  }}>
                     <FontAwesomeIcon icon={faPowerOff} />
                     <span className="ms-1">Desativar</span>
                   </Button>
                 </Col>
                 <Col>
-                  <Button variant="outline-primary" className="btn btn-outline-success">
+                  <Button variant="outline-primary" className="btn btn-outline-success" onClick={() => {
+                    alert("Send API request to delete the pickup location");
+                  }}>
                     <FontAwesomeIcon icon={faTrashCan} />
                     <span className="ms-1">Excluir</span>
                   </Button>

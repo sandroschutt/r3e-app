@@ -7,7 +7,7 @@ import { DefaultMap } from "../../../components/Maps";
 export default function MapView() {
     return (
         <Row id="map-view" className="flex-column">
-            <UserHeader pageTitle={"Dispositivos"} />
+            <UserHeader pageTitle={"Mapa Sustentável"} />
             <DefaultMap />
         </Row>
     )
