@@ -92,7 +92,7 @@ export default function MainNav() {
         <Col className='col-10 w-100 p-0'>
           <ul className='options ps-0'>
             {
-              roleOptions.map((option) => {
+              roleOptions.map((option, index) => {
                 let optionObj = {
                   label: option[0],
                   link: option[1],
@@ -106,7 +106,7 @@ export default function MainNav() {
                 }
 
                 return (
-                  <li className='row column-gap-2 px-3 py-2 align-items-center'>
+                  <li className='row column-gap-2 px-3 py-2 align-items-center' key={index}>
                     <Col className='col-1 p-0 '>{optionObj.icon}</Col>
                     <Col className={showHideItem}>
                       <a
