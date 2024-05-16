@@ -22,7 +22,7 @@ import { Col, Row } from 'react-bootstrap'
 export default function MainNav() {
   const [navWidth, setNavWidth] = useState('nav-width-open')
   const [showHideItem, setShowHideItem] = useState('open')
-  const role = "admin"
+  const role = "user"
   const defaultOptions = [
     ['Home', '/', faTableColumns],
     ['Mapa', '/map', faLocationDot],
@@ -52,7 +52,7 @@ export default function MainNav() {
     ]
   }
 
-  if (role === "client") {
+  if (role === "user") {
     roleOptions = [...defaultOptions]
   }
 

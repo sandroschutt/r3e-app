@@ -1,1 +1,15 @@
+.profile-view {
+    height: 100vh;
 
+    .dashboard-header {
+        max-height: 12%;
+    }
+
+    .option-group .option {
+        height: 192px;
+
+        .option-content {
+            height: 100%;
+        }
+    }
+}

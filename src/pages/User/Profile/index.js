@@ -1,24 +1,106 @@
+/**
+ * If NOT admin, return UserDashboard else return AdminDashboard
+*/
+
 import "./style.scss";
-import BasicInfoForm from "../../../components/forms/ProfileForm/BasicInfoForm";
-import UserInfoForm from "../../../components/forms/ProfileForm/UserInfoForm";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import profileDummyAvatar from "../../../assets/images/r3d3_profile_avatar.png";
 import { Col, Row } from "react-bootstrap";
 
-export default function Profile() {
+export default function Dashboard() {
+    const { userData, updateUserData } = useUserDataContext();
+
     return (
-        <Row className="flex-column h-100 row-gap-3 ps-0 pe-0 justify-content-between">
-            <Col className="col-1 w-100">
-                <h1>Editar Perfil</h1>
-            </Col>
-            <Col className="col-10 w-100">
-                <Row className="column-gap-0 justify-content-start">
-                    <Col className="col-3 ps-0"><BasicInfoForm /></Col>
-                    <Col className="col-9 pe-0"><UserInfoForm className="my-0" /></Col>
-                </Row>
-            </Col>
-            <Col className="col-1 w-100">
-                <button className="btn btn-success mx-1">Salvar</button>
-                <button className="btn btn-success mx-1">Cancelar</button>
-            </Col>
-        </Row>
-    )
+        <div className="user-dashboard-wrapper">
+            <Row className="user-card">
+                <Col className="col-xl-2 p-0 text-center">
+                    <img src={profileDummyAvatar} alt="" />
+                </Col>
+                <Col>
+                    <h2>Nome do Usuário</h2>
+                    <div className="card-text d-flex">
+                        <p>Role</p>
+                        <span>somemail@example.com</span>
+                    </div>
+                    <div className="card-text d-flex">
+                        <p>Editar perfil</p>
+                        <FontAwesomeIcon icon={faPen} />
+                    </div>
+                </Col>
+            </Row>
+            <Row className="user-info">
+                <Col className="col-4">
+                    <h3>Col</h3>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                </Col>
+                <Col className="col-4">
+                    <h3>Col</h3>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                </Col>
+                <Col className="col-4">
+                    <h3>Col</h3>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                    <p>
+                        <span className="key">Key:</span>
+                        <span>Value Lorem ipsum some</span>
+                    </p>
+                </Col>
+            </Row>
+        </div>
+    );
 }

@@ -6,7 +6,7 @@
 
 import { Routes, Route } from "react-router-dom";
 import { UserDataContext } from "../context/UserDataContext";
-import Dashboard from "../pages/User/Dashboard";
+import Dashboard from "../pages/Admin/Dashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageStudents from "../pages/Admin/ManageStudents";
 import ManageReturncategories from "../pages/Admin/ManageReturncategories";
@@ -21,7 +21,7 @@ export default function AdminRoutes() {
   return (
     <UserDataContext>
       <Routes>
-        <Route path="/" element={<Dashboard user={"admin"}/>} />
+        <Route path="/" element={<Dashboard/>} />
         <Route path="/users" element={<ManageUsers />} />
         <Route path="/students" element={<ManageStudents />} />
         <Route path="/recycling-settings" element={<ManageReturncategories />} />

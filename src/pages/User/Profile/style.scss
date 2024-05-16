@@ -2,9 +2,29 @@
 
 nav#main-nav .profile {
     background: var(--palette-green);
-    
+
     svg,
     p {
         color: var(--palette-white);
+    }
+}
+
+.user-dashboard-wrapper {
+    width: 100%;
+
+    .user-card {
+        margin: 64px;
+
+        .card-text {
+            gap: 12px;
+            margin-bottom: 0;
+        }
+    }
+
+    .user-info {
+        .key {
+            margin-right: 12px;
+            font-weight: bold;
+        }
     }
 }
