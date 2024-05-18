@@ -12,7 +12,7 @@ function UserDataContext({ children }) {
   if(userData === "") {
     // Fetch user data from api
     // Set user data
-    setUserData({test: "This is a test message."})
+    setUserData({role: "user"})
   }
 
   return (
