@@ -15,89 +15,93 @@ export default function Dashboard() {
     return (
         <div className="user-dashboard-wrapper">
             <Row className="user-card">
-                <Col className="col-xl-2 p-0 text-center">
+                <Col className="col-xl-2 p-0 text-leaft">
                     <img src={profileDummyAvatar} alt="" />
                 </Col>
                 <Col>
-                    <h2>Nome do Usuário</h2>
+                    <h2 className="mt-4">Nome do Usuário</h2>
                     <div className="card-text d-flex">
-                        <p>Role</p>
-                        <span>somemail@example.com</span>
+                        <p className="user-role">Role</p>
+                        <span className="mt-1 fs-medium">somemail@example.com</span>
                     </div>
                     <div className="card-text d-flex">
-                        <p>Editar perfil</p>
-                        <FontAwesomeIcon icon={faPen} />
+                        <p className="edit-profile">Editar perfil</p>
+                        <FontAwesomeIcon icon={faPen} size={'sm'} className="edit-icon"/>
                     </div>
                 </Col>
             </Row>
             <Row className="user-info">
                 <Col className="col-4">
-                    <h3>Col</h3>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <h3 className="mb-3">Identidade</h3>
+                    <p className="mb-0">
+                        <span className="key">Nome:</span>
+                        <span>João da Silva</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Função:</span>
+                        <span>Motorista de caminhão</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Área:</span>
+                        <span>Logistica</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Idade:</span>
+                        <span>38 anos</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Doc:</span>
+                        <span>CPF</span>
                     </p>
-                </Col>
-                <Col className="col-4">
-                    <h3>Col</h3>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Nº:</span>
+                        <span>618.214.490-45</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
-                    </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
-                    </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
-                    </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Data Cad:</span>
+                        <span>18/05/2024</span>
                     </p>
                 </Col>
                 <Col className="col-4">
-                    <h3>Col</h3>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <h3 className="mb-3">Endereço</h3>
+                    <p className="mb-0">
+                        <span className="key">Rua:</span>
+                        <span>Rua Existente</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Bairro:</span>
+                        <span>Jardim Flórida</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Cidade:</span>
+                        <span>Embu das Artes</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">Estado:</span>
+                        <span>São Paulo</span>
                     </p>
-                    <p>
-                        <span className="key">Key:</span>
-                        <span>Value Lorem ipsum some</span>
+                    <p className="mb-0">
+                        <span className="key">País:</span>
+                        <span>Brasil</span>
+                    </p>
+                    <p className="mb-0">
+                        <span className="key">CEP:</span>
+                        <span>06810-100</span>
+                    </p>
+                </Col>
+                <Col className="col-4">
+                    <h3 className="mb-3">Contato</h3>
+                    <p className="mb-0">
+                        <span className="key">E-mail Principal:</span>
+                        <span>joaoSilva@email.com</span>
+                    </p>
+                    <p className="mb-0">
+                        <span className="key">Email Secundário:</span>
+                        <span>joaodasilva@outlook.com</span>
+                    </p>
+                    <p className="mb-0">
+                        <span className="key">Celular:</span>
+                        <span>(15) 99770-7070</span>
                     </p>
                 </Col>
             </Row>

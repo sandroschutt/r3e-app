@@ -10,7 +10,7 @@ nav#main-nav .profile {
 }
 
 .user-dashboard-wrapper {
-    width: 100%;
+    width: 110%;
 
     .user-card {
         margin: 64px;
@@ -22,9 +22,29 @@ nav#main-nav .profile {
     }
 
     .user-info {
+        width: 80%;
+
         .key {
             margin-right: 12px;
             font-weight: bold;
         }
     }
+
+    .user-role {
+        font-weight: bolder !important;
+        font-size: larger;
+        color: #54a444;
+        margin-bottom: 0;
+    }
+
+    .edit-profile {
+        font-weight: bold;
+        color: #54a444;
+    }
+
+    .edit-icon {
+        color: #54a444;
+        margin-top: 3px;
+    }
 }
+
