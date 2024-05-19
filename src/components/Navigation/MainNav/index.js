@@ -18,37 +18,41 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 export default function MainNav() {
+  const navigate = useNavigate();
   const [navWidth, setNavWidth] = useState('nav-width-open')
   const [showHideItem, setShowHideItem] = useState('open')
   const role = "user"
   const defaultOptions = [
-    ['Home', '/', faTableColumns],
-    ['Mapa', '/map', faLocationDot],
-    ['Lista de dispositivos', '/public-devices', faTablet],
-    ['Coleta', '/pickups', faTruck],
-    ['Pontos de Coleta', '/pickup-locations', faRecycle],
-    ['Configurações', '/config', faGear],
+    ['Home', '', faTableColumns],
+    ['Mapa', 'map', faLocationDot],
+    ['Lista de dispositivos', 'public-devices', faTablet],
+    ['Coleta', 'pickups', faTruck],
+    ['Pontos de Coleta', 'pickup-locations', faRecycle],
+    ['Configurações', 'config', faGear],
   ];
 
-  let roleOptions = []
+
+
+  let roleOptions = [];
 
   if (role === "technician") {
     roleOptions = [
-      ['Home', '/', faTableColumns],
-      ['Lista de dispositivos', '/pickup-locations', faTablet]
+      ['Home', '', faTableColumns],
+      ['Lista de dispositivos', 'pickup-locations', faTablet]
     ]
   }
 
   if (role === "admin") {
     roleOptions = [
       ...defaultOptions,
-      ['Oficina', '/workshop', faWrench],
-      ['Usuários', '/users', faUserGroup],
-      ['Estudantes', '/students', faGraduationCap],
-      ['Tratativas de Retorno', '/recycling-settings', faSeedling],
-      ['Integrações', '/integrations', faCode]
+      ['Oficina', 'workshop', faWrench],
+      ['Usuários', 'users', faUserGroup],
+      ['Estudantes', 'students', faGraduationCap],
+      ['Tratativas de Retorno', 'recycling-settings', faSeedling],
+      ['Integrações', 'integrations', faCode]
     ]
   }
 
@@ -59,11 +63,11 @@ export default function MainNav() {
   if (role === "business") {
     roleOptions = [
       ...defaultOptions,
-      ['Integrações', '/integrations', faCode]
+      ['Integrações', 'integrations', faCode]
     ]
   }
 
-  roleOptions = [...roleOptions, ['Logout', '/logout', faPowerOff]];
+  roleOptions = [...roleOptions, ['Logout', 'logout', faPowerOff]];
 
   function hideNavigation() {
     if (navWidth === 'nav-width-open') {
@@ -78,7 +82,7 @@ export default function MainNav() {
   return (
     <nav id='main-nav' className='sticky-top'>
       <Row className='nav-container flex-column justify-content-start gap-1'>
-        <Col className='profile col-1 d-flex flex-row w-100 p-3 column-gap-3 align-items-center' onClick={() => { window.location.href = `/${role}/profile` }}>
+        <Col className='profile col-1 d-flex flex-row w-100 p-3 column-gap-3 align-items-center' onClick={() => { navigate(`profile`) }}>
           <FontAwesomeIcon
             className={'icon'}
             style={{ height: "32px" }}
@@ -94,28 +98,16 @@ export default function MainNav() {
           <ul className='options ps-0'>
             {
               roleOptions.map((option, index) => {
-                let optionObj = {
-                  label: option[0],
-                  link: option[1],
-                  icon: (
-                    <FontAwesomeIcon
-                      className='icon'
-                      style={{ height: '16px' }}
-                      icon={option[2]}
-                    />
-                  )
-                }
-
+                let optionObj = createOptionObject(option[0], option[1], option[2])
                 return (
-                  <li className='row column-gap-2 px-3 py-2 align-items-center' key={index}>
+                  <li className='row column-gap-2 px-3 py-2 align-items-center' key={index} onClick={() => { navigate(optionObj.link, { relative: "path"}) }}>
                     <Col className='col-1 p-0 '>{optionObj.icon}</Col>
                     <Col className={showHideItem}>
-                      <a
+                      <p
                         className={`nav-link p-0 text`}
-                        href={`/${role}${optionObj.link}`}
                       >
                         {optionObj.label}
-                      </a>
+                      </p>
                     </Col>
                   </li>
                 )
@@ -146,4 +138,20 @@ export default function MainNav() {
       </Row>
     </nav>
   )
+}
+
+function createOptionObject(label = String, link = String, icon = Object) {
+  let optionObj = {
+    label: label,
+    link: link,
+    icon: (
+      <FontAwesomeIcon
+        className='icon'
+        style={{ height: '16px' }}
+        icon={icon}
+      />
+    )
+  }
+
+  return optionObj;
 }
