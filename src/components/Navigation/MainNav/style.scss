@@ -1,13 +1,5 @@
 @import "../../../styles/root";
 
-.nav-width-closed {
-  width: auto;
-}
-
-.hidden {
-  display: none !important;
-}
-
 nav#main-nav {
   .nav-container {
     height: 100vh;
@@ -44,10 +36,6 @@ nav#main-nav {
     }
   }
 
-  .collapse-col {
-    bottom: 4%;
-  }
-
   ul {
     min-height: 83%;
     margin-bottom: 0;
@@ -66,12 +54,6 @@ nav#main-nav {
         background-color: var(--palette-green);
         color: white;
         cursor: pointer;
-      }
-    }
-
-    .hide {
-      &:hover {
-        background-color: transparent;
       }
     }
   }
