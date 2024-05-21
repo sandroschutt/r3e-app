@@ -10,7 +10,7 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <Row className="profile-view flex-column">
+    <div className="profile-view">
       <Col className="dashboard-header">
         <h1 className="w-100">Painel de controle</h1>
       </Col>
@@ -77,6 +77,6 @@ export default function Dashboard() {
           </Row>
         </Col>
       </Col>
-</Row>
+</div>
   );
 }
