@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import Client from "../../classes/Client";
 
 const UserContext = createContext();
 
@@ -9,19 +10,26 @@ function UserDataContext({ children }) {
     setUserData(newData);
   };
 
-  if(userData === "") {
-    // Fetch user data from api
-    // Set user data
-    setUserData({role: "user"})
-  }
+  useEffect(() => {
+    if(userData === "") {
+      let user = new Client(5, "client");
+      updateUserData(user.getUserData(updateUserData));
+    }
+
+    if(userData.user !== undefined) {
+      console.log(userData);
+    }
+  }, [userData])
 
   return (
-    <UserContext.Provider value={{userData, updateUserData}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ userData, updateUserData }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 
 const useUserDataContext = () => {
   return useContext(UserContext);
-}
+};
 
 export { useUserDataContext, UserDataContext };
