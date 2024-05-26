@@ -3,6 +3,8 @@ import dummyDeviceImg from "../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { Col, Row } from "react-bootstrap";
+import { useState } from "react";
+import Device from "../../classes/Device";
 
 export function UserList() {
   const data = getListData();
@@ -13,7 +15,12 @@ export function UserList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => {alert("Mus display single user in a modal or static view")}}>
+              <li
+                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                onClick={() => {
+                  alert("Mus display single user in a modal or static view");
+                }}
+              >
                 <h6 className="mb-0">User Name</h6>
                 <div className="col-12 d-flex">
                   <p className="mb-0">
@@ -45,7 +52,12 @@ export function StudentsList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Mus display single student card view") }}>
+              <li
+                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                onClick={() => {
+                  alert("Mus display single student card view");
+                }}
+              >
                 <h5>Student Name</h5>
                 <p>
                   <strong>Status:</strong>
@@ -71,7 +83,12 @@ export function PickupsList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Must display single pickups in modal or single view") }}>
+              <li
+                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                onClick={() => {
+                  alert("Must display single pickups in modal or single view");
+                }}
+              >
                 <h6 className="col-12">Motorla Moto G2</h6>
                 <div className="col-12 d-flex">
                   <p>
@@ -105,7 +122,12 @@ export function DeviceList() {
         <ul className="ps-0 pe-1">
           {data.map(() => {
             return (
-              <li className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center" onClick={() => { alert("Must display single devices in modal or single view") }}>
+              <li
+                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                onClick={() => {
+                  alert("Must display single devices in modal or single view");
+                }}
+              >
                 <h6>Motorla Moto G2</h6>
                 <div className="col-12 d-flex">
                   <p>
@@ -132,73 +154,62 @@ export function PublicDevicesList(props) {
   return (
     <div className="public-devices">
       <div className="list">
-        <ul className="p-0 pe-1">{props.data.map(() => {
-          return (
-            <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single devices in single view") }}>
-              <Col className="col-2">
-                <img src={dummyDeviceImg} alt="" />
-              </Col>
-              <Col className="col-10">
-                <Row className="flex-row justify-content-around">
-                  <Col>
-                    <h4>Moto G2</h4>
-                  </Col>
-                  <Col>
-                    <p className="mb-0">
-                      <strong>Marca:</strong><br />
-                      <span>Motorola</span>
-                    </p>
-                  </Col>
-                  <Col>
-                    <p className="mb-0">
-                      <strong>Ano:</strong><br />
-                      <span>2014</span>
-                    </p>
-                  </Col>
-                  <Col>
-                    <p className="mb-0">
-                      <strong>Proprietário:</strong><br />
-                      <span>Nome Cliente</span>
-                    </p>
-                  </Col>
-                  <Col>
-                    <p className="mb-0">
-                      <strong>Estado:</strong><br />
-                      <span>bom</span>
-                    </p>
-                  </Col>
-                  <Col>
-                    <p className="mb-0">
-                      <strong>Local:</strong><br />
-                      <span>Rua Exemplo, 200, Bairro Exemplo</span>
-                    </p>
-                  </Col>
-                </Row>
-              </Col>
-            </li>
-          )
-        })}</ul>
-      </div>
-    </div>
-  );
-}
-
-export function UserPickupsList(props) {
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
+        <ul className="p-0 pe-1">
           {props.data.map(() => {
             return (
-              <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single pickup in single view") }}>
-                <p className="icon">
-                  <FontAwesomeIcon icon={faCircleCheck} />
-                </p>
-                <p>Motorola Moto G2</p>
-                <p>Vendor: Vendor Name</p>
-                <p>Data: 31/12/1999</p>
+              <li
+                className="d-flex flex-row justify-content-between align-items-center"
+                onClick={() => {
+                  alert("Must display single devices in single view");
+                }}
+              >
+                <Col className="col-2">
+                  <img src={dummyDeviceImg} alt="" />
+                </Col>
+                <Col className="col-10">
+                  <Row className="flex-row justify-content-around">
+                    <Col>
+                      <h4>Moto G2</h4>
+                    </Col>
+                    <Col>
+                      <p className="mb-0">
+                        <strong>Marca:</strong>
+                        <br />
+                        <span>Motorola</span>
+                      </p>
+                    </Col>
+                    <Col>
+                      <p className="mb-0">
+                        <strong>Ano:</strong>
+                        <br />
+                        <span>2014</span>
+                      </p>
+                    </Col>
+                    <Col>
+                      <p className="mb-0">
+                        <strong>Proprietário:</strong>
+                        <br />
+                        <span>Nome Cliente</span>
+                      </p>
+                    </Col>
+                    <Col>
+                      <p className="mb-0">
+                        <strong>Estado:</strong>
+                        <br />
+                        <span>bom</span>
+                      </p>
+                    </Col>
+                    <Col>
+                      <p className="mb-0">
+                        <strong>Local:</strong>
+                        <br />
+                        <span>Rua Exemplo, 200, Bairro Exemplo</span>
+                      </p>
+                    </Col>
+                  </Row>
+                </Col>
               </li>
-            )
+            );
           })}
         </ul>
       </div>
@@ -206,25 +217,64 @@ export function UserPickupsList(props) {
   );
 }
 
+export function UserPickupsList(props) {
+  if (props.schedules !== "") {
+    return (
+      <div className="public-devices">
+        <div className="list">
+          <ul className="ps-0 pe-1">
+            {props.schedules.map((schedule, index) => {
+              return (
+                <li
+                  key={index}
+                  className="d-flex flex-row justify-content-between align-items-center"
+                  onClick={() => {
+                    props.setSchedule(schedule);
+                  }}
+                >
+                  <p>
+                    <span className="icon">
+                      <FontAwesomeIcon icon={faCircleCheck} />
+                    </span>
+                    {`${schedule.device.brand.name} ${schedule.device.model.name}`}
+                  </p>
+                  <p>Vendor: {schedule.vendor.name}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    );
+  } else {
+    return <p>Aguardando dados...</p>;
+  }
+}
+
 export function VendorPickupLocationsList(props) {
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {props.data.map(() =>
-            <li className="d-flex flex-row justify-content-between align-items-center" onClick={() => { alert("Must display single pickup in single view") }}>
+          {props.data.map(() => (
+            <li
+              className="d-flex flex-row justify-content-between align-items-center"
+              onClick={() => {
+                alert("Must display single pickup in single view");
+              }}
+            >
               <p>Ponto de Coleta</p>
               <p>
-                <strong>Status:</strong>{" Ativo"}
+                <strong>Status:</strong>
+                {" Ativo"}
               </p>
             </li>
-          )}
+          ))}
         </ul>
       </div>
     </div>
   );
 }
-
 
 function getListData() {
   let listData = [];

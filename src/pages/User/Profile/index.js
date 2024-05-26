@@ -9,7 +9,6 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 import profileDummyAvatar from "../../../assets/images/r3d3_profile_avatar.png";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import Client from "../../../classes/Client";
 
 export default function Dashboard() {
   const { userData, updateUserData } = useUserDataContext();

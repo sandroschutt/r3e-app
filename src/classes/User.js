@@ -1,9 +1,12 @@
+/**
+ * Must implement User.getCapabilities and User.setCapabilities
+ */
+
 import axios from "axios";
 
 export default class User {
-  constructor(id = Number | String, role = String) {
+  constructor(id = Number | String) {
     this.id = id;
-    this.role = role;
   }
 
   getUserId() {
@@ -13,9 +16,11 @@ export default class User {
   async getUserData(updateUserData) {
     // service makes a GET request to fetch user data
     try {
-      axios.get(`http://localhost:9000/${this.role}/${this.id}/data`).then((response) => {
-        updateUserData(response.data);
-      });
+      axios
+        .get(`http://localhost:9000/${this.role}/${this.id}/data`)
+        .then((response) => {
+          updateUserData(response.data);
+        });
     } catch (error) {
       return error.message;
     }
@@ -31,5 +36,18 @@ export default class User {
 
   deleteUserData() {
     // service makes a DELETE request to fetch user data
+  }
+
+  getUserSchedules(setSchedules, setSchedule) {
+    try {
+      axios
+        .get(`http://localhost:9000/user/${this.id}/schedules`)
+        .then((response) => {
+          setSchedules(response.data);
+          setSchedule(response.data[0])
+        });
+    } catch (error) {
+      return error.message;
+    }
   }
 }

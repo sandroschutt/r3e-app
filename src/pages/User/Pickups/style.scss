@@ -11,6 +11,10 @@
     .pickups--item-view {
       @include baseForm;
       @include deviceListViewItem;
+
+      .details span:hover {
+        cursor: pointer;
+      }
     }
   }
 }
