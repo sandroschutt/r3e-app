@@ -1,35 +1,36 @@
-import Modal from "react-bootstrap/Modal";
-import "./style.scss";
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal'
+import './style.scss'
+import { useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import { NotificationList } from '../Lists'
 
-export function NotificationsModal() {
-  let dummyNotifications = [];
+export function NotificationsModal () {
+  let dummyNotifications = []
 
   for (let i = 0; i <= 10; i++) {
-    dummyNotifications.push(null);
-  }
+    dummyNotifications.push(null)
+  } 
 
   return (
     <div
-      className="custom-modal"
-      style={{ display: "block", position: "initial" }}
+      className='custom-modal'
+      style={{ display: 'block', position: 'initial' }}
     >
       <Modal.Dialog>
         <Modal.Body>
-          {/* <NotificationList data={dummyNotifications} /> */}
+          <NotificationList data={dummyNotifications} />
         </Modal.Body>
       </Modal.Dialog>
     </div>
-  );
+  )
 }
 
-export function SinglePickupContact() {
-  const [show, setShow] = useState(false);
+export function SinglePickupContact () {
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
@@ -43,41 +44,41 @@ export function SinglePickupContact() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
               <Form.Label>Email address</Form.Label>
               <Form.Control
-                type="text"
-                placeholder="Assunto da mensagem"
+                type='text'
+                placeholder='Assunto da mensagem'
                 autoFocus
               />
             </Form.Group>
             <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
+              className='mb-3'
+              controlId='exampleForm.ControlTextarea1'
             >
               <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control as='textarea' rows={3} />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger" onClick={handleClose}>
+          <Button variant='danger' onClick={handleClose}>
             Descartar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant='primary' onClick={handleClose}>
             Enviar
           </Button>
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
 
-export function SinglePickupCancelationModal() {
-  const [show, setShow] = useState(false);
+export function SinglePickupCancelationModal () {
+  const [show, setShow] = useState(false)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   return (
     <>
@@ -88,7 +89,7 @@ export function SinglePickupCancelationModal() {
       <Modal
         show={show}
         onHide={handleClose}
-        backdrop="static"
+        backdrop='static'
         keyboard={false}
       >
         <Modal.Header closeButton>
@@ -99,12 +100,12 @@ export function SinglePickupCancelationModal() {
           escape key.
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="danger">Cancelar</Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant='danger'>Cancelar</Button>
+          <Button variant='primary' onClick={handleClose}>
             Aguardar
           </Button>
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
