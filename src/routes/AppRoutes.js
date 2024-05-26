@@ -22,9 +22,9 @@ export default function AppRoutes() {
         <Route
           path={"/user/*"}
           element={
-            <UserLayout>
+            // <UserLayout>
               <UserRoutes />
-            </UserLayout>
+            // </UserLayout>
           }
         />
         <Route

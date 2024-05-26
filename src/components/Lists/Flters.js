@@ -117,13 +117,8 @@ export function FilterUserPickups() {
                 <li onClick={(event) => {
                     alert("Must filter items in list and display filtered list");
                     setActiveFilterItem(event.target);
-                }}>Coleta pendente</li>
-                <li onClick={(event) => {
-                    alert("Must filter items in list and display filtered list");
-                    setActiveFilterItem(event.target);
-                }} style={{ border: "none" }}>Coletados</li>
+                }} style={{ border: "none" }}>Coleta pendente</li>
             </ul>
-            <p>{"1 - 100"}</p>
         </div>
     );
 }

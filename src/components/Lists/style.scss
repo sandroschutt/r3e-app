@@ -59,8 +59,8 @@
 
     ul {
       .admin-dashboard-list-item {
-
-        h6, p {
+        h6,
+        p {
           margin-bottom: 0;
         }
 
@@ -94,6 +94,12 @@
 
           span {
             color: var(--palette-black);
+          }
+
+          .icon {
+            margin-left: 0;
+            margin-right: 4px;
+            color: var(--palette-green);
           }
         }
 
