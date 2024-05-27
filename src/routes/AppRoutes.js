@@ -19,22 +19,8 @@ export default function AppRoutes() {
             </AuthLayout>
           }
         />
-        <Route
-          path={"/user/*"}
-          element={
-            // <UserLayout>
-              <UserRoutes />
-            // </UserLayout>
-          }
-        />
-        <Route
-          path={"/admin/*"}
-          element={
-            <UserLayout>
-              <AdminRoutes />
-            </UserLayout>
-          }
-        />
+        <Route path={"/user/*"} element={<UserRoutes />} />
+        <Route path={"/admin/*"} element={<AdminRoutes />} />
       </Routes>
     </BrowserRouter>
   );

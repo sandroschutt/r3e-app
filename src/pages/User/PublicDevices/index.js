@@ -1,15 +1,30 @@
 import "./style.scss";
+import Device from "../../../classes/Device";
 import { PublicDevicesList } from "../../../components/Lists";
 import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { useUserDataContext } from "../../../context/UserDataContext";
 
 export default function PublicDevices() {
-  let dummyDevicesArray = [];
+  const {userData, updateUserData} = useUserDataContext();
+  const [devices, setDevices] = useState("")
 
-  for (let i = 0; i <= 9; i++) {
-    dummyDevicesArray.push(null);
+  useEffect(() => {
+    if(userData.user !== undefined && devices === "") {
+      Device.getUserDevices(userData.user.id, userData.user.role, setDevices);
+    }
+  }, [userData, devices])
+
+  function listRender(devices) {
+    if(devices !== "") {
+      console.log(devices)
+      return <PublicDevicesList data={devices} />
+    } else return <p>Aguardando dados...</p>
   }
+
+  
 
   return (
     <Row id="public-devices--view" className="flex-column">
@@ -18,7 +33,9 @@ export default function PublicDevices() {
       </Col>
       <Col>
         <FilterPublicDevices />
-        <PublicDevicesList data={dummyDevicesArray} />
+        {
+          listRender(devices)
+        }
       </Col>
     </Row>
   );

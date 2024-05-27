@@ -3,8 +3,7 @@ import dummyDeviceImg from "../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { Col, Row } from "react-bootstrap";
-import { useState } from "react";
-import Device from "../../classes/Device";
+import { useNavigate } from "react-router-dom";
 
 export function UserList() {
   const data = getListData();
@@ -13,9 +12,10 @@ export function UserList() {
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {data.map(() => {
+          {data.map((item, index) => {
             return (
               <li
+                key={index}
                 className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                 onClick={() => {
                   alert("Mus display single user in a modal or static view");
@@ -81,9 +81,10 @@ export function PickupsList() {
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {data.map(() => {
+          {data.map((item, index) => {
             return (
               <li
+                key={index}
                 className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                 onClick={() => {
                   alert("Must display single pickups in modal or single view");
@@ -120,9 +121,10 @@ export function DeviceList() {
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {data.map(() => {
+          {data.map((item, index) => {
             return (
               <li
+                key={index}
                 className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                 onClick={() => {
                   alert("Must display single devices in modal or single view");
@@ -151,16 +153,19 @@ export function DeviceList() {
 }
 
 export function PublicDevicesList(props) {
+  const navigate = useNavigate();
+
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="p-0 pe-1">
-          {props.data.map(() => {
+          {props.data.map((device, index) => {
             return (
               <li
+                key={index}
                 className="d-flex flex-row justify-content-between align-items-center"
                 onClick={() => {
-                  alert("Must display single devices in single view");
+                  navigate(`${device.id}`);
                 }}
               >
                 <Col className="col-2">
@@ -169,41 +174,41 @@ export function PublicDevicesList(props) {
                 <Col className="col-10">
                   <Row className="flex-row justify-content-around">
                     <Col>
-                      <h4>Moto G2</h4>
+                      <h4>{device.model.name}</h4>
                     </Col>
                     <Col>
                       <p className="mb-0">
                         <strong>Marca:</strong>
                         <br />
-                        <span>Motorola</span>
+                        <span>{device.brand.name}</span>
                       </p>
                     </Col>
                     <Col>
                       <p className="mb-0">
                         <strong>Ano:</strong>
                         <br />
-                        <span>2014</span>
+                        <span>{device.model.year}</span>
                       </p>
                     </Col>
                     <Col>
                       <p className="mb-0">
                         <strong>Proprietário:</strong>
                         <br />
-                        <span>Nome Cliente</span>
+                        <span>{device.user.name}</span>
                       </p>
                     </Col>
                     <Col>
                       <p className="mb-0">
                         <strong>Estado:</strong>
                         <br />
-                        <span>bom</span>
+                        <span>{device.state}</span>
                       </p>
                     </Col>
                     <Col>
                       <p className="mb-0">
                         <strong>Local:</strong>
                         <br />
-                        <span>Rua Exemplo, 200, Bairro Exemplo</span>
+                        <span>{`${device.user.address.street}, ${device.user.address.neighborhood}`}</span>
                       </p>
                     </Col>
                   </Row>
@@ -227,7 +232,7 @@ export function UserPickupsList(props) {
               return (
                 <li
                   key={index}
-                  className="d-flex flex-row justify-content-between align-items-center"
+                  className={`d-flex flex-row justify-content-between align-items-center`}
                   onClick={() => {
                     props.setSchedule(schedule);
                   }}
@@ -251,29 +256,34 @@ export function UserPickupsList(props) {
   }
 }
 
-export function VendorPickupLocationsList(props) {
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
-          {props.data.map(() => (
-            <li
-              className="d-flex flex-row justify-content-between align-items-center"
-              onClick={() => {
-                alert("Must display single pickup in single view");
-              }}
-            >
-              <p>Ponto de Coleta</p>
-              <p>
-                <strong>Status:</strong>
-                {" Ativo"}
-              </p>
-            </li>
-          ))}
-        </ul>
+export function PickupLocationsList(props) {
+  if (props.locations !== "") {
+    let locations = props.locations;
+
+    return (
+      <div className="public-devices">
+        <div className="list">
+          <ul className="ps-0 pe-1">
+            {locations.map((location, index) => (
+              <li
+                key={index}
+                className={`d-flex flex-row justify-content-between align-items-center`}
+                onClick={() => {
+                  props.setLocation(location);
+                }}
+              >
+                <p>{location.name}</p>
+                <p>
+                  <strong>Status:</strong>
+                  {" Ativo"}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function getListData() {
