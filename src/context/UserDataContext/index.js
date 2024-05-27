@@ -12,8 +12,8 @@ function UserDataContext({ children }) {
 
   useEffect(() => {
     if(userData === "") {
-      let user = new Client(2);
-      updateUserData(user.getUserData(updateUserData));
+      let user = new Client(1);
+      setUserData(user.getUserData(setUserData));
     }
   }, [userData])
 
