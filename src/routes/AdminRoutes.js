@@ -18,6 +18,7 @@ import SinglePickupLocation from "../pages/User/SinglePickupLocation";
 import MapView from "../pages/User/MapView";
 import SinglePickup from "../pages/User/SinglePickup";
 import UserLayout from "../layout/UserLayout";
+import { SettingsView } from "../pages/User/SettingsView";
 
 export default function AdminRoutes() {
   return (
@@ -38,6 +39,7 @@ export default function AdminRoutes() {
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
           <Route path="/map" element={<MapView />} />
+          <Route path="/settings" element={<SettingsView />} />
         </Routes>
       </UserLayout>
     </UserDataContext>

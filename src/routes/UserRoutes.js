@@ -32,7 +32,7 @@ export default function UserRoutes() {
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path="/map" element={<MapView />} />
-          <Route path="/config" element={<SettingsView/>} />
+          <Route path="/settings" element={<SettingsView/>} />
 
         </Routes>
       </UserLayout>
