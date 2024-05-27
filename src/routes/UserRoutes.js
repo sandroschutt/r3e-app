@@ -16,6 +16,7 @@ import PickupLocations from "../pages/User/PickupLocations";
 import SinglePickupLocation from "../pages/User/SinglePickupLocation";
 import MapView from "../pages/User/MapView";
 import { SettingsView } from "../pages/User/SettingsView";
+import SinglePickup from "../pages/User/SinglePickup";
 
 export default function UserRoutes() {
   return (
@@ -24,12 +25,12 @@ export default function UserRoutes() {
         <Routes>
           <Route path="/" element={<Dashboard user={"user"} />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/public-devices" element={<PublicDevices />} />
-          <Route path="/single-device/:id" element={<SingleDevices />} />
+          <Route path="/devices" element={<PublicDevices />} />
+          <Route path="/devices/:id" element={<SingleDevices />} />
           <Route path={"/pickups"} element={<Pickups />} />
-          <Route path={"/pickups/:id"} element={<p>Display user single pickup schedule</p>} />
+          <Route path={"/pickups/:id"} element={<SinglePickup/>} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
-          <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
+          <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path="/map" element={<MapView />} />
           <Route path="/config" element={<SettingsView/>} />
 

@@ -1,0 +1,49 @@
+.schedule-data {
+  strong {
+    margin-right: 8px;
+  }
+
+  span {
+    margin-right: 12px;
+  }
+}
+
+.single-pickup {
+  .user-header,
+  .device-header {
+    .user-avatar,
+    .device-image {
+      width: 128px;
+      height: 128px;
+      background-color: lightgrey;
+    }
+
+    .user-avatar {
+      border-radius: 50%;
+    }
+
+    .device-image {
+      border-radius: 8px;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  table,
+  tr,
+  th,
+  td {
+    border: 1px solid var(--palette-beige);
+  }
+
+  th {
+    background-color: var(--palette-beige);
+  }
+
+  th,
+  td {
+    padding: 16px;
+  }
+}
