@@ -21,7 +21,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainNav() {
-  const { userData, updateUserData } = useUserDataContext();
+  const { userData} = useUserDataContext();
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");

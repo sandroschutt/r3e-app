@@ -37,7 +37,7 @@ export default function AdminRoutes() {
           <Route path={"/pickups"} element={<Pickups />} />
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
-          <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
+          <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
         </Routes>
