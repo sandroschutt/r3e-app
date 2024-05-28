@@ -4,13 +4,103 @@ import { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { NotificationList } from '../Lists'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit } from '@fortawesome/free-regular-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-export function NotificationsModal () {
+export function AdminQuickEditDeviceModal() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <FontAwesomeIcon className="action" icon={faEdit} onClick={handleShow} />
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Editando</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Modelo:"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Marca:"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Ano:"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Estado:"
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+export function AdminDeleteDeviceModal() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <FontAwesomeIcon className="action" icon={faTrash} onClick={handleShow} />
+
+      <Modal show={show} onHide={handleClose} animation={false} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Excluir este dispositivo?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Ao excluir um dispositivo, ele é permanentemente excluído do banco de dados.</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleClose}>
+            Excluir
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
+export function NotificationsModal() {
   let dummyNotifications = []
 
   for (let i = 0; i <= 10; i++) {
     dummyNotifications.push(null)
-  } 
+  }
 
   return (
     <div
@@ -26,7 +116,7 @@ export function NotificationsModal () {
   )
 }
 
-export function SinglePickupContact () {
+export function SinglePickupContact() {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
@@ -74,7 +164,7 @@ export function SinglePickupContact () {
   )
 }
 
-export function SinglePickupCancelationModal () {
+export function SinglePickupCancelationModal() {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)

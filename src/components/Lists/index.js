@@ -102,7 +102,7 @@ export function PickupsList(props) {
                   <h6 className="col-12">{schedule.device.name}</h6>
                   <div className="col-12 d-flex">
                     <p>
-                      <strong>Cliente:</strong><br/>
+                      <strong>Cliente:</strong><br />
                       <span>{schedule.client.name}</span>
                     </p>
                     <p>
@@ -167,12 +167,11 @@ export function DeviceList(props) {
 
 export function PublicDevicesList(props) {
   const navigate = useNavigate();
-
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="p-0 pe-1">
-          {props.data.map((device, index) => {
+          {props.devices.map((device, index) => {
             return (
               <li
                 key={index}

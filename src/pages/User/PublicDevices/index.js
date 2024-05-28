@@ -6,6 +6,7 @@ import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useUserDataContext } from "../../../context/UserDataContext";
+import { AdminDevicesTable } from "../../../components/Tables";
 
 export default function PublicDevices() {
   const {userData, updateUserData} = useUserDataContext();
@@ -13,19 +14,20 @@ export default function PublicDevices() {
 
   useEffect(() => {
     if(userData.user !== undefined && devices === "") {
-      Device.getUserDevices(userData.user.id, userData.user.role, setDevices);
+      if (userData.user.role === "Admin") {
+        Device.getAllDevices(setDevices);
+      } else Device.getUserDevices(userData.user.id, userData.user.role, setDevices);
     }
   }, [userData, devices])
 
   function listRender(devices) {
-    if(devices !== "") {
-      console.log(devices)
-      return <PublicDevicesList data={devices} />
-    } else return <p>Aguardando dados...</p>
+    if(devices !== "" && userData.user.role !== "Admin") {
+      return <PublicDevicesList devices={devices} />
+    } else if(devices !== "" && userData.user.role === "Admin") {
+      return <AdminDevicesTable devices={devices} />
+    } else return <p>Aguardando dados...</p>;
   }
-
   
-
   return (
     <Row id="public-devices--view" className="flex-column">
       <Col>

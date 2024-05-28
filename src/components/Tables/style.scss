@@ -1,0 +1,25 @@
+.admin-devices-table {
+    tr {
+        border: 1px solid lightgrey;
+    }
+
+    th, td {
+        padding-left: 1em;
+    }
+
+    th {
+        height: 3em;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    td {
+        height: 4em;
+        border-right: 1px solid lightgrey;
+
+        .action:hover {
+            cursor: pointer;
+            color: var(--palette-green)
+        }
+    }
+}
