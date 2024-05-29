@@ -95,6 +95,76 @@ export function AdminDeleteDeviceModal() {
   );
 }
 
+export function AdminAddReturnProcessModal() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="success" onClick={handleShow}>{"+ Adicionar nova"}</Button>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Adicionar nova</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                placeholder="Nome:"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <label className="main-label mb-2">Finalidade:</label>
+              <Form.Select className="mb-3" onChange={(event) => console.log(event.target.value)}>
+                 <option key={1} value={""}>reciclagem</option>
+                <option key={2} value={""}>desmonte</option>
+                <option key={3} value={""}>peças</option>
+                <option key={4} value={""}>recondicionamento</option>
+                <option key={5} value={""}>reuso</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <label className="main-label mb-2">Processo:</label>
+              <Form.Select className="mb-3" onChange={(event) => console.log(event.target.value)}>
+                <option key={1} value={""}>desmonte e reaproveitamento de materiais</option>
+                <option key={2} value={""}>desmonte e reaproveitamento de componentes</option>
+                <option key={3} value={""}>desmonte e reaproveitamento de peças</option>
+                <option key={4} value={""}>instalação de peças de terceiros</option>
+                <option key={5} value={""}>contemplar estudante com dispositivo</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <label className="main-label mb-2">Destino:</label>
+              <Form.Select className="mb-3" onChange={(event) => console.log(event.target.value)}>
+                <option key={1} value={""}>empresa especializada</option>
+                <option key={2} value={""}>oficina R3E</option>
+                <option key={3} value={""}>estudantes</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+              <label className="main-label mb-2">Descrição:</label>
+              <Form.Control as="textarea" rows={8} />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          <Button variant="success" onClick={handleClose}>
+            Adicionar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+}
+
 export function NotificationsModal() {
   let dummyNotifications = []
 
