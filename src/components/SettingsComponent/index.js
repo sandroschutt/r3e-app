@@ -1,7 +1,7 @@
-import { Button, Col, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import './style.scss'
 import Form from 'react-bootstrap/Form'
-import { isValidElement, useState } from 'react'
+import { useState } from 'react'
 
 export function SettingsComponent () {
   const [isVisible, setIsVisible] = useState(false)

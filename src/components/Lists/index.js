@@ -3,8 +3,6 @@ import dummyDeviceImg from "../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { Col, Row } from "react-bootstrap";
-import { useState } from "react";
-import Device from "../../classes/Device";
 import { NotificationsModal } from "../Modals";
 import { useNavigate } from "react-router-dom";
 
