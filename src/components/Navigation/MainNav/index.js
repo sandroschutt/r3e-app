@@ -38,10 +38,9 @@ export default function MainNav() {
   view = view[view.length - 1];
 
   useEffect(() => {
-    if (userData.user !== undefined) {
-      let user = userData.user;
-      setUserName(user.name);
-      setUserRole(user.role);
+    if (userData.id !== undefined) {
+      setUserName(userData.name);
+      setUserRole(userData.role);
 
       if (userRole.toLowerCase() === "technician") {
         setUserOptions([
@@ -96,7 +95,7 @@ export default function MainNav() {
               <p className={view === "profile" ? "text-white" : ""}>{userRole}</p>
             </div>
           </Col>
-  
+
           <Col className="col-10 w-100 p-0">
             <ul className="options ps-0">
               {userOptions.map((option, index) => {

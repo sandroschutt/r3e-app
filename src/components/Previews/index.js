@@ -3,9 +3,11 @@ import DummyAvatarImage from "../../assets/images/r3d3_profile_avatar.png";
 import { Button, Col, Row } from "react-bootstrap";
 import { validateDate } from "../../validations/validateDate";
 import { validatePhones } from "../../validations/validatePhones";
+import { useNavigate } from "react-router-dom";
 
 export function AdminUsersPreview(props) {
   const user = props.user;
+  const navigate = useNavigate();
 
   function userRoleData() {
     switch (props.users) {
@@ -36,7 +38,13 @@ export function AdminUsersPreview(props) {
             {props.actions.map((action, index) => {
               return (
                 <Col key={index}>
-                  <Button variant="outline-success" className="w-100" onClick={() => alert(`${action} usuário ou estudante`)}>
+                  <Button variant="outline-success" className="w-100" onClick={() => {
+                    if (action !== "ver") {
+                      alert(`${action} usuário ou estudante`)
+                    } else {
+                      navigate(`${user.id}`);
+                    }
+                  }}>
                     {action}
                   </Button>
                 </Col>
