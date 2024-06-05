@@ -2,7 +2,6 @@ import "./style.scss";
 import SingleDeviceCard from "../SingleDeviceCard";
 import SingleDeviceClient from "../SingleDeviceClient";
 import SingleDeviceTechnician from "../SingleDeviceTechnician";
-import { useUserDataContext } from "../../../context/UserDataContext";
 import { useEffect, useState } from "react";
 import Device from "../../../classes/Device";
 
