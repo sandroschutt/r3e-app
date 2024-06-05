@@ -7,5 +7,5 @@ export function validateDate(dateString = String) {
 
     const formattedDate = `${day}-${month}-${year}`;
 
-    return formattedDate;
+    return formattedDate.replaceAll("-", "/");
 }

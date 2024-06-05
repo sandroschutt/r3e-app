@@ -27,6 +27,7 @@ export default function AdminRoutes() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<ManageUsers />} />
+          {/* <Route path="/users:id" element={<ManageUsers />} /> */}
           <Route path="/students" element={<ManageStudents />} />
           <Route
             path="/recycling-settings"

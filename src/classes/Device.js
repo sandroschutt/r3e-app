@@ -6,8 +6,6 @@ export default class Device {
     axios.get(endpoint)
     .then((response) => {
       setDevices(response.data);
-      console.log("from request")
-      console.log(response.data[0])
     }).catch((error) => console.log(error));
   }
 
@@ -17,7 +15,6 @@ export default class Device {
       .get(endpoint)
       .then((response) => {
         setDevice(response.data);
-        console.log(response.data);
       })
       .catch((error) => console.log(error.response.data));
   }

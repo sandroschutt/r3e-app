@@ -8,11 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
 
 export function UserList(props) {
-  const navigate = useNavigate();
+  const users = props.users;
+  const setUser = props.setUser;
 
-  if (props.users !== "") {
-    let users = props.users;
-
+  if (users !== "") {
     return (
       <div className="public-devices">
         <div className="list">
@@ -23,7 +22,7 @@ export function UserList(props) {
                   key={index}
                   className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                   onClick={() => {
-                    navigate(`users/${user.id}`)
+                    setUser(user)
                   }}
                 >
                   <h6 className="mb-0">{user.name}</h6>
@@ -49,27 +48,28 @@ export function UserList(props) {
   }
 }
 
-export function StudentsList() {
-  const data = getListData();
+export function StudentsList(props) {
+  const students = props.students;
 
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {data.map(() => {
+          {students.map((student, index) => {
             return (
               <li
+                key={index}
                 className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                 onClick={() => {
-                  alert("Mus display single student card view");
+                  props.setStudent(student);
                 }}
               >
-                <h5>Student Name</h5>
+                <h5>{student.name}</h5>
                 <p>
                   <strong>Status:</strong>
                   <span>ativo</span>
                   <strong>Data:</strong>
-                  <span>31/12/1999</span>
+                  <span>{validateDate(student.createdAt)}</span>
                 </p>
               </li>
             );
@@ -318,14 +318,4 @@ export function NotificationList(props) {
       </div>
     </div>
   )
-}
-
-function getListData() {
-  let listData = [];
-
-  for (let i = 0; i <= 19; i++) {
-    listData.push(null);
-  }
-
-  return listData;
 }
