@@ -20,6 +20,7 @@ import UserLayout from "../layout/UserLayout";
 import { SettingsView } from "../pages/User/SettingsView";
 import ManageReturnProcess from "../pages/Admin/ManageReturnProcess";
 import Workshop from "../pages/Admin/Workshop";
+import Integrations from "../pages/User/Integrations";
 
 export default function AdminRoutes() {
   return (
@@ -43,6 +44,7 @@ export default function AdminRoutes() {
           <Route path={"/workshop"} element={<Workshop/>} />
           <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
+          <Route path="/integrations" element={<Integrations/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
