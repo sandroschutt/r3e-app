@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import Pickup from "../../../classes/Pickup";
-import { ListViewMap, SingleViewMap } from "../../../components/Maps";
+import { ListViewMap } from "../../../components/Maps";
 
 export default function SinglePickup() {
   const [schedule, setSchedule] = useState("");
@@ -14,7 +14,7 @@ export default function SinglePickup() {
     if (schedule === "") {
       Pickup.getPickup(scheduleId, setSchedule);
     }
-  }, [schedule]);
+  }, [schedule, scheduleId]);
 
   function renderSchedule(schedule) {
     if (schedule !== "") {

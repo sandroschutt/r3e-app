@@ -13,21 +13,54 @@ import {
   SinglePickupContact,
   SinglePickupCancelationModal
 } from "../../../components/Modals";
+import { Admin } from "../../../classes/Admin";
+import User from "../../../classes/User";
+import { validateDate } from "../../../validations/validateDate";
 
 export default function Pickups() {
-  const { userData, updateUserData } = useUserDataContext();
+  const { userData } = useUserDataContext();
   const [schedules, setSchedules] = useState("");
-  const [hasDataArrived, setHasDataArrived] = useState(false);
   const [schedule, setSchedule] = useState("");
-  const [firstSchedule, setFirstSchedule] = useState(false);
-  const user = new Client(2);
 
   useEffect(() => {
-    if (userData.user !== undefined && hasDataArrived === false) {
-      user.getUserSchedules(setSchedules, setSchedule);
-      setHasDataArrived(true);
+    if (userData !== "" && userData.role !== undefined) {
+      if (userData.role === "Admin") {
+        Admin.getAllSchedules(setSchedules);
+      } else {
+        let user = new User(userData.id);
+        user.getAllSchedules(setSchedules);
+      }
     }
-  }, [userData, schedules, firstSchedule, hasDataArrived]);
+
+    if(schedules !== "" && schedule === "") {
+      setSchedule(schedules[0]);
+    }
+  }, [userData, schedules, schedule]);
+
+  function renderSchedules(schedules) {
+    if (schedules !== "") {
+      return (
+        <>
+          <Col>
+            <UserPickupsList schedules={schedules} setSchedule={setSchedule} />
+          </Col>
+          <Col className="pickups--item-view">
+            <div className="item-header">
+              <img
+                src={DummyDeviceImage}
+                style={{ backgroundColor: "lightgrey" }}
+                alt=""
+              />
+              <CardHeaderText schedule={schedule} userData={userData} />
+            </div>
+            <div className="item-body">
+              <ListViewMap />
+            </div>
+          </Col>
+        </>
+      )
+    } else return <p>Aguardando dados...</p>;
+  }
 
   return (
     <Row id="pickups-view" className="flex-column">
@@ -38,22 +71,9 @@ export default function Pickups() {
         <FilterUserPickups />
       </Col>
       <Row className="pickups--list-view">
-        <Col>
-          <UserPickupsList schedules={schedules} setSchedule={setSchedule} />
-        </Col>
-        <Col className="pickups--item-view">
-          <div className="item-header">
-            <img
-              src={DummyDeviceImage}
-              style={{ backgroundColor: "lightgrey" }}
-              alt=""
-            />
-            <CardHeaderText schedule={schedule} userData={userData} />
-          </div>
-          <div className="item-body">
-            <ListViewMap />
-          </div>
-        </Col>
+        {
+          renderSchedules(schedules)
+        }
       </Row>
     </Row>
   );
@@ -66,7 +86,7 @@ function CardHeaderText(props) {
     return (
       <div className="text">
         <div className="main">
-          <h5>{`${props.schedule.device.brand.name} ${props.schedule.device.model.name} ${props.schedule.device.model.year}`}</h5>
+          <h5>{`${props.schedule.device.brand.name} ${props.schedule.device.model.name}`}</h5>
         </div>
         <p className="details">
           <span
@@ -82,12 +102,12 @@ function CardHeaderText(props) {
         <ul>
           <li>
             <p>
-              <strong>Proprietário:</strong> {props.userData.user.name}
+              <strong>Proprietário:</strong> {props.userData.name}
             </p>
           </li>
           <li>
             <p>
-              <strong>Data:</strong> {props.schedule.createdAt}
+              <strong>Data:</strong> {validateDate(props.schedule.createdAt)}
             </p>
           </li>
           <li>
@@ -95,7 +115,7 @@ function CardHeaderText(props) {
               <strong>Coleta:</strong>{" "}
               {props.schedule.dateColected === null
                 ? "pendente"
-                : props.schedule.dateColected}
+                : validateDate(props.schedule.dateColected)}
             </p>
           </li>
         </ul>

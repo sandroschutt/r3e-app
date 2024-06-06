@@ -21,6 +21,16 @@ export class Admin {
             ).catch((error) => console.log(error))
     }
 
+    static getWorkshopDevices(setDevices) {
+        const endpoint = `http://localhost:9000/admin/workshop/devices`;
+        axios.get(endpoint)
+            .then(
+                (response) => {
+                    setDevices(response.data);
+                }
+            ).catch((error) => console.log(error))
+    }
+
     static getAllSchedules(setSchedules) {
         const endpoint = `http://localhost:9000/admin/schedules`;
         axios.get(endpoint)

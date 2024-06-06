@@ -9,23 +9,26 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
 
 export default function PublicDevices() {
-  const {userData, updateUserData} = useUserDataContext();
+  const {userData} = useUserDataContext();
   const [devices, setDevices] = useState("")
-
+  
   useEffect(() => {
-    if(userData.user !== undefined && devices === "") {
-      if (userData.user.role === "Admin") {
+    if(userData.role !== undefined && devices === "") {
+      if (userData.role === "Admin") {
         Device.getAllDevices(setDevices);
-      } else Device.getUserDevices(userData.user.id, userData.user.role, setDevices);
+      } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
     }
   }, [userData, devices])
 
   function listRender(devices) {
-    if(devices !== "" && userData.user.role !== "Admin") {
+    if(devices !== "" && userData.role !== "Admin") {
       return <PublicDevicesList devices={devices} />
-    } else if(devices !== "" && userData.user.role === "Admin") {
+    } else if(devices !== "" && userData.role === "Admin") {
       return <AdminDevicesTable devices={devices} />
-    } else return <p>Aguardando dados...</p>;
+    } else {
+      console.log(devices)
+      return <p>Aguardando dados...</p>;
+    }
   }
   
   return (

@@ -19,6 +19,7 @@ import SinglePickup from "../pages/User/SinglePickup";
 import UserLayout from "../layout/UserLayout";
 import { SettingsView } from "../pages/User/SettingsView";
 import ManageReturnProcess from "../pages/Admin/ManageReturnProcess";
+import Workshop from "../pages/Admin/Workshop";
 
 export default function AdminRoutes() {
   return (
@@ -39,6 +40,7 @@ export default function AdminRoutes() {
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
+          <Route path={"/workshop"} element={<Workshop/>} />
           <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
         </Routes>

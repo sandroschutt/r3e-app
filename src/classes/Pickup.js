@@ -6,7 +6,6 @@ export default class Pickup {
     axios.get(endpoint).then(
         (response) => {
             setSchedule(response.data);
-            console.log(response.data);
         }
     ).catch((error) => console.log(error));
   }
