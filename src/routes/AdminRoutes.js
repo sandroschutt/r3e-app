@@ -9,7 +9,6 @@ import { UserDataContext } from "../context/UserDataContext";
 import Dashboard from "../pages/Admin/Dashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageStudents from "../pages/Admin/ManageStudents";
-import ManageReturncategories from "../pages/Admin/ManageReturncategories";
 import PublicDevices from "../pages/User/PublicDevices";
 import SingleDevices from "../pages/User/SingleDevices";
 import Pickups from "../pages/User/Pickups";
@@ -19,6 +18,8 @@ import MapView from "../pages/User/MapView";
 import SinglePickup from "../pages/User/SinglePickup";
 import UserLayout from "../layout/UserLayout";
 import { SettingsView } from "../pages/User/SettingsView";
+import ManageReturnProcess from "../pages/Admin/ManageReturnProcess";
+import Workshop from "../pages/Admin/Workshop";
 import Integrations from "../pages/User/Integrations";
 
 export default function AdminRoutes() {
@@ -28,17 +29,19 @@ export default function AdminRoutes() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<ManageUsers />} />
+          <Route path="/users/:id" element={<p>Single user</p>} />
           <Route path="/students" element={<ManageStudents />} />
           <Route
             path="/recycling-settings"
-            element={<ManageReturncategories />}
+            element={<ManageReturnProcess />}
           />
           <Route path="/devices" element={<PublicDevices />} />
           <Route path="/devices/:id" element={<SingleDevices />} />
           <Route path={"/pickups"} element={<Pickups />} />
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
-          <Route path={"/pickup-location"} element={<SinglePickupLocation />} />
+          <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
+          <Route path={"/workshop"} element={<Workshop/>} />
           <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>

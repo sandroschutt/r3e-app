@@ -22,7 +22,7 @@ export default function PickupLocations() {
     if(locations !== "" && location === "") {
       setLocation(locations[0])
     }
-  }, [locations]);
+  }, [locations, location]);
 
   return (
     <Row id="pickup-locations-view" className={"flex-column"}>

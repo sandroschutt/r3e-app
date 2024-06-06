@@ -14,7 +14,6 @@ export default class User {
   }
 
   async getUserData(updateUserData) {
-    // service makes a GET request to fetch user data
     try {
       axios
         .get(`http://localhost:9000/${this.role}/${this.id}/data`)
@@ -38,13 +37,12 @@ export default class User {
     // service makes a DELETE request to fetch user data
   }
 
-  getUserSchedules(setSchedules, setSchedule) {
+  getUserSchedules(setSchedules) {
     try {
       axios
         .get(`http://localhost:9000/user/${this.id}/schedules`)
         .then((response) => {
           setSchedules(response.data);
-          setSchedule(response.data[0])
         });
     } catch (error) {
       return error.message;

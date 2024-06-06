@@ -5,66 +5,71 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { Col, Row } from "react-bootstrap";
 import { NotificationsModal } from "../Modals";
 import { useNavigate } from "react-router-dom";
+import { validateDate } from "../../validations/validateDate";
 
-export function UserList() {
-  const data = getListData();
+export function UserList(props) {
+  const users = props.users;
+  const setUser = props.setUser;
+
+  if (users !== "") {
+    return (
+      <div className="public-devices">
+        <div className="list">
+          <ul className="ps-0 pe-1">
+            {users.map((user, index) => {
+              return (
+                <li
+                  key={index}
+                  className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                  onClick={() => {
+                    setUser(user)
+                  }}
+                >
+                  <h6 className="mb-0">{user.name}</h6>
+                  <div className="col-12 d-flex">
+                    <p className="mb-0">
+                      <strong>Data:</strong>
+                      <span>{validateDate(user.createdAt)}</span>
+                      <strong>Função:</strong>
+                      <span>{user.role}</span>
+                    </p>
+                    <p className="mb-0">
+                      <strong>Status:</strong>
+                      <span>{user.active ? "ativo" : "inativo"}</span>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}
+
+export function StudentsList(props) {
+  const students = props.students;
 
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="ps-0 pe-1">
-          {data.map((item, index) => {
+          {students.map((student, index) => {
             return (
               <li
                 key={index}
                 className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                 onClick={() => {
-                  alert("Mus display single user in a modal or static view");
+                  props.setStudent(student);
                 }}
               >
-                <h6 className="mb-0">User Name</h6>
-                <div className="col-12 d-flex">
-                  <p className="mb-0">
-                    <strong>Data:</strong>
-                    <span>31/12/1999</span>
-                    <strong>Função:</strong>
-                    <span>cliente</span>
-                  </p>
-                  <p className="mb-0">
-                    <strong>Status:</strong>
-                    <span>ativo</span>
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
-export function StudentsList() {
-  const data = getListData();
-
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
-          {data.map(() => {
-            return (
-              <li
-                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
-                onClick={() => {
-                  alert("Mus display single student card view");
-                }}
-              >
-                <h5>Student Name</h5>
+                <h5>{student.name}</h5>
                 <p>
                   <strong>Status:</strong>
                   <span>ativo</span>
                   <strong>Data:</strong>
-                  <span>31/12/1999</span>
+                  <span>{validateDate(student.createdAt)}</span>
                 </p>
               </li>
             );
@@ -75,92 +80,98 @@ export function StudentsList() {
   );
 }
 
-export function PickupsList() {
-  const data = getListData();
+export function PickupsList(props) {
+  const navigate = useNavigate();
 
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
-          {data.map((item, index) => {
-            return (
-              <li
-                key={index}
-                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
-                onClick={() => {
-                  alert("Must display single pickups in modal or single view");
-                }}
-              >
-                <h6 className="col-12">Motorla Moto G2</h6>
-                <div className="col-12 d-flex">
-                  <p>
-                    <strong>Cliente:</strong>
-                    <span>Teste</span>
-                  </p>
-                  <p>
-                    <strong>Empresa:</strong>
-                    <span>Teste</span>
-                  </p>
-                  <p>
-                    <strong>Data:</strong>
-                    <span>31/12/1999</span>
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+  if (props.schedules !== "") {
+    let schedules = props.schedules;
+
+    return (
+      <div className="public-devices">
+        <div className="list">
+          <ul className="ps-0 pe-1">
+            {schedules.map((schedule, index) => {
+              return (
+                <li
+                  key={index}
+                  className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                  onClick={() => {
+                    navigate(`pickup-locations/${schedule.id}`);
+                  }}
+                >
+                  <h6 className="col-12">{schedule.device.name}</h6>
+                  <div className="col-12 d-flex">
+                    <p>
+                      <strong>Cliente:</strong><br />
+                      <span>{schedule.client.name}</span>
+                    </p>
+                    <p>
+                      <strong>Empresa:</strong><br />
+                      <span>{schedule.vendor.name}</span>
+                    </p>
+                    <p>
+                      <strong>Data:</strong><br />
+                      <span>{validateDate(schedule.dateColect)}</span>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
-export function DeviceList() {
-  const data = getListData();
+export function DeviceList(props) {
+  const navigate = useNavigate();
 
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
-          {data.map((item, index) => {
-            return (
-              <li
-                key={index}
-                className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
-                onClick={() => {
-                  alert("Must display single devices in modal or single view");
-                }}
-              >
-                <h6>Motorla Moto G2</h6>
-                <div className="col-12 d-flex">
-                  <p>
-                    <strong>Cliente:</strong>
-                    <span>Teste</span>
-                    <strong>Entrada:</strong>
-                    <span>31/12/1999</span>
-                  </p>
-                  <p>
-                    <strong>Estado:</strong>
-                    <span>bom</span>
-                  </p>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+  if (props.devices !== "") {
+    let devices = props.devices;
+    return (
+      <div className="public-devices">
+        <div className="list">
+          <ul className="ps-0 pe-1">
+            {devices.map((device, index) => {
+              return (
+                <li
+                  key={index}
+                  className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
+                  onClick={() => {
+                    navigate(`devices/${device.id}`)
+                  }}
+                >
+                  <h6>{`${device.brand.name} ${device.model.name}`}</h6>
+                  <div className="col-12 d-flex">
+                    <p>
+                      <strong>Cliente:</strong>
+                      <span>Teste</span>
+                      <strong>Entrada:</strong>
+                      <span>{validateDate(device.createdAt)}</span>
+                    </p>
+                    <p>
+                      <strong>Estado:</strong>
+                      <span>{device.state}</span>
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export function PublicDevicesList(props) {
   const navigate = useNavigate();
-
   return (
     <div className="public-devices">
       <div className="list">
         <ul className="p-0 pe-1">
-          {props.data.map((device, index) => {
+          {props.devices.map((device, index) => {
             return (
               <li
                 key={index}
@@ -287,34 +298,24 @@ export function PickupLocationsList(props) {
   }
 }
 
-export function NotificationList (props) {
+export function NotificationList(props) {
   return (
     <div className='public-devices'>
       <div className='list'>
         <ul className='ps-0 pe-1'>
           {props.data.map(() => (
-             <li
-             className='d-flex flex-column justify-content-between align-items-leaft'
-             onClick={() => NotificationsModal()}
-           >
-             <p className='mb-1'>
-               <strong>Usuário dummy</strong>
-             </p>
-             <p className='mb-0'>Primieros 39 caracteres</p>
-           </li>
+            <li
+              className='d-flex flex-column justify-content-between align-items-leaft'
+              onClick={() => NotificationsModal()}
+            >
+              <p className='mb-1'>
+                <strong>Usuário dummy</strong>
+              </p>
+              <p className='mb-0'>Primieros 39 caracteres</p>
+            </li>
           ))}
         </ul>
       </div>
     </div>
   )
-}                                          
-
-function getListData() {
-  let listData = [];
-
-  for (let i = 0; i <= 19; i++) {
-    listData.push(null);
-  }
-
-  return listData;
 }

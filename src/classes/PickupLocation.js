@@ -6,7 +6,6 @@ export default class PickupLocation {
         axios.get(endpoint).then(
             (response) => {
                 setLocations(response.data)
-                console.log(response.data)
             }
         ).catch((error) => console.log(error));
     }
