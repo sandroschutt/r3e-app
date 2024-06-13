@@ -12,11 +12,21 @@ export class Admin {
     }
 
     static getSingleUser(id = Number, setUser) {
-        const endpoint = `http://localhost:9000/user/${id}/data`;
+        const endpoint = `http://localhost:9000/admin/users/${id}`;
         axios.get(endpoint)
             .then(
                 (response) => {
                     setUser(response.data);
+                }
+            ).catch((error) => console.log(error))
+    }
+
+    static getSingleUserDevices(userId, setDevices) {
+        const endpoint = `http://localhost:9000/admin/user/${userId}/devices`;
+        axios.get(endpoint)
+            .then(
+                (response) => {
+                    setDevices(response.data);
                 }
             ).catch((error) => console.log(error))
     }
@@ -33,6 +43,16 @@ export class Admin {
 
     static getAllSchedules(setSchedules) {
         const endpoint = `http://localhost:9000/admin/schedules`;
+        axios.get(endpoint)
+            .then(
+                (response) => {
+                    setSchedules(response.data);
+                }
+            ).catch((error) => console.log(error))
+    }
+
+    static getUserSchedules(userId, setSchedules) {
+        const endpoint = `http://localhost:9000/user/${userId}/schedules`;
         axios.get(endpoint)
             .then(
                 (response) => {

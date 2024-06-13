@@ -1,0 +1,7 @@
+@import "../../../styles/mixins/cards";
+
+.user-profile--form {
+    .user-profile--form-section {
+        @include card;
+    }
+}

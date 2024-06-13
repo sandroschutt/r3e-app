@@ -1,0 +1,16 @@
+// HOVER
+@mixin baseHover {
+    &:hover {
+        cursor: pointer;
+        color: var(--palette-green);
+        opacity: .7;
+    }
+}
+
+// CLICK
+
+// KEYDOWN
+
+// KEYUP
+
+// CHANGE
