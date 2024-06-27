@@ -17,7 +17,6 @@ import SinglePickupLocation from '../pages/User/SinglePickupLocation'
 import MapView from '../pages/User/MapView'
 import { SettingsView } from '../pages/User/SettingsView'
 import SinglePickup from '../pages/User/SinglePickup'
-import Integrations from '../pages/User/Integrations'
 
 export default function UserRoutes () {
   return (
@@ -37,7 +36,6 @@ export default function UserRoutes () {
           />
           <Route path='/map' element={<MapView />} />
           <Route path='/settings' element={<SettingsView />} />
-          <Route path='/integrations' element={<Integrations />} />
         </Routes>
       </UserLayout>
     </UserDataContext>

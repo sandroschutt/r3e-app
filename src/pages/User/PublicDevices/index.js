@@ -7,18 +7,24 @@ import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
+import { useParams } from "react-router-dom";
+import { Admin } from "../../../classes/Admin";
 
 export default function PublicDevices() {
   const {userData} = useUserDataContext();
   const [devices, setDevices] = useState("")
-  
+  const params = useParams();
+
   useEffect(() => {
     if(userData.role !== undefined && devices === "") {
       if (userData.role === "Admin") {
-        Device.getAllDevices(setDevices);
+        if(params.id !== undefined) {
+          let userId = params.id;
+          Admin.getSingleUserDevices(userId, setDevices);
+        } else Device.getAllDevices(setDevices);
       } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
     }
-  }, [userData, devices])
+  }, [userData, devices, params])
 
   function listRender(devices) {
     if(devices !== "" && userData.role !== "Admin") {
@@ -26,7 +32,6 @@ export default function PublicDevices() {
     } else if(devices !== "" && userData.role === "Admin") {
       return <AdminDevicesTable devices={devices} />
     } else {
-      console.log(devices)
       return <p>Aguardando dados...</p>;
     }
   }

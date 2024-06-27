@@ -1,0 +1,51 @@
+// BACKGROUND
+@mixin backgroundImage {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+// SHADOWS
+@mixin background {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+@mixin boxShadow {
+    box-shadow: 4px 4px 4px #00000010;
+}
+
+// BORDERS
+// RADIUS
+@mixin radius-8 {
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    -ms-border-radius: 8px !important;
+    -o-border-radius: 8px !important;
+}
+
+@mixin radius-12 {
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+}
+
+@mixin radius-16 {
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+}
+
+@mixin radius-full-circle {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}

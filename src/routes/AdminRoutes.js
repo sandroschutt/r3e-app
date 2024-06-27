@@ -20,7 +20,8 @@ import UserLayout from "../layout/UserLayout";
 import { SettingsView } from "../pages/User/SettingsView";
 import ManageReturnProcess from "../pages/Admin/ManageReturnProcess";
 import Workshop from "../pages/Admin/Workshop";
-import Integrations from "../pages/User/Integrations";
+import Integrations from "../pages/Admin/Integrations";
+import UserProfile from "../pages/Admin/UserProfile";
 
 export default function AdminRoutes() {
   return (
@@ -29,7 +30,9 @@ export default function AdminRoutes() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<ManageUsers />} />
-          <Route path="/users/:id" element={<p>Single user</p>} />
+          <Route path="/users/:id" element={<UserProfile />} />
+          <Route path="/users/:id/devices" element={<PublicDevices />} />
+          <Route path="/users/:id/pickups" element={<Pickups />} />
           <Route path="/students" element={<ManageStudents />} />
           <Route
             path="/recycling-settings"

@@ -1,0 +1,49 @@
+@import "../../../styles/mixins/events";
+@import "../../../styles/mixins/effects";
+@import "../../../styles/mixins/cards";
+
+#admin--single-user--view {
+    .option-cards {
+        .option-card {
+            @include card;
+            @include baseHover;
+
+            p {
+                font-size: .9em;
+            }
+        }
+    }
+
+    .user-data--overview {
+        @include card;
+
+        ul li {
+            list-style: none;
+            margin-bottom: 1em;
+        }
+    }
+
+    .delete-user {
+        .delete-user--accordion {
+            @include card;
+
+            .accordion-header button {
+                @include radius-8;
+            }
+        }
+    }
+
+    .user-profile {
+        .profile-header {
+            @include card;
+
+            .profile-picture div {
+                width: 96px;
+                height: 96px;
+                background-color: lightblue;
+                @include radius-full-circle;
+                @include backgroundImage;
+            }
+        }
+    }
+}

@@ -1,9 +1,9 @@
 import "./style.scss";
 import UserHeader from "../../../components/UserHeader";
-import Client from "../../../classes/roles/Client";
+// import Client from "../../../classes/roles/Client";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { FilterUserPickups } from "../../../components/Lists/Flters";
 import { UserPickupsList } from "../../../components/Lists";
@@ -19,13 +19,22 @@ import { validateDate } from "../../../validations/validateDate";
 
 export default function Pickups() {
   const { userData } = useUserDataContext();
+  const [pageTitle, setPageTitle] = useState("Minhas Coletas");
   const [schedules, setSchedules] = useState("");
   const [schedule, setSchedule] = useState("");
+  const userId = useParams();
 
   useEffect(() => {
-    if (userData !== "" && userData.role !== undefined) {
+    if (userData !== "" && userData.role !== undefined && schedules === "") {
       if (userData.role === "Admin") {
-        Admin.getAllSchedules(setSchedules);
+        if(userId.id === undefined) {
+          Admin.getAllSchedules(setSchedules);
+        } else {
+          let urlParams = new URLSearchParams(window.location.search);
+          let userName = urlParams.get('name');
+          Admin.getUserSchedules(userId.id, setSchedules);
+          setPageTitle(`Coletas de ${userName}`);
+        }
       } else {
         let user = new User(userData.id);
         user.getAllSchedules(setSchedules);
@@ -35,7 +44,7 @@ export default function Pickups() {
     if(schedules !== "" && schedule === "") {
       setSchedule(schedules[0]);
     }
-  }, [userData, schedules, schedule]);
+  }, [userData, userId, schedules, schedule]);
 
   function renderSchedules(schedules) {
     if (schedules !== "") {
@@ -65,7 +74,7 @@ export default function Pickups() {
   return (
     <Row id="pickups-view" className="flex-column">
       <Col>
-        <UserHeader pageTitle={"Minhas Coletas"} />
+        <UserHeader pageTitle={pageTitle} />
       </Col>
       <Col>
         <FilterUserPickups />
@@ -91,7 +100,7 @@ function CardHeaderText(props) {
         <p className="details">
           <span
             onClick={() => {
-              navigate(`${props.schedule.deviceId}`)
+              navigate(`/admin/devices/${props.schedule.deviceId}`)
             }}
           >
             <strong>Ver</strong>
