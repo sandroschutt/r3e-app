@@ -57,7 +57,7 @@ function LocationCard(props) {
             <h2>{location.name}</h2>
           </Col>
           <Col className="item-body d-flex flex-column justify-content-between p-3">
-            <Row className="flex-column mb-4">
+            <Row className="flex-column mb-0">
               <p className="text-start">
                 <strong>Descrição:</strong> 
                 {location.description}
@@ -68,12 +68,12 @@ function LocationCard(props) {
                 {"Necessário atrelar o endereço (user->address) junto do local. Também precisa colocar a coluna 'status' em PickupLocations"}
               </p>
   
-              <p className="text-start">
+              <p className="text-start mb-2">
                 <strong>CEP:</strong> {location.cep}
               </p>
             </Row>
   
-            <Row className="d-flex column-gap-2 justify-content-between">
+            <Row className="d-flex column-gap-2 justify-content-between mb-auto">
             <Col>
                 <Button
                   variant="outline-primary"
