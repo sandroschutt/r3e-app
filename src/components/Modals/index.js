@@ -8,11 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-regular-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
-export function AdminQuickEditDeviceModal() {
+export function AdminQuickEditDeviceModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const device = props.device;
+  const [deviceName, setDeviceName] = useState(device.model.name);
+  const [deviceBrand, setDeviceBrand] = useState(device.brand.name);
+  const [deviceYear, setDeviceYear] = useState(device.model.year);
+  const [deviceState, setDeviceState] = useState(device.state);
 
   return (
     <>
@@ -20,13 +25,15 @@ export function AdminQuickEditDeviceModal() {
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Editando</Modal.Title>
+          <Modal.Title>{`Editando ${device.model.name}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
+                value={deviceName}
+                onChange={(event) => {setDeviceName(event.target.value)}}
                 placeholder="Modelo:"
                 autoFocus
               />
@@ -34,32 +41,40 @@ export function AdminQuickEditDeviceModal() {
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
+                value={deviceBrand}
+                onChange={(event) => { setDeviceBrand(event.target.value) }}
                 placeholder="Marca:"
-                autoFocus
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Control
                 type="text"
+                onChange={(event) => { setDeviceYear(event.target.value) }}
+                value={deviceYear}
                 placeholder="Ano:"
-                autoFocus
               />
             </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control
-                type="text"
-                placeholder="Estado:"
-                autoFocus
-              />
+            <Form.Group className="mb-3" controlId="userState">
+              <Form.Label>Estado:</Form.Label>
+              <Form.Select aria-label="Estado" defaultValue={deviceState} onChange={(event) => { setDeviceState(event.target.value) }}>
+                <option value={"muito-bom"} key={1}>{"Muito bom"}</option>
+                <option value={"bom"} key={2}>{"Bom"}</option>
+                <option value={"regular"} key={3}>{"Regular"}</option>
+                <option value={"ruim"} key={4}>{"Ruim"}</option>
+                <option value={"inutilizavel"} key={5}>{"Inutilizável"}</option>
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="success" onClick={() => {
+            console.log(device)
+            // handleClose();
+          }}>
+            Salvar
           </Button>
         </Modal.Footer>
       </Modal>
@@ -121,7 +136,7 @@ export function AdminAddReturnProcessModal() {
             <Form.Group className="mb-3">
               <label className="main-label mb-2">Finalidade:</label>
               <Form.Select className="mb-3" onChange={(event) => console.log(event.target.value)}>
-                 <option key={1} value={""}>reciclagem</option>
+                <option key={1} value={""}>reciclagem</option>
                 <option key={2} value={""}>desmonte</option>
                 <option key={3} value={""}>peças</option>
                 <option key={4} value={""}>recondicionamento</option>

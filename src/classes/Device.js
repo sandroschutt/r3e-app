@@ -4,9 +4,9 @@ export default class Device {
   static getAllDevices(setDevices) {
     let endpoint = `http://localhost:9000/admin/devices/`;
     axios.get(endpoint)
-    .then((response) => {
-      setDevices(response.data);
-    }).catch((error) => console.log(error));
+      .then((response) => {
+        setDevices(response.data);
+      }).catch((error) => console.log(error));
   }
 
   static getDeviceById(deviceId = Number, setDevice) {
@@ -37,5 +37,18 @@ export default class Device {
         setDevice(response.data);
       })
       .catch((error) => console.log(error));
+  }
+
+  static deleteDevices(devicesToDelete, devices, setDevices) {
+    let endpoint = `http://localhost:9000/admin/devices`;
+    axios.post(endpoint, devicesToDelete)
+      .then(function (response) {
+        console.log(response);
+        devices = devices.filter((device) => !devicesToDelete.includes(device.id))
+        setDevices(devices)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 }
