@@ -51,4 +51,19 @@ export default class Device {
         console.log(error);
       });
   }
+
+  static reserveDevices(devicesToReserve, devices, setDevices) {
+    // RESOLVER ERRO NA REQUSIÇÃO
+    // Incorrect integer value: 'reserve' for column `r3e_system_2`.`Devices`.`userId` at row 1
+    let endpoint = `http://localhost:9000/admin/devices/reserve`;
+    axios.post(endpoint, devicesToReserve)
+      .then(function (response) {
+        console.log(response);
+        devices = devices.filter((device) => !devicesToReserve.includes(device.id))
+        setDevices(devices)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 }

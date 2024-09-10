@@ -70,6 +70,11 @@ function AdminBulkActions(props) {
       console.log(props.bulkActionsItems)
       Device.deleteDevices(props.bulkActionsItems, props.devices, props.setDevices);
     }
+
+    if (action === "reservar") {
+      console.log(props.bulkActionsItems)
+      Device.reserveDevices(props.bulkActionsItems, props.devices, props.setDevices)
+    }
   }
 
   return (
