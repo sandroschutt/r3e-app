@@ -25,6 +25,29 @@ export function AddNewDeviceModal() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  /**
+   * Defines which state options to show to the user based on the current view.
+   *
+   * @param pathname The current pathname where the select option input is being loaded
+   * @return The options list based on the current view
+   */
+  function handleStateOptions(pathname = String) {
+    const stateOptions = [
+      { option: "Bom", value: 2 },
+      { option: "Regular", value: 3 },
+      { option: "Ruim", value: 4 },
+    ];
+
+    if (pathname !== "/admin/workshop") {
+      stateOptions.unshift({ option: "Muito Bom", value: 1 });
+      stateOptions.push({ option: "Inutilizável", value: 5 });
+    }
+
+    return stateOptions.map((state) => {
+      return <option key={Math.random()} value={state.value}>{state.option}</option>;
+    });
+  }
+
   function handleFormData(userId = null) {
     if (userId === "" || userId === null) return;
 
@@ -33,12 +56,12 @@ export function AddNewDeviceModal() {
       type: type,
       brandId: brand,
       modelId: model,
-      state: state, 
+      state: state,
       year: year,
-      photo1: 1
+      photo1: 1,
     };
 
-    Device.post(data);
+    Device.post(data, userData.role.toLowerCase());
   }
 
   return (
@@ -74,22 +97,22 @@ export function AddNewDeviceModal() {
                 autoFocus
               >
                 <option>Tipo</option>
-                <option value="1">Smartphone</option>
-                <option value="2">PC</option>
-                <option value="3">Notebook</option>
-                <option value="4">Chromebook</option>
-                <option value="5">Periféricos</option>
-                <option value="6">Outros</option>
+                <option key={Math.random()} value="1">Smartphone</option>
+                <option key={Math.random()} value="2">PC</option>
+                <option key={Math.random()} value="3">Notebook</option>
+                <option key={Math.random()} value="4">Chromebook</option>
+                <option key={Math.random()} value="5">Periféricos</option>
+                <option key={Math.random()} value="6">Outros</option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <SelectBrands setBrand={setBrand}/>
+              <SelectBrands setBrand={setBrand} />
             </Form.Group>
             <Form.Group className="mb-3">
-              <SelectModels setModel={setModel} setYear={setYear}/>
+              <SelectModels setModel={setModel} setYear={setYear} />
             </Form.Group>
             <Form.Group className="mb-3">
-            <Form.Select
+              <Form.Select
                 aria-label="Default select example"
                 name="state"
                 onChange={(event) => {
@@ -98,11 +121,7 @@ export function AddNewDeviceModal() {
                 autoFocus
               >
                 <option>Estado</option>
-                <option value="1">Muito Bom</option>
-                <option value="2">Bom</option>
-                <option value="3">Regular</option>
-                <option value="4">Ruim</option>
-                <option value="5">Inutilizável</option>
+                { handleStateOptions(window.location.pathname) }
               </Form.Select>
             </Form.Group>
             <FormGroup>

@@ -41,7 +41,13 @@ export default class Device {
       .catch((error) => console.log(error));
   }
 
-  static post(deviceData) {
+  /**
+   * Makes a POST request for the devices API route and redirects the user to the single device view
+   * 
+   * @param deviceData A JSON object containing the request body
+   * @param userRole The current user's role
+   * */ 
+  static post(deviceData, userRole = String) {
     let endpoint = `http://localhost:9000/admin/devices/create`;
     axios
       .post(
@@ -55,7 +61,7 @@ export default class Device {
       )
       .then((response) => {
         if(response.status === 200) {
-          window.location.href = `/admin/devices/${response.data.id}`;
+          window.location.href = `/${userRole}/devices/${response.data.id}`;
         } else throw new Error('Erro na requisição')
       })
       .catch((error) => console.log(error));
