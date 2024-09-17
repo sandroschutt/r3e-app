@@ -5,7 +5,7 @@
 import axios from "axios";
 
 export default class User {
-  constructor(id = Number | String) {
+  constructor(id = String | Number | null) {
     this.id = id;
   }
 
@@ -25,8 +25,28 @@ export default class User {
     }
   }
 
-  postUserData() {
-    // service makes a POST request to fetch user data
+  /**
+   * Makes a User POST request to the API
+   *
+   * @param userData A JSON object containing the new user's data
+   * @return The response status and message
+   */
+  async create(userData = JSON) {
+    let endpoint = `http://localhost:9000/admin/users/create`;
+
+    axios
+      .post(endpoint, userData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response);
+          // window.location.href = `/${userRole}/users/${response.data.id}`;
+        } else throw new Error("Erro na requisição");
+      })
+      .catch((error) => console.log(error));
   }
 
   putUserData() {

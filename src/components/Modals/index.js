@@ -13,6 +13,205 @@ import { FormGroup } from "react-bootstrap";
 import { SelectBrands } from "../forms/Select/SelectBrands";
 import { SelectModels } from "../forms/Select/SelectModels";
 import ReturnProcess from "../../classes/ReturnProcess";
+import User from "../../classes/User";
+
+export function AddNewUserModal() {
+  const user = new User();
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // User info
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("2");
+
+  // User document
+  const [docType, setDocType] = useState("rg");
+  const [docNumber, setDocNumber] = useState("");
+
+  // User address
+  const [zipcode, setZipcode] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+
+  function handleFormSubmit() {
+    let formData = {
+      info: {
+        name: name,
+        email: email,
+        phone: phone,
+        role: role,
+      },
+      document: {
+        type: docType,
+        documentNumber: docNumber,
+      },
+      address: {
+        zipcode: zipcode,
+        street: street,
+        city: city,
+        state: state,
+      },
+    };
+
+    if (
+      formData.info.name === "" ||
+      formData.info.email === "" ||
+      formData.info.phone === "" ||
+      formData.document.docNumber === "" ||
+      formData.address.zipcode === "" ||
+      formData.address.street === "" ||
+      formData.address.city === "" ||
+      formData.address.state === ""
+    ) {
+      alert(
+        "Para criar um novo usuário é necessário preencher completamente o formulário."
+      );
+      console.log(formData);
+      return;
+    }
+
+    user.create(formData);
+  }
+
+  return (
+    <>
+      <Button className="btn-success" onClick={handleShow}>
+        Novo usuário +
+      </Button>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Novo usuário</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form
+            id="new-user-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              handleFormSubmit();
+            }}
+          >
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="name"
+                type="text"
+                placeholder="Nome:"
+                onChange={(event) => setName(event.target.value)}
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="E-mail:"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="phone"
+                type="text"
+                placeholder="Celular:"
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-5">
+              <Form.Label htmlFor="role">Função:</Form.Label>
+              <Form.Select
+                name="role"
+                defaultValue={"2"}
+                onChange={(event) => setRole(event.target.value)}
+              >
+                <option value="2">
+                  Cliente
+                </option>
+                <option value="3">Empresa</option>
+                <option value="4">ONG</option>
+                <option value="5">Escola</option>
+              </Form.Select>
+            </Form.Group>
+            <h5>Documento</h5>
+            <hr />
+            <Form.Select
+              name="doctype"
+              className="mb-3"
+              defaultValue={"rg"}
+              onChange={(event) => setDocType(event.target.value)}
+              required
+            >
+              <option value="rg" key="rg">
+                --RG
+              </option>
+              <option value="cpf" key="cpf">
+                --CPF
+              </option>
+              <option value="cpf" key="cnpj">
+                --CNPJ
+              </option>
+            </Form.Select>
+            <Form.Control
+              type="text"
+              name="docnumber"
+              id="docNumber"
+              className="mb-5"
+              placeholder="Nº:"
+              onChange={(event) => setDocNumber(event.target.value)}
+              required
+            />
+            <h5>Endereço</h5>
+            <hr />
+            <Form.Control
+              type="text"
+              name="zipcode"
+              id="zipcode"
+              className="mb-3"
+              onChange={(event) => setZipcode(event.target.value)}
+              maxLength={9}
+              placeholder="CEP:"
+            />
+            <Form.Control
+              type="text"
+              name="street"
+              id="street"
+              className="mb-3"
+              placeholder="Rua e número:"
+              onChange={(event) => setStreet(event.target.value)}
+            />
+            <Form.Control
+              type="text"
+              name="city"
+              id="city"
+              className="mb-3"
+              placeholder="Cidade:"
+              onChange={(event) => setCity(event.target.value)}
+            />
+            <Form.Control
+              type="text"
+              name="state"
+              className="mb-3"
+              placeholder="Estado:"
+              onChange={(event) => setState(event.target.value)}
+              maxLength={2}
+            />
+            <Form.Group>
+              <Button className="me-3" variant="danger" onClick={handleClose}>
+                Cancelar
+              </Button>
+              <Button type="submit" variant="primary">
+                Registrar
+              </Button>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 
 export function AddNewDeviceModal() {
   const [show, setShow] = useState(false);
@@ -245,7 +444,7 @@ export function AdminAddReturnProcessModal() {
   const handleShow = () => setShow(true);
 
   function handleFormData() {
-    if(description === "") {
+    if (description === "") {
       alert("Existem valores ausentes no formulário!");
       return;
     }

@@ -3,9 +3,10 @@ import { UsersFilter } from "../../../components/Lists/Flters";
 import { UserList } from "../../../components/Lists";
 import { AdminUsersPreview } from "../../../components/Previews";
 import UserHeader from "../../../components/UserHeader";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Admin } from "../../../classes/Admin";
+import { AddNewUserModal } from "../../../components/Modals";
 
 export default function ManageUsers() {
   const [users, setUsers] = useState("");
@@ -17,9 +18,9 @@ export default function ManageUsers() {
     }
 
     if (users !== "" && user === "") {
-      setUser(users[0])
+      setUser(users[0]);
     }
-  }, [users, user])
+  }, [users, user]);
 
   return (
     <Row id="admin-users--view" className="flex-column">
@@ -27,14 +28,18 @@ export default function ManageUsers() {
         <UserHeader pageTitle={"Usuários"} />
       </Col>
       <Col className="admin-users--filters">
-        <UsersFilter />
+        <Row className="justify-content-between pb-3">
+          <Col>
+            <UsersFilter />
+          </Col>
+          <Col style={{textAlign: "right"}}>
+            <AddNewUserModal />
+          </Col>
+        </Row>
       </Col>
       <Row className="admin-users--items ps-0">
         <Col className="admin-users--list col-5">
-          <UserList
-            users={users}
-            setUser={setUser}
-          />
+          <UserList users={users} setUser={setUser} />
         </Col>
         <Col className="ps-0 col-7">
           <AdminUsersPreview
