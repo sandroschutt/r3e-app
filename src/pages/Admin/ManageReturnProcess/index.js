@@ -25,9 +25,9 @@ export default function ManageReturnProcess() {
                 </Row>
                 <Row className="manage-return-categories--view w-50 flex-column gap-5">
                     {
-                        returnProcesses.map((rp) => {
+                        returnProcesses.map((rp, index) => {
                             return (
-                                <Col className="manage-return-categories--category">
+                                <Col key={index} className="manage-return-categories--category">
                                     <h5>{rp.finality.charAt(0).toUpperCase() + rp.finality.slice(1) + ":"}</h5>
                                     <DefaultSelectors returnProcess={rp} />
                                 </Col>

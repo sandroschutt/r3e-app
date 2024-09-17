@@ -12,6 +12,7 @@ import { useUserDataContext } from "../../context/UserDataContext";
 import { FormGroup } from "react-bootstrap";
 import { SelectBrands } from "../forms/Select/SelectBrands";
 import { SelectModels } from "../forms/Select/SelectModels";
+import ReturnProcess from "../../classes/ReturnProcess";
 
 export function AddNewDeviceModal() {
   const [show, setShow] = useState(false);
@@ -44,7 +45,11 @@ export function AddNewDeviceModal() {
     }
 
     return stateOptions.map((state) => {
-      return <option key={Math.random()} value={state.value}>{state.option}</option>;
+      return (
+        <option key={Math.random()} value={state.value}>
+          {state.option}
+        </option>
+      );
     });
   }
 
@@ -97,12 +102,24 @@ export function AddNewDeviceModal() {
                 autoFocus
               >
                 <option>Tipo</option>
-                <option key={Math.random()} value="1">Smartphone</option>
-                <option key={Math.random()} value="2">PC</option>
-                <option key={Math.random()} value="3">Notebook</option>
-                <option key={Math.random()} value="4">Chromebook</option>
-                <option key={Math.random()} value="5">Periféricos</option>
-                <option key={Math.random()} value="6">Outros</option>
+                <option key={Math.random()} value="1">
+                  Smartphone
+                </option>
+                <option key={Math.random()} value="2">
+                  PC
+                </option>
+                <option key={Math.random()} value="3">
+                  Notebook
+                </option>
+                <option key={Math.random()} value="4">
+                  Chromebook
+                </option>
+                <option key={Math.random()} value="5">
+                  Periféricos
+                </option>
+                <option key={Math.random()} value="6">
+                  Outros
+                </option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
@@ -121,7 +138,7 @@ export function AddNewDeviceModal() {
                 autoFocus
               >
                 <option>Estado</option>
-                { handleStateOptions(window.location.pathname) }
+                {handleStateOptions(window.location.pathname)}
               </Form.Select>
             </Form.Group>
             <FormGroup>
@@ -219,9 +236,29 @@ export function AdminDeleteDeviceModal() {
 
 export function AdminAddReturnProcessModal() {
   const [show, setShow] = useState(false);
+  const [finality, setFinality] = useState(1);
+  const [process, setProcess] = useState(1);
+  const [destination, setDestination] = useState(1);
+  const [description, setDescription] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  function handleFormData() {
+    if(description === "") {
+      alert("Existem valores ausentes no formulário!");
+      return;
+    }
+
+    let formData = {
+      description: description,
+      finality: finality,
+      process: process,
+      destination: destination,
+    };
+
+    ReturnProcess.create(formData);
+  }
 
   return (
     <>
@@ -236,27 +273,27 @@ export function AdminAddReturnProcessModal() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Nome:" autoFocus />
-            </Form.Group>
-            <Form.Group className="mb-3">
               <label className="main-label mb-2">Finalidade:</label>
               <Form.Select
+                name="finality"
                 className="mb-3"
-                onChange={(event) => console.log(event.target.value)}
+                defaultValue={1}
+                onChange={(event) => setFinality(event.target.value)}
+                required
               >
-                <option key={1} value={""}>
+                <option key={1} value={1}>
                   reciclagem
                 </option>
-                <option key={2} value={""}>
+                <option key={2} value={2}>
                   desmonte
                 </option>
-                <option key={3} value={""}>
+                <option key={3} value={3}>
                   peças
                 </option>
-                <option key={4} value={""}>
+                <option key={4} value={4}>
                   recondicionamento
                 </option>
-                <option key={5} value={""}>
+                <option key={5} value={5}>
                   reuso
                 </option>
               </Form.Select>
@@ -264,22 +301,25 @@ export function AdminAddReturnProcessModal() {
             <Form.Group className="mb-3">
               <label className="main-label mb-2">Processo:</label>
               <Form.Select
+                name="process"
                 className="mb-3"
-                onChange={(event) => console.log(event.target.value)}
+                defaultValue={1}
+                onChange={(event) => setProcess(event.target.value)}
+                required
               >
-                <option key={1} value={""}>
+                <option key={1} value={1}>
                   desmonte e reaproveitamento de materiais
                 </option>
-                <option key={2} value={""}>
+                <option key={2} value={2}>
                   desmonte e reaproveitamento de componentes
                 </option>
-                <option key={3} value={""}>
+                <option key={3} value={3}>
                   desmonte e reaproveitamento de peças
                 </option>
-                <option key={4} value={""}>
+                <option key={4} value={4}>
                   instalação de peças de terceiros
                 </option>
-                <option key={5} value={""}>
+                <option key={5} value={5}>
                   contemplar estudante com dispositivo
                 </option>
               </Form.Select>
@@ -287,16 +327,19 @@ export function AdminAddReturnProcessModal() {
             <Form.Group className="mb-3">
               <label className="main-label mb-2">Destino:</label>
               <Form.Select
+                name="destination"
                 className="mb-3"
-                onChange={(event) => console.log(event.target.value)}
+                defaultValue={1}
+                onChange={(event) => setDestination(event.target.value)}
+                required
               >
-                <option key={1} value={""}>
+                <option key={1} value={1}>
                   empresa especializada
                 </option>
-                <option key={2} value={""}>
+                <option key={2} value={2}>
                   oficina R3E
                 </option>
-                <option key={3} value={""}>
+                <option key={3} value={3}>
                   estudantes
                 </option>
               </Form.Select>
@@ -306,7 +349,13 @@ export function AdminAddReturnProcessModal() {
               controlId="exampleForm.ControlTextarea1"
             >
               <label className="main-label mb-2">Descrição:</label>
-              <Form.Control as="textarea" rows={8} />
+              <Form.Control
+                name="description"
+                as="textarea"
+                rows={8}
+                onChange={(event) => setDescription(event.target.value)}
+                required
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -314,7 +363,7 @@ export function AdminAddReturnProcessModal() {
           <Button variant="secondary" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="success" onClick={handleClose}>
+          <Button variant="success" onClick={() => handleFormData()}>
             Adicionar
           </Button>
         </Modal.Footer>
