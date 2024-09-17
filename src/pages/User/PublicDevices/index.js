@@ -28,7 +28,7 @@ export default function PublicDevices() {
 
   function listRender(devices) {
     if(devices !== "" && userData.role !== "Admin") {
-      return <PublicDevicesList devices={devices} />
+      return <PublicDevicesList devices={devices}/>
     } else if(devices !== "" && userData.role === "Admin") {
       return <AdminDevicesTable devices={devices} />
     } else {
