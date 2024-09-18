@@ -22,9 +22,8 @@ export default class Student {
       })
       .then((response) => {
         if (!response.status === 200) {
-          throw new Error;
+          throw new Error();
         }
-
         alert(`Estudante ${response.data.name} criado com sucesso!`)
         window.location.reload();
       })
