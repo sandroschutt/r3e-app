@@ -6,6 +6,8 @@ import { StudentsList } from "../../../components/Lists";
 import { AdminUsersPreview } from "../../../components/Previews";
 import { useEffect, useState } from "react";
 import { Admin } from "../../../classes/Admin";
+import { AddNewStudentModal } from "../../../components/Modals";
+import Student from "../../../classes/Student";
 
 export default function ManageStudents() {
   const [students, setStudents] = useState("");
@@ -13,13 +15,13 @@ export default function ManageStudents() {
 
   useEffect(() => {
     if (students === "") {
-      Admin.getAllStudents(setStudents);
+      Student.getAll(setStudents);
     }
 
     if (students !== "" && student === "") {
       setStudent(students[0]);
     }
-  }, [students, student])
+  }, [students, student]);
 
   if (students !== "") {
     return (
@@ -30,7 +32,14 @@ export default function ManageStudents() {
 
         <Col id="admin-users--view">
           <div className="admin-users--filters">
-            <StudentsFilter />
+            <Row className="justify-content-between pb-3">
+              <Col>
+                <StudentsFilter />
+              </Col>
+              <Col style={{ textAlign: "right" }}>
+                <AddNewStudentModal />
+              </Col>
+            </Row>
           </div>
           <Row className="admin-users--items">
             <Col className="admin-users--list ps-0 col-4">
