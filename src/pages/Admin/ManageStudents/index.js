@@ -5,7 +5,6 @@ import { StudentsFilter } from "../../../components/Lists/Flters";
 import { StudentsList } from "../../../components/Lists";
 import { AdminUsersPreview } from "../../../components/Previews";
 import { useEffect, useState } from "react";
-import { Admin } from "../../../classes/Admin";
 import { AddNewStudentModal } from "../../../components/Modals";
 import Student from "../../../classes/Student";
 
