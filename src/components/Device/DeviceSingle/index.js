@@ -24,7 +24,7 @@ export default function DeviceSingle(props) {
     }
 
     if ((userData.role === "Technician" || userData.role === "Admin") && device.returnProccess !== undefined) {
-      return <SingleDeviceTechnician />;
+      return <SingleDeviceTechnician device={device} userRole={userData.role}/>;
     }
   }
 
