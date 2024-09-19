@@ -7,15 +7,15 @@ import { NotificationList } from "../Lists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import Device from "../../classes/Device";
 import { useUserDataContext } from "../../context/UserDataContext";
-import { FormGroup } from "react-bootstrap";
-import { SelectBrands } from "../forms/Select/SelectBrands";
-import { SelectModels } from "../forms/Select/SelectModels";
 import ReturnProcess from "../../classes/ReturnProcess";
 import User from "../../classes/User";
 import Student from "../../classes/Student";
 import { Admin } from "../../classes/Admin";
+import { handlePostDeviceFormSubmit, handleSelectPlaceholder, handleStateOptions } from "./helpers";
+import Device from "../../classes/Device";
+import Brands from "../../classes/Brands";
+import Models from "../../classes/Models";
 
 export function AddNewUserModal() {
   const user = new User();
@@ -259,7 +259,7 @@ export function AddNewStudentModal() {
       contact: {
         email: email,
         phone: phone,
-      }
+      },
     };
 
     Student.create(formData);
@@ -417,134 +417,185 @@ export function AddNewStudentModal() {
   );
 }
 
-export function AddNewDeviceModal() {
+export function ManageDeviceModal(props) {
   const [show, setShow] = useState(false);
   const { userData } = useUserDataContext();
   const [type, setType] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
-  const [state, setState] = useState("");
-  const [year, setYear] = useState("");
+  const [deviceState, setDeviceState] = useState("");
+
+  const [brands, setBrands] = useState([]);
+  const [models, setModels] = useState([]);
+  const [defaultValues, setDefaultValues] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  /**
-   * Defines which state options to show to the user based on the current view.
-   *
-   * @param pathname The current pathname where the select option input is being loaded
-   * @return The options list based on the current view
-   */
-  function handleStateOptions(pathname = String) {
-    const stateOptions = [
-      { option: "Bom", value: 2 },
-      { option: "Regular", value: 3 },
-      { option: "Ruim", value: 4 },
-    ];
-
-    if (pathname !== "/admin/workshop") {
-      stateOptions.unshift({ option: "Muito Bom", value: 1 });
-      stateOptions.push({ option: "Inutilizável", value: 5 });
+  useEffect(() => {
+    if (props.device !== undefined) {
+      setType(props.device.type);
+      setBrand(props.device.brandId);
+      setModel(props.device.modelId);
+      setDeviceState(props.device.state);
+      setDefaultValues(true);
     }
 
-    return stateOptions.map((state) => {
-      return (
-        <option key={Math.random()} value={state.value}>
-          {state.option}
-        </option>
-      );
-    });
-  }
+    if (brands[0] === undefined) {
+      Brands.getAll(setBrands);
+    }
 
-  function handleFormData(userId = null) {
-    if (userId === "" || userId === null) return;
+    if (models[0] === undefined) {
+      Models.getAll(setModels);
+    }
+  }, []);
 
-    let data = {
-      userId: userId,
+  function handleFormSubmit(event) {
+    event.preventDefault();
+
+    if (props.type === "add") {
+      handlePostDeviceFormSubmit(userData.id, userData.role, {
+        userId: userData.id,
+        type: type,
+        brandId: brand,
+        modelId: model,
+        state: deviceState,
+        photo1: 1,
+      });
+
+      return;
+    }
+
+    Device.update(userData.id, userData.role, props.device.id, {
+      userId: props.device.userId,
       type: type,
       brandId: brand,
       modelId: model,
-      state: state,
-      year: year,
-      photo1: 1,
-    };
+      state: deviceState,
+    });
 
-    Device.post(data, userData.role.toLowerCase());
+    return;
+  }
+
+  function handleButtonStyle() {
+    if (props.type === "add") {
+      return (
+        <Button
+          variant="success"
+          className="my-3"
+          style={{ width: "12%" }}
+          onClick={handleShow}
+        >
+          Novo Dispositivo +
+        </Button>
+      );
+    }
+
+    return (
+      <FontAwesomeIcon className="action" icon={faEdit} onClick={handleShow} />
+    );
   }
 
   return (
     <>
-      <Button
-        variant="success"
-        className="my-3"
-        style={{ width: "12%" }}
-        onClick={handleShow}
-      >
-        Novo Dispositivo +
-      </Button>
-
+      {handleButtonStyle()}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Novo Dispositivo</Modal.Title>
+          <Modal.Title>{props.type === "add" ? "Novo Dispositivo" : `Editando: ${props.device.model.name}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
             id="new-device"
             onSubmit={(event) => {
-              event.preventDefault();
-              handleFormData(userData.id);
+              handleFormSubmit(event);
             }}
           >
             <Form.Group className="mb-3">
+              <Form.Label htmlFor="type">Tipo:</Form.Label>
               <Form.Select
                 aria-label="Default select example"
                 name="type"
+                defaultValue={type}
                 onChange={(event) => {
                   setType(event.target.value);
                 }}
                 autoFocus
               >
-                <option>Tipo</option>
-                <option key={Math.random()} value="1">
+                { handleSelectPlaceholder(props.type === "edit") }
+                <option key={Math.random()} value="smartphone">
                   Smartphone
                 </option>
-                <option key={Math.random()} value="2">
+                <option key={Math.random()} value="PC">
                   PC
                 </option>
-                <option key={Math.random()} value="3">
+                <option key={Math.random()} value="notebook">
                   Notebook
                 </option>
-                <option key={Math.random()} value="4">
+                <option key={Math.random()} value="chromebook">
                   Chromebook
                 </option>
-                <option key={Math.random()} value="5">
+                <option key={Math.random()} value="perifericos">
                   Periféricos
                 </option>
-                <option key={Math.random()} value="6">
+                <option key={Math.random()} value="outros">
                   Outros
                 </option>
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <SelectBrands setBrand={setBrand} />
+              <Form.Label htmlFor="brand">Marca:</Form.Label>
+              <Form.Select
+                aria-label="Seleciona a marca do dispositivo"
+                name="brand"
+                onChange={(event) => setBrand(event.target.value)}
+                defaultValue={brand}
+              >
+                { handleSelectPlaceholder(props.type === "edit") }
+                {brands.map((brand, index) => {
+                  return (
+                    <option key={index + 1} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <SelectModels setModel={setModel} setYear={setYear} />
+              <Form.Label htmlFor="model">Modelo:</Form.Label>
+              <Form.Select
+                aria-label="Seleciona a marca do dispositivo"
+                name="brand"
+                defaultValue={model}
+                onChange={(event) => {
+                  let modelData = JSON.parse(event.target.value);
+                  setModel(modelData.id);
+                }}
+              >
+                { handleSelectPlaceholder(props.type === "edit") }
+                {models.map((model, index) => {
+                  return (
+                    <option key={index} value={model.id}>
+                      {model.name}
+                    </option>
+                  );
+                })}
+              </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
+              <Form.Label htmlFor="state">Estado:</Form.Label>
               <Form.Select
                 aria-label="Default select example"
                 name="state"
                 onChange={(event) => {
-                  setState(event.target.value);
+                  setDeviceState(event.target.value);
                 }}
-                autoFocus
+                defaultValue={deviceState}
               >
-                <option>Estado</option>
+                { handleSelectPlaceholder(props.type === "edit") }
                 {handleStateOptions(window.location.pathname)}
               </Form.Select>
             </Form.Group>
-            <FormGroup>
+            <Form.Group>
               <Button
                 variant="secondary"
                 className="me-2"
@@ -555,52 +606,9 @@ export function AddNewDeviceModal() {
               <Button variant="primary" type="submit">
                 Save Changes
               </Button>
-            </FormGroup>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-}
-
-export function AdminQuickEditDeviceModal() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <FontAwesomeIcon className="action" icon={faEdit} onClick={handleShow} />
-
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Editando</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Modelo:" autoFocus />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Marca:" autoFocus />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Ano:" autoFocus />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Control type="text" placeholder="Estado:" autoFocus />
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

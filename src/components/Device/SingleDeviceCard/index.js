@@ -3,10 +3,11 @@ import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Row } from "react-bootstrap";
+import { ManageDeviceModal } from "../../Modals";
 
 export default function SingleDeviceCard(props) {
-  function renderButtons(role) {
-    if (role !== "client") {
+  function renderButtons(role, device) {
+    if (role !== "Client") {
       return (
         <>
           <Button
@@ -88,12 +89,12 @@ export default function SingleDeviceCard(props) {
             </p>
 
             <div className="single-device--actions d-flex">
-              {renderButtons(props.role)}
+              {renderButtons(props.role, device)}
             </div>
           </div>
         </Col>
-        <div className="single-device--badge d-flex align-items-center bg-dark text-center">
-          <p className="w-100 mb-0 text-white">C</p>
+        <div className="single-device--edit d-flex align-items-top text-center">
+            <ManageDeviceModal type={"edit"} device={device} />
         </div>
       </Row>
     );

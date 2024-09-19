@@ -1,191 +1,208 @@
+import { useState } from "react";
+import { Form } from "react-bootstrap";
+
 export function DeviceSpecifications() {
+  // Specs
+  const [manufacturer, setManufacturer] = useState("");
+  const [family, setFamily] = useState("");
+  const [generation, setGeneration] = useState("");
+
+  // RAM
+  const [ramType, setRamType] = useState("");
+  const [ramMemory, setRamMemory] = useState("");
+
+  // GPU
+  const [gpu, setGpu] = useState("");
+
+  // Display
+  const [screenType, setScreenType] = useState("");
+  const [screenSize, setScreenSize] = useState("");
+
+  // Battery
+  const [battery, setBattery] = useState("");
+
+  // Capacity
+  const [capacity, setCapacity] = useState("");
+
   return (
-    <div>
-      <h4>Especificações</h4>
-      <p>
-        <label className="main-label">Processador:</label>
-        <select name="manufacturer">
-          <option>Intel</option>
-          <option>AMD</option>
-          <option>Qualcom</option>
-          <option>MediaTek</option>
-          <option>Apple</option>
-        </select>
+    <Form.Group className="w-100 mb-5 p-5 border border">
+      <h2 className="mb-4">Especificações</h2>
+        <Form.Label className="main-label">Processador:</Form.Label>
+        <Form.Select className="mb-3" name="manufacturer" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>Intel</option>
+          <option value={"tobeset"}>AMD</option>
+          <option value={"tobeset"}>Qualcom</option>
+          <option value={"tobeset"}>MediaTek</option>
+          <option value={"tobeset"}>Apple</option>
+        </Form.Select>
 
-        <select name="family">
-          <option>Atom</option>
-          <option>Pentium</option>
-          <option>i3</option>
-          <option>i5</option>
-          <option>i7</option>
-          <option>i9</option>
-        </select>
+        <Form.Select className="mb-3" name="family" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>Atom</option>
+          <option value={"tobeset"}>Pentium</option>
+          <option value={"tobeset"}>i3</option>
+          <option value={"tobeset"}>i5</option>
+          <option value={"tobeset"}>i7</option>
+          <option value={"tobeset"}>i9</option>
+        </Form.Select>
 
-        <select name="generation">
-          <option>1ª Geração</option>
-          <option>2ª Geração</option>
-          <option>3ª Geração</option>
-          <option>4ª Geração</option>
-          <option>5ª Geração</option>
-          <option>6ª Geração</option>
-          <option>7ª Geração</option>
-          <option>8ª Geração</option>
-          <option>9ª Geração</option>
-        </select>
-      </p>
+        <Form.Select className="mb-3" name="generation" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>1ª Geração</option>
+          <option value={"tobeset"}>2ª Geração</option>
+          <option value={"tobeset"}>3ª Geração</option>
+          <option value={"tobeset"}>4ª Geração</option>
+          <option value={"tobeset"}>5ª Geração</option>
+          <option value={"tobeset"}>6ª Geração</option>
+          <option value={"tobeset"}>7ª Geração</option>
+          <option value={"tobeset"}>8ª Geração</option>
+          <option value={"tobeset"}>9ª Geração</option>
+        </Form.Select>
 
-      <p>
-        <label className="main-label">RAM:</label>
-        <select name="ram-type">
-          <option>DDR3</option>
-          <option>DDR4</option>
-          <option>DDR5</option>
-        </select>
+        <Form.Label className="main-label">RAM:</Form.Label>
+        <Form.Select className="mb-3" name="ram-type" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>DDR3</option>
+          <option value={"tobeset"}>DDR4</option>
+          <option value={"tobeset"}>DDR5</option>
+        </Form.Select>
 
-        <select name="ram-memory">
-          <option>4GB</option>
-          <option>6GB</option>
-          <option>8GB</option>
-          <option>12GB</option>
-          <option>16GB</option>
-          <option>+16GB</option>
-        </select>
+        <Form.Select className="mb-3" name="ram-memory" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>4GB</option>
+          <option value={"tobeset"}>6GB</option>
+          <option value={"tobeset"}>8GB</option>
+          <option value={"tobeset"}>12GB</option>
+          <option value={"tobeset"}>16GB</option>
+          <option value={"tobeset"}>+16GB</option>
+        </Form.Select>
 
-        <labl>GPU:</labl>
-        <select name="gpu">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
-      </p>
+        <Form.Label>GPU:</Form.Label>
+        <Form.Select className="mb-3" name="gpu" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
 
-      <p>
-        <label className="main-label">Display:</label>
-        <select name="screen-type">
-          <option>TCN</option>
-          <option>IPS-LCD</option>
-          <option>LED</option>
-          <option>Outros</option>
-        </select>
+        <Form.Label className="main-label">Display:</Form.Label>
+        <Form.Select className="mb-3" name="screen-type" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>TN</option>
+          <option value={"tobeset"}>IPS-LCD</option>
+          <option value={"tobeset"}>LED</option>
+          <option value={"tobeset"}>Outros</option>
+        </Form.Select>
 
-        <select name="screen-size">
-          <option>14"</option>
-          <option>15"</option>
-          <option>17"</option>
-          <option>+17"</option>
-        </select>
-      </p>
+        <Form.Select className="mb-3" name="screen-size" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>14"</option>
+          <option value={"tobeset"}>15"</option>
+          <option value={"tobeset"}>17"</option>
+          <option value={"tobeset"}>+17"</option>
+        </Form.Select>
 
-      <p>
-        <label className="main-label">Bateria:</label>
-        <select name="battery">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+        <Form.Label className="main-label">Bateria:</Form.Label>
+        <Form.Select className="mb-3" name="battery" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
 
-        <label>Capacidade:</label>
-        <select name="screen-size">
-          <option>6500MAh</option>
-          <option>7000MAh</option>
-          <option>7500MAh</option>
-          <option>8000MAh</option>
-          <option>+8000MAh</option>
-        </select>
-      </p>
-    </div>
+        <Form.Label>Capacidade:</Form.Label>
+        <Form.Select className="mb-3" name="screen-size" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>6500MAh</option>
+          <option value={"tobeset"}>7000MAh</option>
+          <option value={"tobeset"}>7500MAh</option>
+          <option value={"tobeset"}>8000MAh</option>
+          <option value={"tobeset"}>+8000MAh</option>
+        </Form.Select>
+    </Form.Group>
   );
 }
 
 export function DeviceTests() {
   return (
-    <div>
-      <h4>Testes</h4>
+    <Form.Group className="w-100 mb-5 p-5 border">
+      <h2 className="mb-4">Testes</h2>
       <p>
-        <label className="main-label">Liga:</label>
-        <select name="power-status">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+        <Form.Label className="main-label">Liga:</Form.Label>
+        <Form.Select className="mb-3" name="power-status" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
       </p>
 
       <p>
-        <label className="main-label">Internet:</label>
-        <select name="ram-type">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+        <Form.Label className="main-label">Internet:</Form.Label>
+        <Form.Select className="mb-3" name="ram-type" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
 
-        <select name="ram-memory">
-          <option>3GHz</option>
-          <option>4GHz</option>
-          <option>5GHz</option>
-        </select>
+        <Form.Select className="mb-3" name="ram-memory" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>3GHz</option>
+          <option value={"tobeset"}>4GHz</option>
+          <option value={"tobeset"}>5GHz</option>
+        </Form.Select>
       </p>
 
       <p>
-        <label className="main-label">Foramatado:</label>
-        <select name="disk-status">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+        <Form.Label className="main-label">Foramatado:</Form.Label>
+        <Form.Select className="mb-3" name="disk-status" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
       </p>
 
       <p>
-      <label className="main-label">Scaneado:</label>
-        <select name="disk-analisys">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+      <Form.Label className="main-label">Scaneado:</Form.Label>
+        <Form.Select className="mb-3" name="disk-analisys" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
       </p>
 
       <p>
-        <label className="main-label">Danos:</label>
-        <select name="damage">
-          <option>SIM</option>
-          <option>NÃO</option>
-        </select>
+        <Form.Label className="main-label">Danos:</Form.Label>
+        <Form.Select className="mb-3" name="damage" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>SIM</option>
+          <option value={"tobeset"}>NÃO</option>
+        </Form.Select>
 
-        <select name="damage-part">
-          <option>Teclado</option>
-          <option>Touchpad</option>
-          <option>Tela</option>
-          <option>Bootloader</option>
-          <option>USB</option>
-          <option>HDMI</option>
-          <option>VGA</option>
-          <option>Cabo de energia</option>
-          <option>Carregador</option>
-          <option>Placa de áudio</option>
-          <option>Placa de rede</option>
-        </select>
+        <Form.Select className="mb-3" name="damage-part" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>Teclado</option>
+          <option value={"tobeset"}>Touchpad</option>
+          <option value={"tobeset"}>Tela</option>
+          <option value={"tobeset"}>Bootloader</option>
+          <option value={"tobeset"}>USB</option>
+          <option value={"tobeset"}>HDMI</option>
+          <option value={"tobeset"}>VGA</option>
+          <option value={"tobeset"}>Cabo de energia</option>
+          <option value={"tobeset"}>Carregador</option>
+          <option value={"tobeset"}>Placa de áudio</option>
+          <option value={"tobeset"}>Placa de rede</option>
+        </Form.Select>
       </p>
-    </div>
+    </Form.Group>
   );
 }
 
 export function DeviceEvaluation() {
   return (
-    <div>
-      <h4>Avaliação</h4>
+    <Form.Group className="w-100 mb-5 p-5 border">
+      <h2 className="mb-4">Avaliação</h2>
       <p>
-        <label className="main-label">Estado:</label>
-        <select name="device-conditions">
-          <option>Péssimo</option>
-          <option>Ruim</option>
-          <option>Regular</option>
-          <option>Bom</option>
-          <option>Ótimo</option>
-        </select>
+        <Form.Label className="main-label">Estado:</Form.Label>
+        <Form.Select className="mb-3" name="device-conditions" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>Péssimo</option>
+          <option value={"tobeset"}>Ruim</option>
+          <option value={"tobeset"}>Regular</option>
+          <option value={"tobeset"}>Bom</option>
+          <option value={"tobeset"}>Ótimo</option>
+        </Form.Select>
       </p>
 
       <p>
-        <label className="main-label">TR:</label>
-        <select name="device-return">
-          <option>descarte</option>
-          <option>reaproveitamento</option>
-          <option>remoção de peças</option>
-          <option>reuso</option>
-        </select>
+        <Form.Label className="main-label">TR:</Form.Label>
+        <Form.Select className="mb-3" name="device-return" onChange={(event) => console.log(event.target.value)}>
+          <option value={"tobeset"}>descarte</option>
+          <option value={"tobeset"}>reaproveitamento</option>
+          <option value={"tobeset"}>remoção de peças</option>
+          <option value={"tobeset"}>reuso</option>
+        </Form.Select>
       </p>
-    </div>
+    </Form.Group>
   );
 }

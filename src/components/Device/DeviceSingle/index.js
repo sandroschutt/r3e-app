@@ -4,8 +4,10 @@ import SingleDeviceClient from "../SingleDeviceClient";
 import SingleDeviceTechnician from "../SingleDeviceTechnician";
 import { useEffect, useState } from "react";
 import Device from "../../../classes/Device";
+import { useUserDataContext } from "../../../context/UserDataContext";
 
 export default function DeviceSingle(props) {
+  const { userData } = useUserDataContext();
   const [device, setDevice] = useState("");
   let deviceId = window.location.pathname.split("/");
   deviceId = parseInt(deviceId[deviceId.length -1]);
@@ -14,21 +16,21 @@ export default function DeviceSingle(props) {
     if(device === "") {
       Device.getDeviceById(deviceId, setDevice);
     }
-  }, [device])
+  }, [device, deviceId])
 
   function defineTemplate(device) {
-    if (props.role === "client" && device.returnProccess !== undefined) {
+    if (userData.role === "Client" && device.returnProccess !== undefined) {
       return <SingleDeviceClient description={device.returnProccess.description} />;
     }
 
-    if (props.role === "technician" && device.returnProccess !== undefined) {
+    if ((userData.role === "Technician" || userData.role === "Admin") && device.returnProccess !== undefined) {
       return <SingleDeviceTechnician />;
     }
   }
 
   return (
     <div className="single-device">
-      <SingleDeviceCard role={"client"} device={device}/>
+      <SingleDeviceCard role={userData.role} device={device}/>
       { defineTemplate(device) }
     </div>
   );

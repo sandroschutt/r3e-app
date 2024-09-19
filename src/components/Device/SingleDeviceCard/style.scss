@@ -1,5 +1,3 @@
-@import "../../../styles/mixins/home";
-
 .single-device--card {
   img {
     width: 100%;
@@ -11,11 +9,14 @@
     }
   }
 
-  .single-device--badge {
-    @include radius-12;
+  .single-device--edit {
     height: 72px;
     width: 72px;
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 1.5rem;
+
+    &:hover {
+      cursor: pointer;
+      color: green!important;
+    }
   }
 }

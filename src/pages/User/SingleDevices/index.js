@@ -5,7 +5,7 @@ export default function SingleDevices() {
   return (
     <Row>
       <h1 className="pb-5">{"Dispositivo"}</h1>
-      <DeviceSingle role={"client"}/>
+      <DeviceSingle/>
     </Row>
   );
 }

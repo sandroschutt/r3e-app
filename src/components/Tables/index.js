@@ -1,12 +1,11 @@
 import "./style.scss";
-import { Button, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validateDate } from "../../validations/validateDate";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
-  AddNewDeviceModal,
-  AdminDeleteDeviceModal,
-  AdminQuickEditDeviceModal,
+  ManageDeviceModal,
+  AdminDeleteDeviceModal
 } from "../Modals";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 
@@ -20,7 +19,7 @@ export function AdminDevicesTable(props) {
     return (
       <>
         <Row>
-          <AddNewDeviceModal />
+          <ManageDeviceModal type={"add"}/>
         </Row>
         <Row className="admin-devices-table w-100">
           <table>
@@ -72,7 +71,7 @@ export function AdminDevicesTable(props) {
                           navigate(`${deviceUrl}`);
                         }}
                       />
-                      <AdminQuickEditDeviceModal />
+                      <ManageDeviceModal type={"edit"} device={device}/>
                       <AdminDeleteDeviceModal />
                     </td>
                   </tr>
