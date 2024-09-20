@@ -1,10 +1,10 @@
 import axios from "axios";
+import Api from "./Api.js";
 
 export default class ReturnProcess {
   static getAllProcesses(setReturnProcesses) {
-    const endpoint = "http://localhost:9000/admin/return-process";
     axios
-      .get(endpoint)
+      .get(Api.endpoint("return-process"))
       .then((response) => {
         setReturnProcesses(response.data);
       })
@@ -17,16 +17,39 @@ export default class ReturnProcess {
    * @param data A JSON object containing the new Return Process' data
    */
   static create(data = JSON) {
-    let endpoint = `http://localhost:9000/admin/return-process/create`;
     axios
-      .post(endpoint, data, {
+      .post(Api.endpoint("return-process/create"), data, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
         if (response.status === 200) {
-         window.location.reload();
+          window.location.reload();
+        } else throw new Error("Erro na requisição");
+      })
+      .catch((error) => console.log(error));
+  }
+
+  /**
+   * Updates a single ReturnProcess
+   *
+   * @param id [String|Number] The current ReturnProcess' ID
+   * @param data [JSON] A JSON object containing Return Process' data to be updated
+   *
+   * @returns true on success; false on fail
+   */
+  static update(id = String | Number, data = JSON) {
+    axios
+      .post(Api.endpoint(`return-process/update/${id}`), data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Tratativa de retorno salva com sucesso!");
+          window.location.reload();
         } else throw new Error("Erro na requisição");
       })
       .catch((error) => console.log(error));
