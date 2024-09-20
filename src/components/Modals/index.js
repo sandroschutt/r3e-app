@@ -312,9 +312,9 @@ export function AddNewStudentModal() {
                 required
               >
                 <option>-- Selecione</option>
-                {schools.map((schoolUnit) => {
+                {schools.map((schoolUnit, index) => {
                   return (
-                    <option value={schoolUnit.id}>{schoolUnit.name}</option>
+                    <option key={index} value={schoolUnit.id}>{schoolUnit.name}</option>
                   );
                 })}
               </Form.Select>
@@ -448,7 +448,7 @@ export function ManageDeviceModal(props) {
     if (models[0] === undefined) {
       Models.getAll(setModels);
     }
-  }, []);
+  }, [defaultValues, brands, models, props.device]);
 
   function handleFormSubmit(event) {
     event.preventDefault();

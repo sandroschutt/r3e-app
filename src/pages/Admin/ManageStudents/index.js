@@ -3,10 +3,10 @@ import { Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
 import { StudentsFilter } from "../../../components/Lists/Flters";
 import { StudentsList } from "../../../components/Lists";
-import { AdminUsersPreview } from "../../../components/Previews";
 import { useEffect, useState } from "react";
 import { AddNewStudentModal } from "../../../components/Modals";
 import Student from "../../../classes/Student";
+import { StudentPreview } from "../../../components/Previews/StudentPreview";
 
 export default function ManageStudents() {
   const [students, setStudents] = useState("");
@@ -45,10 +45,10 @@ export default function ManageStudents() {
               <StudentsList students={students} setStudent={setStudent} />
             </Col>
             <Col className="ps-0">
-              <AdminUsersPreview
+              <StudentPreview
                 user={student}
                 users={"student"}
-                actions={["Aprovar", "Reprovar", "Contemplar", "Mensagem"]}
+                actions={["Editar", "Aprovar", "Reprovar", "Contemplar", "Mensagem"]}
               />
             </Col>
           </Row>
