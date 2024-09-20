@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Admin } from "../../../classes/Admin";
 import { Accordion, Button, Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
-import AdminUserProfileForm from "../../../components/forms/AdminUserProfileForm";
+import UserProfileForm from "../../../components/forms/UserProfileForm";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../../validations/validateDate";
 
@@ -24,8 +24,6 @@ export default function UserProfile() {
     }, [userData, id])
 
     if (userData !== "") {
-        console.log(userData)
-
         if ((userData.role.toLowerCase() === "empresa" || userData.role.toLowerCase() === "ong") && optionsCards.length <= 2) {
             optionsCards.push(["Pontos de coleta", `/admin/pickup-locations`, "Ver todos os pontos de coleta do usuário"])
         }
@@ -38,9 +36,9 @@ export default function UserProfile() {
                     <Row>
                         <Col className="option-cards col-4 px-0">
                             {
-                                optionsCards.map((option) => {
+                                optionsCards.map((option, index) => {
                                     return (
-                                        <div className="option-card p-3" onClick={() => {
+                                        <div key={index} className="option-card p-3" onClick={() => {
                                             navigate(`${option[1]}?name=${userData.name}`)
                                         }}>
                                             <h4>{option[0]}</h4>
@@ -101,7 +99,7 @@ export default function UserProfile() {
                         </Col>
                         <Col className="user-profile">
                             <Row className="user-form">
-                                <AdminUserProfileForm userData={userData} />
+                                <UserProfileForm userData={userData} />
                             </Row>
                         </Col>
                     </Row>

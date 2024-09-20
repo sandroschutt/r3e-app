@@ -3,7 +3,7 @@ import { UsersFilter } from "../../../components/Lists/Flters";
 import { UserList } from "../../../components/Lists";
 import { AdminUsersPreview } from "../../../components/Previews";
 import UserHeader from "../../../components/UserHeader";
-import { Button, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Admin } from "../../../classes/Admin";
 import { AddNewUserModal } from "../../../components/Modals";
@@ -45,7 +45,7 @@ export default function ManageUsers() {
           <AdminUsersPreview
             user={user}
             users={"users"}
-            actions={["ver", "editar", "desativar", "excluir", "mensagem"]}
+            actions={["ver", "desativar", "excluir", "mensagem"]}
           />
         </Col>
       </Row>
