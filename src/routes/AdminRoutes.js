@@ -34,10 +34,7 @@ export default function AdminRoutes() {
           <Route path="/users/:id/devices" element={<PublicDevices />} />
           <Route path="/users/:id/pickups" element={<Pickups />} />
           <Route path="/students" element={<ManageStudents />} />
-          <Route
-            path="/recycling-settings"
-            element={<ManageReturnProcess />}
-          />
+          <Route path="/recycling-settings" element={<ManageReturnProcess />} />
           <Route path="/devices" element={<PublicDevices />} />
           <Route path="/devices/:id" element={<SingleDevices />} />
           <Route path={"/pickups"} element={<Pickups />} />
