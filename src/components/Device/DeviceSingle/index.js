@@ -14,7 +14,7 @@ export default function DeviceSingle(props) {
 
   useEffect(() => {
     if(device === "") {
-      Device.getDeviceById(deviceId, setDevice);
+      Device.getOne(deviceId, setDevice);
     }
   }, [device, deviceId])
 

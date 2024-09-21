@@ -12,7 +12,11 @@ import ReturnProcess from "../../classes/ReturnProcess";
 import User from "../../classes/User";
 import Student from "../../classes/Student";
 import { Admin } from "../../classes/Admin";
-import { handlePostDeviceFormSubmit, handleSelectPlaceholder, handleStateOptions } from "./helpers";
+import {
+  handlePostDeviceFormSubmit,
+  handleSelectPlaceholder,
+  handleStateOptions,
+} from "./helpers";
 import Device from "../../classes/Device";
 import Brands from "../../classes/Brands";
 import Models from "../../classes/Models";
@@ -314,7 +318,9 @@ export function AddNewStudentModal() {
                 <option>-- Selecione</option>
                 {schools.map((schoolUnit, index) => {
                   return (
-                    <option key={index} value={schoolUnit.id}>{schoolUnit.name}</option>
+                    <option key={index} value={schoolUnit.id}>
+                      {schoolUnit.name}
+                    </option>
                   );
                 })}
               </Form.Select>
@@ -501,7 +507,11 @@ export function ManageDeviceModal(props) {
       {handleButtonStyle()}
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{props.type === "add" ? "Novo Dispositivo" : `Editando: ${props.device.model.name}`}</Modal.Title>
+          <Modal.Title>
+            {props.type === "add"
+              ? "Novo Dispositivo"
+              : `Editando: ${props.device.model.name}`}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -521,7 +531,7 @@ export function ManageDeviceModal(props) {
                 }}
                 autoFocus
               >
-                { handleSelectPlaceholder(props.type === "edit") }
+                {handleSelectPlaceholder(props.type === "edit")}
                 <option key={Math.random()} value="smartphone">
                   Smartphone
                 </option>
@@ -550,7 +560,7 @@ export function ManageDeviceModal(props) {
                 onChange={(event) => setBrand(event.target.value)}
                 defaultValue={brand}
               >
-                { handleSelectPlaceholder(props.type === "edit") }
+                {handleSelectPlaceholder(props.type === "edit")}
                 {brands.map((brand, index) => {
                   return (
                     <option key={index + 1} value={brand.id}>
@@ -571,7 +581,7 @@ export function ManageDeviceModal(props) {
                   setModel(modelData.id);
                 }}
               >
-                { handleSelectPlaceholder(props.type === "edit") }
+                {handleSelectPlaceholder(props.type === "edit")}
                 {models.map((model, index) => {
                   return (
                     <option key={index} value={model.id}>
@@ -591,7 +601,7 @@ export function ManageDeviceModal(props) {
                 }}
                 defaultValue={deviceState}
               >
-                { handleSelectPlaceholder(props.type === "edit") }
+                {handleSelectPlaceholder(props.type === "edit")}
                 {handleStateOptions(window.location.pathname)}
               </Form.Select>
             </Form.Group>
@@ -614,11 +624,15 @@ export function ManageDeviceModal(props) {
   );
 }
 
-export function AdminDeleteDeviceModal() {
+export function DeleteDeviceModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  function handleDeleteDevice(deviceId) {
+    Device.delete(deviceId);
+  }
 
   return (
     <>
@@ -629,15 +643,15 @@ export function AdminDeleteDeviceModal() {
           <Modal.Title>Excluir este dispositivo?</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Ao excluir um dispositivo, ele é permanentemente excluído do banco de
-          dados.
+          Ao excluir um dispositivo, ele é permanentemente removido do sistema.
+          Tem certeza que deseja continuar?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Cancelar
+            Não
           </Button>
-          <Button variant="danger" onClick={handleClose}>
-            Excluir
+          <Button type="submit" variant="danger" onClick={() => { handleDeleteDevice(props.deviceId) }}>
+            Sim
           </Button>
         </Modal.Footer>
       </Modal>

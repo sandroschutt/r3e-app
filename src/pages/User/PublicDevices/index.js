@@ -21,7 +21,7 @@ export default function PublicDevices() {
         if(params.id !== undefined) {
           let userId = params.id;
           Admin.getSingleUserDevices(userId, setDevices);
-        } else Device.getAllDevices(setDevices);
+        } else Device.getAll(setDevices);
       } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
     }
   }, [userData, devices, params])

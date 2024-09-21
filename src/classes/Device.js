@@ -1,56 +1,59 @@
 import axios from "axios";
+import Api from "./Api";
 
 export default class Device {
-  static getAllDevices(setDevices) {
-    let endpoint = `http://localhost:9000/admin/devices/`;
+  /**
+   * Get all Devices from the database
+   * @param {CallableFunction} setDevices A setter callback function to set the devices
+   * @returns {Array} An array of Devices JSON Objects
+   * */
+  static getAll(setDevices) {
     axios
-      .get(endpoint)
+      .get(Api.endpoint("devices"))
       .then((response) => {
         setDevices(response.data);
-      })
-      .catch((error) => console.log(error));
-  }
-
-  static getDeviceById(deviceId = Number, setDevice) {
-    let endpoint = `http://localhost:9000/devices/${deviceId}`;
-    axios
-      .get(endpoint)
-      .then((response) => {
-        setDevice(response.data);
-      })
-      .catch((error) => console.log(error.response.data));
-  }
-
-  static getUserDevices(userId = Number, userRole = String, setDevices) {
-    let endpoint = `http://localhost:9000/user/${userId}/devices`;
-    axios
-      .get(endpoint)
-      .then((response) => {
-        setDevices(response.data);
-      })
-      .catch((error) => console.log(error.response.data));
-  }
-
-  static getUserDevice(userId = Number, deviceId = Number, setDevice) {
-    let endpoint = `http://localhost:9000/user/${userId}/devices/${deviceId}`;
-    axios
-      .get(endpoint)
-      .then((response) => {
-        setDevice(response.data);
       })
       .catch((error) => console.log(error));
   }
 
   /**
-   * Makes a POST request for the devices API route and redirects the user to the single device view
-   *
-   * @param newDevice A JSON object containing the request body
-   * @param role The current user's role
+   * Gets a single Device by ID
+   * @param {String|Number} id The Device's ID
+   * @returns {JSON} Success - An JSON Object containing the Device
+   * @returns {AxiosError} Fail - An Error Object containing the request data
    * */
-  static create(newDevice, role = String) {
-    let endpoint = `http://localhost:9000/admin/devices/create`;
+  static getOne(id, setDevice) {
     axios
-      .post(endpoint, newDevice, {
+      .get(Api.endpoint(`devices/${id}`))
+      .then((response) => {
+        setDevice(response.data);
+      })
+      .catch((error) => console.log(error.response.data));
+  }
+
+  /**
+   * Gets a list of Devices from a single User
+   * @param {String|Number} id The Device's ID
+   * @returns {JSON} Success - An JSON Object containing the Device
+   * @returns {AxiosError} Fail - An Error Object containing the request data
+   * */
+  static getUserDevices(id = Number, setDevices) {
+    axios
+      .get(Api.endpoint(`devices/user/${id}`))
+      .then((response) => {
+        setDevices(response.data);
+      })
+      .catch((error) => console.log(error.response.data));
+  }
+
+  /**
+   * Creates a new Device
+   * @param {JSON} data A JSON object containing the request body
+   * @param {String} role The current user's role
+   * */
+  static create(data, role) {
+    axios
+      .post(Api.endpoint("devices/create"), data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -64,12 +67,11 @@ export default class Device {
   }
 
   /**
-   * Makes a PUT request for the devices API route
-   *
-   * @param userId Integer | String -- The current user's ID
-   * @param userRole String -- The current user's role
-   * @param deviceId Integer | String -- The current device's ID
-   * @param device A JSON object containing the request body
+   * Updates a single Device
+   * @param {String|Number} userId The current user's ID
+   * @param {String} userRole The current user's role
+   * @param {String|Number} deviceId The current device's ID
+   * @param {JSON} device A JSON object containing the request body
    * */
   static async update(userId, userRole, deviceId, device) {
     if (userId !== device.userId && userRole.toUpperCase() !== "ADMIN") {
@@ -105,10 +107,8 @@ export default class Device {
         break;
     }
 
-    let endpoint = `http://localhost:9000/devices/update/${deviceId}`;
-
     await axios
-      .post(endpoint, device, {
+      .post(Api.endpoint(`devices/update/${deviceId}`), device, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -121,5 +121,26 @@ export default class Device {
         window.location.reload();
       })
       .catch((error) => console.log(error));
+  }
+
+  /**
+   * Deletes a single Device by ID
+   * @param {Stinrg|Number} id The Device's ID
+   * @returns {AxiosResponse|AxiosError} A JSON object with the response data
+   * */
+  static async delete(id) {
+    await axios
+      .post(Api.endpoint(`devices/${id}/delete`))
+      .then((response) => {
+        if(response.status !== 200) throw new Error("Erro na requisição");
+        alert(`Dispostivo ${id} excluído com sucesso.`)
+        let pathname = window.location.pathname.split('/')
+        pathname = `/${pathname[1]}/${pathname[2]}`;
+        window.location.href = window.location.origin + pathname
+      })
+      .catch((error) => {
+        alert("Falaha ao excluir o dispositivo.")
+        console.error(error)
+      });
   }
 }

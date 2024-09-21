@@ -12,7 +12,19 @@
   .single-device--edit {
     height: 72px;
     width: 72px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+
+    .fa-pen-to-square {
+      margin-right: .5em;
+    }
+
+    .fa-trash {
+      color: red;
+
+      &:hover {
+        opacity: .6;
+      }
+    }
 
     &:hover {
       cursor: pointer;

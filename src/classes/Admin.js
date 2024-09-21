@@ -1,4 +1,5 @@
 import axios from "axios";
+import Api from "./Api";
 
 export class Admin {
   static getAllUsers(setUsers) {
@@ -50,9 +51,8 @@ export class Admin {
   }
 
   static getWorkshopDevices(setDevices) {
-    const endpoint = `http://localhost:9000/admin/workshop/devices`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint('workshop/devices'))
       .then((response) => {
         setDevices(response.data);
       })

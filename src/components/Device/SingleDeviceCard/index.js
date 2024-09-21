@@ -3,7 +3,7 @@ import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Row } from "react-bootstrap";
-import { ManageDeviceModal } from "../../Modals";
+import { DeleteDeviceModal, ManageDeviceModal } from "../../Modals";
 
 export default function SingleDeviceCard(props) {
   function renderButtons(role, device) {
@@ -95,6 +95,7 @@ export default function SingleDeviceCard(props) {
         </Col>
         <div className="single-device--edit d-flex align-items-top text-center">
             <ManageDeviceModal type={"edit"} device={device} />
+            <DeleteDeviceModal deviceId={device.id} />
         </div>
       </Row>
     );
