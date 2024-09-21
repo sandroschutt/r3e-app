@@ -5,7 +5,7 @@ import { validateDate } from "../../validations/validateDate";
 import { useNavigate } from "react-router-dom";
 import {
   ManageDeviceModal,
-  AdminDeleteDeviceModal
+  DeleteDeviceModal
 } from "../Modals";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
 
@@ -72,7 +72,7 @@ export function AdminDevicesTable(props) {
                         }}
                       />
                       <ManageDeviceModal type={"edit"} device={device}/>
-                      <AdminDeleteDeviceModal />
+                      <DeleteDeviceModal deviceId={device.id}/>
                     </td>
                   </tr>
                 );

@@ -10,7 +10,7 @@ export default class Associates {
    *
    * @returns API Token on success; Error message on fail
    * */
-  static async createApiToken(associateId = String | Number, setToken) {
+  static async createApiToken(associateId, setToken) {
     axios
       .post(
         Api.endpoint(`vendor/${associateId}/api/token/create`),
@@ -23,7 +23,7 @@ export default class Associates {
       )
       .then((response) => {
         if (response.status !== 200) {
-          throw new Error();
+          throw new Error("Não foi possível criar o token.");
         }
         setToken(response.data);
       })
@@ -55,9 +55,8 @@ export default class Associates {
         if (response.status !== 200) {
           throw new Error();
         }
-        console.log(response)
         alert(`${response.data.message}\nToken:\n${response.data.token}`);
-        // setToken(response.data);
+        setToken(response.data);
       })
       .catch((error) => {
         console.error(error)
