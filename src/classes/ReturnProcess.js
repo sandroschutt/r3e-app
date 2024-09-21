@@ -2,7 +2,7 @@ import axios from "axios";
 import Api from "./Api.js";
 
 export default class ReturnProcess {
-  static getAllProcesses(setReturnProcesses) {
+  static getAll(setReturnProcesses) {
     axios
       .get(Api.endpoint("return-process"))
       .then((response) => {
@@ -12,11 +12,11 @@ export default class ReturnProcess {
   }
 
   /**
-   * Creates a new Return Process
+   * Creates a new Return Process and reloads the window
    *
-   * @param data A JSON object containing the new Return Process' data
+   * @param {JSON} data A JSON object containing the new Return Process' data
    */
-  static create(data = JSON) {
+  static create(data) {
     axios
       .post(Api.endpoint("return-process/create"), data, {
         headers: {
@@ -34,12 +34,12 @@ export default class ReturnProcess {
   /**
    * Updates a single ReturnProcess
    *
-   * @param id [String|Number] The current ReturnProcess' ID
-   * @param data [JSON] A JSON object containing Return Process' data to be updated
+   * @param {String|Number} id The current ReturnProcess' ID
+   * @param {JSON} data A JSON object containing Return Process' data to be updated
    *
    * @returns true on success; false on fail
    */
-  static update(id = String | Number, data = JSON) {
+  static update(id, data) {
     axios
       .post(Api.endpoint(`return-process/update/${id}`), data, {
         headers: {
@@ -49,6 +49,27 @@ export default class ReturnProcess {
       .then((response) => {
         if (response.status === 200) {
           alert("Tratativa de retorno salva com sucesso!");
+          window.location.reload();
+        } else throw new Error("Erro na requisição");
+      })
+      .catch((error) => console.log(error));
+  }
+
+  /**
+   * Delete a single ReturnProcess and reload the window
+   *
+   * @param {String|Number} id The current ReturnProcess' ID
+   */
+  static delete(id, data) {
+    axios
+      .post(Api.endpoint(`return-process/${id}/delete`), {}, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          alert("Tratativa de retorno excluída com sucesso!");
           window.location.reload();
         } else throw new Error("Erro na requisição");
       })

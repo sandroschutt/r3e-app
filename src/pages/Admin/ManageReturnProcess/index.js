@@ -10,7 +10,7 @@ export default function ManageReturnProcess() {
 
   useEffect(() => {
     if (returnProcesses === "") {
-      ReturnProcess.getAllProcesses(setReturnProcesses);
+      ReturnProcess.getAll(setReturnProcesses);
     }
   }, [returnProcesses]);
 

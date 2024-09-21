@@ -43,6 +43,10 @@ export function SingleReturnProcess(props) {
     ReturnProcess.update(returnProcessId, editReturnProcess);
   }
 
+  function handleDeleteReturnProcess() {
+    ReturnProcess.delete(returnProcessId);
+  }
+
   return (
     <Form onSubmit={(event) => handleFormSubmit(event)}>
       <Row className="manage-return-categories--category--options ps-0">
@@ -75,7 +79,7 @@ export function SingleReturnProcess(props) {
               editReturnProcess.description = event.target.value;
             }} />
             <Button variant={"dark"} type="submit" className="my-3 me-3">Atualizar</Button>
-            <Button variant={"danger"} type="button" className="my-3" onClick={() => alert("DELETE request")}>Deletar</Button>
+            <Button variant={"danger"} type="button" className="my-3" onClick={() => handleDeleteReturnProcess() }>Deletar</Button>
           </Form.Group>
         </div>
       </Row>
