@@ -15,10 +15,13 @@ import Associates from "../../../classes/Associates.js";
 export default function Integrations() {
   const { userData } = useUserDataContext();
   const [token, setToken] = useState("");
+  const [tokenAction, setTokenAction] = useState("");
 
   function handleAPITokenForm(event) {
     event.preventDefault();
-    Associates.createApiToken(userData.id, setToken);
+    
+    if(tokenAction === "") return;
+    tokenAction === "create" ? Associates.createApiToken(userData.id, setToken) : Associates.updateApiToken(userData.id, setToken);
   }
 
   useEffect(() => {
@@ -65,8 +68,11 @@ export default function Integrations() {
             </p>
 
             <Form onSubmit={(event) => {handleAPITokenForm(event)}}>
-              <Button type="submit" variant="success">
+              <Button className="me-3" type="submit" variant="success" onClick={() => setTokenAction("create")}>
                 Gerar token
+              </Button>
+              <Button type="submit" variant="primary" onClick={() => setTokenAction("update")}>
+                Atualizar token
               </Button>
             </Form>
           </div>
