@@ -3,9 +3,8 @@ import Api from "./Api";
 
 export class Admin {
   static getAllUsers(setUsers) {
-    const endpoint = `http://localhost:9000/admin/users`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint('users'))
       .then((response) => {
         setUsers(response.data);
       })

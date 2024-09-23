@@ -7,7 +7,7 @@ import { validatePhones } from "../../../validations/validatePhones.js";
 import User from "../../../classes/User.js";
 
 export default function UserProfileForm(props) {
-  const userData = props.userData;
+  const userData = props.user;
   const user = new User(userData.id);
 
   function handleFormData(event) {
