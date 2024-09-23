@@ -20,9 +20,8 @@ export class Admin {
    * @return users An array of users with the defined role on success
    */
   static getAllByRole(role = String, setUsers) {
-    const endpoint = `http://localhost:9000/admin/users/role/${role}`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint(`users/role/${role}`))
       .then((response) => {
         setUsers(response.data);
       })
@@ -30,9 +29,8 @@ export class Admin {
   }
 
   static getSingleUser(id = Number, setUser) {
-    const endpoint = `http://localhost:9000/admin/users/${id}`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint(`users/${id}`))
       .then((response) => {
         setUser(response.data);
       })
@@ -40,9 +38,8 @@ export class Admin {
   }
 
   static getSingleUserDevices(userId, setDevices) {
-    const endpoint = `http://localhost:9000/admin/user/${userId}/devices`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint(`devices/user/${userId}`))
       .then((response) => {
         setDevices(response.data);
       })
@@ -59,9 +56,8 @@ export class Admin {
   }
 
   static getAllSchedules(setSchedules) {
-    const endpoint = `http://localhost:9000/admin/schedules`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint('admin/schedules'))
       .then((response) => {
         setSchedules(response.data);
       })
@@ -69,9 +65,8 @@ export class Admin {
   }
 
   static getUserSchedules(userId, setSchedules) {
-    const endpoint = `http://localhost:9000/user/${userId}/schedules`;
     axios
-      .get(endpoint)
+      .get(Api.endpoint(`user/${userId}/schedules`))
       .then((response) => {
         setSchedules(response.data);
       })

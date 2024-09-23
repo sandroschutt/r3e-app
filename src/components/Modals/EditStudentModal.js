@@ -18,7 +18,7 @@ export function EditStudentModal(props) {
     if (schools.length <= 1) {
       Admin.getAllByRole(5, setSchools);
     }
-  }, [schools]);
+  }, []);
 
   function handleEditStudent() {
     alert("Data incoming!");
@@ -27,7 +27,7 @@ export function EditStudentModal(props) {
     Student.update(student.id, student);
   }
 
-  return (
+  if(schools !== "") return (
     <>
       <Button variant={"outline-success"} onClick={handleShow}>
         {"Editar"}

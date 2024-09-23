@@ -6,21 +6,16 @@ import { StudentsList } from "../../../components/Lists";
 import { useEffect, useState } from "react";
 import { AddNewStudentModal } from "../../../components/Modals";
 import Student from "../../../classes/Student";
-import { StudentPreview } from "../../../components/Previews/StudentPreview";
+import StudentsTable from "../../../components/Tables/StudentsTable";
 
 export default function ManageStudents() {
   const [students, setStudents] = useState("");
-  const [student, setStudent] = useState("");
 
   useEffect(() => {
     if (students === "") {
       Student.getAll(setStudents);
     }
-
-    if (students !== "" && student === "") {
-      setStudent(students[0]);
-    }
-  }, [students, student]);
+  }, [students]);
 
   if (students !== "") {
     return (
@@ -30,28 +25,17 @@ export default function ManageStudents() {
         </Col>
 
         <Col id="admin-users--view">
-          <div className="admin-users--filters">
-            <Row className="justify-content-between pb-3">
-              <Col>
-                <StudentsFilter />
-              </Col>
-              <Col style={{ textAlign: "right" }}>
-                <AddNewStudentModal />
-              </Col>
-            </Row>
-          </div>
-          <Row className="admin-users--items">
-            <Col className="admin-users--list ps-0 col-4">
-              <StudentsList students={students} setStudent={setStudent} />
+          <Row className="justify-content-between pb-3">
+            <Col>
+              <StudentsFilter />
             </Col>
-            <Col className="ps-0">
-              <StudentPreview
-                user={student}
-                users={"student"}
-                actions={["Editar", "Aprovar", "Reprovar", "Contemplar", "Mensagem"]}
-              />
+            <Col style={{ textAlign: "right" }}>
+              <AddNewStudentModal />
             </Col>
           </Row>
+        </Col>
+        <Col>
+          <StudentsTable students={students} />
         </Col>
       </Row>
     );
