@@ -58,6 +58,15 @@ export default function UserProfileForm(props) {
             />
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="userSecondarEmail">
+            <Form.Label>E-mail:</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder={userData.secondaryEmail || "secondary@usermail.com"}
+              onChange={(event) => (userData.secondaryEmail = event.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="userPhone">
             <Form.Label>Celular:</Form.Label>
             <Form.Control
@@ -93,18 +102,6 @@ export default function UserProfileForm(props) {
               }
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="userStreet">
-            <Form.Label>Número:</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder={userData.address.number}
-              onChange={(event) =>
-                (userData.address.number = event.target.value)
-              }
-              min={1}
-              max={9999}
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="userCity">
             <Form.Label>Cidade:</Form.Label>
             <Form.Control
@@ -130,17 +127,6 @@ export default function UserProfileForm(props) {
                 );
               })}
             </Form.Select>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="userCountry">
-            <Form.Label>País:</Form.Label>
-            <Form.Control
-              type="text"
-              aria-label="country"
-              placeholder={userData.address.country}
-              onChange={(event) =>
-                (userData.address.country = event.target.value)
-              }
-            />
           </Form.Group>
         </div>
 
