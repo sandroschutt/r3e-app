@@ -41,6 +41,7 @@ export default function SingleDeviceCard(props) {
 
   if (props.device !== "") {
     const device = props.device;
+    console.log(device)
 
     return (
       <Row className="single-device--card">

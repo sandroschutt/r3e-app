@@ -85,7 +85,7 @@ export function AddNewUserModal() {
 
   return (
     <>
-      <Button className="btn-success" onClick={handleShow}>
+      <Button className="btn-success text-right mb-2" onClick={handleShow}>
         Novo usuário +
       </Button>
 
