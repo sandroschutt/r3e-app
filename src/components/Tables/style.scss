@@ -31,12 +31,12 @@
     }
 }
 
-.fa-message:hover, .fa-power-off:hover {
+.fa-message:hover, .fa-hand-holding-medical:hover {
     cursor: pointer;
     color: var(--bs-success)
 }
 
-.fa-trash:hover {
+.fa-trash:hover, .fa-circle-xmark:hover {
     cursor: pointer;
     color: var(--bs-danger)!important;
 }

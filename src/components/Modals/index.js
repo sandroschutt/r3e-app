@@ -245,7 +245,7 @@ export function AddNewStudentModal() {
     if (schools.length <= 1) {
       Admin.getAllByRole(5, setSchools);
     }
-  }, [schools]);
+  }, []);
 
   function handleFormSubmit() {
     let formData = {
@@ -269,7 +269,7 @@ export function AddNewStudentModal() {
     Student.create(formData);
   }
 
-  return (
+  if(schools !== "") return (
     <>
       <Button className="btn-success" onClick={handleShow}>
         Novo Estudante +
