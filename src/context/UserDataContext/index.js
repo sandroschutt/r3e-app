@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import Client from "../../classes/roles/Client";
+import User from "../../classes/User";
 
 const UserContext = createContext();
 
@@ -12,8 +12,7 @@ function UserDataContext({ children }) {
 
   useEffect(() => {
     if(userData === "") {
-      let user = new Client(1);
-      setUserData(user.getUserData(setUserData));
+      new User(1).data(setUserData);
     }
   }, [userData])
 
