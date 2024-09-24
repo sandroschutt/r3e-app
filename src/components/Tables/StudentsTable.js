@@ -1,8 +1,11 @@
 import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { faCircleXmark, faHandHoldingMedical, faPowerOff} from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleXmark,
+  faHandHoldingMedical,
+} from "@fortawesome/free-solid-svg-icons";
 import { validateDate } from "../../validations/validateDate";
 import { DeleteStudentModal } from "../Modals/Student/DeleteUserModal";
 import { validatePhones } from "../../validations/validatePhones";
@@ -23,6 +26,7 @@ export default function StudentsTable(props) {
               <th>Telefone</th>
               <th>Idade</th>
               <th>Série</th>
+              <th>{"Família (nº)"}</th>
               <th>Renda Familiar</th>
               <th>CR</th>
               <th>Cadastro</th>
@@ -48,6 +52,10 @@ export default function StudentsTable(props) {
                   <td>{validatePhones(student.phone)}</td>
                   <td>{student.age}</td>
                   <td>{student.grade}</td>
+                  <td className="d-flex justify-content-center gap-2 align-items-center p-3">
+                    {student.familyMembers}
+                    <FontAwesomeIcon icon={faUser} />
+                  </td>
                   <td>{`R$${student.familyIncome}`}</td>
                   <td>{`${student.performanceIndex}/10`}</td>
                   <td>{validateDate(student.createdAt)}</td>
@@ -62,7 +70,9 @@ export default function StudentsTable(props) {
                     />
                     <FontAwesomeIcon
                       icon={faHandHoldingMedical}
-                      onClick={() => alert("Contempla estudante e muda benefited para true")}
+                      onClick={() =>
+                        alert("Contempla estudante e muda benefited para true")
+                      }
                     />
                     <FontAwesomeIcon
                       icon={faCircleXmark}
