@@ -13,7 +13,7 @@ import {
   SinglePickupContact,
   SinglePickupCancelationModal
 } from "../../../components/Modals";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 import User from "../../../classes/User";
 import { validateDate } from "../../../validations/validateDate";
 

@@ -3,7 +3,7 @@ import { UsersFilter } from "../../../components/Lists/Flters";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 import { NewUserModal } from "../../../components/Modals";
 import UsersTable from "../../../components/Tables/UsersTable";
 

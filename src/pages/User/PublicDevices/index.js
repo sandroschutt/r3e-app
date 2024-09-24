@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useParams } from "react-router-dom";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 
 export default function PublicDevices() {
   const {userData} = useUserDataContext();

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Api from "./Api";
 
-export class Admin {
+export default class Admin {
   static getAllUsers(setUsers) {
     axios
       .get(Api.endpoint('users'))
