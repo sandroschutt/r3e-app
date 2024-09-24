@@ -4,7 +4,7 @@ import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Admin } from "../../../classes/Admin";
-import { AddNewUserModal } from "../../../components/Modals";
+import { NewUserModal } from "../../../components/Modals";
 import UsersTable from "../../../components/Tables/UsersTable";
 
 export default function ManageUsers() {
@@ -31,7 +31,7 @@ export default function ManageUsers() {
             <UsersFilter />
           </Col>
           <Col>
-            <AddNewUserModal />
+            <NewUserModal />
             <UsersTable users={users} />
           </Col>
       </Col>

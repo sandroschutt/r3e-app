@@ -21,66 +21,51 @@ import Device from "../../classes/Device";
 import Brands from "../../classes/Brands";
 import Models from "../../classes/Models";
 
-export function AddNewUserModal() {
+export function NewUserModal() {
   const user = new User();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // User info
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [role, setRole] = useState("2");
+  const data = {
+    info: {
+      name: "",
+      email: "",
+      secondaryEmail: "",
+      phone: "",
+      role: "",
+    },
+    document: {
+      type: "",
+      documentNumber: "",
+    },
+    address: {
+      zipcode: "",
+      street: "",
+      city: "",
+      state: "",
+    },
+  };
 
-  // User document
-  const [docType, setDocType] = useState("rg");
-  const [docNumber, setDocNumber] = useState("");
-
-  // User address
-  const [zipcode, setZipcode] = useState("");
-  const [street, setStreet] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-
-  function handleFormSubmit() {
-    let formData = {
-      info: {
-        name: name,
-        email: email,
-        phone: phone,
-        role: role,
-      },
-      document: {
-        type: docType,
-        documentNumber: docNumber,
-      },
-      address: {
-        zipcode: zipcode,
-        street: street,
-        city: city,
-        state: state,
-      },
-    };
-
+  function handleFormSubmit(data) {
     if (
-      formData.info.name === "" ||
-      formData.info.email === "" ||
-      formData.info.phone === "" ||
-      formData.document.docNumber === "" ||
-      formData.address.zipcode === "" ||
-      formData.address.street === "" ||
-      formData.address.city === "" ||
-      formData.address.state === ""
+      data.info.name === "" ||
+      data.info.email === "" ||
+      data.info.phone === "" ||
+      data.document.docNumber === "" ||
+      data.address.zipcode === "" ||
+      data.address.street === "" ||
+      data.address.city === "" ||
+      data.address.state === ""
     ) {
       alert(
         "Para criar um novo usuário é necessário preencher completamente o formulário."
       );
-      console.log(formData);
+      console.log(data);
       return;
     }
 
-    user.create(formData);
+    user.create(data);
   }
 
   return (
@@ -98,40 +83,52 @@ export function AddNewUserModal() {
             id="new-user-form"
             onSubmit={(event) => {
               event.preventDefault();
-              handleFormSubmit();
+              handleFormSubmit(data);
             }}
           >
             <Form.Group className="mb-3">
+              <Form.Label htmlFor="name">Nome:</Form.Label>
               <Form.Control
+                className="mb-3"
                 name="name"
                 type="text"
-                placeholder="Nome:"
-                onChange={(event) => setName(event.target.value)}
+                placeholder="Nome do Novo Usuário"
+                onChange={(event) => (data.info.name = event.target.value)}
                 autoFocus
               />
-            </Form.Group>
-            <Form.Group className="mb-3">
+              <Form.Label htmlFor="email">E-mail:</Form.Label>
               <Form.Control
+                className="mb-3"
                 name="email"
                 type="email"
                 placeholder="E-mail:"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(event) => (data.info.email = event.target.value)}
               />
-            </Form.Group>
-            <Form.Group className="mb-3">
+              <Form.Label htmlFor="secondaryEmail">
+                E-mail alternativo:
+              </Form.Label>
               <Form.Control
+                className="mb-3"
+                name="secondaryEmail"
+                type="secondaryEmail"
+                placeholder="usuario@email.com:"
+                onChange={(event) =>
+                  (data.info.secondaryEmail = event.target.value)
+                }
+              />
+              <Form.Label htmlFor="phone">Celular:</Form.Label>
+              <Form.Control
+                className="mb-3"
                 name="phone"
                 type="text"
                 placeholder="Celular:"
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) => (data.info.phone = event.target.value)}
               />
-            </Form.Group>
-            <Form.Group className="mb-5">
               <Form.Label htmlFor="role">Função:</Form.Label>
               <Form.Select
                 name="role"
                 defaultValue={"2"}
-                onChange={(event) => setRole(event.target.value)}
+                onChange={(event) => (data.info.role = event.target.value)}
               >
                 <option value="2">Cliente</option>
                 <option value="3">Empresa</option>
@@ -141,11 +138,12 @@ export function AddNewUserModal() {
             </Form.Group>
             <h5>Documento</h5>
             <hr />
+            <Form.Label htmlFor="doctype">Tipo:</Form.Label>
             <Form.Select
               name="doctype"
               className="mb-3"
               defaultValue={"rg"}
-              onChange={(event) => setDocType(event.target.value)}
+              onChange={(event) => (data.document.type = event.target.value)}
               required
             >
               <option value="rg" key="rg">
@@ -158,49 +156,55 @@ export function AddNewUserModal() {
                 --CNPJ
               </option>
             </Form.Select>
+            <Form.Label htmlFor="docnumber">Número:</Form.Label>
             <Form.Control
+              className="mb-3"
               type="text"
               name="docnumber"
               id="docNumber"
-              className="mb-5"
               placeholder="Nº:"
-              onChange={(event) => setDocNumber(event.target.value)}
+              onChange={(event) =>
+                (data.document.documentNumber = event.target.value)
+              }
               required
             />
             <h5>Endereço</h5>
             <hr />
+            <Form.Label htmlFor="zipcode">CEP:</Form.Label>
             <Form.Control
+              className="mb-3"
               type="text"
               name="zipcode"
               id="zipcode"
-              className="mb-3"
-              onChange={(event) => setZipcode(event.target.value)}
+              onChange={(event) => (data.address.zipcode = event.target.value)}
               maxLength={9}
-              placeholder="CEP:"
+              placeholder="99999-999"
             />
+            <Form.Label htmlFor="street">Rua:</Form.Label>
             <Form.Control
+              className="mb-3"
               type="text"
               name="street"
               id="street"
-              className="mb-3"
-              placeholder="Rua e número:"
-              onChange={(event) => setStreet(event.target.value)}
+              placeholder="Rua Exemplo, 999:"
+              onChange={(event) => (data.address.street = event.target.value)}
             />
+            <Form.Label htmlFor="city">Cidade:</Form.Label>
             <Form.Control
+              className="mb-3"
               type="text"
               name="city"
               id="city"
-              className="mb-3"
-              placeholder="Cidade:"
-              onChange={(event) => setCity(event.target.value)}
+              placeholder="Itapetininga"
+              onChange={(event) => (data.address.city = event.target.value)}
             />
-
+            <Form.Label htmlFor="role">Estado:</Form.Label>
             <Form.Control
+              className="mb-5"
               type="text"
               name="state"
-              className="mb-3"
-              placeholder="Estado:"
-              onChange={(event) => setState(event.target.value)}
+              placeholder="SP"
+              onChange={(event) => (data.address.state = event.target.value)}
               maxLength={2}
             />
             <Form.Group>
@@ -269,158 +273,167 @@ export function AddNewStudentModal() {
     Student.create(formData);
   }
 
-  if(schools !== "") return (
-    <>
-      <Button className="btn-success" onClick={handleShow}>
-        Novo Estudante +
-      </Button>
+  if (schools !== "")
+    return (
+      <>
+        <Button className="btn-success" onClick={handleShow}>
+          Novo Estudante +
+        </Button>
 
-      <Modal show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Novo estudante</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form
-            onSubmit={(event) => {
-              event.preventDefault();
-              handleFormSubmit();
-            }}
-          >
-            <Form.Group className="mb-5">
-              <h5>Informações gerais</h5>
-              <Form.Label htmlFor="name">Nome: *</Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="name"
-                type="text"
-                onChange={(event) => setName(event.target.value)}
-                placeholder="Nome Completo"
-                required
-              />
-              <Form.Label htmlFor="age">Idade: *</Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="age"
-                type="number"
-                onChange={(event) => setAge(event.target.value)}
-                placeholder="15"
-                min={9}
-                max={99}
-                required
-              />
-              <Form.Label htmlFor="school">Escola: *</Form.Label>
-              <Form.Select
-                className="mb-3"
-                name="school"
-                onChange={(event) => setSchool(event.target.value)}
-                required
-              >
-                <option>-- Selecione</option>
-                {schools.map((schoolUnit, index) => {
-                  return (
-                    <option key={index} value={schoolUnit.id}>
-                      {schoolUnit.name}
-                    </option>
-                  );
-                })}
-              </Form.Select>
-              <Form.Label htmlFor="grade">Grau de ensino: *</Form.Label>
-              <Form.Select
-                className="mb-3"
-                name="grade"
-                onChange={(event) => setGrade(event.target.value)}
-                required
-              >
-                <option>-- Selecione</option>
-                <option value="1">6ª Série Fundamental</option>
-                <option value="2">7ª Série Fundamental</option>
-                <option value="3">8ª Série Fundamental</option>
-                <option value="4">9ª Série Fundamental</option>
-                <option value="5">1ª Série Médio</option>
-                <option value="6">2ª Série Médio</option>
-                <option value="7">3ª Série Médio</option>
-                <option value="8">1º Ano Técnico</option>
-                <option value="9">2º Ano Técnico</option>
-                <option value="10">Superior</option>
-              </Form.Select>
-              <Form.Label htmlFor="frquency">Frequência (%): *</Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="frequency"
-                type="number"
-                onChange={(event) => setFrequency(event.target.value)}
-                placeholder="75"
-                min={1}
-                max={100}
-                required
-              />
-              <Form.Label htmlFor="cr">Coeficiente de rendimento: *</Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="cr"
-                type="number"
-                onChange={(event) => setCr(event.target.value)}
-                placeholder="CR:"
-                min={1}
-                max={10}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-5">
-              <h5>Demografia</h5>
-              <Form.Label htmlFor="family-income">
-                Renda Familiar (R$): *
-              </Form.Label>
-              <Form.Select
-                className="mb-3"
-                name="family-income"
-                onChange={(event) => setFamilyIncome(event.target.value)}
-                required
-              >
-                <option>-- Selecione</option>
-                <option value="1000">Até R$1000</option>
-                <option value="2000">Até R$2000</option>
-                <option value="3000">Até R$3000</option>
-                <option value="4000">Até R$4000</option>
-                <option value="5000">Até R$5000</option>
-                <option value="6000">Até R$6000</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-5">
-              <h5>Contato</h5>
-              <Form.Label htmlFor="email">Email: </Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="email"
-                type="text"
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="estudante@email.com"
-                required
-              />
-              <Form.Label htmlFor="phone">Número de telefone: </Form.Label>
-              <Form.Control
-                className="mb-3"
-                name="phone"
-                type="text"
-                onChange={(event) => setPhone(event.target.value)}
-                placeholder="(DDD) 99999 9999"
-                maxLength={20}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Button className="btn-secondary me-3" onClick={handleClose}>
-                Cancelar
-              </Button>
-              <Button className="btn-primary" type="submit">
-                Registrar
-              </Button>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
+        <Modal show={show} onHide={handleClose} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Novo estudante</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form
+              onSubmit={(event) => {
+                event.preventDefault();
+                handleFormSubmit();
+              }}
+            >
+              <Form.Group className="mb-5">
+                <h5>Informações gerais</h5>
+                <Form.Label htmlFor="name">Nome: *</Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="name"
+                  type="text"
+                  onChange={(event) => setName(event.target.value)}
+                  placeholder="Nome Completo"
+                  required
+                />
+                <Form.Label htmlFor="age">Idade: *</Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="age"
+                  type="number"
+                  onChange={(event) => setAge(event.target.value)}
+                  placeholder="15"
+                  min={9}
+                  max={99}
+                  required
+                />
+                <Form.Label htmlFor="school">Escola: *</Form.Label>
+                <Form.Select
+                  className="mb-3"
+                  name="school"
+                  onChange={(event) => setSchool(event.target.value)}
+                  required
+                >
+                  <option>-- Selecione</option>
+                  {schools.map((schoolUnit, index) => {
+                    return (
+                      <option key={index} value={schoolUnit.id}>
+                        {schoolUnit.name}
+                      </option>
+                    );
+                  })}
+                </Form.Select>
+                <Form.Label htmlFor="grade">Grau de ensino: *</Form.Label>
+                <Form.Select
+                  className="mb-3"
+                  name="grade"
+                  onChange={(event) => setGrade(event.target.value)}
+                  required
+                >
+                  <option>-- Selecione</option>
+                  <option value="1">6ª Série Fundamental</option>
+                  <option value="2">7ª Série Fundamental</option>
+                  <option value="3">8ª Série Fundamental</option>
+                  <option value="4">9ª Série Fundamental</option>
+                  <option value="5">1ª Série Médio</option>
+                  <option value="6">2ª Série Médio</option>
+                  <option value="7">3ª Série Médio</option>
+                  <option value="8">1º Ano Técnico</option>
+                  <option value="9">2º Ano Técnico</option>
+                  <option value="10">Superior</option>
+                </Form.Select>
+                <Form.Label htmlFor="frquency">Frequência (%): *</Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="frequency"
+                  type="number"
+                  onChange={(event) => setFrequency(event.target.value)}
+                  placeholder="75"
+                  min={1}
+                  max={100}
+                  required
+                />
+                <Form.Label htmlFor="cr">
+                  Coeficiente de rendimento: *
+                </Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="cr"
+                  type="number"
+                  onChange={(event) => setCr(event.target.value)}
+                  placeholder="CR:"
+                  min={1}
+                  max={10}
+                  required
+                />
+              </Form.Group>
+              <Form.Group className="mb-5">
+                <h5>Demografia</h5>
+                <Form.Label htmlFor="family-income">
+                  Renda Familiar (R$): *
+                </Form.Label>
+                <Form.Select
+                  className="mb-3"
+                  name="family-income"
+                  onChange={(event) => setFamilyIncome(event.target.value)}
+                  required
+                >
+                  <option>-- Selecione</option>
+                  <option value="1000">Até R$1000</option>
+                  <option value="2000">Até R$2000</option>
+                  <option value="3000">Até R$3000</option>
+                  <option value="4000">Até R$4000</option>
+                  <option value="5000">Até R$5000</option>
+                  <option value="6000">Até R$6000</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-5">
+                <h5>Contato</h5>
+                <Form.Label htmlFor="email">Email: </Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="email"
+                  type="text"
+                  onChange={(event) => setEmail(event.target.value)}
+                  placeholder="estudante@email.com"
+                  required
+                />
+                <Form.Label htmlFor="phone">Número de telefone: </Form.Label>
+                <Form.Control
+                  className="mb-3"
+                  className="mb-3"
+                  name="phone"
+                  type="text"
+                  onChange={(event) => setPhone(event.target.value)}
+                  placeholder="(DDD) 99999 9999"
+                  maxLength={20}
+                  required
+                />
+              </Form.Group>
+              <Form.Group>
+                <Button className="btn-secondary me-3" onClick={handleClose}>
+                  Cancelar
+                </Button>
+                <Button className="btn-primary" type="submit">
+                  Registrar
+                </Button>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </>
+    );
 }
 
 export function ManageDeviceModal(props) {
@@ -650,7 +663,13 @@ export function DeleteDeviceModal(props) {
           <Button variant="secondary" onClick={handleClose}>
             Não
           </Button>
-          <Button type="submit" variant="danger" onClick={() => { handleDeleteDevice(props.deviceId) }}>
+          <Button
+            type="submit"
+            variant="danger"
+            onClick={() => {
+              handleDeleteDevice(props.deviceId);
+            }}
+          >
             Sim
           </Button>
         </Modal.Footer>
@@ -775,6 +794,7 @@ export function AdminAddReturnProcessModal() {
             >
               <label className="main-label mb-2">Descrição:</label>
               <Form.Control
+                className="mb-3"
                 name="description"
                 as="textarea"
                 rows={8}
@@ -839,6 +859,7 @@ export function SinglePickupContact() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Email address</Form.Label>
               <Form.Control
+                className="mb-3"
                 type="text"
                 placeholder="Assunto da mensagem"
                 autoFocus
@@ -849,7 +870,7 @@ export function SinglePickupContact() {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Example textarea</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control className="mb-3" as="textarea" rows={3} />
             </Form.Group>
           </Form>
         </Modal.Body>
