@@ -11,7 +11,7 @@ import { useUserDataContext } from "../../context/UserDataContext";
 import ReturnProcess from "../../classes/ReturnProcess";
 import User from "../../classes/User";
 import Student from "../../classes/Student";
-import { Admin } from "../../classes/Admin";
+import Admin from "../../classes/Admin";
 import {
   handlePostDeviceFormSubmit,
   handleSelectPlaceholder,

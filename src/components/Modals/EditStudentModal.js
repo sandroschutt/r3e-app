@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { Admin } from "../../classes/Admin";
+import Admin from "../../classes/Admin";
 import Student from "../../classes/Student";
 import { validatePhones } from "../../validations/validatePhones";
 

@@ -1,6 +1,6 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 import { Accordion, Button, Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
 import UserProfileForm from "../../../components/forms/UserProfileForm";

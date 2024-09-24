@@ -3,7 +3,7 @@ import UserHeader from "../../../components/UserHeader";
 import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useEffect, useState } from "react";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 
 export default function Workshop() {
     const [devices, setDevices] = useState("")

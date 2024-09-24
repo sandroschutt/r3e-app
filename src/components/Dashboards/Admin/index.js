@@ -3,7 +3,7 @@ import { DeviceList, PickupsList, UserList } from "../../Lists";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Device from "../../../classes/Device";
-import { Admin } from "../../../classes/Admin";
+import Admin from "../../../classes/Admin";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState("");
