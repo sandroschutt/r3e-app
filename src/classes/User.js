@@ -14,9 +14,14 @@ export default class User {
     return this.id;
   }
 
-  async getUserData(updateUserData) {
+  /**
+   * Gets a single User's data
+   * 
+   * @param {CallableFunction} updateUserData Callback function for setting the User's data state
+  */
+  async data(updateUserData) {
     try {
-      axios.get(Api.endpoint(`users/${this.id}/data`)).then((response) => {
+      axios.get(Api.endpoint(`users/${this.id}`)).then((response) => {
         updateUserData(response.data);
       });
     } catch (error) {
