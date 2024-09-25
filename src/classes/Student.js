@@ -23,7 +23,7 @@ export default class Student {
           throw new Error();
         }
         alert(`Estudante ${response.data.name} criado com sucesso!`);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
