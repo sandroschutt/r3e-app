@@ -1,18 +1,17 @@
 import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from "react-router-dom";
 import {
   faCircleXmark,
   faHandHoldingMedical,
 } from "@fortawesome/free-solid-svg-icons";
-import { validateDate } from "../../validations/validateDate";
 import { DeleteStudentModal } from "../Modals/Student/DeleteUserModal";
-import { validatePhones } from "../../validations/validatePhones";
+import { EditStudentModal } from "../Modals/Student/EditStudentModal";
+import { ViewStudentModal } from "../Modals/Student/ViewStudentModal";
 
 export default function StudentsTable(props) {
   const students = props.students;
-  const navigate = useNavigate();
+  const schools = props.schools;
 
   if (students !== "") {
     return (
@@ -23,13 +22,10 @@ export default function StudentsTable(props) {
               <th>Nome</th>
               <th>Escola</th>
               <th>E-mail</th>
-              <th>Telefone</th>
               <th>Idade</th>
               <th>Série</th>
               <th>{"Família (nº)"}</th>
               <th>Renda Familiar</th>
-              <th>CR</th>
-              <th>Cadastro</th>
               <th>Contemplado</th>
               <th>Retorno</th>
               <th>Ações</th>
@@ -49,7 +45,6 @@ export default function StudentsTable(props) {
                   <td>{student.name}</td>
                   <td>{student.school.name}</td>
                   <td>{student.email}</td>
-                  <td>{validatePhones(student.phone)}</td>
                   <td>{student.age}</td>
                   <td>{student.grade}</td>
                   <td className="d-flex justify-content-center gap-2 align-items-center p-3">
@@ -57,11 +52,11 @@ export default function StudentsTable(props) {
                     <FontAwesomeIcon icon={faUser} />
                   </td>
                   <td>{`R$${student.familyIncome}`}</td>
-                  <td>{`${student.performanceIndex}/10`}</td>
-                  <td>{validateDate(student.createdAt)}</td>
                   <td>{student.benefited ? "sim" : "não"}</td>
                   <td>{student.returned ? "sim" : "não"}</td>
-                  <td className="d-flex justify-content-between align-items-center p-3">
+                  <td className="d-flex justify-content-between gap-1 align-items-center p-3">
+                    <ViewStudentModal student={student}/>
+                    <EditStudentModal student={student} schools={schools}/>
                     <FontAwesomeIcon
                       icon={faMessage}
                       onClick={() =>

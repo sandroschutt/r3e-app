@@ -222,219 +222,213 @@ export function NewUserModal() {
   );
 }
 
-export function AddNewStudentModal() {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+// export function AddNewStudentModal() {
+//   const [show, setShow] = useState(false);
+//   const handleClose = () => setShow(false);
+//   const handleShow = () => setShow(true);
 
-  // API calls
-  const [schools, setSchools] = useState([{ option: "Escola", value: "0" }]);
+//   // API calls
+//   const [schools, setSchools] = useState([{ option: "Escola", value: "0" }]);
 
-  // basic info
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [school, setSchool] = useState("");
-  const [grade, setGrade] = useState("");
-  const [frequency, setFrequency] = useState("");
-  const [cr, setCr] = useState("");
+//   // basic info
+//   const [name, setName] = useState("");
+//   const [age, setAge] = useState("");
+//   const [school, setSchool] = useState("");
+//   const [grade, setGrade] = useState("");
+//   const [frequency, setFrequency] = useState("");
+//   const [cr, setCr] = useState("");
 
-  // demographics
-  const [familyIncome, setFamilyIncome] = useState("");
+//   // demographics
+//   const [familyIncome, setFamilyIncome] = useState("");
 
-  // contact
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+//   // contact
+//   const [email, setEmail] = useState("");
+//   const [phone, setPhone] = useState("");
 
-  useEffect(() => {
-    if (schools.length <= 1) {
-      Admin.getAllByRole(5, setSchools);
-    }
-  }, []);
+//   useEffect(() => {
+//     if (schools.length <= 1) {
+//       Admin.getAllByRole(5, setSchools);
+//     }
+//   }, []);
 
-  function handleFormSubmit() {
-    let formData = {
-      info: {
-        name: name,
-        age: age,
-        schoolId: school,
-        grade: grade,
-        frequency: frequency,
-        performanceIndex: cr,
-      },
-      demographics: {
-        familyIncome: familyIncome,
-      },
-      contact: {
-        email: email,
-        phone: phone,
-      },
-    };
+//   function handleFormSubmit() {
+//     let formData = {
+//       info: {
+//         name: name,
+//         age: age,
+//         schoolId: school,
+//         grade: grade,
+//         frequency: frequency,
+//         performanceIndex: cr,
+//       },
+//       demographics: {
+//         familyIncome: familyIncome,
+//       },
+//       contact: {
+//         email: email,
+//         phone: phone,
+//       },
+//     };
 
-    Student.create(formData);
-  }
+//     Student.create(formData);
+//   }
 
-  if (schools !== "")
-    return (
-      <>
-        <Button className="btn-success" onClick={handleShow}>
-          Novo Estudante +
-        </Button>
+//   if (schools !== "")
+//     return (
+//       <>
+//         <Button className="btn-success" onClick={handleShow}>
+//           Novo Estudante +
+//         </Button>
 
-        <Modal show={show} onHide={handleClose} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Novo estudante</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form
-              onSubmit={(event) => {
-                event.preventDefault();
-                handleFormSubmit();
-              }}
-            >
-              <Form.Group className="mb-5">
-                <h5>Informações gerais</h5>
-                <Form.Label htmlFor="name">Nome: *</Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="name"
-                  type="text"
-                  onChange={(event) => setName(event.target.value)}
-                  placeholder="Nome Completo"
-                  required
-                />
-                <Form.Label htmlFor="age">Idade: *</Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="age"
-                  type="number"
-                  onChange={(event) => setAge(event.target.value)}
-                  placeholder="15"
-                  min={9}
-                  max={99}
-                  required
-                />
-                <Form.Label htmlFor="school">Escola: *</Form.Label>
-                <Form.Select
-                  className="mb-3"
-                  name="school"
-                  onChange={(event) => setSchool(event.target.value)}
-                  required
-                >
-                  <option>-- Selecione</option>
-                  {schools.map((schoolUnit, index) => {
-                    return (
-                      <option key={index} value={schoolUnit.id}>
-                        {schoolUnit.name}
-                      </option>
-                    );
-                  })}
-                </Form.Select>
-                <Form.Label htmlFor="grade">Grau de ensino: *</Form.Label>
-                <Form.Select
-                  className="mb-3"
-                  name="grade"
-                  onChange={(event) => setGrade(event.target.value)}
-                  required
-                >
-                  <option>-- Selecione</option>
-                  <option value="1">6ª Série Fundamental</option>
-                  <option value="2">7ª Série Fundamental</option>
-                  <option value="3">8ª Série Fundamental</option>
-                  <option value="4">9ª Série Fundamental</option>
-                  <option value="5">1ª Série Médio</option>
-                  <option value="6">2ª Série Médio</option>
-                  <option value="7">3ª Série Médio</option>
-                  <option value="8">1º Ano Técnico</option>
-                  <option value="9">2º Ano Técnico</option>
-                  <option value="10">Superior</option>
-                </Form.Select>
-                <Form.Label htmlFor="frquency">Frequência (%): *</Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="frequency"
-                  type="number"
-                  onChange={(event) => setFrequency(event.target.value)}
-                  placeholder="75"
-                  min={1}
-                  max={100}
-                  required
-                />
-                <Form.Label htmlFor="cr">
-                  Coeficiente de rendimento: *
-                </Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="cr"
-                  type="number"
-                  onChange={(event) => setCr(event.target.value)}
-                  placeholder="CR:"
-                  min={1}
-                  max={10}
-                  required
-                />
-              </Form.Group>
-              <Form.Group className="mb-5">
-                <h5>Demografia</h5>
-                <Form.Label htmlFor="family-income">
-                  Renda Familiar (R$): *
-                </Form.Label>
-                <Form.Select
-                  className="mb-3"
-                  name="family-income"
-                  onChange={(event) => setFamilyIncome(event.target.value)}
-                  required
-                >
-                  <option>-- Selecione</option>
-                  <option value="1000">Até R$1000</option>
-                  <option value="2000">Até R$2000</option>
-                  <option value="3000">Até R$3000</option>
-                  <option value="4000">Até R$4000</option>
-                  <option value="5000">Até R$5000</option>
-                  <option value="6000">Até R$6000</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group className="mb-5">
-                <h5>Contato</h5>
-                <Form.Label htmlFor="email">Email: </Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="email"
-                  type="text"
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="estudante@email.com"
-                  required
-                />
-                <Form.Label htmlFor="phone">Número de telefone: </Form.Label>
-                <Form.Control
-                  className="mb-3"
-                  className="mb-3"
-                  name="phone"
-                  type="text"
-                  onChange={(event) => setPhone(event.target.value)}
-                  placeholder="(DDD) 99999 9999"
-                  maxLength={20}
-                  required
-                />
-              </Form.Group>
-              <Form.Group>
-                <Button className="btn-secondary me-3" onClick={handleClose}>
-                  Cancelar
-                </Button>
-                <Button className="btn-primary" type="submit">
-                  Registrar
-                </Button>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-        </Modal>
-      </>
-    );
-}
+//         <Modal show={show} onHide={handleClose} centered>
+//           <Modal.Header closeButton>
+//             <Modal.Title>Novo estudante</Modal.Title>
+//           </Modal.Header>
+//           <Modal.Body>
+//             <Form
+//               onSubmit={(event) => {
+//                 event.preventDefault();
+//                 handleFormSubmit();
+//               }}
+//             >
+//               <Form.Group className="mb-5">
+//                 <h5>Informações gerais</h5>
+//                 <Form.Label htmlFor="name">Nome: *</Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="name"
+//                   type="text"
+//                   onChange={(event) => setName(event.target.value)}
+//                   placeholder="Nome Completo"
+//                   required
+//                 />
+//                 <Form.Label htmlFor="age">Idade: *</Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="age"
+//                   type="number"
+//                   onChange={(event) => setAge(event.target.value)}
+//                   placeholder="15"
+//                   min={9}
+//                   max={99}
+//                   required
+//                 />
+//                 <Form.Label htmlFor="school">Escola: *</Form.Label>
+//                 <Form.Select
+//                   className="mb-3"
+//                   name="school"
+//                   onChange={(event) => setSchool(event.target.value)}
+//                   required
+//                 >
+//                   <option>-- Selecione</option>
+//                   {schools.map((schoolUnit, index) => {
+//                     return (
+//                       <option key={index} value={schoolUnit.id}>
+//                         {schoolUnit.name}
+//                       </option>
+//                     );
+//                   })}
+//                 </Form.Select>
+//                 <Form.Label htmlFor="grade">Grau de ensino: *</Form.Label>
+//                 <Form.Select
+//                   className="mb-3"
+//                   name="grade"
+//                   onChange={(event) => setGrade(event.target.value)}
+//                   required
+//                 >
+//                   <option>-- Selecione</option>
+//                   <option value="1">6ª Série Fundamental</option>
+//                   <option value="2">7ª Série Fundamental</option>
+//                   <option value="3">8ª Série Fundamental</option>
+//                   <option value="4">9ª Série Fundamental</option>
+//                   <option value="5">1ª Série Médio</option>
+//                   <option value="6">2ª Série Médio</option>
+//                   <option value="7">3ª Série Médio</option>
+//                   <option value="8">1º Ano Técnico</option>
+//                   <option value="9">2º Ano Técnico</option>
+//                   <option value="10">Superior</option>
+//                 </Form.Select>
+//                 <Form.Label htmlFor="frquency">Frequência (%): *</Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="frequency"
+//                   type="number"
+//                   onChange={(event) => setFrequency(event.target.value)}
+//                   placeholder="75"
+//                   min={1}
+//                   max={100}
+//                   required
+//                 />
+//                 <Form.Label htmlFor="cr">
+//                   Coeficiente de rendimento: *
+//                 </Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="cr"
+//                   type="number"
+//                   onChange={(event) => setCr(event.target.value)}
+//                   placeholder="CR:"
+//                   min={1}
+//                   max={10}
+//                   required
+//                 />
+//               </Form.Group>
+//               <Form.Group className="mb-5">
+//                 <h5>Demografia</h5>
+//                 <Form.Label htmlFor="family-income">
+//                   Renda Familiar (R$): *
+//                 </Form.Label>
+//                 <Form.Select
+//                   className="mb-3"
+//                   name="family-income"
+//                   onChange={(event) => setFamilyIncome(event.target.value)}
+//                   required
+//                 >
+//                   <option>-- Selecione</option>
+//                   <option value="1000">Até R$1000</option>
+//                   <option value="2000">Até R$2000</option>
+//                   <option value="3000">Até R$3000</option>
+//                   <option value="4000">Até R$4000</option>
+//                   <option value="5000">Até R$5000</option>
+//                   <option value="6000">Até R$6000</option>
+//                 </Form.Select>
+//               </Form.Group>
+//               <Form.Group className="mb-5">
+//                 <h5>Contato</h5>
+//                 <Form.Label htmlFor="email">Email: </Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="email"
+//                   type="text"
+//                   onChange={(event) => setEmail(event.target.value)}
+//                   placeholder="estudante@email.com"
+//                   required
+//                 />
+//                 <Form.Label htmlFor="phone">Número de telefone: </Form.Label>
+//                 <Form.Control
+//                   className="mb-3"
+//                   name="phone"
+//                   type="text"
+//                   onChange={(event) => setPhone(event.target.value)}
+//                   placeholder="(DDD) 99999 9999"
+//                   maxLength={20}
+//                   required
+//                 />
+//               </Form.Group>
+//               <Form.Group>
+//                 <Button className="btn-secondary me-3" onClick={handleClose}>
+//                   Cancelar
+//                 </Button>
+//                 <Button className="btn-primary" type="submit">
+//                   Registrar
+//                 </Button>
+//               </Form.Group>
+//             </Form>
+//           </Modal.Body>
+//         </Modal>
+//       </>
+//     );
+// }
 
 export function ManageDeviceModal(props) {
   const [show, setShow] = useState(false);
