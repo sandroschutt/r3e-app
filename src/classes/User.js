@@ -43,12 +43,14 @@ export default class User {
         },
       })
       .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          // window.location.href = `/${userRole}/users/${response.data.id}`;
-        } else throw new Error("Erro na requisição");
+        if (response.status !== 200) throw new Error("Falha ao criar o usuário.");
+        alert(`Usuário ${response.data.name} criado com sucesso!`);
+        window.location.href = `/admin/users/${response.data.id}`;
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        alert(error.message);
+        console.error(error)
+      });
   }
 
   /**
@@ -65,21 +67,16 @@ export default class User {
         },
       })
       .then((response) => {
-        if (response.status === 200) {
-          alert(response.data);
-          console.log(response);
-          // window.location.reload();
-        } else throw new Error("Erro na requisição");
+        if (response.status !== 200) throw new Error(`Falha ao criar o usuário.`);
+        alert(`Usuário ${id} atualizado com sucesso!`);
+        window.location.reload();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        alert(error.message);
+        console.error(error)
+      });
   }
-
-  /**
-   * Deletes a single User
-   */
   delete() {
-
-
     axios
       .post(Api.endpoint(`users/${this.id}/delete`))
       .then((response) => {

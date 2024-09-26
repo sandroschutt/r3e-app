@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Admin from "../../../classes/Admin";
+import { useState } from "react";
 import Student from "../../../classes/Student";
 import { Modal } from "react-bootstrap";
 
