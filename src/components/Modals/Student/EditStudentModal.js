@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
-import Admin from "../../../classes/Admin";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 import Student from "../../../classes/Student";
 import { validatePhones } from "../../../validations/validatePhones";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

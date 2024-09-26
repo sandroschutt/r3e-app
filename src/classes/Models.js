@@ -1,4 +1,5 @@
 import axios from "axios";
+import Api from "./Api";
 
 export default class Models {
   /**
@@ -7,9 +8,8 @@ export default class Models {
    * @param setModels Callback para setar as marcas na constante brands
   */
   static async getAll(setModels) {
-    const endpoint = `http://localhost:9000/models`;
     await axios
-      .get(endpoint)
+      .get(Api.endpoint('device-models'))
       .then((response) => {
         setModels(response.data);
       })

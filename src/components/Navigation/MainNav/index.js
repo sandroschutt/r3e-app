@@ -18,6 +18,8 @@ import {
   faUserGroup,
   faGraduationCap,
   faSeedling,
+  faLaptopFile,
+  faIndustry,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainNav() {
@@ -53,6 +55,8 @@ export default function MainNav() {
       if (userRole.toLowerCase() === "admin") {
         setUserOptions([
           ...userOptions,
+          ["Marcas", "device-brands", faIndustry],
+          ["Modelos", "device-models", faLaptopFile],
           ["Oficina", "workshop", faWrench],
           ["Usuários", "users", faUserGroup],
           ["Estudantes", "students", faGraduationCap],
