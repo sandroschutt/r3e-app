@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DeviceModel from "../../../classes/DeviceModel";
 import { EditModel } from "../../Modals/Device/Models/EditModel";
 import Brands from "../../../classes/Brands";
-import { CreateStudentModal } from "../../Modals/Device/Models/CreateModel";
+import { CreateModel } from "../../Modals/Device/Models/CreateModel";
 import { DeleteModel } from "../../Modals/Device/Models/DeleteModel";
 
 export default function ModelsTable() {
@@ -18,7 +18,7 @@ export default function ModelsTable() {
   if (models !== "")
     return (
       <Row className="admin-devices-table w-100">
-        <CreateStudentModal brands={brands}/>
+        <CreateModel brands={brands}/>
         <table>
           <thead>
             <tr className="bg-dark text-white">

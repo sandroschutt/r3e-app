@@ -32,7 +32,7 @@ export default function DeviceModels() {
       </Col>
       <Col>
         <FilterPublicDevices />
-        <ModelsTable devices={devices} />
+        <ModelsTable />
       </Col>
     </Row>
   );

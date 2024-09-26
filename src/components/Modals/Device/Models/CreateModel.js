@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import DeviceModel from "../../../../classes/DeviceModel";
 
-export function CreateStudentModal(props) {
+export function CreateModel(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

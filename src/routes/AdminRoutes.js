@@ -22,6 +22,7 @@ import ManageReturnProcess from "../pages/Admin/ManageReturnProcess";
 import Workshop from "../pages/Admin/Workshop";
 import Integrations from "../pages/Admin/Integrations";
 import UserProfile from "../pages/Admin/UserProfile";
+import DeviceBrands from "../pages/User/DeviceBrands.js";
 import DeviceModels from "../pages/User/DeviceModels";
 
 export default function AdminRoutes() {
@@ -38,6 +39,7 @@ export default function AdminRoutes() {
           <Route path="/recycling-settings" element={<ManageReturnProcess />} />
           <Route path="/devices" element={<PublicDevices />} />
           <Route path="/devices/:id" element={<SingleDevices />} />
+          <Route path="/device-brands" element={<DeviceBrands />} />
           <Route path="/device-models" element={<DeviceModels />} />
           <Route path={"/pickups"} element={<Pickups />} />
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
