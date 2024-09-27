@@ -76,6 +76,7 @@ export default class User {
         console.error(error)
       });
   }
+  
   delete() {
     axios
       .post(Api.endpoint(`users/${this.id}/delete`))
