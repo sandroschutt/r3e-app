@@ -20,6 +20,7 @@ import {
   faSeedling,
   faLaptopFile,
   faIndustry,
+  faUserLock
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainNav() {
@@ -34,6 +35,7 @@ export default function MainNav() {
     ["Coletas", "pickups", faTruck],
     ["Pontos de Coleta", "pickup-locations", faRecycle],
     ["Configurações", "settings", faGear],
+    ["Capacidades", "capabilities",faUserLock]
   ]);
 
   let view = window.location.pathname.split("/");
