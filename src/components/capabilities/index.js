@@ -1,9 +1,10 @@
-import { Map } from 'leaflet'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Row, Col, Form, Button, FormSelect } from 'react-bootstrap'
+import Capabilities from '../../classes/Capabilities'
 
-export default function Capabilities (props) {
-  const [selectedItems, setSelectedItems] = useState({
+export default function CapabilitiesComponent (props) {
+  const [capability, setCapability] = useState(false);
+  const [capabilities, setCapabilities] = useState({
     manageSelf: false,
     manageUsers: false,
     manageAllDocuments: false,
@@ -44,31 +45,68 @@ export default function Capabilities (props) {
 
   const handleCheckboxChange = event => {
     const { name, checked } = event.target
-    setSelectedItems(prevState => ({
+    setCapabilities(prevState => ({
       ...prevState,
       [name]: checked
     }))
   }
 
+  let idSelectValue = -1
+
+  useEffect(() => {
+    if(capability === false) {
+      Capabilities.getOne(2, setCapabilities)
+      setCapability(true)
+    } 
+  }, [capability, capabilities])
+
   const handleSelectChange = event => {
-    setSelectedOption(event.target.value)
+    const selectedValue = event.target.value
+    setSelectedOption(selectedValue)
+    setIdSelectValue(selectedValue)
+    getProfileCapabilities(idSelectValue,setCapabilities)
+  }
+
+  function setIdSelectValue (selectValue) {
+    switch (selectValue) {
+      case 'Cliente':
+        idSelectValue = 2
+        break
+      case 'Empresa':
+        idSelectValue = 3
+        break
+      case 'Escola':
+        idSelectValue = 5
+        break
+      case 'Local de coleta':
+        idSelectValue = 4
+        break
+      case 'Ong':
+        idSelectValue = 6
+        break
+      default:
+        idSelectValue = -1
+    }
+  }
+
+  function getProfileCapabilities(idSelectValue, setCapabilities){
+    if(idSelectValue > 1){
+      Capabilities.getOne(idSelectValue, setCapabilities);
+    }
   }
 
   const handleSave = event => {
     event.preventDefault()
-    console.log('Itens Selecionados:', selectedItems)
-    console.log('Opção Selecionada:', selectedOption)
     alert('Seleção salva com sucesso!')
-    console.log(FormSelect.toString)
   }
 
-  return (
+  if(capability === true) return (
     <div>
       <Form className='mb-5' onSubmit={handleSave}>
         <h2 className='mt-3 mb-5'>Capacidades</h2>
         <Row className='flex-row justify-content w-50 w-sm-100 w-xs-50 mb-2'>
-          <h5 className='col-4'>Tipo de usuário :</h5>
-          <Col className='col-3 text-start mx-3 my-0'>
+          <h5 className='col-4 mt-2'>Tipo de usuário :</h5>
+          <Col className='col-4 text-start mx-3 my-0'>
             <Form.Select
               value={selectedOption}
               onChange={handleSelectChange}
@@ -93,7 +131,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageSelf'
-              checked={selectedItems.manageSelf}
+              checked={capabilities.manageSelf}
               onChange={handleCheckboxChange}
               name='manageSelf'
             />
@@ -109,7 +147,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageDocument'
-              checked={selectedItems.manageDocument}
+              checked={capabilities.manageDocument}
               onChange={handleCheckboxChange}
               name='manageDocument'
             />
@@ -125,7 +163,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAddress'
-              checked={selectedItems.manageAddress}
+              checked={capabilities.manageAddress}
               onChange={handleCheckboxChange}
               name='manageAddress'
             />
@@ -141,7 +179,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageDevice'
-              checked={selectedItems.manageDevice}
+              checked={capabilities.manageDevice}
               onChange={handleCheckboxChange}
               name='manageDevice'
             />
@@ -157,7 +195,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageSchedule'
-              checked={selectedItems.manageSchedule}
+              checked={capabilities.manageSchedule}
               onChange={handleCheckboxChange}
               name='manageSchedule'
             />
@@ -173,7 +211,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageComplaint'
-              checked={selectedItems.manageComplaint}
+              checked={capabilities.manageComplaint}
               onChange={handleCheckboxChange}
               name='manageComplaint'
             />
@@ -189,7 +227,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='managePayment'
-              checked={selectedItems.managePayment}
+              checked={capabilities.managePayment}
               onChange={handleCheckboxChange}
               name='managePayment'
             />
@@ -205,7 +243,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageDialogues'
-              checked={selectedItems.manageDialogues}
+              checked={capabilities.manageDialogues}
               onChange={handleCheckboxChange}
               name='manageDialogues'
             />
@@ -221,7 +259,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageNotifications'
-              checked={selectedItems.manageNotifications}
+              checked={capabilities.manageNotifications}
               onChange={handleCheckboxChange}
               name='manageNotifications'
             />
@@ -237,7 +275,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageStudents'
-              checked={selectedItems.manageStudents}
+              checked={capabilities.manageStudents}
               onChange={handleCheckboxChange}
               name='manageStudents'
             />
@@ -253,7 +291,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageMedia'
-              checked={selectedItems.manageMedia}
+              checked={capabilities.manageMedia}
               onChange={handleCheckboxChange}
               name='manageMedia'
             />
@@ -271,7 +309,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageUsers'
-              checked={selectedItems.manageUsers}
+              checked={capabilities.manageUsers}
               onChange={handleCheckboxChange}
               name='manageUsers'
             />
@@ -287,7 +325,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllDocuments'
-              checked={selectedItems.manageAllDocuments}
+              checked={capabilities.manageAllDocuments}
               onChange={handleCheckboxChange}
               name='manageAllDocuments'
             />
@@ -303,7 +341,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllAddresses'
-              checked={selectedItems.manageAllAddresses}
+              checked={capabilities.manageAllAddresses}
               onChange={handleCheckboxChange}
               name='manageAllAddresses'
             />
@@ -319,7 +357,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageBrands'
-              checked={selectedItems.manageBrands}
+              checked={capabilities.manageBrands}
               onChange={handleCheckboxChange}
               name='manageBrands'
             />
@@ -335,7 +373,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageDeviceModels'
-              checked={selectedItems.manageDeviceModels}
+              checked={capabilities.manageDeviceModels}
               onChange={handleCheckboxChange}
               name='manageDeviceModels'
             />
@@ -351,7 +389,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageReturnProccess'
-              checked={selectedItems.manageReturnProccess}
+              checked={capabilities.manageReturnProccess}
               onChange={handleCheckboxChange}
               name='manageReturnProccess'
             />
@@ -367,7 +405,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllDevices'
-              checked={selectedItems.manageAllDevices}
+              checked={capabilities.manageAllDevices}
               onChange={handleCheckboxChange}
               name='manageAllDevices'
             />
@@ -383,7 +421,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllSchedules'
-              checked={selectedItems.manageAllSchedules}
+              checked={capabilities.manageAllSchedules}
               onChange={handleCheckboxChange}
               name='manageAllSchedules'
             />
@@ -399,7 +437,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllComplaints'
-              checked={selectedItems.manageAllComplaints}
+              checked={capabilities.manageAllComplaints}
               onChange={handleCheckboxChange}
               name='manageAllComplaints'
             />
@@ -415,7 +453,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllPayments'
-              checked={selectedItems.manageAllPayments}
+              checked={capabilities.manageAllPayments}
               onChange={handleCheckboxChange}
               name='manageAllPayments'
             />
@@ -431,7 +469,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllDialogues'
-              checked={selectedItems.manageAllDialogues}
+              checked={capabilities.manageAllDialogues}
               onChange={handleCheckboxChange}
               name='manageAllDialogues'
             />
@@ -447,7 +485,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllNotifications'
-              checked={selectedItems.manageAllNotifications}
+              checked={capabilities.manageAllNotifications}
               onChange={handleCheckboxChange}
               name='manageAllNotifications'
             />
@@ -463,7 +501,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllStudents'
-              checked={selectedItems.manageAllStudents}
+              checked={capabilities.manageAllStudents}
               onChange={handleCheckboxChange}
               name='manageAllStudents'
             />
@@ -479,7 +517,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageAllMedia'
-              checked={selectedItems.manageAllMedia}
+              checked={capabilities.manageAllMedia}
               onChange={handleCheckboxChange}
               name='manageAllMedia'
             />
@@ -495,7 +533,7 @@ export default function Capabilities (props) {
             <Form.Check
               type='checkbox'
               id='manageCapabilities'
-              checked={selectedItems.manageCapabilities}
+              checked={capabilities.manageCapabilities}
               onChange={handleCheckboxChange}
               name='manageCapabilities'
               className='custom-checkbox'
