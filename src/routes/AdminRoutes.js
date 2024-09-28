@@ -24,6 +24,7 @@ import Integrations from "../pages/Admin/Integrations";
 import UserProfile from "../pages/Admin/UserProfile";
 import DeviceBrands from "../pages/User/DeviceBrands.js";
 import DeviceModels from "../pages/User/DeviceModels";
+import Capabilities from "../components/capabilities/index.js";
 
 export default function AdminRoutes() {
   return (
@@ -49,6 +50,7 @@ export default function AdminRoutes() {
           <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
+          <Route path="/capabilities" element={<Capabilities/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
