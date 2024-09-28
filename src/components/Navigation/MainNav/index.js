@@ -35,7 +35,6 @@ export default function MainNav() {
     ["Coletas", "pickups", faTruck],
     ["Pontos de Coleta", "pickup-locations", faRecycle],
     ["Configurações", "settings", faGear],
-    ["Capacidades", "capabilities",faUserLock]
   ]);
 
   let view = window.location.pathname.split("/");
@@ -57,6 +56,7 @@ export default function MainNav() {
       if (userRole.toLowerCase() === "admin") {
         setUserOptions([
           ...userOptions,
+          ["Capacidades", "capabilities",faUserLock],
           ["Marcas", "device-brands", faIndustry],
           ["Modelos", "device-models", faLaptopFile],
           ["Oficina", "workshop", faWrench],
