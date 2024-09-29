@@ -5,7 +5,7 @@ import {
   faCircleXmark,
   faHandHoldingMedical,
 } from "@fortawesome/free-solid-svg-icons";
-import { DeleteStudentModal } from "../Modals/Student/DeleteUserModal";
+import { DeleteStudentModal } from "../Modals/Student/DeleteStudentModal";
 import { EditStudentModal } from "../Modals/Student/EditStudentModal";
 import { ViewStudentModal } from "../Modals/Student/ViewStudentModal";
 
