@@ -13,9 +13,6 @@ export default function SchedulesTable(props) {
   if (schedules !== "") {
     return (
       <Row className="admin-devices-table w-100 ps-0">
-        <Button variant={"success"} className="col-2 my-2">
-          Nova coleta +
-        </Button>
         <table>
           <thead>
             <tr className="bg-dark text-white">
