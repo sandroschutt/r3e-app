@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import User from "../../../classes/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import Student from "../../../classes/Student";
+import User from "../../../classes/User";
 
-export function DeleteStudentModal(props) {
+export function DeleteScheduleModal(props) {
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
-    function handleDeleteStudent(id) {
-      Student.delete(id);
+    function handleDeleteSchedule(id) {
+      const user = new User();
+      user.deleteSchedule(id)
     }
   
     return (
@@ -20,18 +20,18 @@ export function DeleteStudentModal(props) {
         <FontAwesomeIcon icon={faTrash} onClick={handleShow} />
   
         <Modal show={show} onHide={handleClose} animation={false} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>{`Excluir ${props.name}?`}</Modal.Title>
+          <Modal.Header className="bg-warning" closeButton>
+            <Modal.Title>{`Excluir agendamento #${props.id}?`}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            Ao excluir um dispositivo, ele é permanentemente removido do sistema.
+          <Modal.Body className="bg-dark text-light py-5">
+            Ao excluir um agendamento, ele é permanentemente removido do sistema.
             Tem certeza que deseja continuar?
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer className="bg-warning">
             <Button variant="secondary" onClick={handleClose}>
               Não
             </Button>
-            <Button type="submit" variant="danger" onClick={() => { handleDeleteStudent(props.id) }}>
+            <Button type="submit" variant="danger" onClick={() => { handleDeleteSchedule(props.id) }}>
               Sim
             </Button>
           </Modal.Footer>

@@ -120,7 +120,7 @@ export default class User {
    */
   updateSchedule(id, data) {
     axios
-      .post(Api.endpoint(`schedules/${id}`), data, {
+      .post(Api.endpoint(`schedules/${id}/update`), data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -129,6 +129,31 @@ export default class User {
         if (response.status !== 200)
           throw new Error(`Falha ao atualizar agendamento.`);
         alert(`Agendamento atualizado com sucesso!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
+
+  /**
+   * Deletes a single Schedule from the database
+   *
+   * @param {String|Number} id The Schedule's ID
+   * @return The response status and message
+   */
+  deleteSchedule(id) {
+    axios
+      .post(Api.endpoint(`schedules/${id}/delete`), {}, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error(`Falha ao excluir agendamento.`);
+        alert(`Agendamento excluído com sucesso!`);
         window.location.reload();
       })
       .catch((error) => {

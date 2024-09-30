@@ -1,8 +1,7 @@
 import { Button, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ViewScheduleModal } from "../Modals/Schedule/ViewScheduleModal";
 import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
+import { DeleteScheduleModal } from "../Modals/Schedule/DeleteScheduleModal";
 
 export default function SchedulesTable(props) {
   const schedules = props.schedules;
@@ -53,7 +52,7 @@ export default function SchedulesTable(props) {
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <ViewScheduleModal schedule={schedule} />
                     <EditScheduleModal schedule={schedule} />
-                    <FontAwesomeIcon icon={faTrash} />
+                    <DeleteScheduleModal id={schedule.id} />
                   </td>
                 </tr>
               );
