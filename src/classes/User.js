@@ -6,7 +6,7 @@ import axios from "axios";
 import Api from "./Api.js";
 
 export default class User {
-  constructor(id) {
+  constructor(id = null) {
     this.id = id;
   }
 
@@ -16,9 +16,9 @@ export default class User {
 
   /**
    * Gets a single User's data
-   * 
+   *
    * @param {CallableFunction} updateUserData Callback function for setting the User's data state
-  */
+   */
   async data(updateUserData) {
     try {
       axios.get(Api.endpoint(`users/${this.id}`)).then((response) => {
@@ -43,13 +43,14 @@ export default class User {
         },
       })
       .then((response) => {
-        if (response.status !== 200) throw new Error("Falha ao criar o usuário.");
+        if (response.status !== 200)
+          throw new Error("Falha ao criar o usuário.");
         alert(`Usuário ${response.data.name} criado com sucesso!`);
         window.location.href = `/admin/users/${response.data.id}`;
       })
       .catch((error) => {
         alert(error.message);
-        console.error(error)
+        console.error(error);
       });
   }
 
@@ -67,16 +68,17 @@ export default class User {
         },
       })
       .then((response) => {
-        if (response.status !== 200) throw new Error(`Falha ao criar o usuário.`);
+        if (response.status !== 200)
+          throw new Error(`Falha ao criar o usuário.`);
         alert(`Usuário ${id} atualizado com sucesso!`);
         window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
-        console.error(error)
+        console.error(error);
       });
   }
-  
+
   delete() {
     axios
       .post(Api.endpoint(`users/${this.id}/delete`))
@@ -94,12 +96,12 @@ export default class User {
   }
 
   /**
-   * Makes a User POST request to the API
+   * Retrieves all Schedules
    *
-   * @param userData A JSON object containing the new user's data
-   * @return The response status and message
+   * @param {CallableFunction} setSchedule A callback function for setting the Schedules data
+   * @return {JSON} All Schedules
    */
-  getUserSchedules(setSchedules) {
+  getSchedules(setSchedules) {
     try {
       axios.get(Api.endpoint(`user/${this.id}/schedules`)).then((response) => {
         setSchedules(response.data);
@@ -107,5 +109,56 @@ export default class User {
     } catch (error) {
       return error.message;
     }
+  }
+
+  /**
+   * Updates a single Schedule from the database
+   *
+   * @param {String|Number} id The Schedule's ID
+   * @param {JSON} data The Schedule's request data
+   * @return The response status and message
+   */
+  updateSchedule(id, data) {
+    axios
+      .post(Api.endpoint(`schedules/${id}/update`), data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error(`Falha ao atualizar agendamento.`);
+        alert(`Agendamento atualizado com sucesso!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
+
+  /**
+   * Deletes a single Schedule from the database
+   *
+   * @param {String|Number} id The Schedule's ID
+   * @return The response status and message
+   */
+  deleteSchedule(id) {
+    axios
+      .post(Api.endpoint(`schedules/${id}/delete`), {}, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error(`Falha ao excluir agendamento.`);
+        alert(`Agendamento excluído com sucesso!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
   }
 }
