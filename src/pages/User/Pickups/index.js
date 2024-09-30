@@ -2,19 +2,11 @@ import "./style.scss";
 import UserHeader from "../../../components/UserHeader";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { FilterUserPickups } from "../../../components/Lists/Flters";
-import { UserPickupsList } from "../../../components/Lists";
-import { ListViewMap } from "../../../components/Maps";
-import DummyDeviceImage from "../../../assets/images/motog2 1.jpg";
-import {
-  SinglePickupContact,
-  SinglePickupCancelationModal,
-} from "../../../components/Modals";
 import Admin from "../../../classes/Admin";
 import User from "../../../classes/User";
-import { validateDate } from "../../../validations/validateDate";
 import SchedulesTable from "../../../components/Tables/SchedulesTable";
 
 export default function Pickups() {
@@ -37,7 +29,7 @@ export default function Pickups() {
         }
       } else {
         let user = new User(userData.id);
-        user.getAllSchedules(setSchedules);
+        user.getSchedules(setSchedules);
       }
     }
 
@@ -56,74 +48,7 @@ export default function Pickups() {
       </Col>
       <Row className="pickups--list-view ms-0">
         <SchedulesTable schedules={schedules}/>
-        {/* <Col>
-          <UserPickupsList schedules={schedules} setSchedule={setSchedule} />
-        </Col>
-        <Col className="pickups--item-view">
-          <div className="item-header">
-            <img
-              src={DummyDeviceImage}
-              style={{ backgroundColor: "lightgrey" }}
-              alt=""
-            />
-            <CardHeaderText schedule={schedule} userData={userData} />
-          </div>
-          <div className="item-body">
-            <ListViewMap />
-          </div>
-        </Col> */}
       </Row>
     </Row>
   );
-}
-
-function CardHeaderText(props) {
-  const navigate = useNavigate();
-
-  if (props.schedule !== "") {
-    return (
-      <div className="text">
-        <div className="main">
-          <h5>{`${props.schedule.device.brand.name} ${props.schedule.device.model.name}`}</h5>
-        </div>
-        <p className="details">
-          <span
-            onClick={() => {
-              navigate(`/admin/devices/${props.schedule.deviceId}`);
-            }}
-          >
-            <strong>Ver</strong>
-          </span>
-          <SinglePickupContact />
-          <SinglePickupCancelationModal />
-        </p>
-        <ul>
-          <li>
-            <p>
-              <strong>Proprietário:</strong> {props.userData.name}
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Data:</strong> {validateDate(props.schedule.createdAt)}
-            </p>
-          </li>
-          <li>
-            <p>
-              <strong>Coleta:</strong>{" "}
-              {props.schedule.dateColected === null
-                ? "pendente"
-                : validateDate(props.schedule.dateColected)}
-            </p>
-          </li>
-        </ul>
-      </div>
-    );
-  } else {
-    return (
-      <div className="text w-100">
-        <p>Aguardando dados...</p>
-      </div>
-    );
-  }
 }

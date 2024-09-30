@@ -5,7 +5,6 @@ import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../../validations/validateDate";
 import dummyAvatar from "../../../assets/images/r3d3_profile_avatar.png";
-// import { validateDate } from "../../../validations/validateDate";
 
 export function ViewScheduleModal(props) {
   const schedule = props.schedule;
@@ -14,6 +13,17 @@ export function ViewScheduleModal(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  function handleObservation(observation) {
+    if (observation !== "") {
+      return (
+        <div className="mb-5 p-3 bg-warning">
+          <strong>Observações: </strong>
+          <p>{observation}</p>
+        </div>
+      );
+    }
+  }
 
   if (schedule !== "")
     return (
@@ -84,8 +94,8 @@ export function ViewScheduleModal(props) {
                 {schedule.status.replace("-", " ")}
               </p>
               <p>
-                <strong>Data coleta: </strong>
-                {validateDate(schedule.createdAt)}
+                <strong>Data da coleta: </strong>
+                {validateDate(schedule.dateColect)}
               </p>
               <p>
                 <strong>Última atualização: </strong>
@@ -98,25 +108,43 @@ export function ViewScheduleModal(props) {
 
               <div className="mb-5 p-4 bg-light">
                 <p className="h4 mb-4">Doador:</p>
-                <a href="#" className="d-flex gap-3 align-items-center text-decoration-none" onClick={(event) => {
-                  event.preventDefault();
-                  navigate(`/${window.location.pathname.split('/')[1]}/users/${schedule.clientId}`)
-                }}>
-                  <img src={dummyAvatar} height={64} width={64}/>
+                <a
+                  href="#"
+                  className="d-flex gap-3 align-items-center text-decoration-none"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(
+                      `/${window.location.pathname.split("/")[1]}/users/${
+                        schedule.clientId
+                      }`
+                    );
+                  }}
+                >
+                  <img src={dummyAvatar} height={64} width={64} />
                   <p className="h5 mb-3">{schedule.client.name}</p>
                 </a>
               </div>
 
               <div className="mb-5 p-4 bg-light">
                 <p className="h4 mb-4">Coletor:</p>
-                <a href="#" className="d-flex gap-3 align-items-center text-decoration-none" onClick={(event) => {
-                  event.preventDefault();
-                  navigate(`/${window.location.pathname.split('/')[1]}/users/${schedule.vendorId}`)
-                }}>
-                  <img src={dummyAvatar} height={64} width={64}/>
+                <a
+                  href="#"
+                  className="d-flex gap-3 align-items-center text-decoration-none"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(
+                      `/${window.location.pathname.split("/")[1]}/users/${
+                        schedule.vendorId
+                      }`
+                    );
+                  }}
+                >
+                  <img src={dummyAvatar} height={64} width={64} />
                   <p className="h5 mb-3">{schedule.vendor.name}</p>
                 </a>
               </div>
+
+              {handleObservation(schedule.obs)}
             </div>
           </Modal.Body>
         </Modal>

@@ -1,16 +1,11 @@
 import { Button, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faPenToSquare,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ViewScheduleModal } from "../Modals/Schedule/ViewScheduleModal";
+import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
 
 export default function SchedulesTable(props) {
   const schedules = props.schedules;
-
-  console.log(schedules[0]);
 
   function formatPaymentStatus(paymentStatus) {
     return paymentStatus.replace("-", " ");
@@ -57,7 +52,7 @@ export default function SchedulesTable(props) {
                   <td>{formatPaymentStatus(schedule.status)}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <ViewScheduleModal schedule={schedule} />
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <EditScheduleModal schedule={schedule} />
                     <FontAwesomeIcon icon={faTrash} />
                   </td>
                 </tr>

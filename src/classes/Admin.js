@@ -57,7 +57,7 @@ export default class Admin {
 
   static getAllSchedules(setSchedules) {
     axios
-      .get(Api.endpoint('admin/schedules'))
+      .get(Api.endpoint('schedules'))
       .then((response) => {
         setSchedules(response.data);
       })
