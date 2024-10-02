@@ -75,7 +75,7 @@ export default class PickupLocation {
       .then((response) => {
         if (response.status !== 200)
           throw new Error("Falha ao editar o local de coleta.");
-        alert(`Local de coleta ${response.data.name} editado com sucesso!`);
+        alert(`Local de coleta editado com sucesso!`);
         window.location.reload();
       })
       .catch((error) => {
@@ -84,5 +84,31 @@ export default class PickupLocation {
       });
   }
 
-  static async delete() {}
+  /**
+   * Retrieves a single PickupLocation
+   *
+   * @param {String|Number} id The PickupLocation's id
+   * */
+  static async delete(id) {
+    axios
+      .post(
+        Api.endpoint(`pickup-locations/${id}/delete`),
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error("Falha ao excluir o local de coleta.");
+        alert(`Local de coleta excluído com sucesso!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 }

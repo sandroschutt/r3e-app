@@ -6,6 +6,7 @@ import { ViewPickupLocationModal } from "../Modals/PickupLocations/ViewPickupLoc
 import { EditPickupLocationModal } from "../Modals/PickupLocations/EditPickupLocationModal.js";
 import { useEffect, useState } from "react";
 import PickupLocation from "../../classes/PickupLocation.js";
+import { DeletePickupLocationModal } from "../Modals/PickupLocations/DeletePickupLocationModal.js";
 
 export default function PickupLocationsTable() {
   const [locations, setLocations] = useState("");
@@ -52,7 +53,7 @@ export default function PickupLocationsTable() {
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <ViewPickupLocationModal location={location} />
                     <EditPickupLocationModal location={location} />
-                    <FontAwesomeIcon icon={faTrash} />
+                    <DeletePickupLocationModal id={location.id} />
                   </td>
                 </tr>
               );

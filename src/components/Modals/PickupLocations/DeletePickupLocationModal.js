@@ -2,17 +2,16 @@ import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import User from "../../../classes/User";
+import PickupLocation from "../../../classes/PickupLocation";
 
-export function DeleteScheduleModal(props) {
+export function DeletePickupLocationModal(props) {
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
-    function handleDeleteSchedule(id) {
-      const user = new User();
-      user.deleteSchedule(id)
+    function handleDeletePickupLoation(id) {
+      PickupLocation.delete(id)
     }
   
     return (
@@ -21,17 +20,17 @@ export function DeleteScheduleModal(props) {
   
         <Modal show={show} onHide={handleClose} animation={false} centered>
           <Modal.Header className="bg-warning" closeButton>
-            <Modal.Title>{`Excluir agendamento #${props.id}?`}</Modal.Title>
+            <Modal.Title>{`Excluir local de coleta #${props.id}?`}</Modal.Title>
           </Modal.Header>
           <Modal.Body className="bg-dark text-light py-5">
-            Ao excluir um agendamento, ele é permanentemente removido do sistema.
+            Ao excluir um local de coleta, ele é permanentemente removido do sistema.
             Tem certeza que deseja continuar?
           </Modal.Body>
           <Modal.Footer className="bg-warning">
             <Button variant="secondary" onClick={handleClose}>
               Não
             </Button>
-            <Button type="submit" variant="danger" onClick={() => { handleDeleteSchedule(props.id) }}>
+            <Button type="submit" variant="danger" onClick={() => { handleDeletePickupLoation(props.id) }}>
               Sim
             </Button>
           </Modal.Footer>
