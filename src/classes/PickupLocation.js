@@ -50,7 +50,7 @@ export default class PickupLocation {
       .then((response) => {
         if (response.status !== 200)
           throw new Error("Falha ao criar o local de coleta.");
-        alert(`Local de coleta ${response.data.name} criado com sucesso!`);
+        alert(`Local de coleta criado com sucesso!`);
         window.location.reload();
       })
       .catch((error) => {

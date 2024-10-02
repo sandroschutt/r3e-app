@@ -1,14 +1,15 @@
-import { Button, Row } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Row } from "react-bootstrap";
 import { validatePhones } from "../../validations/validatePhones.js";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { ViewPickupLocationModal } from "../Modals/PickupLocations/ViewPickupLocationModal.js";
 import { EditPickupLocationModal } from "../Modals/PickupLocations/EditPickupLocationModal.js";
 import { useEffect, useState } from "react";
 import PickupLocation from "../../classes/PickupLocation.js";
 import { DeletePickupLocationModal } from "../Modals/PickupLocations/DeletePickupLocationModal.js";
+import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePickupLocationModal.js";
 
-export default function PickupLocationsTable() {
+export default function PickupLocationsTable(props) {
+  const userId = props.userId;
+  const userRole = props.userRole;
   const [locations, setLocations] = useState("");
 
   useEffect(() => {
@@ -18,9 +19,7 @@ export default function PickupLocationsTable() {
   if (locations !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
-        <Button variant={"success"} className="col-2 my-2">
-          Novo Local de Coleta +
-        </Button>
+        <CreatePickupLocationModal userId={userId} />
         <table>
           <thead>
             <tr className="bg-dark text-white">

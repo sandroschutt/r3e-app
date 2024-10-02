@@ -2,11 +2,11 @@ import "./style.scss";
 import { Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
 import { FilterPublicDevices } from "../../../components/Lists/Flters";
-import { useEffect, useState } from "react";
-import PickupLocation from "../../../classes/PickupLocation";
 import PickupLocationsTable from "../../../components/Tables/PickupLocationsTable";
+import { useUserDataContext } from "../../../context/UserDataContext";
 
 export default function PickupLocations() {
+  const { userData } = useUserDataContext();
   return (
     <Row id="pickup-locations-view" className={"flex-column"}>
       <Col>
@@ -19,7 +19,7 @@ export default function PickupLocations() {
 
       <Col className="pickup-location--list-view">
         <Col>
-          <PickupLocationsTable />
+          <PickupLocationsTable userId={userData.id} userRole={userData.role}/>
         </Col>
       </Col>
     </Row>
