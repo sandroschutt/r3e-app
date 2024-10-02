@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Payments from "../../classes/Payments";
+import { EditPaymentModal } from "../Modals/Payments/EditPaymentModal";
 
 export default function PaymentsTable() {
   const [payments, setPayments] = useState("");
@@ -24,8 +25,6 @@ export default function PaymentsTable() {
     createdAt: "",
     updatedAt: "",
   };
-
-  console.log(payments)
 
   if (payments !== "")
     return (
@@ -62,7 +61,7 @@ export default function PaymentsTable() {
                   <td>{payment.status}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <FontAwesomeIcon icon={faEye} />
-                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <EditPaymentModal payment={payment}/>
                     <FontAwesomeIcon icon={faTrash} />
                   </td>
                 </tr>
