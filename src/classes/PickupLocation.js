@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default class PickupLocation {
-    static getAllLocations(setLocations) {
+    static getAll(setLocations) {
         const endpoint = `http://localhost:9000/pickup-locations/`;
         axios.get(endpoint).then(
             (response) => {
