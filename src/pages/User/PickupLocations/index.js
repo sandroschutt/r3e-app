@@ -7,13 +7,7 @@ import PickupLocation from "../../../classes/PickupLocation";
 import PickupLocationsTable from "../../../components/Tables/PickupLocationsTable";
 
 export default function PickupLocations() {
-  const [locations, setLocations] = useState("");
-
-  useEffect(() => {
-    if (locations === "") PickupLocation.getAll(setLocations);
-  }, [locations]);
-
-  if(locations !== "") return (
+  return (
     <Row id="pickup-locations-view" className={"flex-column"}>
       <Col>
         <UserHeader pageTitle={"Pontos de Coleta"} />
@@ -25,7 +19,7 @@ export default function PickupLocations() {
 
       <Col className="pickup-location--list-view">
         <Col>
-          <PickupLocationsTable locations={locations} />
+          <PickupLocationsTable />
         </Col>
       </Col>
     </Row>
