@@ -12,7 +12,7 @@ export default function SinglePickupLocation() {
 
   useEffect(() => {
     if(pickupLocation === "") {
-      PickupLocation.getLocation(pickupLocationId, setPickupLocation)
+      PickupLocation.getOne(pickupLocationId, setPickupLocation)
     }
   }, [pickupLocation])
 
