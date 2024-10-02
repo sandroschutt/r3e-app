@@ -17,6 +17,7 @@ import SinglePickupLocation from '../pages/User/SinglePickupLocation'
 import MapView from '../pages/User/MapView'
 import { SettingsView } from '../pages/User/SettingsView'
 import SinglePickup from '../pages/User/SinglePickup'
+import PaymentsView from '../pages/User/PaymentsView'
 
 export default function UserRoutes () {
   return (
@@ -29,6 +30,7 @@ export default function UserRoutes () {
           <Route path='/devices/:id' element={<SingleDevices />} />
           <Route path={'/pickups'} element={<Pickups />} />
           <Route path={'/pickups/:id'} element={<SinglePickup />} />
+          <Route path='/payments' element={<PaymentsView />} />
           <Route path={'/pickup-locations'} element={<PickupLocations />} />
           <Route
             path={'/pickup-locations/:id'}

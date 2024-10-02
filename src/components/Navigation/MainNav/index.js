@@ -20,7 +20,8 @@ import {
   faSeedling,
   faLaptopFile,
   faIndustry,
-  faUserLock
+  faUserLock,
+  faDollar
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainNav() {
@@ -33,6 +34,7 @@ export default function MainNav() {
     ["Mapa", "map", faLocationDot],
     ["Dispositivos", "devices", faTablet],
     ["Coletas", "pickups", faTruck],
+    ["Pagamentos", "payments", faDollar],
     ["Pontos de Coleta", "pickup-locations", faRecycle],
     ["Configurações", "settings", faGear],
   ]);
