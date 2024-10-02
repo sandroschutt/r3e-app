@@ -1,13 +1,10 @@
 import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faPenToSquare,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Payments from "../../classes/Payments";
 import { EditPaymentModal } from "../Modals/Payments/EditPaymentModal";
+import { DeletePaymentModal } from "../Modals/Payments/DeletePaymentModal";
 
 export default function PaymentsTable() {
   const [payments, setPayments] = useState("");
@@ -57,12 +54,12 @@ export default function PaymentsTable() {
                   <td>{payment.client.name}</td>
                   <td>{payment.vendor.name}</td>
                   <td>{`R$${payment.price}`}</td>
-                  <td>{payment.method.replace("-"," ")}</td>
+                  <td>{payment.method.replace("-", " ")}</td>
                   <td>{payment.status}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <FontAwesomeIcon icon={faEye} />
-                    <EditPaymentModal payment={payment}/>
-                    <FontAwesomeIcon icon={faTrash} />
+                    <EditPaymentModal payment={payment} />
+                    <DeletePaymentModal id={payment.id} />
                   </td>
                 </tr>
               );
