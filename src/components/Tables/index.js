@@ -3,23 +3,32 @@ import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { validateDate } from "../../validations/validateDate";
 import { useNavigate } from "react-router-dom";
-import {
-  ManageDeviceModal,
-  DeleteDeviceModal
-} from "../Modals";
 import { faEye } from "@fortawesome/free-regular-svg-icons";
+import { CreateDeviceModal } from "../Modals/Device/CreateDeviceModal.js";
+import { useEffect, useState } from "react";
+import Brands from "../../classes/Brands.js";
+import Models from "../../classes/Models.js";
+import { EditDeviceModal } from "../Modals/Device/EditDeviceModal.js";
+import { DeleteDeviceModal } from "../Modals/Device/DeleteDeviceModal.js";
 
 export function AdminDevicesTable(props) {
   const navigate = useNavigate();
   const pathname = window.location.pathname.split("/")[2];
-  
-  if (props.devices !== "") {
-    let devices = props.devices;
+  const devices = props.devices;
 
+  const [brands, setBrands] = useState("");
+  const [models, setModels] = useState("");
+
+  useEffect(() => {
+    if (brands === "") Brands.getAll(setBrands);
+    if (models === "") Models.getAll(setModels);
+  }, []);
+
+  if (devices !== "") {
     return (
       <>
         <Row>
-          <ManageDeviceModal type={"add"}/>
+          <CreateDeviceModal models={models} brands={brands}/>
         </Row>
         <Row className="admin-devices-table w-100">
           <table>
@@ -71,8 +80,8 @@ export function AdminDevicesTable(props) {
                           navigate(`${deviceUrl}`);
                         }}
                       />
-                      <ManageDeviceModal type={"edit"} device={device}/>
-                      <DeleteDeviceModal deviceId={device.id}/>
+                      <EditDeviceModal device={device} models={models} brands={brands} />
+                      <DeleteDeviceModal deviceId={device.id} />
                     </td>
                   </tr>
                 );
