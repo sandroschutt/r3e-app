@@ -3,9 +3,21 @@ import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Row } from "react-bootstrap";
-import { DeleteDeviceModal, ManageDeviceModal } from "../../Modals";
+import { EditDeviceModal } from "../../Modals/Device/EditDeviceModal";
+import { DeleteDeviceModal } from "../../Modals/Device/DeleteDeviceModal";
+import { useEffect, useState } from "react";
+import Brands from "../../../classes/Brands";
+import Models from "../../../classes/Models";
 
 export default function SingleDeviceCard(props) {
+  const [brands, setBrands] = useState("");
+  const [models, setModels] = useState("");
+
+  useEffect(() => {
+    if (brands === "") Brands.getAll(setBrands);
+    if (models === "") Models.getAll(setModels);
+  }, []);
+
   function renderButtons(role, device) {
     if (role !== "Client") {
       return (
@@ -41,7 +53,7 @@ export default function SingleDeviceCard(props) {
 
   if (props.device !== "") {
     const device = props.device;
-    console.log(device)
+    console.log(device);
 
     return (
       <Row className="single-device--card">
@@ -95,10 +107,10 @@ export default function SingleDeviceCard(props) {
           </div>
         </Col>
         <div className="single-device--edit d-flex align-items-top text-center">
-            <ManageDeviceModal type={"edit"} device={device} />
-            <DeleteDeviceModal deviceId={device.id} />
+          <EditDeviceModal device={device} models={models} brands={brands} />
+          <DeleteDeviceModal deviceId={device.id} />
         </div>
       </Row>
     );
-  } else return <p>Aguardando dispositivo...</p>
+  } else return <p>Aguardando dispositivo...</p>;
 }

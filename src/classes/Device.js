@@ -60,7 +60,7 @@ export default class Device {
       })
       .then((response) => {
         if (response.status === 200) {
-          window.location.href = `/${role}/devices/${response.data.id}`;
+          window.location.href = `/${role.toLocaleLowerCase()}/devices/${response.data.id}`;
         } else throw new Error("Erro na requisição");
       })
       .catch((error) => console.log(error));
@@ -68,19 +68,16 @@ export default class Device {
 
   /**
    * Updates a single Device
-   * @param {String|Number} userId The current user's ID
-   * @param {String} userRole The current user's role
-   * @param {String|Number} deviceId The current device's ID
+   * @param {String|Number} user The current user's ID and role
    * @param {JSON} device A JSON object containing the request body
    * */
-  static async update(userId, userRole, deviceId, device) {
-    if (userId !== device.userId && userRole.toUpperCase() !== "ADMIN") {
+  static async update(user, device) {
+    if (user.id !== device.userId && user.role.toUpperCase() !== "ADMIN") {
       alert("Você não tem permissão para editar esse dispositivo");
       return;
     }
 
     delete device["userId"];
-    delete device["id"];
 
     switch (device.state) {
       case "muito-bom":
@@ -108,7 +105,7 @@ export default class Device {
     }
 
     await axios
-      .post(Api.endpoint(`devices/update/${deviceId}`), device, {
+      .post(Api.endpoint(`devices/${device.id}/update`), device, {
         headers: {
           "Content-Type": "application/json",
         },
