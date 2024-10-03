@@ -14,16 +14,25 @@ export default class Admin {
   /**
    * Gets all users by the defined role
    *
-   * @param role The role's ID
-   * @param setUsers A callback function to set the users' state
+   * @param {String} role The role's ID
+   * @param {CallableFunction} setUsers A callback function to set the users' state
    * 
-   * @return users An array of users with the defined role on success
+   * @return An array of users with the defined role on success
    */
-  static getAllByRole(role = String, setUsers) {
+  static getAllByRole(role, setUsers) {
     axios
       .get(Api.endpoint(`users/role/${role}`))
       .then((response) => {
         setUsers(response.data);
+      })
+      .catch((error) => console.log(error));
+  }
+
+  static getVendors(setVendors) {
+    axios
+      .get(Api.endpoint(`vendors`))
+      .then((response) => {
+        setVendors(response.data);
       })
       .catch((error) => console.log(error));
   }

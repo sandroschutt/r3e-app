@@ -25,6 +25,7 @@ import UserProfile from "../pages/Admin/UserProfile";
 import DeviceBrands from "../pages/User/DeviceBrands.js";
 import DeviceModels from "../pages/User/DeviceModels";
 import Capabilities from "../components/capabilities/index.js";
+import PaymentsView from "../pages/User/PaymentsView/index.js";
 
 export default function AdminRoutes() {
   return (
@@ -44,6 +45,7 @@ export default function AdminRoutes() {
           <Route path="/device-models" element={<DeviceModels />} />
           <Route path={"/pickups"} element={<Pickups />} />
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
+          <Route path='/payments' element={<PaymentsView />} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path={"/workshop"} element={<Workshop/>} />
