@@ -32,48 +32,49 @@ export default function MainNav() {
   const [userOptions, setUserOptions] = useState([
     ["Home", "", faTableColumns],
     ["Mapa", "map", faLocationDot],
-    ["Dispositivos", "devices", faTablet],
     ["Coletas", "pickups", faTruck],
     ["Pagamentos", "payments", faDollar],
-    ["Pontos de Coleta", "pickup-locations", faRecycle],
-    ["Configurações", "settings", faGear],
+    ["Dispositivos", "devices", faTablet],
   ]);
 
-  let view = window.location.pathname.split("/");
-  view = view[view.length - 1];
+  const view = window.location.pathname.split("/")[1];
 
   useEffect(() => {
     if (userData.id !== undefined) {
       setUserName(userData.name);
       setUserRole(userData.role);
 
-      if (userRole.toLowerCase() === "technician") {
-        setUserOptions([
-          ["Home", "", faTableColumns],
-          ["Lista de dispositivos", "devices", faTablet],
-          ["Logout", "logout", faPowerOff],
-        ]);
-      }
-
-      if (userRole.toLowerCase() === "admin") {
+      if (userRole === "Admin") {
         setUserOptions([
           ...userOptions,
-          ["Capacidades", "capabilities",faUserLock],
           ["Marcas", "device-brands", faIndustry],
           ["Modelos", "device-models", faLaptopFile],
           ["Oficina", "workshop", faWrench],
-          ["Usuários", "users", faUserGroup],
-          ["Estudantes", "students", faGraduationCap],
+          ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Tratativas de Retorno", "recycling-settings", faSeedling],
+          ["Usuários", "users", faUserGroup],
+          ["Capacidades", "capabilities",faUserLock],
+          ["Estudantes", "students", faGraduationCap],
           ["Integrações", "integrations", faCode],
+          ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
         ]);
       }
 
-      if (userRole.toLowerCase() === "empresa") {
+      if (userRole === "Empresa" || userRole === "Ong") {
         setUserOptions([
           ...userOptions,
+          ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Integrações", "integrations", faCode],
+          ["Configurações", "settings", faGear],
+          ["Logout", "logout", faPowerOff],
+        ]);
+      }
+
+      if (userRole === "Cliente") {
+        setUserOptions([
+          ...userOptions,
+          ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
         ]);
       }
