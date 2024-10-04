@@ -111,4 +111,20 @@ export default class PickupLocation {
         console.error(error);
       });
   }
+
+  /**
+   * Retrieves all of the User's PickupLocations
+   *
+   * @param {String|Number} id The User's id
+   * @param {CallableFunction} setLocations A callback function for setting the PickupLocations' state
+   * */
+  static getUserPickupLocations(id, setLocations) {
+    axios
+      .get(Api.endpoint(`users/${id}/pickup-locations`))
+      .then((response) => {
+        console.log(response)
+        setLocations(response.data);
+      })
+      .catch((error) => console.log(error));
+  }
 }
