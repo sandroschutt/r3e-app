@@ -27,7 +27,7 @@ export default function PublicDevices() {
         } else {
           Device.getAll(setDevices);
         }
-      } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
+      } else Device.getUserDevices(userData.id, setDevices);
     }
 
     if (devices !== "" && search !== null && searched === false) {

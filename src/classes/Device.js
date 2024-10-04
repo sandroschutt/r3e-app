@@ -37,13 +37,13 @@ export default class Device {
    * @returns {JSON} Success - An JSON Object containing the Device
    * @returns {AxiosError} Fail - An Error Object containing the request data
    * */
-  static getUserDevices(id = Number, setDevices) {
+  static getUserDevices(id, setDevices) {
     axios
       .get(Api.endpoint(`devices/user/${id}`))
       .then((response) => {
         setDevices(response.data);
       })
-      .catch((error) => console.log(error.response.data));
+      .catch((error) => console.error(error));
   }
 
   /**

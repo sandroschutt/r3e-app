@@ -18,6 +18,7 @@ import MapView from '../pages/User/MapView'
 import { SettingsView } from '../pages/User/SettingsView'
 import SinglePickup from '../pages/User/SinglePickup'
 import PaymentsView from '../pages/User/PaymentsView'
+import UserProfile from "../pages/Admin/UserProfile";
 
 export default function UserRoutes () {
   return (
@@ -26,6 +27,7 @@ export default function UserRoutes () {
         <Routes>
           <Route path='/' element={<Dashboard user={'user'} />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path="/profile/:id" element={<UserProfile />} />
           <Route path='/devices' element={<PublicDevices />} />
           <Route path='/devices/:id' element={<SingleDevices />} />
           <Route path={'/pickups'} element={<Pickups />} />

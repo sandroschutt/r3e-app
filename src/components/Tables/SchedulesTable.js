@@ -2,15 +2,21 @@ import { Button, Row } from "react-bootstrap";
 import { ViewScheduleModal } from "../Modals/Schedule/ViewScheduleModal";
 import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
 import { DeleteScheduleModal } from "../Modals/Schedule/DeleteScheduleModal";
+import { useNavigate } from "react-router-dom";
 
 export default function SchedulesTable(props) {
-  const schedules = props.schedules;
+  const navigate = useNavigate();
+
+  function currentUserRoleProfilesRoute(userRole, id) {
+    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
+  }
 
   function formatPaymentStatus(paymentStatus) {
     return paymentStatus.replace("-", " ");
   }
 
-  if (schedules !== "") {
+  if (props.schedules !== "") {
+    console.log(props.schedules)
     return (
       <Row className="admin-devices-table w-100 ps-0">
         <table>
@@ -27,7 +33,7 @@ export default function SchedulesTable(props) {
             </tr>
           </thead>
           <tbody>
-            {schedules.map((schedule, index) => {
+            {props.schedules.map((schedule, index) => {
               return (
                 <tr
                   id={schedule.id}
@@ -38,11 +44,11 @@ export default function SchedulesTable(props) {
                   }}
                 >
                   <td>{schedule.id}</td>
-                  <td>{schedule.client.name}</td>
-                  <td>{schedule.vendor.name}</td>
+                  <td><a href="#" onClick={() => navigate(currentUserRoleProfilesRoute(props.userRole, schedule.clientId))}>{schedule.client.name}</a></td>
+                  <td><a href="#" onClick={() => navigate(currentUserRoleProfilesRoute(props.userRole, schedule.vendorId))}>{schedule.vendor.name}</a></td>
                   <td>{`${schedule.device.brand.name} ${schedule.device.model.name}`}</td>
                   <td>
-                    <a href="#">{`#${schedule.paymentId}`}</a>
+                    <a href="/">{`#${schedule.paymentId}`}</a>
                   </td>
                   <td>{schedule.accepted ? "sim" : "não"}</td>
                   <td>{formatPaymentStatus(schedule.status)}</td>

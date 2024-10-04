@@ -6,9 +6,15 @@ import { useEffect, useState } from "react";
 import PickupLocation from "../../classes/PickupLocation.js";
 import { DeletePickupLocationModal } from "../Modals/PickupLocations/DeletePickupLocationModal.js";
 import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePickupLocationModal.js";
+import { useNavigate } from "react-router-dom";
 
 export default function PickupLocationsTable(props) {
   const userId = props.userId;
+  const navigate = useNavigate();
+
+  function currentUserRoleProfilesRoute(userRole, id) {
+    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
+  }
 
   if (props.locations !== "")
     return (
@@ -39,7 +45,7 @@ export default function PickupLocationsTable(props) {
                 >
                   <td>{location.id}</td>
                   <td>{location.name}</td>
-                  <td>{location.user.name}</td>
+                  <td><a href="#" onClick={() => navigate(currentUserRoleProfilesRoute(props.userRole, location.id))}>{location.user.name}</a></td>
                   <td>{location.business}</td>
                   <td>{validatePhones(location.phone)}</td>
                   <td>{location.email}</td>

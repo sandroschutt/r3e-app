@@ -4,7 +4,6 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
-import { FilterUserPickups } from "../../../components/Lists/Flters";
 import Admin from "../../../classes/Admin";
 import User from "../../../classes/User";
 import SchedulesTable from "../../../components/Tables/SchedulesTable";
@@ -55,7 +54,7 @@ export default function Pickups() {
         <SearchResults search={search} />
       </Col>
       <Row className="pickups--list-view ms-0">
-        <SchedulesTable schedules={schedules}/>
+        <SchedulesTable schedules={schedules} userRole={userData.role}/>
       </Row>
     </Row>
   );
