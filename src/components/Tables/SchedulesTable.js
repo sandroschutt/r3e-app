@@ -53,7 +53,7 @@ export default function SchedulesTable(props) {
                   <td>{formatPaymentStatus(schedule.status)}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
                     <ViewScheduleModal schedule={schedule} />
-                    <EditScheduleModal schedule={schedule} />
+                    <EditScheduleModal schedule={schedule} userRole={props.userRole}/>
                     <DeleteScheduleModal id={schedule.id} />
                   </td>
                 </tr>
