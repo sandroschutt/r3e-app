@@ -60,7 +60,7 @@ export default class Device {
       })
       .then((response) => {
         if (response.status === 200) {
-          window.location.href = `/${role.toLocaleLowerCase()}/devices/${response.data.id}`;
+          window.location.reload()
         } else throw new Error("Erro na requisição");
       })
       .catch((error) => console.log(error));
