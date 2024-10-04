@@ -1,38 +1,39 @@
-import Device from "../../../classes/Device";
-import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { useUserDataContext } from "../../../context/UserDataContext";
-import { useParams } from "react-router-dom";
-import Admin from "../../../classes/Admin";
 import ModelsTable from "../../../components/Tables/Devices/ModelsTable";
+import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import DeviceModel from "../../../classes/DeviceModel";
+import Brands from "../../../classes/Brands";
 
 export default function DeviceModels() {
-  const { userData } = useUserDataContext();
-  const [devices, setDevices] = useState("");
-  const params = useParams();
+  const [models, setModels] = useState("");
+  const [brands, setBrands] = useState([]);
+
+  const [search, setSearch] = useState(getSearchQueryParams());
+  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    if (userData.role !== undefined && devices === "") {
-      if (userData.role === "Admin") {
-        if (params.id !== undefined) {
-          let userId = params.id;
-          Admin.getSingleUserDevices(userId, setDevices);
-        } else Device.getAll(setDevices);
-      } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
-    }
-  }, [userData, devices, params]);
+    if (models === "") DeviceModel.getAll(setModels);
+    if (brands[0] === undefined) Brands.getAll(setBrands);
 
+    if (models !== "" && search !== null && searched === false) {
+      const filteredModels = models.filter((model) =>
+        searchInObject(model, search)
+      );
+      setModels(filteredModels);
+      setSearched(true);
+    }
+  }, [models, brands, search, searched]);
 
   return (
     <Row id="public-devices--view" className="flex-column">
       <Col>
         <UserHeader pageTitle={"Modelos de Dispositivos"} />
+        <SearchResults search={search} />
       </Col>
       <Col>
-        <FilterPublicDevices />
-        <ModelsTable />
+        <ModelsTable models={models} brands={brands} />
       </Col>
     </Row>
   );

@@ -34,7 +34,6 @@ export function AdminDevicesTable(props) {
           <table>
             <thead>
               <tr className="bg-dark text-white">
-                <th></th>
                 <th>Tipo</th>
                 <th>Modelo</th>
                 <th>Marca</th>
@@ -62,9 +61,6 @@ export function AdminDevicesTable(props) {
                           : "auto",
                     }}
                   >
-                    <td className="text-center ps-0">
-                      <input type="checkbox" />
-                    </td>
                     <td>{device.type}</td>
                     <td>{device.model.name}</td>
                     <td>{device.brand.name}</td>

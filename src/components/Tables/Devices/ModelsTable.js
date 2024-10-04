@@ -1,24 +1,13 @@
 import { Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import DeviceModel from "../../../classes/DeviceModel";
 import { EditModel } from "../../Modals/Device/Models/EditModel";
-import Brands from "../../../classes/Brands";
 import { CreateModel } from "../../Modals/Device/Models/CreateModel";
 import { DeleteModel } from "../../Modals/Device/Models/DeleteModel";
 
-export default function ModelsTable() {
-  const [models, setModels] = useState("");
-  const [brands, setBrands] = useState([]);
-
-  useEffect(() => {
-    if (models === "") DeviceModel.getAll(setModels);
-    if (brands[0] === undefined) Brands.getAll(setBrands);
-  }, [models]);
-
-  if (models !== "")
+export default function ModelsTable(props) {
+  if (props.models !== "")
     return (
       <Row className="admin-devices-table w-100">
-        <CreateModel brands={brands}/>
+        <CreateModel brands={props.brands}/>
         <table>
           <thead>
             <tr className="bg-dark text-white">
@@ -35,7 +24,7 @@ export default function ModelsTable() {
             </tr>
           </thead>
           <tbody>
-            {models.map((model, index) => {
+            {props.models.map((model, index) => {
               return (
                 <tr
                   id={model.id}
@@ -57,7 +46,7 @@ export default function ModelsTable() {
                   <td>{model.battery}</td>
                   <td>{model.screen}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
-                    <EditModel model={model} brands={brands} />
+                    <EditModel model={model} brands={props.brands} />
                     <DeleteModel modelId={model.id} name={model.name}/>
                   </td>
                 </tr>

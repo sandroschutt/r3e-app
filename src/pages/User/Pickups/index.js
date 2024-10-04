@@ -8,6 +8,7 @@ import { FilterUserPickups } from "../../../components/Lists/Flters";
 import Admin from "../../../classes/Admin";
 import User from "../../../classes/User";
 import SchedulesTable from "../../../components/Tables/SchedulesTable";
+import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
 
 export default function Pickups() {
   const { userData } = useUserDataContext();
@@ -15,6 +16,9 @@ export default function Pickups() {
   const [schedules, setSchedules] = useState("");
   const [schedule, setSchedule] = useState("");
   const userId = useParams();
+
+  const [search, setSearch] = useState(getSearchQueryParams());
+  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     if (userData !== "" && userData.role !== undefined && schedules === "") {
@@ -36,15 +40,19 @@ export default function Pickups() {
     if (schedules !== "" && schedule === "") {
       setSchedule(schedules[0]);
     }
+
+    if (schedules !== "" && search !== null && searched === false) {
+      const filteredSchedules = schedules.filter((schedule) => searchInObject(schedule, search));
+      setSchedules(filteredSchedules);
+      setSearched(true);
+    }
   }, [userData, userId, schedules, schedule]);
 
   if(schedules !== "" ) return (
     <Row id="pickups-view" className="flex-column">
       <Col>
         <UserHeader pageTitle={pageTitle} />
-      </Col>
-      <Col>
-        <FilterUserPickups />
+        <SearchResults search={search} />
       </Col>
       <Row className="pickups--list-view ms-0">
         <SchedulesTable schedules={schedules}/>

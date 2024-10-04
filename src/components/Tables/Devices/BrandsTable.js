@@ -6,14 +6,8 @@ import { CreateBrand } from "../../Modals/Device/Brands/CreateBrand.js";
 import { EditBrand } from "../../Modals/Device/Brands/EditBrand.js";
 import { DeleteBrand } from "../../Modals/Device/Brands/DeleteBrand.js";
 
-export default function BrandsTable() {
-  const [brands, setBrands] = useState("");
-
-  useEffect(() => {
-    if (brands === "") Brands.getAll(setBrands);
-  }, [brands]);
-
-  if (brands !== "")
+export default function BrandsTable(props) {
+  if (props.brands !== "")
     return (
       <Row className="admin-devices-table w-100">
         <CreateBrand />
@@ -30,7 +24,7 @@ export default function BrandsTable() {
             </tr>
           </thead>
           <tbody>
-            {brands.map((brand, index) => {
+            {props.brands.map((brand, index) => {
               return (
                 <tr
                   id={brand.id}
