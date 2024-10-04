@@ -1,6 +1,5 @@
 import { Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import Payments from "../../classes/Payments";
 import { EditPaymentModal } from "../Modals/Payments/EditPaymentModal";
 import { DeletePaymentModal } from "../Modals/Payments/DeletePaymentModal";
 import { useNavigate } from "react-router-dom";
@@ -9,20 +8,18 @@ import { CreatePaymentModal } from "../Modals/Payments/CreatePaymentModal.js";
 import { useUserDataContext } from "../../context/UserDataContext/index.js";
 import Admin from "../../classes/Admin.js";
 
-export default function PaymentsTable() {
+export default function PaymentsTable(props) {
   const { userData } = useUserDataContext();
 
-  const [payments, setPayments] = useState("");
   const [schedules, setSchedules] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (payments === "") Payments.getAll(setPayments);
     if (schedules === "" && userData.role === "Admin")
       Admin.getAllSchedules(setSchedules);
-  }, [payments, schedules]);
+  }, [schedules]);
 
-  if (payments !== "")
+  if (props.payments !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
         <CreatePaymentModal userRole={userData.role} schedules={schedules}/>
@@ -41,7 +38,7 @@ export default function PaymentsTable() {
             </tr>
           </thead>
           <tbody>
-            {payments.map((payment, index) => {
+            {props.payments.map((payment, index) => {
               return (
                 <tr
                   id={payment.id}

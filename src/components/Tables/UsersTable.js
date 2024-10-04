@@ -15,7 +15,6 @@ export default function UsersTable(props) {
         <table>
           <thead>
             <tr className="bg-dark text-white">
-              <th></th>
               <th>Nome</th>
               <th>Função</th>
               <th>E-mail</th>
@@ -39,9 +38,6 @@ export default function UsersTable(props) {
                       index % 2 === 0 ? "var(--palette-grey-lighter)" : "auto",
                   }}
                 >
-                  <td className="text-center ps-0">
-                    <input type="checkbox" />
-                  </td>
                   <td>{user.name}</td>
                   <td>{user.role}</td>
                   <td>{user.email}</td>

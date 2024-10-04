@@ -9,14 +9,8 @@ import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePicku
 
 export default function PickupLocationsTable(props) {
   const userId = props.userId;
-  const userRole = props.userRole;
-  const [locations, setLocations] = useState("");
 
-  useEffect(() => {
-    if (locations === "") PickupLocation.getAll(setLocations);
-  }, [locations]);
-
-  if (locations !== "")
+  if (props.locations !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
         <CreatePickupLocationModal userId={userId} />
@@ -33,7 +27,7 @@ export default function PickupLocationsTable(props) {
             </tr>
           </thead>
           <tbody>
-            {locations.map((location, index) => {
+            {props.locations.map((location, index) => {
               return (
                 <tr
                   id={location.id}
