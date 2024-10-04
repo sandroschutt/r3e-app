@@ -113,4 +113,21 @@ export default class Payments {
         console.error(error);
       });
   }
+
+  /**
+   * Retrieves all Payments from a single User
+   *
+   * @param {String|Number} id The Users's id
+   * @param {CallableFunction} setPayments A callback function for setting the Payments' state
+   * */
+  static async getUserPayments(id, setPayments) {
+    axios
+      .get(Api.endpoint(`users/${id}/payments`))
+      .then((response) => {
+        setPayments(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 }

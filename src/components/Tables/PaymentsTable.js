@@ -88,7 +88,7 @@ export default function PaymentsTable(props) {
                         )
                       }
                     >
-                      {payment.schedule.client.name}
+                      {payment.schedule.vendor.name}
                     </a>
                   </td>
                   <td>{`R$${payment.price}`}</td>

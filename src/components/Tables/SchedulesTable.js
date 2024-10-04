@@ -16,7 +16,6 @@ export default function SchedulesTable(props) {
   }
 
   if (props.schedules !== "") {
-    console.log(props.schedules)
     return (
       <Row className="admin-devices-table w-100 ps-0">
         <table>
