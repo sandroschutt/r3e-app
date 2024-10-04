@@ -19,6 +19,7 @@ import { SettingsView } from '../pages/User/SettingsView'
 import SinglePickup from '../pages/User/SinglePickup'
 import PaymentsView from '../pages/User/PaymentsView'
 import UserProfile from "../pages/Admin/UserProfile";
+import Integrations from "../pages/Admin/Integrations";
 
 export default function UserRoutes () {
   return (
@@ -40,6 +41,7 @@ export default function UserRoutes () {
           />
           <Route path='/map' element={<MapView />} />
           <Route path='/settings' element={<SettingsView />} />
+          <Route path="/integrations" element={<Integrations/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>

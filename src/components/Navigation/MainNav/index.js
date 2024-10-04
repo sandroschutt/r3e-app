@@ -78,6 +78,16 @@ export default function MainNav() {
           ["Logout", "logout", faPowerOff],
         ]);
       }
+
+      if (userRole === "Escola") {
+        setUserOptions([
+          ...userOptions,
+          ["Pontos de Coleta", "pickup-locations", faRecycle],
+          ["Estudantes", "students", faGraduationCap],
+          ["Configurações", "settings", faGear],
+          ["Logout", "logout", faPowerOff],
+        ]);
+      }
     }
   }, [userData, userRole]);
 
