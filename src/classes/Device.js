@@ -47,6 +47,20 @@ export default class Device {
   }
 
   /**
+   * Gets a list of public Devices
+   * 
+   * @param {CallableFunction} setDevices A callback function for setting the Devices' state
+   * */
+  static getPublicDevices(setDevices) {
+    axios
+      .get(Api.endpoint(`public/devices`))
+      .then((response) => {
+        setDevices(response.data);
+      })
+      .catch((error) => console.error(error));
+  }
+
+  /**
    * Creates a new Device
    * @param {JSON} data A JSON object containing the request body
    * @param {String} role The current user's role

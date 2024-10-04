@@ -8,7 +8,11 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useParams } from "react-router-dom";
 import Admin from "../../../classes/Admin";
-import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import {
+  getSearchQueryParams,
+  searchInObject,
+  SearchResults,
+} from "../../../components/forms/SearchForm";
 
 export default function PublicDevices() {
   const { userData } = useUserDataContext();
@@ -20,18 +24,16 @@ export default function PublicDevices() {
 
   useEffect(() => {
     if (userData.role !== undefined && devices === "") {
-      if (userData.role === "Admin") {
-        if (params.id !== undefined) {
-          let userId = params.id;
-          Admin.getSingleUserDevices(userId, setDevices);
-        } else {
-          Device.getAll(setDevices);
-        }
-      } else Device.getUserDevices(userData.id, setDevices);
+      if (userData.role === "Admin") Device.getAll(setDevices);
+      if (userData.role === "Cliente")
+        Device.getUserDevices(userData.id, setDevices);
+      if(userData.role === "Empresa" || userData.role === "Ong") Device.getPublicDevices(setDevices)
     }
 
     if (devices !== "" && search !== null && searched === false) {
-      const filteredDevices = devices.filter((device) => searchInObject(device, search));
+      const filteredDevices = devices.filter((device) =>
+        searchInObject(device, search)
+      );
       setDevices(filteredDevices);
       setSearched(true);
     }
@@ -50,14 +52,10 @@ export default function PublicDevices() {
   return (
     <Row id="public-devices--view" className="flex-column">
       <Col>
-        <UserHeader
-          pageTitle={"Dispositivos"}
-        />
+        <UserHeader pageTitle={"Dispositivos"} />
         <SearchResults search={search} />
       </Col>
-      <Col>
-        {listRender(devices)}
-      </Col>
+      <Col>{listRender(devices)}</Col>
     </Row>
   );
 }

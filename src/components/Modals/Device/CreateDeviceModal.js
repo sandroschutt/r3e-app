@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import Device from "../../../classes/Device";
 import { Modal } from "react-bootstrap";
@@ -7,6 +7,7 @@ export function CreateDeviceModal(props) {
   const { userData } = useUserDataContext();
   const models = props.models;
   const brands = props.brands;
+  const [userCanCreate, setUserCanCreate] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -16,11 +17,20 @@ export function CreateDeviceModal(props) {
     userId: userData.id,
   };
 
+  useEffect(() => {
+    if (
+      userData.role !== undefined &&
+      (userData.role === "Admin" || userData.role === "Cliente") &&
+      userCanCreate === false
+    )
+      setUserCanCreate(true);
+  }, [userData, userCanCreate]);
+
   function handleCreateDevice() {
     Device.create(device, userData.role);
   }
 
-  if (brands !== "" && models !== "")
+  if (brands !== "" && models !== "" && userCanCreate)
     return (
       <>
         <button
