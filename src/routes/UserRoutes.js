@@ -20,6 +20,7 @@ import SinglePickup from '../pages/User/SinglePickup'
 import PaymentsView from '../pages/User/PaymentsView'
 import UserProfile from "../pages/Admin/UserProfile";
 import Integrations from "../pages/Admin/Integrations";
+import ManageStudents from '../pages/Admin/ManageStudents'
 
 export default function UserRoutes () {
   return (
@@ -29,6 +30,7 @@ export default function UserRoutes () {
           <Route path='/' element={<Dashboard user={'user'} />} />
           <Route path='/profile' element={<Profile />} />
           <Route path="/profile/:id" element={<UserProfile />} />
+          <Route path='/map' element={<MapView />} />
           <Route path='/devices' element={<PublicDevices />} />
           <Route path='/devices/:id' element={<SingleDevices />} />
           <Route path={'/pickups'} element={<Pickups />} />
@@ -39,9 +41,9 @@ export default function UserRoutes () {
             path={'/pickup-locations/:id'}
             element={<SinglePickupLocation />}
           />
-          <Route path='/map' element={<MapView />} />
           <Route path='/settings' element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
+          <Route path="/students" element={<ManageStudents />} />
         </Routes>
       </UserLayout>
     </UserDataContext>
