@@ -57,6 +57,7 @@ export default class Device {
    * @param {JSON} device A JSON object containing the request body
    * */
   static async update(user, device) {
+    console.log(user, device)
     if (user.id !== device.userId && user.role.toUpperCase() !== "ADMIN") {
       alert("Você não tem permissão para editar esse dispositivo");
       return;

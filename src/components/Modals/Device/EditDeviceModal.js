@@ -16,7 +16,6 @@ export function EditDeviceModal(props) {
   const handleShow = () => setShow(true);
 
   function handleEditDevice() {
-    console.log(device);
     Device.update({id: userData.id, role: userData.role}, device);
   }
 
