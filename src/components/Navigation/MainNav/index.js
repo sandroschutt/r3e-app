@@ -84,7 +84,6 @@ export default function MainNav() {
       if (userRole === "Escola") {
         setUserOptions([
           ...userOptions,
-          ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Estudantes", "students", faGraduationCap],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
