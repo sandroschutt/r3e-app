@@ -1,18 +1,19 @@
 import "./style.scss";
 import Device from "../../../classes/Device";
-import { PublicDevicesList } from "../../../components/Lists";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useParams } from "react-router-dom";
-import Admin from "../../../classes/Admin";
 import {
   getSearchQueryParams,
   searchInObject,
   SearchResults,
 } from "../../../components/forms/SearchForm";
+import { DevicesList } from "../../../components/Lists/DevicesList";
+import Brands from "../../../classes/Brands";
+import Models from "../../../classes/Models";
 
 export default function PublicDevices() {
   const { userData } = useUserDataContext();
@@ -21,6 +22,9 @@ export default function PublicDevices() {
 
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
+
+  const [models, setModels] = useState("");
+  const [brands, setBrands] = useState("");
 
   useEffect(() => {
     if (userData.role !== undefined && devices === "") {
@@ -40,7 +44,10 @@ export default function PublicDevices() {
       setDevices(filteredDevices);
       setSearched(true);
     }
-  }, [userData, devices, params, search, searched]);
+
+    if (brands === "") Brands.getAll(setBrands);
+    if (models === "") Models.getAll(setModels);
+  }, [userData, devices, brands, models, params, search, searched]);
 
   function listRender(devices) {
     if (devices !== "" && userData.role === "Admin")
@@ -50,9 +57,9 @@ export default function PublicDevices() {
       userData.role !== "Admin" &&
       userData.role !== "Escola"
     )
-      return <PublicDevicesList devices={devices} />;
+      return <DevicesList items={devices} brands={brands} models={models} />;
     if (devices !== "" && userData.role === "Escola")
-      return <PublicDevicesList devices={devices} />;
+      return <DevicesList items={devices} brands={brands} models={models} />;
     return <p>Aguardando dados...</p>;
   }
 
