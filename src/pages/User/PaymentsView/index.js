@@ -4,22 +4,25 @@ import PaymentsTable from "../../../components/Tables/PaymentsTable";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
 import { useEffect, useState } from "react";
 import Payments from "../../../classes/Payments";
+import { useUserDataContext } from "../../../context/UserDataContext";
 
 export default function PaymentsView() {
+  const { userData } = useUserDataContext();
   const [payments, setPayments] = useState("");
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    if (payments === "") Payments.getAll(setPayments);
+    if (payments === "" && userData.role === "Admin") Payments.getAll(setPayments);
+    if (payments === "" && userData.role !== "Admin" && userData.id !== undefined) Payments.getUserPayments(userData.id, setPayments);
 
     if (payments !== "" && search !== null && searched === false) {
       const filteredPayments = payments.filter((payment) => searchInObject(payment, search));
       setPayments(filteredPayments);
       setSearched(true);
     }
-  }, [payments, search, searched])
-  return (
+  }, [userData, payments, search, searched])
+  if(payments !== "") return (
     <Row id="payments-view" className={"flex-column"}>
       <Col>
         <UserHeader pageTitle={"Pagamentos"} />

@@ -6,6 +6,10 @@ import { Col, Row } from "react-bootstrap";
 import { NotificationsModal } from "../Modals";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
+import { CreateDeviceModal } from "../Modals/Device/CreateDeviceModal";
+import { useEffect, useState } from "react";
+import Brands from "../../classes/Brands";
+import Models from "../../classes/Models";
 
 export function UserList(props) {
   const users = props.users;
@@ -22,7 +26,7 @@ export function UserList(props) {
                   key={index}
                   className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                   onClick={() => {
-                    setUser(user)
+                    setUser(user);
                   }}
                 >
                   <h6 className="mb-0">{user.name}</h6>
@@ -102,15 +106,18 @@ export function PickupsList(props) {
                   <h6 className="col-12">{schedule.device.name}</h6>
                   <div className="col-12 d-flex">
                     <p>
-                      <strong>Cliente:</strong><br />
+                      <strong>Cliente:</strong>
+                      <br />
                       <span>{schedule.client.name}</span>
                     </p>
                     <p>
-                      <strong>Empresa:</strong><br />
+                      <strong>Empresa:</strong>
+                      <br />
                       <span>{schedule.vendor.name}</span>
                     </p>
                     <p>
-                      <strong>Data:</strong><br />
+                      <strong>Data:</strong>
+                      <br />
                       <span>{validateDate(schedule.dateColect)}</span>
                     </p>
                   </div>
@@ -139,7 +146,7 @@ export function DeviceList(props) {
                   key={index}
                   className="admin-dashboard-list-item d-flex flex-row flex-wrap justify-content-between align-items-center"
                   onClick={() => {
-                    navigate(`devices/${device.id}`)
+                    navigate(`devices/${device.id}`);
                   }}
                 >
                   <h6>{`${device.brand.name} ${device.model.name}`}</h6>
@@ -167,8 +174,20 @@ export function DeviceList(props) {
 
 export function PublicDevicesList(props) {
   const navigate = useNavigate();
+
+  const [brands, setBrands] = useState("");
+  const [models, setModels] = useState("");
+
+  useEffect(() => {
+    if (brands === "") Brands.getAll(setBrands);
+    if (models === "") Models.getAll(setModels);
+  }, []);
+
   return (
     <div className="public-devices">
+      <div className="my-2">
+        <CreateDeviceModal models={models} brands={brands} />
+      </div>
       <div className="list">
         <ul className="p-0 pe-1">
           {props.devices.map((device, index) => {
@@ -300,22 +319,22 @@ export function PickupLocationsList(props) {
 
 export function NotificationList(props) {
   return (
-    <div className='public-devices'>
-      <div className='list'>
-        <ul className='ps-0 pe-1'>
+    <div className="public-devices">
+      <div className="list">
+        <ul className="ps-0 pe-1">
           {props.data.map(() => (
             <li
-              className='d-flex flex-column justify-content-between align-items-leaft'
+              className="d-flex flex-column justify-content-between align-items-leaft"
               onClick={() => NotificationsModal()}
             >
-              <p className='mb-1'>
+              <p className="mb-1">
                 <strong>Usuário dummy</strong>
               </p>
-              <p className='mb-0'>Primieros 39 caracteres</p>
+              <p className="mb-0">Primieros 39 caracteres</p>
             </li>
           ))}
         </ul>
       </div>
     </div>
-  )
+  );
 }

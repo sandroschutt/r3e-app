@@ -8,7 +8,11 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useParams } from "react-router-dom";
 import Admin from "../../../classes/Admin";
-import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import {
+  getSearchQueryParams,
+  searchInObject,
+  SearchResults,
+} from "../../../components/forms/SearchForm";
 
 export default function PublicDevices() {
   const { userData } = useUserDataContext();
@@ -20,44 +24,46 @@ export default function PublicDevices() {
 
   useEffect(() => {
     if (userData.role !== undefined && devices === "") {
-      if (userData.role === "Admin") {
-        if (params.id !== undefined) {
-          let userId = params.id;
-          Admin.getSingleUserDevices(userId, setDevices);
-        } else {
-          Device.getAll(setDevices);
-        }
-      } else Device.getUserDevices(userData.user.id, userData.role, setDevices);
+      if (userData.role === "Admin") Device.getAll(setDevices);
+      if (userData.role === "Cliente")
+        Device.getUserDevices(userData.id, setDevices);
+      if (userData.role === "Empresa" || userData.role === "Ong")
+        Device.getPublicDevices(setDevices);
+      if (userData.role === "Escola" || userData.role === "Ong")
+        Device.getStudentEligibleDevices(setDevices);
     }
 
     if (devices !== "" && search !== null && searched === false) {
-      const filteredDevices = devices.filter((device) => searchInObject(device, search));
+      const filteredDevices = devices.filter((device) =>
+        searchInObject(device, search)
+      );
       setDevices(filteredDevices);
       setSearched(true);
     }
   }, [userData, devices, params, search, searched]);
 
   function listRender(devices) {
-    if (devices !== "" && userData.role !== "Admin") {
-      return <PublicDevicesList devices={devices} />;
-    } else if (devices !== "" && userData.role === "Admin") {
+    if (devices !== "" && userData.role === "Admin")
       return <AdminDevicesTable devices={devices} />;
-    } else {
-      return <p>Aguardando dados...</p>;
-    }
+    if (
+      devices !== "" &&
+      userData.role !== "Admin" &&
+      userData.role !== "Escola"
+    )
+      return <PublicDevicesList devices={devices} />;
+    if (devices !== "" && userData.role === "Escola")
+      return <PublicDevicesList devices={devices} />;
+    return <p>Aguardando dados...</p>;
   }
 
-  return (
-    <Row id="public-devices--view" className="flex-column">
-      <Col>
-        <UserHeader
-          pageTitle={"Dispositivos"}
-        />
-        <SearchResults search={search} />
-      </Col>
-      <Col>
-        {listRender(devices)}
-      </Col>
-    </Row>
-  );
+  if (devices !== "")
+    return (
+      <Row id="public-devices--view" className="flex-column">
+        <Col>
+          <UserHeader pageTitle={"Dispositivos"} />
+          <SearchResults search={search} />
+        </Col>
+        <Col>{listRender(devices)}</Col>
+      </Row>
+    );
 }

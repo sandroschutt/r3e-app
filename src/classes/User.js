@@ -103,7 +103,7 @@ export default class User {
    */
   getSchedules(setSchedules) {
     try {
-      axios.get(Api.endpoint(`user/${this.id}/schedules`)).then((response) => {
+      axios.get(Api.endpoint(`users/${this.id}/schedules`)).then((response) => {
         setSchedules(response.data);
       });
     } catch (error) {

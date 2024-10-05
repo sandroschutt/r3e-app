@@ -35,7 +35,7 @@ export function CreateStudentModal(props) {
   };
 
   function handleFormSubmit() {
-    console.log(newStudent)
+    if(props.user.role === "Escola") newStudent.info.schoolId = props.user.id;
     Student.create(newStudent);
   }
 
@@ -47,7 +47,7 @@ export function CreateStudentModal(props) {
         </button>
 
         <Modal show={show} onHide={handleClose} centered>
-          <Modal.Header closeButton>
+          <Modal.Header className="bg-success text-light" closeButton>
             <Modal.Title>Novo estudante</Modal.Title>
           </Modal.Header>
           <Modal.Body>

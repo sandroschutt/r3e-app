@@ -23,7 +23,7 @@ export default class Student {
           throw new Error();
         }
         alert(`Estudante ${response.data.name} criado com sucesso!`);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -76,13 +76,29 @@ export default class Student {
     axios
       .post(Api.endpoint(`students/${id}/delete`))
       .then((response) => {
-        if(response.status !== 200) throw new Error(`Não foi possível excluir o estudante ${id}`);
-        alert(`Estudante ${id} excluído com sucesso.`)
+        if (response.status !== 200)
+          throw new Error(`Não foi possível excluir o estudante ${id}`);
+        alert(`Estudante ${id} excluído com sucesso.`);
         window.location.reload();
       })
       .catch((error) => {
         alert(`Falha na exclusão do estudante ${id}.`);
-        console.error(error)
+        console.error(error);
       });
+  }
+
+  /**
+   * Retrieves all Students from a single School
+   *
+   * @param { String|Number } id The current Student's ID
+   * @param { CallableFunction } setStudents A callback function for setting the Students's state
+   * */
+  static getSchoolSudents(id, setStudents) {
+    axios
+      .get(Api.endpoint(`school/${id}/students`))
+      .then((response) => {
+        setStudents(response.data);
+      })
+      .catch((error) => console.log(error));
   }
 }

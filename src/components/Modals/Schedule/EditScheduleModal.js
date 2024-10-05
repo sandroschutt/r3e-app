@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
@@ -6,10 +6,17 @@ import User from "../../../classes/User";
 
 export function EditScheduleModal(props) {
   const schedule = props.schedule;
+  const [userCanEdit, setUserCanEdit] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    if (props.userRole === "Admin" && userCanEdit === false) {
+      setUserCanEdit(true);
+    } else setUserCanEdit("");
+  }, [userCanEdit]);
 
   function handleEditSchedule() {
     const data = {
@@ -17,11 +24,11 @@ export function EditScheduleModal(props) {
       status: schedule.status,
       dateColect: schedule.dateColect,
       cancelReason: schedule.cancelReason,
-      obs: schedule.obs
-    }
+      obs: schedule.obs,
+    };
 
     const user = new User();
-    user.updateSchedule(schedule.id, data)
+    user.updateSchedule(schedule.id, data);
   }
 
   function handleCancelReasonSelect(scheduleStatus) {
@@ -63,6 +70,28 @@ export function EditScheduleModal(props) {
     return new Date(date);
   }
 
+  function handleEditableFields(userCanEdit, schedule) {
+    if(userCanEdit) return (
+      <>
+        <label className="mb-2" htmlFor="accepted">
+          Aceita:
+        </label>
+        <select
+          className="mb-4 form-control"
+          name="accepted"
+          onChange={(event) => {
+            schedule.accepted = event.target.value;
+          }}
+          defaultValue={schedule.accepted}
+        >
+          <option>-- selecione</option>
+          <option value={true}>Sim</option>
+          <option value={false}>Não</option>
+        </select>
+      </>
+    );
+  }
+
   if (schedule !== "")
     return (
       <>
@@ -75,24 +104,10 @@ export function EditScheduleModal(props) {
           <Modal.Body>
             <form>
               <div className="mb-5">
-                <label className="mb-2" htmlFor="accepted">
-                  Aceita:
-                </label>
-                <select
-                  className="mb-4 form-control"
-                  name="accepted"
-                  onChange={(event) => {
-                    schedule.accepted = event.target.value;
-                  }}
-                  defaultValue={schedule.accepted}
-                >
-                  <option>-- selecione</option>
-                  <option value={true}>Sim</option>
-                  <option value={false}>Não</option>
-                </select>
+                { handleEditableFields(userCanEdit, schedule) }
 
                 <label className="mb-2" htmlFor="status">
-                  Status do pagamento:
+                  Status:
                 </label>
                 <select
                   className="mb-4 form-control"

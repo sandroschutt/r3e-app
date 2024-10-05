@@ -32,21 +32,6 @@ export default class Device {
   }
 
   /**
-   * Gets a list of Devices from a single User
-   * @param {String|Number} id The Device's ID
-   * @returns {JSON} Success - An JSON Object containing the Device
-   * @returns {AxiosError} Fail - An Error Object containing the request data
-   * */
-  static getUserDevices(id = Number, setDevices) {
-    axios
-      .get(Api.endpoint(`devices/user/${id}`))
-      .then((response) => {
-        setDevices(response.data);
-      })
-      .catch((error) => console.log(error.response.data));
-  }
-
-  /**
    * Creates a new Device
    * @param {JSON} data A JSON object containing the request body
    * @param {String} role The current user's role
@@ -60,7 +45,7 @@ export default class Device {
       })
       .then((response) => {
         if (response.status === 200) {
-          window.location.href = `/${role.toLocaleLowerCase()}/devices/${response.data.id}`;
+          window.location.reload();
         } else throw new Error("Erro na requisição");
       })
       .catch((error) => console.log(error));
@@ -129,15 +114,58 @@ export default class Device {
     await axios
       .post(Api.endpoint(`devices/${id}/delete`))
       .then((response) => {
-        if(response.status !== 200) throw new Error("Erro na requisição");
-        alert(`Dispostivo ${id} excluído com sucesso.`)
-        let pathname = window.location.pathname.split('/')
+        if (response.status !== 200) throw new Error("Erro na requisição");
+        alert(`Dispostivo ${id} excluído com sucesso.`);
+        let pathname = window.location.pathname.split("/");
         pathname = `/${pathname[1]}/${pathname[2]}`;
-        window.location.href = window.location.origin + pathname
+        window.location.href = window.location.origin + pathname;
       })
       .catch((error) => {
-        alert("Falaha ao excluir o dispositivo.")
-        console.error(error)
+        alert("Falaha ao excluir o dispositivo.");
+        console.error(error);
       });
+  }
+
+  /**
+   * Gets a list of Devices from a single User
+   * @param {String|Number} id The Device's ID
+   * @returns {JSON} Success - An JSON Object containing the Device
+   * @returns {AxiosError} Fail - An Error Object containing the request data
+   * */
+  static getUserDevices(id, setDevices) {
+    axios
+      .get(Api.endpoint(`devices/user/${id}`))
+      .then((response) => {
+        setDevices(response.data);
+      })
+      .catch((error) => console.error(error));
+  }
+
+  /**
+   * Gets a list of public Devices
+   *
+   * @param {CallableFunction} setDevices A callback function for setting the Devices' state
+   * */
+  static getPublicDevices(setDevices) {
+    axios
+      .get(Api.endpoint(`public/devices`))
+      .then((response) => {
+        setDevices(response.data);
+      })
+      .catch((error) => console.error(error));
+  }
+
+  /**
+   * Gets a list of Devices eligible for donation
+   *
+   * @param {CallableFunction} setDevices A callback function for setting the Devices' state
+   * */
+  static getStudentEligibleDevices(setDevices) {
+    axios
+      .get(Api.endpoint(`school/devices`))
+      .then((response) => {
+        setDevices(response.data);
+      })
+      .catch((error) => console.error(error));
   }
 }

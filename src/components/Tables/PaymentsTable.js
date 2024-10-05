@@ -19,6 +19,10 @@ export default function PaymentsTable(props) {
       Admin.getAllSchedules(setSchedules);
   }, [schedules]);
 
+  function currentUserRoleProfilesRoute(userRole, id) {
+    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
+  }
+
   if (props.payments !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
@@ -68,9 +72,7 @@ export default function PaymentsTable(props) {
                       href="#"
                       onClick={() =>
                         navigate(
-                          `/${window.location.pathname.split("/")[1]}/users/${
-                            payment.schedule.client.id
-                          }`
+                          currentUserRoleProfilesRoute(userData.role, payment.schedule.client.id)
                         )
                       }
                     >
@@ -82,13 +84,11 @@ export default function PaymentsTable(props) {
                       href="#"
                       onClick={() =>
                         navigate(
-                          `/${window.location.pathname.split("/")[1]}/users/${
-                            payment.schedule.vendor.id
-                          }`
+                          currentUserRoleProfilesRoute(userData.role, payment.schedule.vendor.id)
                         )
                       }
                     >
-                      {payment.schedule.client.name}
+                      {payment.schedule.vendor.name}
                     </a>
                   </td>
                   <td>{`R$${payment.price}`}</td>

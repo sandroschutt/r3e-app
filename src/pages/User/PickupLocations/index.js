@@ -15,14 +15,16 @@ export default function PickupLocations() {
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    if (locations === "") PickupLocation.getAll(setLocations);
+    if (locations === "" && userData.role === "Admin") PickupLocation.getAll(setLocations);
+
+    if (locations === "" && userData.role !== "Admin" && userData.id !== undefined) PickupLocation.getUserPickupLocations(userData.id, setLocations);
 
     if (locations !== "" && search !== null && searched === false) {
       const filteredLocations = locations.filter((location) => searchInObject(location, search));
       setLocations(filteredLocations);
       setSearched(true);
     }
-  }, [locations, search, searched]);
+  }, [locations, search, searched, userData]);
 
   return (
     <Row id="pickup-locations-view" className={"flex-column"}>
