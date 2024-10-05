@@ -27,7 +27,10 @@ export default function PublicDevices() {
       if (userData.role === "Admin") Device.getAll(setDevices);
       if (userData.role === "Cliente")
         Device.getUserDevices(userData.id, setDevices);
-      if(userData.role === "Empresa" || userData.role === "Ong") Device.getPublicDevices(setDevices)
+      if (userData.role === "Empresa" || userData.role === "Ong")
+        Device.getPublicDevices(setDevices);
+      if (userData.role === "Escola" || userData.role === "Ong")
+        Device.getStudentEligibleDevices(setDevices);
     }
 
     if (devices !== "" && search !== null && searched === false) {
@@ -40,22 +43,27 @@ export default function PublicDevices() {
   }, [userData, devices, params, search, searched]);
 
   function listRender(devices) {
-    if (devices !== "" && userData.role !== "Admin") {
-      return <PublicDevicesList devices={devices} />;
-    } else if (devices !== "" && userData.role === "Admin") {
+    if (devices !== "" && userData.role === "Admin")
       return <AdminDevicesTable devices={devices} />;
-    } else {
-      return <p>Aguardando dados...</p>;
-    }
+    if (
+      devices !== "" &&
+      userData.role !== "Admin" &&
+      userData.role !== "Escola"
+    )
+      return <PublicDevicesList devices={devices} />;
+    if (devices !== "" && userData.role === "Escola")
+      return <PublicDevicesList devices={devices} />;
+    return <p>Aguardando dados...</p>;
   }
 
-  return (
-    <Row id="public-devices--view" className="flex-column">
-      <Col>
-        <UserHeader pageTitle={"Dispositivos"} />
-        <SearchResults search={search} />
-      </Col>
-      <Col>{listRender(devices)}</Col>
-    </Row>
-  );
+  if (devices !== "")
+    return (
+      <Row id="public-devices--view" className="flex-column">
+        <Col>
+          <UserHeader pageTitle={"Dispositivos"} />
+          <SearchResults search={search} />
+        </Col>
+        <Col>{listRender(devices)}</Col>
+      </Row>
+    );
 }
