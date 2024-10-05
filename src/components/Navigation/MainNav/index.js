@@ -33,7 +33,6 @@ export default function MainNav() {
     ["Home", "", faTableColumns],
     ["Mapa", "map", faLocationDot],
     ["Coletas", "pickups", faTruck],
-    ["Pagamentos", "payments", faDollar],
     ["Dispositivos", "devices", faTablet],
   ]);
 
@@ -47,6 +46,7 @@ export default function MainNav() {
       if (userRole === "Admin") {
         setUserOptions([
           ...userOptions,
+          ["Pagamentos", "payments", faDollar],
           ["Marcas", "device-brands", faIndustry],
           ["Modelos", "device-models", faLaptopFile],
           ["Oficina", "workshop", faWrench],
@@ -64,6 +64,7 @@ export default function MainNav() {
       if (userRole === "Empresa" || userRole === "Ong") {
         setUserOptions([
           ...userOptions,
+          ["Pagamentos", "payments", faDollar],
           ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Integrações", "integrations", faCode],
           ["Configurações", "settings", faGear],
@@ -74,6 +75,7 @@ export default function MainNav() {
       if (userRole === "Cliente") {
         setUserOptions([
           ...userOptions,
+          ["Pagamentos", "payments", faDollar],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
         ]);
