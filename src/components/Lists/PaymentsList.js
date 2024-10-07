@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 /**
  * A responsive dropdown list
  *
- * @prop {Array} schedules An array containing JSON objects
+ * @prop {Array} payments An array containing JSON objects
  */
 export function PaymentsList(props) {
   const navigate = useNavigate();
