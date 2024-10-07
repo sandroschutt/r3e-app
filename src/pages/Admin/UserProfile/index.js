@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../../validations/validateDate";
 import User from "../../../classes/User";
 import { useUserDataContext } from "../../../context/UserDataContext";
+import { CreatePickupLocationFromSchoolModal } from "../../../components/Modals/PickupLocations/CreatePickupLocationFromSchoolModal";
 
 export default function UserProfile() {
   const { userData } = useUserDataContext();
@@ -15,10 +16,7 @@ export default function UserProfile() {
   const navigate = useNavigate();
   const pathname = window.location.pathname.split("/");
   const id = pathname[pathname.length - 1];
-  let optionsCards = [
-    ["Coletas", `pickups`, "Ver todas as coletas do usuário"],
-    ["Dispositivos", `devices`, "Ver todos os dispositivos do usuário"],
-  ];
+  let optionsCards = [];
 
   useEffect(() => {
     if (user === "") {
@@ -34,18 +32,41 @@ export default function UserProfile() {
     return;
   }
 
-  if (user !== "") {
-    if (
-      (user.role.toLowerCase() === "empresa" ||
-        user.role.toLowerCase() === "ong") &&
-      optionsCards.length <= 2
-    ) {
-      optionsCards.push([
-        "Pontos de coleta",
-        `/admin/pickup-locations`,
-        "Ver todos os pontos de coleta do usuário",
-      ]);
+  function handleAdminOptions() {
+    if (user.role !== "Escola" && user.role !== "Cliente") {
+      optionsCards = [
+        ["Coletas", `pickups`, "Ver todas as coletas do usuário"],
+        ["Dispositivos", `devices`, "Ver todos os dispositivos do usuário"],
+        [
+          "Pontos de coleta",
+          `/admin/pickup-locations`,
+          "Ver todos os pontos de coleta do usuário",
+        ],
+      ];
     }
+
+    if (user.role === "Escola") {
+      return (
+        <div className="option-card p-3">
+          <h4>{"Criar Ponto de Coleta"}</h4>
+          <div className="d-flex gap-3 justify-content-between align-items-center">
+            <p className="mb-0">
+              {"Tornar a sua escola em um ponto de coleta de REEE"}
+            </p>
+            <CreatePickupLocationFromSchoolModal id={userData.id} />
+          </div>
+        </div>
+      );
+    }
+  }
+
+  function handleSchoolPickupLocation() {
+    alert("Disparar modal com mais informações");
+
+    // window.location.reload();
+  }
+
+  if (user !== "") {
     return (
       <Row id="admin--single-user--view" className="flex-column">
         <Col>
@@ -54,20 +75,7 @@ export default function UserProfile() {
         <Col>
           <Row>
             <Col className="option-cards col-4 px-0">
-              {optionsCards.map((option, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="option-card p-3"
-                    onClick={() => {
-                      navigate(`${option[1]}?name=${user.name}`);
-                    }}
-                  >
-                    <h4>{option[0]}</h4>
-                    <p className="mb-0">{option[2]}</p>
-                  </div>
-                );
-              })}
+              {handleAdminOptions(optionsCards)}
               <Row className="user-data--overview px-2 py-4">
                 <h5>Overview</h5>
                 <hr className="mb-4 text-secondary" />
