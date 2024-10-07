@@ -1,5 +1,6 @@
 import { Accordion, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { validateDate } from "../../validations/validateDate";
 
 /**
  * A responsive dropdown list
@@ -8,6 +9,8 @@ import { useNavigate } from "react-router-dom";
  */
 export function PaymentsList(props) {
   const navigate = useNavigate();
+
+  console.log(props.payments)
 
   if (props.payments !== "")
     return (
@@ -23,7 +26,7 @@ export function PaymentsList(props) {
                   <div className="col-col-6 d-flex gap-3 align-items-center pe-3">
                     <p className="mb-0">
                       <strong>Prazo: </strong>
-                      {"01/01/1999"}
+                      {validateDate(payment.term)}
                     </p>
                     <p className="mb-0 h4">
                       <Badge bg="secondary">{payment.status}</Badge>
