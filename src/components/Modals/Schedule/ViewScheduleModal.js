@@ -14,13 +14,19 @@ export function ViewScheduleModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function handleObservation(observation) {
-    if (observation !== "") {
+  function handleObservation(clientObs, vendorObs) {
+    if (clientObs !== "") {
       return (
-        <div className="mb-5 p-3 bg-warning">
-          <strong>Observações: </strong>
-          <p>{observation}</p>
-        </div>
+        <>
+          <div className="mb-5 p-3 alert alert-warning">
+            <strong>Observações do doador: </strong>
+            <p>{clientObs}</p>
+          </div>
+          <div className="mb-5 p-3 alert alert-warning">
+            <strong>Observações do coletor: </strong>
+            <p>{vendorObs}</p>
+          </div>
+        </>
       );
     }
   }
@@ -144,7 +150,7 @@ export function ViewScheduleModal(props) {
                 </a>
               </div>
 
-              {handleObservation(schedule.obs)}
+              {handleObservation(schedule.clientObs, schedule.vendorObs)}
             </div>
           </Modal.Body>
         </Modal>
