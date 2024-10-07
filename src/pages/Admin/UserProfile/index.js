@@ -53,17 +53,11 @@ export default function UserProfile() {
             <p className="mb-0">
               {"Tornar a sua escola em um ponto de coleta de REEE"}
             </p>
-            <CreatePickupLocationFromSchoolModal id={userData.id} />
+            <CreatePickupLocationFromSchoolModal id={userData.id} S/>
           </div>
         </div>
       );
     }
-  }
-
-  function handleSchoolPickupLocation() {
-    alert("Disparar modal com mais informações");
-
-    // window.location.reload();
   }
 
   if (user !== "") {
