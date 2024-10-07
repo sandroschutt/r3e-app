@@ -13,8 +13,6 @@ import { DeleteDeviceModal } from "../Modals/Device/DeleteDeviceModal.js";
 
 export function AdminDevicesTable(props) {
   const navigate = useNavigate();
-  const pathname = window.location.pathname.split("/")[2];
-  const devices = props.devices;
 
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
@@ -24,7 +22,7 @@ export function AdminDevicesTable(props) {
     if (models === "") Models.getAll(setModels);
   }, []);
 
-  if (devices !== "") {
+  if (props.devices !== "") {
     return (
       <>
         <Row>
@@ -45,11 +43,7 @@ export function AdminDevicesTable(props) {
               </tr>
             </thead>
             <tbody>
-              {devices.map((device, index) => {
-                let deviceUrl =
-                  pathname === "devices"
-                    ? device.id
-                    : `/admin/devices/${device.id}`;
+              {props.devices.map((device, index) => {
                 return (
                   <tr
                     id={device.id}
@@ -65,7 +59,7 @@ export function AdminDevicesTable(props) {
                     <td>{device.model.name}</td>
                     <td>{device.brand.name}</td>
                     <td>{device.model.year}</td>
-                    <td>{device.user.name}</td>
+                    <td><a href="#" onClick={() => navigate(`/admin/users/${device.user.id}`)}>{device.user.name}</a></td>
                     <td>{device.state}</td>
                     <td>{validateDate(device.createdAt)}</td>
                     <td className="d-flex justify-content-around align-items-center">
@@ -73,7 +67,7 @@ export function AdminDevicesTable(props) {
                         className="action"
                         icon={faEye}
                         onClick={() => {
-                          navigate(`${deviceUrl}`);
+                          navigate(`/admin/devices/${device.id}`);
                         }}
                       />
                       <EditDeviceModal device={device} models={models} brands={brands} />
