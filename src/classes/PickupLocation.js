@@ -127,4 +127,29 @@ export default class PickupLocation {
       })
       .catch((error) => console.log(error));
   }
+
+  /**
+   * Create a single PickupLocation based on a School's info
+   *
+   * @param {String|Number} id The School's id
+   * @param {Data} data The new PickupLocation's data
+   * */
+  static async createFromSchool(id, data) {
+    axios
+      .post(Api.endpoint(`pickup-locations/create/school/${id}`), data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error("Falha ao criar o local de coleta.");
+        alert(`Local de coleta criado com sucesso!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 }
