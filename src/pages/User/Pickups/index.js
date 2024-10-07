@@ -8,27 +8,26 @@ import Admin from "../../../classes/Admin";
 import User from "../../../classes/User";
 import SchedulesTable from "../../../components/Tables/SchedulesTable";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import { PickupsList } from "../../../components/Lists/PickupsList";
 
 export default function Pickups() {
   const { userData } = useUserDataContext();
   const [pageTitle, setPageTitle] = useState("Minhas Coletas");
   const [schedules, setSchedules] = useState("");
   const [schedule, setSchedule] = useState("");
-  const userId = useParams();
+  const params = useParams();
 
-  const [search, setSearch] = useState(getSearchQueryParams());
+  const search = getSearchQueryParams();
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     if (userData !== "" && userData.role !== undefined && schedules === "") {
       if (userData.role === "Admin") {
-        if (userId.id === undefined) {
+        if (params.id === undefined) {
           Admin.getAllSchedules(setSchedules);
         } else {
-          let urlParams = new URLSearchParams(window.location.search);
-          let userName = urlParams.get("name");
-          Admin.getUserSchedules(userId.id, setSchedules);
-          setPageTitle(`Coletas de ${userName}`);
+          Admin.getUserSchedules(params.id, setSchedules);
+          setPageTitle(`Coletas de ${userData.name}`);
         }
       } else {
         let user = new User(userData.id);
@@ -45,7 +44,12 @@ export default function Pickups() {
       setSchedules(filteredSchedules);
       setSearched(true);
     }
-  }, [userData, userId, schedules, schedule]);
+  }, [userData, schedules, schedule]);
+
+  function handleUserTable() {
+    if(userData.role === "Admin") return <SchedulesTable schedules={schedules} userRole={userData.role}/>
+    if(userData.role !== "Admin") return <PickupsList schedules={schedules} userRole={userData.role}/>
+  }
 
   if(schedules !== "" ) return (
     <Row id="pickups-view" className="flex-column">
@@ -54,7 +58,7 @@ export default function Pickups() {
         <SearchResults search={search} />
       </Col>
       <Row className="pickups--list-view ms-0">
-        <SchedulesTable schedules={schedules} userRole={userData.role}/>
+        { handleUserTable() }
       </Row>
     </Row>
   );
