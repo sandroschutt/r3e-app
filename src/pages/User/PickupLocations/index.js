@@ -6,6 +6,7 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
 import PickupLocation from "../../../classes/PickupLocation";
 import { useEffect, useState } from "react";
+import { PickupLocationsList } from "../../../components/Lists/PickupLocarionsList";
 
 export default function PickupLocations() {
   const { userData } = useUserDataContext();
@@ -26,6 +27,11 @@ export default function PickupLocations() {
     }
   }, [locations, search, searched, userData]);
 
+  function handlePickupLocationTable() {
+    if(userData.role === "Admin") return <PickupLocationsTable userId={userData.id} locations={locations} />
+    return <PickupLocationsList locations={locations} userId={userData.id}/>
+  }
+
   return (
     <Row id="pickup-locations-view" className={"flex-column"}>
       <Col>
@@ -34,7 +40,7 @@ export default function PickupLocations() {
       </Col>
       <Col className="pickup-location--list-view">
         <Col>
-          <PickupLocationsTable userId={userData.id} locations={locations} />
+          { handlePickupLocationTable() }
         </Col>
       </Col>
     </Row>

@@ -32,7 +32,7 @@ export function CreatePickupLocationModal(props) {
     <>
       <button
         type="button"
-        className="btn btn-success col-3 my-2"
+        className="btn btn-success col-2 my-3"
         onClick={handleShow}
       >
         Novo Local de Coleta +
