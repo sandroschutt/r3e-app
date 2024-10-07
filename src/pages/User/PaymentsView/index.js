@@ -5,6 +5,7 @@ import { getSearchQueryParams, searchInObject, SearchResults } from "../../../co
 import { useEffect, useState } from "react";
 import Payments from "../../../classes/Payments";
 import { useUserDataContext } from "../../../context/UserDataContext";
+import { PaymentsList } from "../../../components/Lists/PaymentsList";
 
 export default function PaymentsView() {
   const { userData } = useUserDataContext();
@@ -22,6 +23,12 @@ export default function PaymentsView() {
       setSearched(true);
     }
   }, [userData, payments, search, searched])
+
+  function handlePaymentsTable() {
+    if(userData.role === "Admin") return <PaymentsTable payments={payments} />
+    if(userData.role !== "Admin") return <PaymentsList payments={payments} userRole={userData.role}/>
+  }
+
   if(payments !== "") return (
     <Row id="payments-view" className={"flex-column"}>
       <Col>
@@ -30,7 +37,7 @@ export default function PaymentsView() {
       </Col>
       <Col className="--list-view">
         <Col>
-          <PaymentsTable payments={payments} />
+          { handlePaymentsTable() }
         </Col>
       </Col>
     </Row>
