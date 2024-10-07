@@ -28,7 +28,7 @@ export default function UserRoutes () {
       <UserLayout>
         <Routes>
           <Route path='/' element={<Dashboard user={'user'} />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<UserProfile />} />
           <Route path="/profile/:id" element={<UserProfile />} />
           <Route path='/map' element={<MapView />} />
           <Route path='/devices' element={<PublicDevices />} />

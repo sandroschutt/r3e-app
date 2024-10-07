@@ -37,7 +37,7 @@ export default class Admin {
       .catch((error) => console.log(error));
   }
 
-  static getSingleUser(id = Number, setUser) {
+  static getSingleUser(id, setUser) {
     axios
       .get(Api.endpoint(`users/${id}`))
       .then((response) => {
