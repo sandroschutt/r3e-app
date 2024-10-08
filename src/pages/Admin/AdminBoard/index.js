@@ -11,11 +11,36 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import AdminBoardInfo from '../../../classes/AdminBoardInfo';
+import { useState, useEffect } from 'react';
 
 export default function AdminBoard() {
 
+  const [allStudents, setAllStudents] = useState(0);
+  const [benefitedStudents, setBenefitedStudents] = useState(0);
+
+  const pickStudentsCounts = (students) => {
+    setAllStudents(students.total);
+    setBenefitedStudents(students.benefited);
+  };
+
+  const [usersMonths, setUsersMonths] = useState({
+    january: 0,
+    february: 0,
+    march: 0,
+    april: 0,
+    may: 0,
+    june: 0,
+    july: 0,
+    august: 0,
+    september: 0,
+    october: 0,
+    november: 0,
+    december: 0
+  })
+
   ChartJS.register(
-    CategoryScale, // Essa é a escala de categorias que você está precisando
+    CategoryScale, 
     LinearScale,
     PointElement,
     LineElement,
@@ -24,7 +49,7 @@ export default function AdminBoard() {
     Legend
   );
   
-  const data = {
+  let data = {
     labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
        'Julho', 'Agosto', 'Outubro', 'Setembro', 'Novembro', 'Dezembro'],
     datasets: [
@@ -55,6 +80,14 @@ export default function AdminBoard() {
     return <Line data={data} options={options} />;
   };
 
+  useEffect(() => {
+    AdminBoardInfo.getStudents(pickStudentsCounts);
+    // AdminBoardInfo.getUsers()
+  }, []); 
+
+  const percentage = allStudents > 0 ? ((benefitedStudents / allStudents) * 100).toFixed(2) : 0;
+  const percentageString = `${percentage}%`
+
   return (
     <>
       <Row className="mt-4 mb-2">
@@ -66,23 +99,24 @@ export default function AdminBoard() {
         </Col>
         <Col md={2}>
           <Card className="mt-2 mb-3 p-2 shadow-sm">
-            <p>Alunos cadastrados já contemplados</p>
-            <ProgressBar now={60} label="60%" variant="info"/>
+            <p> Total de alunos {allStudents} </p>
+            <p> % já beneficiádo</p>
+            <ProgressBar now={percentage} label={percentageString} variant="info"/>
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>Aparelhos para descarte recebidos por parceiros</p>
+            <p>PCs cadastrados</p>
             <ProgressBar now={75} label="75%"/>
           </Card>
-          <Card className="p-2 shadow-sm">
-            <p>% de aparelhos oferecidos / aparelhos reaproveitados</p>
+          <Card className="mb-3 p-2 shadow-sm">
+            <p>Notebooks cadastrados</p>
             <ProgressBar now={92} label="92%" variant="success" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>% de aparelhos oferecidos / aparelhos reaproveitados</p>
+            <p>Chromebooks cadastrados</p>
             <ProgressBar now={92} label="92%" variant="warning" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>% de aparelhos oferecidos / aparelhos reaproveitados</p>
+            <p>Perfiféricos e Outros cadastrados</p>
             <ProgressBar now={92} label="92%" variant="danger" />
           </Card>
       </Col>
