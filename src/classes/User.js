@@ -112,6 +112,31 @@ export default class User {
   }
 
   /**
+   * Creates a single Schedule from the database
+   *
+   * @param {JSON} data The Schedule's request data
+   * @return The response status and message
+   */
+  static async createSchedule(data) {
+    axios
+      .post(Api.endpoint(`schedules/create`), data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error(`Falha ao criar agendamento.`);
+        alert(`Agendamento criado com sucesso!`);
+        window.location.href = `${window.location.origin}/user/pickups`;
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
+
+  /**
    * Updates a single Schedule from the database
    *
    * @param {String|Number} id The Schedule's ID

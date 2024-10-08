@@ -5,6 +5,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { EditDeviceModal } from "../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../Modals/Device/DeleteDeviceModal";
 import { useNavigate } from "react-router-dom";
+import { CreateScheduleModal } from "../Modals/Schedule/CreateScheduleModal";
 
 export function DeviceAccordionItems(props) {
   const device = props.device;
@@ -18,7 +19,7 @@ export function DeviceAccordionItems(props) {
       <Accordion.Body>
         <div className="d-flex gap-3 pb-4">
           <div>
-            <img src={dummyDeviceImage} height={148} className="rounded"/>
+            <img src={dummyDeviceImage} height={148} className="rounded" />
           </div>
           <div>
             <p className="mb-1">
@@ -39,10 +40,24 @@ export function DeviceAccordionItems(props) {
             </p>
           </div>
         </div>
-        <div className="d-flex justify-content-end gap-3">
-            <FontAwesomeIcon icon={faEye} onClick={() => { navigate(`/user/devices/${device.id}`) }}/>
-            <EditDeviceModal device={device} brands={props.brands} models={props.models}/>
+        <div className="d-flex justify-between">
+          <div className="col col-6">
+            <CreateScheduleModal device={device} />
+          </div>
+          <div className="d-flex col col-6 justify-content-end gap-3 align-items-center">
+            <FontAwesomeIcon
+              icon={faEye}
+              onClick={() => {
+                navigate(`/user/devices/${device.id}`);
+              }}
+            />
+            <EditDeviceModal
+              device={device}
+              brands={props.brands}
+              models={props.models}
+            />
             <DeleteDeviceModal deviceId={device.id} />
+          </div>
         </div>
       </Accordion.Body>
     </Accordion.Item>
