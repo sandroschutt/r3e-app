@@ -1,23 +1,13 @@
-import Modal from "react-bootstrap/Modal";
 import "./style.scss";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { NotificationList } from "../Lists";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-regular-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useUserDataContext } from "../../context/UserDataContext";
+import { faBell, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ReturnProcess from "../../classes/ReturnProcess";
 import User from "../../classes/User";
-import {
-  handlePostDeviceFormSubmit,
-  handleSelectPlaceholder,
-  handleStateOptions,
-} from "./helpers";
-import Device from "../../classes/Device";
-import Brands from "../../classes/Brands";
-import Models from "../../classes/Models";
+import { Badge } from "react-bootstrap";
 
 export function NewUserModal() {
   const user = new User();
@@ -360,10 +350,23 @@ export function AdminAddReturnProcessModal() {
 }
 
 export function NotificationsModal() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   let dummyNotifications = [];
 
   for (let i = 0; i <= 10; i++) {
     dummyNotifications.push(null);
+  }
+
+  function handleNotificationsBadge(notifications) {
+    if (notifications.length > 1)
+      return (
+        <Badge bg="danger" className="rounded-circle p-2">
+          <p className="mb-0">{dummyNotifications.length}</p>
+        </Badge>
+      );
   }
 
   return (
@@ -371,11 +374,53 @@ export function NotificationsModal() {
       className="custom-modal"
       style={{ display: "block", position: "initial" }}
     >
-      <Modal.Dialog>
-        <Modal.Body>
-          <NotificationList data={dummyNotifications} />
+      <>
+        <span
+          style={{
+            position: "absolute",
+            marginLeft: "-20px",
+            fontSize: ".8em",
+          }}
+        >
+          {handleNotificationsBadge(dummyNotifications)}
+        </span>
+        <FontAwesomeIcon
+          className="notifications"
+          icon={faBell}
+          onClick={() => {
+            if (show === false) handleShow();
+            if (show !== false) handleClose();
+          }}
+        />
+      </>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header
+          className="d-flex bg-success text-light align-items-center"
+          closeButton
+        >
+          <p className="h4 me-3 mb-0">Notificações</p>
+          {handleNotificationsBadge(dummyNotifications)}
+        </Modal.Header>
+        <Modal.Body className="p-0">
+          <ul
+            className="p-0 mb-0 overflow-y-scroll"
+            style={{ height: "700px" }}
+          >
+            {dummyNotifications.map((notification, index) => (
+              <li
+                key={index}
+                className="d-flex flex-column p-4 border"
+                onClick={() => console.log(notification)}
+              >
+                <p className="mb-1">
+                  <strong>Usuário dummy realizou uma ação</strong>
+                </p>
+                <p className="mb-0">Primieros 39 caracteres</p>
+              </li>
+            ))}
+          </ul>
         </Modal.Body>
-      </Modal.Dialog>
+      </Modal>
     </div>
   );
 }

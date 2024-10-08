@@ -1,24 +1,15 @@
 import "./style.scss";
 import { Col, Row } from "react-bootstrap";
-import SearchForm, { SearchResults } from "../forms/SearchForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import SearchForm from "../forms/SearchForm";
 import { NotificationsModal } from "../Modals";
-import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function UserHeader(props) {
-  const [showNotifications, setShowNotifications] = useState(false);
-  const handleNotification = () => {
-    setShowNotifications(!showNotifications);
-  };
+  const params = useParams();
 
-  const NotificationModal = () => {
-    return (
-      <>
-        <NotificationsModal />
-      </>
-    );
-  };
+  function handleSeacrhFormShow() {
+    if(params.id === undefined) return <SearchForm/>;
+  }
 
   return (
     <header>
@@ -28,16 +19,11 @@ export default function UserHeader(props) {
             <h1>{props.pageTitle}</h1>
           </Col>
           <Col className="col-7">
-            <SearchForm/>
+            { handleSeacrhFormShow() }
           </Col>
           <Col className="col-1 text-end pe-0">
-            <FontAwesomeIcon
-              className="notifications"
-              icon={faBell}
-              onClick={handleNotification}
-            />
+            <NotificationsModal />
           </Col>
-          {showNotifications && <NotificationModal />}
         </Row>
       </>
     </header>

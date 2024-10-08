@@ -316,25 +316,3 @@ export function PickupLocationsList(props) {
     );
   }
 }
-
-export function NotificationList(props) {
-  return (
-    <div className="public-devices">
-      <div className="list">
-        <ul className="ps-0 pe-1">
-          {props.data.map(() => (
-            <li
-              className="d-flex flex-column justify-content-between align-items-leaft"
-              onClick={() => NotificationsModal()}
-            >
-              <p className="mb-1">
-                <strong>Usuário dummy</strong>
-              </p>
-              <p className="mb-0">Primieros 39 caracteres</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
