@@ -5,18 +5,18 @@ import SingleDeviceTechnician from "../SingleDeviceTechnician";
 import { useEffect, useState } from "react";
 import Device from "../../../classes/Device";
 import { useUserDataContext } from "../../../context/UserDataContext";
+import { useParams } from "react-router-dom";
 
 export default function DeviceSingle(props) {
   const { userData } = useUserDataContext();
   const [device, setDevice] = useState("");
-  let deviceId = window.location.pathname.split("/");
-  deviceId = parseInt(deviceId[deviceId.length -1]);
+  const params = useParams();
 
   useEffect(() => {
     if(device === "") {
-      Device.getOne(deviceId, setDevice);
+      Device.getOne(params.id, setDevice);
     }
-  }, [device, deviceId])
+  }, [device, params.id])
 
   function defineTemplate(device) {
     if (userData.role === "Client" && device.returnProccess !== undefined) {
