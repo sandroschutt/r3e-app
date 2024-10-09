@@ -19,8 +19,8 @@ export default class Pickup {
   static accept(id) {
     axios
       .post(
-        Api.endpoint(`schedules/${id}/update`),
-        { accepted: 1, status: 2 },
+        Api.endpoint(`schedules/${id}/accept`),
+        {},
         {
           headers: {
             "Content-Type": "application/json",
@@ -47,8 +47,8 @@ export default class Pickup {
   static deny(id) {
     axios
       .post(
-        Api.endpoint(`schedules/${id}/update`),
-        { accepted: 0, status: 7 },
+        Api.endpoint(`schedules/${id}/deny`),
+        {},
         {
           headers: {
             "Content-Type": "application/json",
