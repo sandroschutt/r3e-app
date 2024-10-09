@@ -1,6 +1,8 @@
 import { Accordion, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
+import { useUserDataContext } from "../../context/UserDataContext";
+import { SaveProofModal } from "../Modals/Payments/SendProofModal";
 
 /**
  * A responsive dropdown list
@@ -8,7 +10,18 @@ import { validateDate } from "../../validations/validateDate";
  * @prop {Array} payments An array containing JSON objects
  */
 export function PaymentsList(props) {
+  const { userData } = useUserDataContext();
   const navigate = useNavigate();
+
+  function handlePaymentOptions(payment) {
+    if (userData.role === "Cliente" && payment.status === "pendente")
+      return (
+        <div className="d-flex gap-3">
+          <SaveProofModal payment={payment} />
+          <button className="btn btn-danger">Cancelar</button>
+        </div>
+      );
+  }
 
   if (props.payments !== "")
     return (
@@ -24,7 +37,9 @@ export function PaymentsList(props) {
                   <div className="col-col-6 d-flex gap-3 align-items-center pe-3">
                     <p className="mb-0">
                       <strong>Prazo: </strong>
-                      {payment.term !== null ? validateDate(payment.term) : "a combinar"}
+                      {payment.term !== null
+                        ? validateDate(payment.term)
+                        : "a combinar"}
                     </p>
                     <p className="mb-0 h4">
                       <Badge bg="secondary">{payment.status}</Badge>
@@ -84,6 +99,7 @@ export function PaymentsList(props) {
                     </p>
                   </div>
                 </div>
+                { handlePaymentOptions(payment) }
               </Accordion.Body>
             </Accordion.Item>
           );

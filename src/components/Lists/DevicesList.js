@@ -1,5 +1,6 @@
 import { Accordion } from "react-bootstrap";
 import { DeviceAccordionItems } from "../Accordions/DevicesAccordionItems";
+import { CreateDeviceModal } from "../Modals/Device/CreateDeviceModal";
 
 /**
  * A responsive dropdown list
@@ -10,6 +11,8 @@ import { DeviceAccordionItems } from "../Accordions/DevicesAccordionItems";
 export function DevicesList(props) {
   if (props.items !== "")
     return (
+      <>
+      <CreateDeviceModal brands={props.brands} models={props.models} />
       <Accordion defaultActiveKey="0">
         {props.items.map((item, index) => {
           return (
@@ -23,5 +26,6 @@ export function DevicesList(props) {
           );
         })}
       </Accordion>
+      </>
     );
 }

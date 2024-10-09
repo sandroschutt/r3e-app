@@ -130,4 +130,29 @@ export default class Payments {
         console.error(error);
       });
   }
+
+  /**
+   * Attachs a payment proof note to a given Payment
+   *
+   * @param {String|Number} id The Payment's id
+   * @param {JSON} data The Payment's note file
+   * */
+  static async proof(id, data) {
+    axios
+      .post(Api.endpoint(`payments/${id}/proof`), data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error("Falha ao enviar o comprovante de pagamento.");
+        alert(`Comprovante de pagamento enviado!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 }
