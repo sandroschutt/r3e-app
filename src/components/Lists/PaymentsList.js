@@ -2,25 +2,45 @@ import { Accordion, Badge } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
 import { useUserDataContext } from "../../context/UserDataContext";
-import { SaveProofModal } from "../Modals/Payments/SendProofModal";
+import { SendProofModal } from "../Modals/Payments/SendProofModal";
+import { ApprovePaymentModal } from "../Modals/Payments/ApprovePaymentModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 
-/**
- * A responsive dropdown list
- *
- * @prop {Array} payments An array containing JSON objects
- */
 export function PaymentsList(props) {
   const { userData } = useUserDataContext();
   const navigate = useNavigate();
 
   function handlePaymentOptions(payment) {
-    if (userData.role === "Cliente" && payment.status === "pendente")
+    if (userData.role === "Cliente" && payment.status === "pago") {
       return (
         <div className="d-flex gap-3">
-          <SaveProofModal payment={payment} />
+          <ApprovePaymentModal payment={payment} userRole={userData.role} />
+        </div>
+      );
+    }
+
+    if (userData.role === "Cliente") {
+      return (
+        <div className="d-flex gap-3">
+          <button className="btn btn-outline-success d-flex align-items-center gap-2">
+            <FontAwesomeIcon icon={faKey} />
+            PIX
+          </button>
+          <SendProofModal payment={payment} />
+          <ApprovePaymentModal payment={payment} userRole={userData.role} />
           <button className="btn btn-danger">Cancelar</button>
         </div>
       );
+    }
+
+    if (userData.role === "Empresa" || userData.role === "Ong") {
+      return (
+        <div className="d-flex gap-3">
+          <ApprovePaymentModal payment={payment} userRole={userData.role} />
+        </div>
+      );
+    }
   }
 
   if (props.payments !== "")
@@ -99,7 +119,7 @@ export function PaymentsList(props) {
                     </p>
                   </div>
                 </div>
-                { handlePaymentOptions(payment) }
+                {handlePaymentOptions(payment)}
               </Accordion.Body>
             </Accordion.Item>
           );

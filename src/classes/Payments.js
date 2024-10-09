@@ -155,4 +155,34 @@ export default class Payments {
         console.error(error);
       });
   }
+
+  /**
+   * Approve or reprove a payment proof note from a given Payment
+   *
+   * @param {String|Number} id The Payment's id
+   * @param {Bool} approve A boolean value that defines the approval action
+   * */
+  static async approve(id, approve) {
+    const alertMessage = (approve) => {
+      if(approve === 1) return "Pagamento aprovado";
+      if(approve === 0) return "Pagamento reprovado";
+    }
+
+    axios
+      .post(Api.endpoint(`payments/${id}/approve/${approve}`), {}, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error("Falha ao aprovar o pagamento.");
+        alert(alertMessage(approve));
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 }

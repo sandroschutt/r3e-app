@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Form, InputGroup, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import Payments from "../../../classes/Payments";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileInvoice } from "@fortawesome/free-solid-svg-icons";
 
-export function SaveProofModal(props) {
+export function SendProofModal(props) {
   const payment = props.payment;
 
   const [show, setShow] = useState(false);
@@ -11,15 +13,19 @@ export function SaveProofModal(props) {
 
   function handleProofPayment() {
     const data = {
-      paymentNote: "https://drive.google.com/file/d/1O54uGTUbF8r9pskg4TWa0b6SkHMxJN4J/view?usp=sharing",
+      paymentNote:
+        "https://centraldesuporte.levelup.com.br/Media/c84f3127-e578-4780-b9a7-5e3ba894cab3.PNG",
     };
 
-    Payments.proof(payment.id, data)
+    Payments.proof(payment.id, data);
   }
 
   return (
     <>
-      <button className="btn btn-primary" onClick={handleShow}>Enviar comprovante</button>
+      <button className="btn btn-success d-flex align-items-center gap-2" onClick={handleShow}>
+        <FontAwesomeIcon icon={faFileInvoice} />
+        Enviar comprovante
+      </button>
 
       <Modal show={show} onHide={handleClose} centered>
         <Modal.Header className="bg-success text-white" closeButton>
@@ -35,9 +41,15 @@ export function SaveProofModal(props) {
             <div className="mb-5">
               <label htmlFor="price" className="form-label mb-2">
                 <strong>Comprovante:</strong>
-                <input type="file" accept="image/jpeg, image/png" className="form-control" onChange={(event) => payment.paymentNote = event.target.value}/>
+                <input
+                  type="file"
+                  accept="image/jpeg, image/png"
+                  className="form-control"
+                  onChange={(event) =>
+                    (payment.paymentNote = event.target.value)
+                  }
+                />
               </label>
-              
             </div>
             <div>
               <button className="btn btn-secondary me-3" onClick={handleClose}>
