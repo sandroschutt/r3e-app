@@ -26,7 +26,7 @@ export function PaymentsList(props) {
                   <div className="col-col-6 d-flex gap-3 align-items-center pe-3">
                     <p className="mb-0">
                       <strong>Prazo: </strong>
-                      {validateDate(payment.term)}
+                      {payment.term !== null ? validateDate(payment.term) : "a combinar"}
                     </p>
                     <p className="mb-0 h4">
                       <Badge bg="secondary">{payment.status}</Badge>

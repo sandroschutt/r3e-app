@@ -8,6 +8,7 @@ import { DeleteDeviceModal } from "../../Modals/Device/DeleteDeviceModal";
 import { useEffect, useState } from "react";
 import Brands from "../../../classes/Brands";
 import Models from "../../../classes/Models";
+import { CreateScheduleModal } from "../../Modals/Schedule/CreateScheduleModal";
 
 export default function SingleDeviceCard(props) {
   const [brands, setBrands] = useState("");
@@ -21,19 +22,8 @@ export default function SingleDeviceCard(props) {
   function renderButtons(role, device) {
     if (role !== "Client") {
       return (
-        <>
-          <Button
-            className="me-2"
-            variant="outline-success"
-            onClick={() => {
-              alert(
-                "Send API request to create new pickup and redirect user there after creation"
-              );
-            }}
-          >
-            <FontAwesomeIcon icon={faTruck} />
-            <span className="ms-1">Coletar</span>
-          </Button>
+        <div className="d-flex align-items-center gap-3">
+          <CreateScheduleModal device={device} />
           <Button
             className="me-2"
             variant="outline-success"
@@ -46,7 +36,7 @@ export default function SingleDeviceCard(props) {
             <FontAwesomeIcon icon={faMessage} />
             <span className="ms-1">Contato</span>
           </Button>
-        </>
+        </div>
       );
     }
   }
