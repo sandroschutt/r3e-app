@@ -10,8 +10,6 @@ import { validateDate } from "../../validations/validateDate";
 export function PaymentsList(props) {
   const navigate = useNavigate();
 
-  console.log(props.payments)
-
   if (props.payments !== "")
     return (
       <Accordion defaultActiveKey="0">
