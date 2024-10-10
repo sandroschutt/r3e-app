@@ -15,27 +15,31 @@ export default class AdminBoardInfo {
       })
   }
 
-  // static countRegisterPerMonth (data) {
-  //   //recebe todos os usuário como parametro
-  //   // criar uma função recursiva que checa um usuário por vez
-  //   // adiciona 1 no contador de totalOfUsers
-  //   // checa se ele se cadastrou neste ano.
-  //   // adiciona no mês +1 e remove este cara da lista
-  //   this.getRegisterMonth(data)
-  // }
+  getRegisterMonth(data){
+    let date = new Date(data.createdAt)
+    return date.getMonth() +1
+  }
 
-  // getRegisterMonth(data){
-  //   let date = new Date(data.createdAt)
-  //   return date.getMonth() +1
-  // }
+  static async getUserRegisters(handleUserRegisters){
+    axios
+      .get(Api.endpoint(`createdat/users`))
+      .then(response => {
+        if(response.status !== 200) throw new Error(`Nenhum usuário encontrado.`)
+          handleUserRegisters(response.data)   
+      })
+  } 
 
-  // static async getUsers(){
-  //   axios
-  //     .get(Api.endpoint(`users/${1}`))
-  //     .then(response => {
-  //       if(response.status !== 200) throw new Error(`Nenhum usuário encontrado.`)
-  //     countRegisterPerMonth(response.data)   
-  //     })
-
-  // } 
+  static async getDevicesType (handleDevicesType) {
+    axios
+      .get(Api.endpoint(`type/devices`))
+      .then(response => {
+        if (response.status !== 200) throw new Error('Falha na requisição.')
+          console.error(response.data)
+          handleDevicesType(response.data)
+      })
+      .catch(error => {
+        alert(error.message)
+        console.error(error)
+      })
+  }
 }
