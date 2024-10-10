@@ -33,8 +33,10 @@ export default class AdminBoardInfo {
     axios
       .get(Api.endpoint(`type/devices`))
       .then(response => {
-        if (response.status !== 200) throw new Error('Falha na requisição.')
+        if (response.status !== 200) {
           console.error(response.data)
+          throw new Error('Falha na requisição.')
+        }
           handleDevicesType(response.data)
       })
       .catch(error => {

@@ -14,8 +14,8 @@ import {
 import AdminBoardInfo from '../../../classes/AdminBoardInfo';
 
 export default function AdminBoard() {
-  const [allStudents, setAllStudents] = useState(0);
-  const [benefitedStudents, setBenefitedStudents] = useState(0);
+  const [allStudents, setAllStudents] = useState(null);
+  const [benefitedStudents, setBenefitedStudents] = useState(null);
   const [usersMonths, setUsersMonths] = useState({
     january: 0,
     february: 0,
@@ -33,12 +33,12 @@ export default function AdminBoard() {
   const [date, setDate] = useState([]);
 
   const [deviceType, setDeviceTypes] = useState({
-    smartphone: 0,
-    pc: 0,
-    notebook: 0,
-    chromebook: 0,
-    outros: 0,
-    total: 0
+    smartphone: null,
+    pc: null,
+    notebook: null,
+    chromebook: null,
+    outros: null,
+    total: null
   });
   const [devices, setDevices] = useState([]);
 
@@ -94,68 +94,70 @@ export default function AdminBoard() {
     return <Line data={data} options={options} />;
   };
 
-  const percentage = allStudents > 0 ? ((benefitedStudents / allStudents) * 100).toFixed(2) : 0;
-  const percentageString = `${percentage}%`;
+  const benefitedPercentage = allStudents > 0 ? ((benefitedStudents / allStudents) * 100).toFixed(2) : 0;
+  const benefitedPercentageString = `${benefitedPercentage}%`;
 
   const handleUserRegisters = (datas) => {
-    if (Array.isArray(datas)) setDate(datas);
-    resetMonths()
-    setUsersMonths(prevState => {
-      const newCounts = { ...prevState };
-
-      datas.forEach(data => {
-        let userCreationDate = new Date(data.createdAt);
-        let month = userCreationDate.getMonth();
-        const today = new Date();
-        const oneYearAgo = new Date();
-        oneYearAgo.setFullYear(today.getFullYear() - 1);
-
-        if (userCreationDate >= oneYearAgo && userCreationDate <= today) {
-          userPerMonth(month, newCounts);
-        }
+    if (datas !== null && datas !== "") {
+      resetMonths()
+      setDate(datas);
+      setUsersMonths(prevState => {
+        const newCounts = { ...prevState };
+  
+        datas.forEach(data => {
+          let userCreationDate = new Date(data.createdAt);
+          let month = userCreationDate.getMonth();
+          const today = new Date();
+          const oneYearAgo = new Date();
+          oneYearAgo.setFullYear(today.getFullYear() - 1);
+  
+          if (userCreationDate >= oneYearAgo && userCreationDate <= today) {
+            userPerMonth(month, newCounts);
+          }
+        });
+  
+        return newCounts;
       });
-
-      return newCounts;
-    });
+    }
   };
 
   function userPerMonth(month, newCounts) {
     switch (month) {
       case 0:
-        newCounts.january += 1;
+          newCounts.january += 1;
         break;
       case 1:
-        newCounts.february += 1;
+          newCounts.february += 1;
         break;
       case 2:
-        newCounts.march += 1;
+          newCounts.march += 1;
         break;
       case 3:
-        newCounts.april += 1;
+          newCounts.april += 1;
         break;
       case 4:
-        newCounts.may += 1;
+          newCounts.may += 1;
         break;
       case 5:
-        newCounts.june += 1;
+          newCounts.june += 1;
         break;
       case 6:
-        newCounts.july += 1;
+          newCounts.july += 1;
         break;
       case 7:
-        newCounts.august += 1;
+          newCounts.august += 1;
         break;
       case 8:
-        newCounts.september += 1;
+          newCounts.september += 1;
         break;
       case 9:
-        newCounts.october += 1;
+          newCounts.october += 1;
         break;
       case 10:
-        newCounts.november += 1;
+          newCounts.november += 1;
         break;
       case 11:
-        newCounts.december += 1;
+          newCounts.december += 1;
         break;
       default:
         break;
@@ -180,22 +182,10 @@ export default function AdminBoard() {
     });
   }
 
-  function resetDeviceTypes(){
-    setDeviceTypes({
-      smartphone: 0,
-      pc: 0,
-      notebook: 0,
-      chromebook: 0,
-      perifericos: 0,
-      outros: 0,
-      total: 0
-    });
-  }
 
   const handleDevicesType = (data) =>{
-    if (Array.isArray(data) && data.length > 0 ){
+    if (data !== "" && data !== null){
       setDevices(data);
-      resetDeviceTypes()
 
       setDeviceTypes(prevState => {
         const newCounts = { ...prevState };
@@ -209,27 +199,41 @@ export default function AdminBoard() {
   }
 
   function countDevicesForType(type, newCounts) {
+    if(newCounts.total === null)
+      newCounts.total = 1;
+    else
+      newCounts.total += 1; 
     switch (type) {
       case "smartphone":
-        newCounts.smartphone += 1;
-        newCounts.total += 1;
+        if(newCounts.smartphone === null)
+          newCounts.smartphone = 1;
+        else
+          newCounts.smartphone += 1;
         break;
       case "PC":
-        newCounts.pc += 1;
-        newCounts.total += 1;
+        if(newCounts.pc === null)
+          newCounts.pc = 1;
+        else
+          newCounts.pc += 1;  
         break;
       case "notebook":
-        newCounts.notebook += 1;
-        newCounts.total += 1;
+        if(newCounts.notebook === null)
+          newCounts.notebook = 1;
+        else
+          newCounts.notebook += 1;
         break;
       case "chromebook":
-        newCounts.chromebook += 1;
-        newCounts.total += 1;
+        if(newCounts.notebook === null)
+          newCounts.chromebook = 1;
+        else
+          newCounts.chromebook += 1;
         break;
       case "perifericos":
       case "outros":
-        newCounts.outros += 1;
-        newCounts.total += 1;
+        if(newCounts.outros === null)
+          newCounts.outros = 1;
+        else
+          newCounts.outros += 1;
         break;
       default:
         break;
@@ -238,12 +242,25 @@ export default function AdminBoard() {
 
 
   useEffect(() => {
-    AdminBoardInfo.getStudents(pickStudentsCounts);
-    AdminBoardInfo.getUserRegisters(handleUserRegisters);
-    AdminBoardInfo.getDevicesType(handleDevicesType)
-  }, []);
+    if(allStudents === null && benefitedStudents === null)
+      AdminBoardInfo.getStudents(pickStudentsCounts);
+    if(usersMonths.january === 0)
+      AdminBoardInfo.getUserRegisters(handleUserRegisters);
+    if(deviceType.smartphone === null)
+      AdminBoardInfo.getDevicesType(handleDevicesType)
+  }, [allStudents, benefitedStudents, usersMonths.january, deviceType.smartphone]);
 
-
+  const nootebookPercetage = deviceType.total > 0 ? ((deviceType.notebook / deviceType.total) * 100).toFixed(2) : 0;
+  const nootebookPercetageString = `${nootebookPercetage}%`;
+  const smartphonePercetage = deviceType.total > 0 ? ((deviceType.smartphone / deviceType.total) * 100).toFixed(2) : 0;
+  const smartphonePercetageString = `${smartphonePercetage}%`;
+  const pcPercetage = deviceType.total > 0 ? ((deviceType.pc / deviceType.total) * 100).toFixed(2) : 0;
+  const pcPercetageString = `${pcPercetage}%`;
+  const chromebookPercetage = deviceType.total > 0 ? ((deviceType.chromebook / deviceType.total) * 100).toFixed(2) : 0;
+  const chromebookPercetageString = `${chromebookPercetage}%`;
+  const othersPercetage = deviceType.total > 0 ? ((deviceType.outros / deviceType.total) * 100).toFixed(2) : 0;
+  const othersPercetageString = `${othersPercetage}%`;
+  
   return (
     <>
       <Row className="mt-4 mb-2">
@@ -255,27 +272,32 @@ export default function AdminBoard() {
         </Col>
         <Col md={2}>
           <Card className="mt-2 mb-3 p-2 shadow-sm">
-            <p> Total de alunos {allStudents} </p>
-            <p> % já beneficiádo</p>
-            <ProgressBar now={percentage} label={percentageString} variant="info" />
+            <h5> Total de alunos {allStudents} </h5>
+            <h5> % já beneficiádo</h5>
+            <ProgressBar now={benefitedPercentage} label={benefitedPercentageString} variant="string" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>Total de dispositivos cadastrados {deviceType.total}</p>
+            <h5>{deviceType.total} dispositivos cadastrados</h5>
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>{deviceType.smartphone} Smartphones cadastrados </p>
+            <h5>{deviceType.smartphone} Smartphones </h5>
+            <ProgressBar now={smartphonePercetage} label={smartphonePercetageString} variant="success" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>{deviceType.pc} PCs cadastrados </p>
+            <h5>{deviceType.pc} PCs </h5>
+            <ProgressBar now={pcPercetage} label={pcPercetageString} variant="string" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>{deviceType.notebook} Notebooks </p>
+            <h5>{deviceType.notebook} Notebooks </h5>
+            <ProgressBar now={nootebookPercetage} label={nootebookPercetageString} variant="success" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>{deviceType.chromebook} Chromebooks</p>
+            <h5>{deviceType.chromebook} Chromebooks</h5>
+            <ProgressBar now={chromebookPercetage} label={chromebookPercetageString} variant="string" />
           </Card>
           <Card className="mb-3 p-2 shadow-sm">
-            <p>{deviceType.outros} Perfiféricos e Outros</p>
+            <h5>{deviceType.outros} Perfiféricos e Outros</h5>
+            <ProgressBar now={othersPercetage} label={othersPercetageString} variant="danger" />
           </Card>
         </Col>
       </Row>
