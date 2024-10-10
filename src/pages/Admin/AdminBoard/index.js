@@ -12,8 +12,11 @@ import {
   Legend,
 } from 'chart.js';
 import AdminBoardInfo from '../../../classes/AdminBoardInfo';
+import { useNavigate } from 'react-router-dom';
 
-export default function AdminBoard() {
+export default function AdminBoard(props) {
+  const navigate = useNavigate();
+  if(props.profile !== undefined) navigate("/admin");
   const [allStudents, setAllStudents] = useState(null);
   const [benefitedStudents, setBenefitedStudents] = useState(null);
   const [usersMonths, setUsersMonths] = useState({

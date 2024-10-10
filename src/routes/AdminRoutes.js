@@ -33,7 +33,7 @@ export default function AdminRoutes() {
     <UserDataContext>
       <UserLayout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<AdminBoard />} />
           <Route path="/users" element={<ManageUsers />} />
           <Route path="/users/:id" element={<UserProfile />} />
           <Route path="/users/:id/devices" element={<PublicDevices />} />
@@ -54,7 +54,7 @@ export default function AdminRoutes() {
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/capabilities" element={<Capabilities/>}/>
-          <Route path="/profile" element={<AdminBoard/>}/>
+          <Route path="/profile" element={<AdminBoard profile={true}/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
