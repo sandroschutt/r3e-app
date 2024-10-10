@@ -66,4 +66,32 @@ export default class Pickup {
         console.error(error);
       });
   }
+
+  /**
+   * Changes a Schedule status attribute to colected
+   *
+   * @param {String|Number} id The Schedule's id
+   * */
+  static colect(id) {
+    axios
+      .post(
+        Api.endpoint(`schedules/${id}/colect`),
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error(`Não foi possível realizar a ação de coletar.`);
+        alert(`Dispositivo coletado!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 }

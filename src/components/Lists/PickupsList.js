@@ -3,6 +3,7 @@ import dummyDeviceImage from "../../assets/images/motog2 1.jpg";
 import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCheck,
   faCircleXmark,
   faEye,
   faTruck,
@@ -21,18 +22,38 @@ export function PickupsList(props) {
   const navigate = useNavigate();
 
   function handleScheduleRoleActions(schedule) {
-    if (userData.role === "Cliente" && schedule.accepted === null && schedule.status === "não aceito")
+    if (
+      userData.role === "Cliente" &&
+      schedule.accepted === null &&
+      schedule.status === "não aceito"
+    ) {
       return (
         <div className="d-flex gap-3">
-          <button type="button" className="d-flex align-items-center gap-2 btn btn-outline-success" onClick={() => Pickup.accept(schedule.id)}>
-          <FontAwesomeIcon icon={faTruck} />
-          Aceitar
-        </button>
-        <button type="button" className="d-flex align-items-center gap-2 btn btn-outline-danger" onClick={() => Pickup.deny(schedule.id)}>
-          Rejeitar
-        </button>
+          <button
+            type="button"
+            className="d-flex align-items-center gap-2 btn btn-outline-success"
+            onClick={() => Pickup.accept(schedule.id)}
+          >
+            <FontAwesomeIcon icon={faTruck} />
+            Aceitar
+          </button>
+          <button
+            type="button"
+            className="d-flex align-items-center gap-2 btn btn-outline-danger"
+            onClick={() => Pickup.deny(schedule.id)}
+          >
+            Rejeitar
+          </button>
         </div>
       );
+    }
+
+    if((userData.role === "Empresa" || userData.role === "Ong") && schedule.status === "aguardando-coleta") {
+      return <button className="btn btn-success d-flex align-items-center gap-2" onClick={() => Pickup.colect(schedule.id)}>
+        <FontAwesomeIcon icon={faCheck} />
+        Coletado
+      </button>
+    }
   }
 
   if (props.schedules !== "")
@@ -75,7 +96,13 @@ export function PickupsList(props) {
                   </div>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <div className="col col-6">{ handleScheduleRoleActions({id: schedule.id, accepted: schedule.accepted, status: schedule.status}) }</div>
+                  <div className="col col-6">
+                    {handleScheduleRoleActions({
+                      id: schedule.id,
+                      accepted: schedule.accepted,
+                      status: schedule.status,
+                    })}
+                  </div>
                   <div className="d-flex col col-6 justify-content-end gap-3">
                     <FontAwesomeIcon
                       icon={faEye}
