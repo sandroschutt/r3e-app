@@ -26,13 +26,14 @@ import DeviceBrands from "../pages/User/DeviceBrands.js";
 import DeviceModels from "../pages/User/DeviceModels";
 import Capabilities from "../components/capabilities/index.js";
 import PaymentsView from "../pages/User/PaymentsView/index.js";
+import AdminBoard from "../pages/Admin/AdminBoard/index.js";
 
 export default function AdminRoutes() {
   return (
     <UserDataContext>
       <UserLayout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<AdminBoard />} />
           <Route path="/users" element={<ManageUsers />} />
           <Route path="/users/:id" element={<UserProfile />} />
           <Route path="/users/:id/devices" element={<PublicDevices />} />
@@ -53,6 +54,7 @@ export default function AdminRoutes() {
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/capabilities" element={<Capabilities/>}/>
+          <Route path="/profile" element={<AdminBoard profile={true}/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
