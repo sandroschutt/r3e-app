@@ -57,7 +57,7 @@ export default function AdminBoard() {
     Legend
   );
 
-  let data = {
+  let chartData = {
     labels: [
       'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
       'Julho', 'Agosto', 'Outubro', 'Setembro', 'Novembro', 'Dezembro'
@@ -91,7 +91,7 @@ export default function AdminBoard() {
   };
 
   const MyLineChart = () => {
-    return <Line data={data} options={options} />;
+    return <Line data={chartData} options={options} />;
   };
 
   const benefitedPercentage = allStudents > 0 ? ((benefitedStudents / allStudents) * 100).toFixed(2) : 0;
@@ -112,7 +112,7 @@ export default function AdminBoard() {
           oneYearAgo.setFullYear(today.getFullYear() - 1);
   
           if (userCreationDate >= oneYearAgo && userCreationDate <= today) {
-            userPerMonth(month, newCounts);
+            countUserPerMonth(month, newCounts);
           }
         });
   
@@ -121,7 +121,7 @@ export default function AdminBoard() {
     }
   };
 
-  function userPerMonth(month, newCounts) {
+  function countUserPerMonth(month, newCounts) {
     switch (month) {
       case 0:
           newCounts.january += 1;
@@ -191,14 +191,14 @@ export default function AdminBoard() {
         const newCounts = { ...prevState };
         devices.forEach(data => {
           let type = data.type;
-            countDevicesForType(type, newCounts);
+            countDevicesPerType(type, newCounts);
         });
         return newCounts;
       });
     } 
   }
 
-  function countDevicesForType(type, newCounts) {
+  function countDevicesPerType(type, newCounts) {
     if(newCounts.total === null)
       newCounts.total = 1;
     else
