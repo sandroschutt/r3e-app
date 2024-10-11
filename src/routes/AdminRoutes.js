@@ -26,6 +26,8 @@ import DeviceBrands from "../pages/User/DeviceBrands.js";
 import DeviceModels from "../pages/User/DeviceModels";
 import Capabilities from "../components/capabilities/index.js";
 import PaymentsView from "../pages/User/PaymentsView/index.js";
+import ManageSchoolDeviceRequests from "../pages/Admin/ManageSchoolDeviceRequests/index.js";
+import SingleSchoolDeviceRequest from "../pages/User/SingleSchoolDeviceRequest/index.js";
 import AdminBoard from "../pages/Admin/AdminBoard/index.js";
 
 export default function AdminRoutes() {
@@ -54,6 +56,8 @@ export default function AdminRoutes() {
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/capabilities" element={<Capabilities/>}/>
+          <Route path="/school-device-requests" element={<ManageSchoolDeviceRequests/>}/>
+          <Route path="/school-device-requests/:id" element={<SingleSchoolDeviceRequest/>}/>
           <Route path="/profile" element={<AdminBoard profile={true}/>}/>
         </Routes>
       </UserLayout>

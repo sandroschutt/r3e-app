@@ -21,7 +21,8 @@ import {
   faLaptopFile,
   faIndustry,
   faUserLock,
-  faDollar
+  faDollar,
+  faHandHoldingMedical
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function MainNav() {
@@ -55,6 +56,7 @@ export default function MainNav() {
           ["Usuários", "users", faUserGroup],
           ["Capacidades", "capabilities",faUserLock],
           ["Estudantes", "students", faGraduationCap],
+          ["Pedidos de dispositivo", "school-device-requests", faHandHoldingMedical],
           ["Integrações", "integrations", faCode],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
@@ -85,6 +87,7 @@ export default function MainNav() {
         setUserOptions([
           ...userOptions,
           ["Estudantes", "students", faGraduationCap],
+          ["Pedidos de dispositivo", "school-device-requests", faHandHoldingMedical],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
         ]);
