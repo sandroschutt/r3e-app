@@ -1,42 +1,49 @@
 .admin-devices-table {
-    // overflow-y: scroll;
+  // overflow-y: scroll;
 
-    th {
-        position: sticky;
-        z-index: 10;
+  th {
+    position: sticky;
+    z-index: 10;
+  }
+
+  tr {
+    border: 1px solid lightgrey;
+  }
+
+  th,
+  td {
+    padding-left: 1em;
+  }
+
+  th {
+    height: 3em;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  td {
+    height: 4em;
+    border-right: 1px solid lightgrey;
+
+    .action:hover {
+      cursor: pointer;
+      color: var(--palette-green);
     }
-
-    tr {
-        border: 1px solid lightgrey;
-    }
-
-    th, td {
-        padding-left: 1em;
-    }
-
-    th {
-        height: 3em;
-        font-size: 12px;
-        font-weight: 500;
-    }
-
-    td {
-        height: 4em;
-        border-right: 1px solid lightgrey;
-
-        .action:hover {
-            cursor: pointer;
-            color: var(--palette-green)
-        }
-    }
+  }
 }
 
-.fa-eye:hover, .fa-pen-to-square:hover, .fa-message:hover, .fa-hand-holding-medical:hover {
-    cursor: pointer;
-    color: var(--bs-success)
+.fa-eye:hover,
+.fa-pen-to-square:hover,
+.fa-message:hover,
+.fa-hand-holding-medical:hover,
+.fa-thumbs-up:hover {
+  cursor: pointer;
+  color: var(--bs-success);
 }
 
-.fa-trash:hover, .fa-circle-xmark:hover {
-    cursor: pointer;
-    color: var(--bs-danger)!important;
+.fa-trash:hover,
+.fa-circle-xmark:hover,
+.fa-thumbs-down:hover {
+  cursor: pointer;
+  color: var(--bs-danger) !important;
 }
