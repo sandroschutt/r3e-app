@@ -132,7 +132,7 @@ export default function SchoolDeviceRequestsTable(props) {
                   <td className="d-flex justify-content-center gap-3 align-items-center p-3" style={{fontSize: "1.2em"}}>
                     <FontAwesomeIcon
                       icon={faEye}
-                      onClick={() => alert("Open single view")}
+                      onClick={() => navigate(`${request.id}`)}
                     />
                     {handleAdminActions(props.userRole, request.id)}
                   </td>

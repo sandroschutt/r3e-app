@@ -22,6 +22,7 @@ import UserProfile from "../pages/Admin/UserProfile";
 import Integrations from "../pages/Admin/Integrations";
 import ManageStudents from '../pages/Admin/ManageStudents'
 import ManageSchoolDeviceRequests from '../pages/Admin/ManageSchoolDeviceRequests'
+import SingleSchoolDeviceRequest from '../pages/User/SingleSchoolDeviceRequest'
 
 export default function UserRoutes () {
   return (
@@ -46,6 +47,7 @@ export default function UserRoutes () {
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/students" element={<ManageStudents />} />
           <Route path="/school-device-requests" element={<ManageSchoolDeviceRequests/>}/>
+          <Route path="/school-device-requests/:id" element={<SingleSchoolDeviceRequest/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
