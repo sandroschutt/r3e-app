@@ -20,9 +20,8 @@ export default function ManageSchoolDeviceRequests() {
 
 
   useEffect(() => {
-    if (userData.role === "Admin" && schoolDeviceRequets === "") {
-      SchoolDeviceRequets.getAll(setSchoolDeviceRequets);
-    }
+    if (userData.role === "Admin" && schoolDeviceRequets === "") SchoolDeviceRequets.getAll(setSchoolDeviceRequets);
+    if (userData.role === "Escola" && schoolDeviceRequets === "") SchoolDeviceRequets.getSchoolRequests(userData.id, setSchoolDeviceRequets);
 
     if (schoolDeviceRequets !== "" && search !== null && searched === false) {
       const filteredDevices = schoolDeviceRequets.filter((request) =>
