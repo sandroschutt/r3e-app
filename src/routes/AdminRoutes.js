@@ -28,13 +28,14 @@ import Capabilities from "../components/capabilities/index.js";
 import PaymentsView from "../pages/User/PaymentsView/index.js";
 import ManageSchoolDeviceRequests from "../pages/Admin/ManageSchoolDeviceRequests/index.js";
 import SingleSchoolDeviceRequest from "../pages/User/SingleSchoolDeviceRequest/index.js";
+import AdminBoard from "../pages/Admin/AdminBoard/index.js";
 
 export default function AdminRoutes() {
   return (
     <UserDataContext>
       <UserLayout>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<AdminBoard />} />
           <Route path="/users" element={<ManageUsers />} />
           <Route path="/users/:id" element={<UserProfile />} />
           <Route path="/users/:id/devices" element={<PublicDevices />} />
@@ -57,6 +58,7 @@ export default function AdminRoutes() {
           <Route path="/capabilities" element={<Capabilities/>}/>
           <Route path="/school-device-requests" element={<ManageSchoolDeviceRequests/>}/>
           <Route path="/school-device-requests/:id" element={<SingleSchoolDeviceRequest/>}/>
+          <Route path="/profile" element={<AdminBoard profile={true}/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>

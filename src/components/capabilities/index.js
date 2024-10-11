@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Row, Col, Form, Button, FormSelect } from 'react-bootstrap'
+import { Row, Col, Form, Button } from 'react-bootstrap'
 import Capabilities from '../../classes/Capabilities'
 
 export default function CapabilitiesComponent (props) {
@@ -34,7 +34,7 @@ export default function CapabilitiesComponent (props) {
   })
 
   const [selectedOption, setSelectedOption] = useState('')
-
+  const [idSelectValue, setIdSelectValue] = useState(2)
   const fixedOptions = [
     'Cliente',
     'Empresa',
@@ -51,30 +51,27 @@ export default function CapabilitiesComponent (props) {
     }))
   }
 
-  let idSelectValue = 2
-
   useEffect(() => {
     if (capability === false) {
-      Capabilities.getOne(2, setCapabilities)
+      Capabilities.getOne(idSelectValue, setCapabilities)
       setCapability(true)
     }
   }, [capability, capabilities])
 
-  const handleSelectChange = event => {
-    const selectedValue = event.target.value
-    setSelectedOption(selectedValue)
-    idSelectValue = setIdSelectValue(selectedValue)
-    console.log(idSelectValue)
-    handleGetCapabilities(idSelectValue, setCapabilities)
+  const handleSelectChange = (event) => {
+    const newId = setSelectValue(event.target.value);
+    setSelectedOption(event.target.value);
+    setIdSelectValue(newId);
+    handleGetCapabilities(newId, setCapabilities);
   }
 
-  function setIdSelectValue (selectValue) {
+  function setSelectValue (selectValue) {
     switch (selectValue) {
       case 'Cliente':
         return 2
       case 'Empresa':
         return 3
-      case 'Escola':
+      case 'Escola':        
         return 5
       case 'Local de coleta':
         return 4
