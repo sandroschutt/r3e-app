@@ -21,6 +21,7 @@ import PaymentsView from '../pages/User/PaymentsView'
 import UserProfile from "../pages/Admin/UserProfile";
 import Integrations from "../pages/Admin/Integrations";
 import ManageStudents from '../pages/Admin/ManageStudents'
+import ManageSchoolDeviceRequests from '../pages/Admin/ManageSchoolDeviceRequests'
 
 export default function UserRoutes () {
   return (
@@ -44,6 +45,7 @@ export default function UserRoutes () {
           <Route path='/settings' element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/students" element={<ManageStudents />} />
+          <Route path="/school-device-requests" element={<ManageSchoolDeviceRequests/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
