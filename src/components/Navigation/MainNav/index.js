@@ -30,6 +30,7 @@ export default function MainNav() {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const [userOptions, setUserOptions] = useState([
     ["Home", "", faTableColumns],
     ["Mapa", "map", faLocationDot],
@@ -38,6 +39,11 @@ export default function MainNav() {
   ]);
 
   const view = window.location.pathname.split("/")[1];
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    navigate(option[1]);
+  };
 
   useEffect(() => {
     if (userData.id !== undefined) {
@@ -127,20 +133,38 @@ export default function MainNav() {
                   option[1],
                   option[2]
                 );
-                return (
-                  <li
-                    className="row column-gap-2 px-3 py-2 align-items-center"
-                    key={index}
-                    onClick={() => {
-                      navigate(optionObj.link, { relative: "path" });
-                    }}
-                  >
-                    <Col className="col-1 p-0 ">{optionObj.icon}</Col>
-                    <Col>
-                      <p className={`nav-link p-0 text`}>{optionObj.label}</p>
-                    </Col>
-                  </li>
-                );
+                if(selectedOption === option){
+                  return (
+                    <li
+                      className="row column-gap-2 px-3 py-2 align-items-center"
+                      key={index}
+                      onClick={() => handleOptionClick(option)}
+                      style={{
+                        backgroundColor: "var(--palette-green)",
+                        color: "white",
+                      }}
+                    >
+                      <Col className="col-1 p-0 ">{optionObj.icon}</Col>
+                      <Col>
+                        <p className={`nav-link p-0 text`}>{optionObj.label}</p>
+                      </Col>
+                    </li>
+                  );
+                } else {
+
+                  return (
+                    <li
+                      className="row column-gap-2 px-3 py-2 align-items-center"
+                      key={index}
+                      onClick={() => handleOptionClick(option)}
+                    >
+                      <Col className="col-1 p-0 ">{optionObj.icon}</Col>
+                      <Col>
+                        <p className={`nav-link p-0 text`}>{optionObj.label}</p>
+                      </Col>
+                    </li>
+                  );
+                }
               })}
             </ul>
           </Col>

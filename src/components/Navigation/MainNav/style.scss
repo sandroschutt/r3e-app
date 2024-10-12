@@ -36,6 +36,19 @@ nav#main-nav {
     }
   }
 
+  selected { 
+    background-color: var(--palette-green);
+    color: white; 
+    
+    .nav-link {
+      color: white;
+    }
+
+    .icon {
+      color: white;
+    }
+  }
+
   ul {
     min-height: 83%;
     margin-bottom: 0;
