@@ -62,7 +62,7 @@ export default class DeviceModel {
         if (response.status !== 200)
           throw new Error("Não foi possível criar o modelo de dispositivo");
         alert(`Modelo ${response.data.name} criado com sucesso!`);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
