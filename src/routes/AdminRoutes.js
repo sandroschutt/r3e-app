@@ -36,6 +36,7 @@ export default function AdminRoutes() {
       <UserLayout>
         <Routes>
           <Route path="/" element={<AdminBoard />} />
+          <Route path="/profile" element={<AdminBoard profile={true}/>}/>
           <Route path="/users" element={<ManageUsers />} />
           <Route path="/users/:id" element={<UserProfile />} />
           <Route path="/users/:id/devices" element={<PublicDevices />} />
@@ -58,7 +59,6 @@ export default function AdminRoutes() {
           <Route path="/capabilities" element={<Capabilities/>}/>
           <Route path="/school-device-requests" element={<ManageSchoolDeviceRequests/>}/>
           <Route path="/school-device-requests/:id" element={<SingleSchoolDeviceRequest/>}/>
-          <Route path="/profile" element={<AdminBoard profile={true}/>}/>
         </Routes>
       </UserLayout>
     </UserDataContext>
