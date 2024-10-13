@@ -9,8 +9,11 @@ import { useEffect, useState } from "react";
 import Brands from "../../../classes/Brands";
 import Models from "../../../classes/Models";
 import { CreateScheduleModal } from "../../Modals/Schedule/CreateScheduleModal";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
 
 export default function SingleDeviceCard(props) {
+  const { userData } = useUserDataContext();
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
 
@@ -20,22 +23,30 @@ export default function SingleDeviceCard(props) {
   }, []);
 
   function renderButtons(role, device) {
-    if (role !== "Client") {
+    if (userData.role === "Escola")
+      return (
+        <Button
+          variant="outline-success"
+          className="d-flex gap-2 align-items-center"
+          onClick={() => {
+            SchoolDeviceRequets.create(
+              {
+                schoolId: userData.id,
+                deviceId: props.device.id,
+              },
+              userData.role
+            );
+          }}
+        >
+          <FontAwesomeIcon icon={faTruck} />
+          Requisitar
+        </Button>
+      );
+
+    if (role !== "Client" && role !== "Escola") {
       return (
         <div className="d-flex align-items-center gap-3">
           <CreateScheduleModal device={device} />
-          <Button
-            className="me-2"
-            variant="outline-success"
-            onClick={() => {
-              alert(
-                "Opens modal with a user's contact info and optional message form"
-              );
-            }}
-          >
-            <FontAwesomeIcon icon={faMessage} />
-            <span className="ms-1">Contato</span>
-          </Button>
         </div>
       );
     }

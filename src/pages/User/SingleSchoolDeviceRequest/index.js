@@ -13,6 +13,7 @@ import {
   currentUserRoleSingleStudentsRoute,
   currentUserRoleDevicesRoute,
 } from "../../../helpers/navigationHelpers.js";
+import { validateDate } from "../../../validations/validateDate.js";
 
 export default function SingleSchoolDeviceRequest() {
   const { userData } = useUserDataContext();
@@ -25,6 +26,26 @@ export default function SingleSchoolDeviceRequest() {
       SchoolDeviceRequets.getOne(params.id, setSingleDeviceRequest);
   }, [singleDeviceRequest]);
 
+  function handleAdminActions() {
+    if (userData.role === "Admin" && singleDeviceRequest.status === "em análise")
+      return (
+        <div className="d-flex gap-3">
+          <Button
+            variant="danger"
+            onClick={() => SchoolDeviceRequets.reprove(singleDeviceRequest.id)}
+          >
+            Reprovar
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => SchoolDeviceRequets.approve(singleDeviceRequest.id)}
+          >
+            Contemplar
+          </Button>
+        </div>
+      );
+  }
+
   if (singleDeviceRequest !== "")
     return (
       <>
@@ -32,10 +53,58 @@ export default function SingleSchoolDeviceRequest() {
           <UserHeader pageTitle={`Pedido de Doação #${params.id}`} />
         </Row>
         <Row className="single-school-device-request">
+          <Col className="col-12 d-flex gap-3 mb-3">
+            <Card className="px-4 col col-2">
+              <Card.Body>
+                <p className="mb-2">
+                  <strong>Status:</strong>
+                </p>
+                <p className="h4 text-info">{singleDeviceRequest.status}</p>
+              </Card.Body>
+            </Card>
+            <Card className="px-4 col col-2">
+              <Card.Body>
+                <p className="mb-2">
+                  <strong>Retirada:</strong>
+                </p>
+                <p className="h4 text-info">{singleDeviceRequest.colect !== null ? singleDeviceRequest.colect : "não"}</p>
+              </Card.Body>
+            </Card>
+            <Card className="px-4 col col-2">
+              <Card.Body>
+                <p className="mb-2">
+                  <strong>Data de criação:</strong>
+                </p>
+                <p className="h4 text-info">
+                  {validateDate(singleDeviceRequest.createdAt)}
+                </p>
+              </Card.Body>
+            </Card>
+            <Card className="px-4 col col-2">
+              <Card.Body>
+                <p className="mb-2">
+                  <strong>Data da coleta:</strong>
+                </p>
+                <p className="h4 text-info">
+                  {singleDeviceRequest.dateColect !== null ? validateDate(singleDeviceRequest.dateColect) : "não definida"}
+                </p>
+              </Card.Body>
+            </Card>
+            <Card className="px-4 col col-2">
+              <Card.Body>
+                <p className="mb-2">
+                  <strong>Data da coleta:</strong>
+                </p>
+                <p className="h4 text-info">
+                  {singleDeviceRequest.dateColected !== null ? validateDate(singleDeviceRequest.dateColected) : "não definida"}
+                </p>
+              </Card.Body>
+            </Card>
+          </Col>
           <Col className="d-flex flex-column gap-3">
             <Card>
               <Card.Header as="h5">Estudante</Card.Header>
-              <Card.Body>
+              <Card.Body className="p-4">
                 <Card.Title>
                   <a
                     href="#"
@@ -92,7 +161,7 @@ export default function SingleSchoolDeviceRequest() {
             </Card>
             <Card>
               <Card.Header as="h5">Escola</Card.Header>
-              <Card.Body>
+              <Card.Body className="p-4">
                 <Card.Title>
                   <a
                     href="#"
@@ -131,7 +200,7 @@ export default function SingleSchoolDeviceRequest() {
           <Col>
             <Card>
               <Card.Header as="h5">Dispositivo</Card.Header>
-              <Card.Body>
+              <Card.Body className="p-4">
                 <Card.Title>
                   <a
                     href="#"
@@ -169,27 +238,10 @@ export default function SingleSchoolDeviceRequest() {
                     style={{ width: "80%" }}
                   />
                 </div>
-                <Card.Text>
+                <Card.Text className="mb-3">
                   {singleDeviceRequest.device.returnProccess.description}
                 </Card.Text>
-                <div className="d-flex gap-3">
-                  <Button
-                    variant="danger"
-                    onClick={() =>
-                      SchoolDeviceRequets.reprove(singleDeviceRequest.id)
-                    }
-                  >
-                    Reprovar
-                  </Button>
-                  <Button
-                    variant="primary"
-                    onClick={() =>
-                      SchoolDeviceRequets.approve(singleDeviceRequest.id)
-                    }
-                  >
-                    Contemplar
-                  </Button>
-                </div>
+                {handleAdminActions()}
               </Card.Body>
             </Card>
           </Col>

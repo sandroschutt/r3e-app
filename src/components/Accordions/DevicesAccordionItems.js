@@ -1,4 +1,4 @@
-import { Accordion } from "react-bootstrap";
+import { Accordion, Button } from "react-bootstrap";
 import dummyDeviceImage from "../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -6,10 +6,30 @@ import { EditDeviceModal } from "../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../Modals/Device/DeleteDeviceModal";
 import { useNavigate } from "react-router-dom";
 import { CreateScheduleModal } from "../Modals/Schedule/CreateScheduleModal";
+import { useUserDataContext } from "../../context/UserDataContext";
+import SchoolDeviceRequets from "../../classes/SchoolDeviceRequests";
 
 export function DeviceAccordionItems(props) {
+  const { userData } = useUserDataContext();
   const device = props.device;
   const navigate = useNavigate();
+
+  function handleSchoolDeviceRequestButton(schoolId, deviceId, userRole) {
+    if (userData.role === "Escola")
+      return (
+        <Button
+          variant="success"
+          onClick={() => {
+            SchoolDeviceRequets.create({
+              schoolId: schoolId,
+              deviceId: deviceId,
+            }, userRole);
+          }}
+        >
+          Requisitar
+        </Button>
+      );
+  }
 
   return (
     <Accordion.Item eventKey={props.index}>
@@ -42,6 +62,7 @@ export function DeviceAccordionItems(props) {
         </div>
         <div className="d-flex justify-between">
           <div className="col col-6">
+            {handleSchoolDeviceRequestButton(userData.id, device.id, userData.role)}
             <CreateScheduleModal device={device} />
           </div>
           <div className="d-flex col col-6 justify-content-end gap-3 align-items-center">
