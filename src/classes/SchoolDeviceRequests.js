@@ -8,7 +8,6 @@ export default class SchoolDeviceRequets {
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         setSchoolDeviceRequets(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         alert(error.message);
@@ -16,11 +15,24 @@ export default class SchoolDeviceRequets {
       });
   }
 
-  static async getOne() {}
-
-  static async create() {}
-
-  static async update() {}
+  /**
+   * Retrieves a single SchoolDeviceRequest
+   * 
+   * @param {String|Number} id The SchoolDeviceRequest's id
+   * @param {CallableFunction} setSingleSchoolDeviceRequest A callback function that sets the SchoolDeviceRequest state
+  */
+  static async getOne(id, setSingleSchoolDeviceRequest) {
+    axios
+      .get(Api.endpoint(`school-device-requests/${id}`))
+      .then((response) => {
+        if (response.status !== 200) throw new Error("Erro na requisição");
+        setSingleSchoolDeviceRequest(response.data);
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
 
   /**
    * Deletes all School's DeviceRequests
