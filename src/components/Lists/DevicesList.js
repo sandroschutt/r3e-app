@@ -12,20 +12,20 @@ export function DevicesList(props) {
   if (props.items !== "")
     return (
       <>
-      <CreateDeviceModal brands={props.brands} models={props.models} />
-      <Accordion defaultActiveKey="0">
-        {props.items.map((item, index) => {
-          return (
-            <DeviceAccordionItems
-              key={index}
-              index={index}
-              device={item}
-              brands={props.brands}
-              models={props.models}
-            />
-          );
-        })}
-      </Accordion>
+        <CreateDeviceModal brands={props.brands} models={props.models} />
+        <Accordion defaultActiveKey="0">
+          {props.items.map((item, index) => {
+            return (
+              <DeviceAccordionItems
+                key={index}
+                index={index}
+                device={item}
+                brands={props.brands}
+                models={props.models}
+              />
+            );
+          })}
+        </Accordion>
       </>
     );
 }

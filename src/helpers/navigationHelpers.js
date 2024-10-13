@@ -13,3 +13,7 @@ export function currentUserRoleDevicesRoute(userRole, id) {
 export function currentUserRoleSingleStudentsRoute(userRole, id) {
   return userRole === "Admin" ? `/admin/students/${id}` : `/user/students/${id}`;
 }
+
+export function currentUserRoleSingleSchoolDeviceRequestRoute(userRole, id) {
+  return userRole === "Admin" ? `/admin/school-device-requests/${id}` : `/user/school-device-requests/${id}`;
+}
