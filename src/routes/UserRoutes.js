@@ -18,6 +18,7 @@ import MapView from '../pages/User/MapView'
 import { SettingsView } from '../pages/User/SettingsView'
 import SinglePickup from '../pages/User/SinglePickup'
 import PaymentsView from '../pages/User/PaymentsView'
+import SinglePayment from '../pages/User/SinglePayment'
 import UserProfile from "../pages/Admin/UserProfile";
 import Integrations from "../pages/Admin/Integrations";
 import ManageStudents from '../pages/Admin/ManageStudents'
@@ -38,6 +39,7 @@ export default function UserRoutes () {
           <Route path={'/pickups'} element={<Pickups />} />
           <Route path={'/pickups/:id'} element={<SinglePickup />} />
           <Route path='/payments' element={<PaymentsView />} />
+          <Route path='/payments/:id' element={<SinglePayment />} />
           <Route path={'/pickup-locations'} element={<PickupLocations />} />
           <Route
             path={'/pickup-locations/:id'}
