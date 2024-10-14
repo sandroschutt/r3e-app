@@ -1,11 +1,11 @@
-import { Accordion, Badge } from "react-bootstrap";
+import { Accordion, Badge, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
 import { useUserDataContext } from "../../context/UserDataContext";
 import { SendProofModal } from "../Modals/Payments/SendProofModal";
 import { ApprovePaymentModal } from "../Modals/Payments/ApprovePaymentModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faKey } from "@fortawesome/free-solid-svg-icons";
 
 export function PaymentsList(props) {
   const { userData } = useUserDataContext();
@@ -15,6 +15,14 @@ export function PaymentsList(props) {
     if (userData.role === "Cliente" && payment.status === "pago") {
       return (
         <div className="d-flex gap-3">
+          <Button
+            variant="primary"
+            className="d-flex align-items-center gap-2"
+            onClick={() => navigate(`${payment.id}`)}
+          >
+            <FontAwesomeIcon icon={faEye} />
+            Ver
+          </Button>
           <ApprovePaymentModal payment={payment} userRole={userData.role} />
         </div>
       );
@@ -23,13 +31,21 @@ export function PaymentsList(props) {
     if (userData.role === "Cliente") {
       return (
         <div className="d-flex gap-3">
+          <Button
+            variant="outline-primary"
+            className="d-flex align-items-center gap-2"
+            onClick={() => navigate(`${payment.id}`)}
+          >
+            <FontAwesomeIcon icon={faEye} />
+            Ver
+          </Button>
           <button className="btn btn-outline-success d-flex align-items-center gap-2">
             <FontAwesomeIcon icon={faKey} />
             PIX
           </button>
           <SendProofModal payment={payment} />
           <ApprovePaymentModal payment={payment} userRole={userData.role} />
-          <button className="btn btn-danger">Cancelar</button>
+          <button className="btn btn-outline-danger">Cancelar</button>
         </div>
       );
     }
@@ -37,6 +53,14 @@ export function PaymentsList(props) {
     if (userData.role === "Empresa" || userData.role === "Ong") {
       return (
         <div className="d-flex gap-3">
+          <Button
+            variant="primary"
+            className="d-flex align-items-center gap-2"
+            onClick={() => navigate(`${payment.id}`)}
+          >
+            <FontAwesomeIcon icon={faEye} />
+            Ver
+          </Button>
           <ApprovePaymentModal payment={payment} userRole={userData.role} />
         </div>
       );

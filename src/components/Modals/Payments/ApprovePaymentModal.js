@@ -21,7 +21,7 @@ export function ApprovePaymentModal(props) {
 
     return (
       <>
-        <button className="btn btn-secondary" onClick={handleClose}>
+        <button className="btn btn-outline-secondary" onClick={handleClose}>
           Cancelar
         </button>
         <button
@@ -45,7 +45,7 @@ export function ApprovePaymentModal(props) {
   return (
     <>
       <button
-        className="btn btn-primary d-flex align-items-center gap-2"
+        className="btn btn-outline-primary d-flex align-items-center gap-2"
         onClick={handleShow}
       >
         <FontAwesomeIcon icon={faFileInvoiceDollar} />

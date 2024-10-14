@@ -22,7 +22,7 @@ export function SendProofModal(props) {
 
   return (
     <>
-      <button className="btn btn-success d-flex align-items-center gap-2" onClick={handleShow}>
+      <button className="btn btn-outline-success d-flex align-items-center gap-2" onClick={handleShow}>
         <FontAwesomeIcon icon={faFileInvoice} />
         Enviar comprovante
       </button>

@@ -17,3 +17,7 @@ export function currentUserRoleSingleStudentsRoute(userRole, id) {
 export function currentUserRoleSingleSchoolDeviceRequestRoute(userRole, id) {
   return userRole === "Admin" ? `/admin/school-device-requests/${id}` : `/user/school-device-requests/${id}`;
 }
+
+export function currentUserRolePickupsRoute(userRole, id) {
+  return userRole === "Admin" ? `/admin/pickups/${id}` : `/user/pickups/${id}`;
+}
