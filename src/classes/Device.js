@@ -57,8 +57,7 @@ export default class Device {
    * @param {JSON} device A JSON object containing the request body
    * */
   static async update(user, device) {
-    console.log(user, device)
-    if (user.id !== device.userId && user.role.toUpperCase() !== "ADMIN") {
+    if (user.id !== device.userId && user.role !== "Admin") {
       alert("Você não tem permissão para editar esse dispositivo");
       return;
     }
@@ -168,5 +167,19 @@ export default class Device {
         setDevices(response.data);
       })
       .catch((error) => console.error(error));
+  }
+
+  static evaluate(id, data) {
+    axios
+      .post(Api.endpoint(`devices/${id}/update`), data)
+      .then((response) => {
+        if (response.status !== 200) throw new Error("Erro na requisição");
+        alert(`Dispostivo ${id} avaliado com sucesso.`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert("Falaha ao excluir o dispositivo.");
+        console.error(error);
+      });
   }
 }

@@ -1,8 +1,8 @@
 import "./style.scss";
 import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage, faTruck } from "@fortawesome/free-solid-svg-icons";
-import { Button, Col, Row } from "react-bootstrap";
+import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { EditDeviceModal } from "../../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../../Modals/Device/DeleteDeviceModal";
 import { useEffect, useState } from "react";
@@ -11,11 +11,14 @@ import Models from "../../../classes/Models";
 import { CreateScheduleModal } from "../../Modals/Schedule/CreateScheduleModal";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
+import { validatePhones } from "../../../validations/validatePhones.js";
+import { DeviceEvaluation } from "../DeviceEvaluation/index.js";
 
 export default function SingleDeviceCard(props) {
   const { userData } = useUserDataContext();
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
+  const tests = {};
 
   useEffect(() => {
     if (brands === "") Brands.getAll(setBrands);
@@ -52,63 +55,141 @@ export default function SingleDeviceCard(props) {
     }
   }
 
+  function handleAdminEvaluation(id, returnProcessId) {
+    if (userData.role === "Admin") return <DeviceEvaluation id={id} default={returnProcessId} />;
+  }
+
   if (props.device !== "") {
     const device = props.device;
     return (
-      <Row className="single-device--card">
-        <Col className="col-3 ps-0">
-          <img src={dummyDeviceImg} alt="" />
-        </Col>
-        <Col className="col-5">
-          <div className="single-device--data">
-            <h2>{`${device.brand.name} ${device.model.name} ${device.model.year}`}</h2>
-            <p>
-              <span>
-                <strong>Marca:</strong>
-              </span>{" "}
-              <span>{device.brand.name}</span>
-            </p>
-            <p>
-              <span>
-                <strong>Ano:</strong>
-              </span>{" "}
-              <span>{device.model.year}</span>
-            </p>
-            <p>
-              <span>
-                <strong>Estado:</strong>
-              </span>{" "}
-              <span>{device.state}</span>
-            </p>
-            <p>
-              <span>
-                <strong>Uso:</strong>
-              </span>{" "}
-              <span>7 anos</span>
-            </p>
-            <p>
-              <span>
-                <strong>Tratativa:</strong>
-              </span>{" "}
-              <span>{device.returnProccess.name}</span>
-            </p>
-
-            <p>
-              <span>
-                <strong>Proprietário:</strong>
-              </span>
-              <span>{device.user.name}</span>
-            </p>
-
-            <div className="single-device--actions d-flex">
-              {renderButtons(props.role, device)}
+      <Row className="gap-3">
+        <Card className="col col-6 px-0">
+          <Card.Header>
+            <div className="d-flex justify-content-between align-items-center">
+              <p className="h4 mb-0">{`${device.brand.name} ${device.model.name} ${device.model.year}`}</p>
+              <div className="d-flex gap-3">
+                <EditDeviceModal
+                  device={device}
+                  models={models}
+                  brands={brands}
+                />
+                <DeleteDeviceModal deviceId={device.id} />
+              </div>
             </div>
-          </div>
+          </Card.Header>
+          <Card.Body>
+            <Row className="single-device--card gap-3 mb-3">
+              <Col className="ps-0 col-2">
+                <img
+                  src={dummyDeviceImg}
+                  height={164}
+                  style={{ width: "auto" }}
+                  className="rounded"
+                />
+              </Col>
+              <Col>
+                <div>
+                  <p className="mb-2">
+                    <span>
+                      <strong>Marca:</strong>
+                    </span>{" "}
+                    <span>{device.brand.name}</span>
+                  </p>
+                  <p className="mb-2">
+                    <span>
+                      <strong>Ano:</strong>
+                    </span>{" "}
+                    <span>{device.model.year}</span>
+                  </p>
+                  <p className="mb-2">
+                    <span>
+                      <strong>Estado:</strong>
+                    </span>{" "}
+                    <span>{device.state}</span>
+                  </p>
+                  <p className="mb-2">
+                    <span>
+                      <strong>Uso:</strong>
+                    </span>{" "}
+                    <span>7 anos</span>
+                  </p>
+                  <p className="mb-2">
+                    <span>
+                      <strong>Tratativa:</strong>
+                    </span>{" "}
+                    <span>{device.returnProccess.finality}</span>
+                  </p>
+
+                  <div className="single-device--actions d-flex">
+                    {renderButtons(props.role, device)}
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <div className="p-3 border">
+                <p>
+                  <strong>Endereço</strong>
+                </p>
+                <hr />
+                <p className="mb-2">
+                  <strong>Rua:</strong> Rua Exemplo da Silva, 666
+                </p>
+                <p className="mb-2">
+                  <strong>Bairro:</strong> Exemplo Pereira
+                </p>
+                <p className="mb-2">
+                  <strong>Cidade:</strong> Cidade Exemplo
+                </p>
+                <p className="mb-2">
+                  <strong>Estado:</strong> SP
+                </p>
+                <p className="mb-2">
+                  <strong>CEP:</strong> 18305-005
+                </p>
+              </div>
+            </Row>
+          </Card.Body>
+        </Card>
+        <Col className="col-5">
+          <Card className="mb-3">
+            <Card.Header>
+              <p className="h4 mb-0">Proprietário</p>
+            </Card.Header>
+            <Card.Body className="p-4">
+              <Row className="gap-5 align-items-center">
+                <Col className="col-2">
+                  <img
+                    src={dummyDeviceImg}
+                    height={100}
+                    width={100}
+                    className="rounded-circle"
+                  />
+                </Col>
+                <Col>
+                  <p className="mb-2 h5">
+                    <strong>
+                      <a href="#">{device.user.name}</a>
+                    </strong>
+                  </p>
+                  <p className="mb-1">email@teste.com</p>
+                  <p className="mb-1">{validatePhones("99999999999")}</p>
+                </Col>
+              </Row>
+            </Card.Body>
+          </Card>
+          <Card className="px-0">
+            <Card.Header>
+              <p className="h4 mb-0">Avaliação</p>
+            </Card.Header>
+            <Card.Body className="p-4">
+              <p>
+                {device.returnProccess.description}
+              </p>
+              {handleAdminEvaluation(device.id, device.returnProccessId)}
+            </Card.Body>
+          </Card>
         </Col>
-        <div className="single-device--edit d-flex align-items-top text-center">
-          <EditDeviceModal device={device} models={models} brands={brands} />
-          <DeleteDeviceModal deviceId={device.id} />
-        </div>
       </Row>
     );
   } else return <p>Aguardando dispositivo...</p>;
