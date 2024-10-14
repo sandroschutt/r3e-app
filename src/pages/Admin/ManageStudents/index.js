@@ -7,21 +7,27 @@ import Student from "../../../classes/Student";
 import StudentsTable from "../../../components/Tables/StudentsTable";
 import { CreateStudentModal } from "../../../components/Modals/Student/CreateStudentModal";
 import Admin from "../../../classes/Admin";
-import { getSearchQueryParams, searchInObject } from "../../../components/forms/SearchForm";
+import {
+  getSearchQueryParams,
+  searchInObject,
+} from "../../../components/forms/SearchForm";
 import { useUserDataContext } from "../../../context/UserDataContext";
 
 export default function ManageStudents() {
-  const {userData} = useUserDataContext();
+  const { userData } = useUserDataContext();
   const [students, setStudents] = useState("");
-  const [schools, setSchools] = useState([{ option: "Escola", value: "0" }]);
+  const [schools, setSchools] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
-    if (students === "" && userData.role === "Admin") Student.getAll(setStudents);
-    if (students === "" && userData.role === "Escola") Student.getSchoolSudents(userData.id, setStudents);
-    if (schools.length < 2 && userData.role === "Admin") Admin.getAllByRole(5, setSchools);
+    if (students === "" && userData.role === "Admin")
+      Student.getAll(setStudents);
+    if (students === "" && userData.role === "Escola")
+      Student.getSchoolSudents(userData.id, setStudents);
+    if (schools === "" && userData.role === "Admin")
+      Admin.getAllByRole("escola", setSchools);
 
     if (students !== "" && search !== null && searched === false) {
       const filteredStudents = students.filter((student) =>
@@ -45,7 +51,10 @@ export default function ManageStudents() {
               <StudentsFilter />
             </Col>
             <Col style={{ textAlign: "right" }}>
-              <CreateStudentModal schools={schools} user={{role: userData.role, id: userData.id}} />
+              <CreateStudentModal
+                schools={schools}
+                user={{ role: userData.role, id: userData.id }}
+              />
             </Col>
           </Row>
         </Col>
