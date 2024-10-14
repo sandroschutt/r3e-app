@@ -34,7 +34,6 @@ export default function MainNav() {
   const [userOptions, setUserOptions] = useState([
     ["Home", "", faTableColumns],
     ["Mapa", "map", faLocationDot],
-    ["Coletas", "pickups", faTruck],
     ["Dispositivos", "devices", faTablet],
   ]);
 
@@ -53,6 +52,7 @@ export default function MainNav() {
       if (userRole === "Admin") {
         setUserOptions([
           ...userOptions,
+          ["Coletas", "pickups", faTruck],
           ["Pagamentos", "payments", faDollar],
           ["Marcas", "device-brands", faIndustry],
           ["Modelos", "device-models", faLaptopFile],
@@ -72,6 +72,7 @@ export default function MainNav() {
       if (userRole === "Empresa" || userRole === "Ong") {
         setUserOptions([
           ...userOptions,
+          ["Coletas", "pickups", faTruck],
           ["Pagamentos", "payments", faDollar],
           ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Integrações", "integrations", faCode],
@@ -83,6 +84,7 @@ export default function MainNav() {
       if (userRole === "Cliente") {
         setUserOptions([
           ...userOptions,
+          ["Coletas", "pickups", faTruck],
           ["Pagamentos", "payments", faDollar],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
