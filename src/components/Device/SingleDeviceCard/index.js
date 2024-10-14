@@ -2,7 +2,7 @@ import "./style.scss";
 import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import { EditDeviceModal } from "../../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../../Modals/Device/DeleteDeviceModal";
 import { useEffect, useState } from "react";
@@ -18,15 +18,14 @@ export default function SingleDeviceCard(props) {
   const { userData } = useUserDataContext();
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
-  const tests = {};
 
   useEffect(() => {
     if (brands === "") Brands.getAll(setBrands);
     if (models === "") Models.getAll(setModels);
   }, []);
 
-  function renderButtons(role, device) {
-    if (userData.role === "Escola")
+  function renderButtons(device) {
+    if (userData.role === "Escola" && device.reserved === 0)
       return (
         <Button
           variant="outline-success"
@@ -46,7 +45,7 @@ export default function SingleDeviceCard(props) {
         </Button>
       );
 
-    if (role !== "Client" && role !== "Escola") {
+    if (userData.role !== "Client" && userData.role !== "Escola") {
       return (
         <div className="d-flex align-items-center gap-3">
           <CreateScheduleModal device={device} />
@@ -56,7 +55,8 @@ export default function SingleDeviceCard(props) {
   }
 
   function handleAdminEvaluation(id, returnProcessId) {
-    if (userData.role === "Admin") return <DeviceEvaluation id={id} default={returnProcessId} />;
+    if (userData.role === "Admin")
+      return <DeviceEvaluation id={id} default={returnProcessId} />;
   }
 
   if (props.device !== "") {
@@ -121,7 +121,7 @@ export default function SingleDeviceCard(props) {
                   </p>
 
                   <div className="single-device--actions d-flex">
-                    {renderButtons(props.role, device)}
+                    {renderButtons(device)}
                   </div>
                 </div>
               </Col>
@@ -180,12 +180,13 @@ export default function SingleDeviceCard(props) {
           </Card>
           <Card className="px-0">
             <Card.Header>
-              <p className="h4 mb-0">Avaliação</p>
+              <div className="d-flex justify-content-between align-items-center">
+                <p className="h4 mb-0">Avaliação</p>
+                <Badge bg="primary">{device.returnProccess.finality.toUpperCase()}</Badge>
+              </div>
             </Card.Header>
             <Card.Body className="p-4">
-              <p>
-                {device.returnProccess.description}
-              </p>
+              <p>{device.returnProccess.description}</p>
               {handleAdminEvaluation(device.id, device.returnProccessId)}
             </Card.Body>
           </Card>
