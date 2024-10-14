@@ -31,7 +31,7 @@ export default class Pickup {
         if (response.status !== 200)
           throw new Error(`Falha ao aceitar a coleta.`);
         alert(`Coleta aceita!`);
-        window.location.reload();
+        window.location.href = window.location.origin + `/user/pickups/${id}`;
       })
       .catch((error) => {
         alert(error.message);
