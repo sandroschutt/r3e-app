@@ -46,7 +46,7 @@ export default class User {
         if (response.status !== 200)
           throw new Error("Falha ao criar o usuário.");
         alert(`Usuário ${response.data.name} criado com sucesso!`);
-        // window.location.href = `/admin/users/${response.data.id}`;
+        window.location.href = `/admin/users/${response.data.id}`;
       })
       .catch((error) => {
         alert(error.message);

@@ -99,7 +99,7 @@ export function CreateUserModal() {
               <Form.Control
                 className="mb-3"
                 name="secondaryEmail"
-                type="secondaryEmail"
+                type="email"
                 placeholder="usuario@email.com:"
                 onChange={(event) =>
                   (data.info.secondaryEmail = event.target.value)
@@ -124,9 +124,9 @@ export function CreateUserModal() {
               <Form.Label htmlFor="role">Função:</Form.Label>
               <Form.Select
                 name="role"
-                defaultValue={"2"}
                 onChange={(event) => (data.info.role = event.target.value)}
               >
+                <option>-- Selecione</option>
                 <option value="2">Cliente</option>
                 <option value="3">Empresa</option>
                 <option value="4">ONG</option>
@@ -139,10 +139,10 @@ export function CreateUserModal() {
             <Form.Select
               name="doctype"
               className="mb-3"
-              defaultValue={"rg"}
               onChange={(event) => (data.document.type = event.target.value)}
               required
             >
+              <option>-- Selecione</option>
               <option value="rg" key="rg">
                 --RG
               </option>
@@ -159,7 +159,7 @@ export function CreateUserModal() {
               type="text"
               name="docnumber"
               id="docNumber"
-              placeholder="Nº:"
+              placeholder="999"
               onChange={(event) =>
                 (data.document.documentNumber = event.target.value)
               }
@@ -186,12 +186,12 @@ export function CreateUserModal() {
               placeholder="Rua Exemplo, 999:"
               onChange={(event) => (data.address.street = event.target.value)}
             />
-            <Form.Label htmlFor="street">Número:</Form.Label>
+            <Form.Label htmlFor="addressNumber">Nº:</Form.Label>
             <Form.Control
               className="mb-3"
               type="text"
-              name="number"
-              id="number"
+              name="addressNumber"
+              placeholder="999"
               onChange={(event) => (data.address.number = event.target.value)}
             />
             <Form.Label htmlFor="city">Cidade:</Form.Label>
