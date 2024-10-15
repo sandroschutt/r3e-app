@@ -5,10 +5,12 @@ import { brazilianStatesList } from "../json/brazilianStatesList.js";
 import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 import { validatePhones } from "../../../validations/validatePhones.js";
 import User from "../../../classes/User.js";
+import Api from "../../../classes/Api.js";
 
 export default function UserProfileForm(props) {
   const userData = props.user;
   const user = new User(userData.id);
+  const avatar = Api.endpoint(`uploads/avatar/${userData.avatar}`)
 
   function handleFormData(event) {
     event.preventDefault();
@@ -25,7 +27,7 @@ export default function UserProfileForm(props) {
           <Col className="profile-picture col-2">
             <div
               className="bg-light"
-              style={{ backgroundImage: `url(${r3eMascot})` }}
+              style={{ backgroundImage: `url(${avatar})` }}
             ></div>
           </Col>
           <Col className="profile-info col-8">

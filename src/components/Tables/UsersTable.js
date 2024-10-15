@@ -1,9 +1,9 @@
 import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faMessage, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { DeleteUserModal } from "../Modals/User/DeleteUserModal";
 import { useNavigate } from "react-router-dom";
-import { faPowerOff, faSkull } from "@fortawesome/free-solid-svg-icons";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 
 export default function UsersTable(props) {
   const users = props.users;
@@ -19,9 +19,6 @@ export default function UsersTable(props) {
               <th>Função</th>
               <th>E-mail</th>
               <th>Cidade</th>
-              <th>Bairro</th>
-              <th>Avaliação</th>
-              <th>Strikes</th>
               <th>Status</th>
               <th>Online</th>
               <th>Ações</th>
@@ -42,16 +39,7 @@ export default function UsersTable(props) {
                   <td>{user.role}</td>
                   <td>{user.email}</td>
                   <td>{user.address.city}</td>
-                  <td>{user.address.neighborhood}</td>
-                  <td>
-                    {user.rating}
-                    <FontAwesomeIcon icon={faStar} className="ms-2" />
-                  </td>
-                  <td>
-                    {user.strikes}
-                    <FontAwesomeIcon icon={faSkull} className="ms-2" />
-                  </td>
-                  <td>{user.active === true ? "sim" : "não"}</td>
+                  <td>{user.active === true ? "ativo" : "inativo"}</td>
                   <td>{user.online === true ? "sim" : "não"}</td>
                   <td className="d-flex justify-content-between align-items-center p-3">
                     <FontAwesomeIcon
@@ -60,12 +48,6 @@ export default function UsersTable(props) {
                       onClick={() => {
                         navigate(`/admin/users/${user.id}`);
                       }}
-                    />
-                    <FontAwesomeIcon
-                      icon={faMessage}
-                      onClick={() =>
-                        alert("There is a modal somewhere for messaging users.")
-                      }
                     />
                     <FontAwesomeIcon
                       icon={faPowerOff}

@@ -1,7 +1,3 @@
-/**
- * If NOT admin, return UserDashboard else return AdminDashboard
- */
-
 import "./style.scss";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +7,7 @@ import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
 export default function Dashboard() {
-  const { userData, updateUserData } = useUserDataContext();
+  const { userData } = useUserDataContext();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
   const [userEmail, setUserEmail] = useState("");

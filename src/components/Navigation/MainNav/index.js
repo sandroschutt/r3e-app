@@ -22,15 +22,17 @@ import {
   faIndustry,
   faUserLock,
   faDollar,
-  faHandHoldingMedical
+  faHandHoldingMedical,
 } from "@fortawesome/free-solid-svg-icons";
+import Api from "../../../classes/Api";
 
 export default function MainNav() {
-  const { userData} = useUserDataContext();
+  const { userData } = useUserDataContext();
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userRole, setUserRole] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const avatar = Api.endpoint(`uploads/avatar/${userData.avatar}`);
   const [userOptions, setUserOptions] = useState([
     ["Home", "", faTableColumns],
     ["Mapa", "map", faLocationDot],
@@ -60,9 +62,13 @@ export default function MainNav() {
           ["Pontos de Coleta", "pickup-locations", faRecycle],
           ["Tratativas de Retorno", "recycling-settings", faSeedling],
           ["Usuários", "users", faUserGroup],
-          ["Capacidades", "capabilities",faUserLock],
+          ["Capacidades", "capabilities", faUserLock],
           ["Estudantes", "students", faGraduationCap],
-          ["Pedidos de dispositivo", "school-device-requests", faHandHoldingMedical],
+          [
+            "Pedidos de dispositivo",
+            "school-device-requests",
+            faHandHoldingMedical,
+          ],
           ["Integrações", "integrations", faCode],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
@@ -95,7 +101,11 @@ export default function MainNav() {
         setUserOptions([
           ...userOptions,
           ["Estudantes", "students", faGraduationCap],
-          ["Pedidos de dispositivo", "school-device-requests", faHandHoldingMedical],
+          [
+            "Pedidos de dispositivo",
+            "school-device-requests",
+            faHandHoldingMedical,
+          ],
           ["Configurações", "settings", faGear],
           ["Logout", "logout", faPowerOff],
         ]);
@@ -103,7 +113,32 @@ export default function MainNav() {
     }
   }, [userData, userRole]);
 
-  if(userRole !== "") {
+  function handleUserProfilePicture() {
+    if (userData.avatar === null) {
+      return (
+        <FontAwesomeIcon
+          className={`icon ${view === "profile" ? "text-white" : ""}`}
+          style={{ height: "32px" }}
+          icon={faCircleUser}
+        />
+      );
+    }
+
+    return (
+      <div
+        className="rounded-circle"
+        style={{
+          width: "32px",
+          height: "32px",
+          backgroundImage: `url(${avatar})`,
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+        }}
+      ></div>
+    );
+  }
+
+  if (userRole !== "") {
     return (
       <nav id="main-nav" className="sticky-top">
         <Row className="nav-container flex-column justify-content-start gap-1">
@@ -116,14 +151,12 @@ export default function MainNav() {
               navigate(`profile`);
             }}
           >
-            <FontAwesomeIcon
-              className={`icon ${view === "profile" ? "text-white" : ""}`}
-              style={{ height: "32px" }}
-              icon={faCircleUser}
-            />
-            <div className={"info"}>
+            {handleUserProfilePicture()}
+            <div className="info">
               <h6 className="text-light">{userName}</h6>
-              <p className={view === "profile" ? "text-white" : ""}>{userRole}</p>
+              <p className={view === "profile" ? "text-white" : ""}>
+                {userRole}
+              </p>
             </div>
           </Col>
 
@@ -135,7 +168,7 @@ export default function MainNav() {
                   option[1],
                   option[2]
                 );
-                if(selectedOption === option){
+                if (selectedOption === option) {
                   return (
                     <li
                       className="row column-gap-2 px-3 py-2 align-items-center"
@@ -153,7 +186,6 @@ export default function MainNav() {
                     </li>
                   );
                 } else {
-
                   return (
                     <li
                       className="row column-gap-2 px-3 py-2 align-items-center"

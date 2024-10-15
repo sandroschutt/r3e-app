@@ -39,7 +39,7 @@ export default class User {
     axios
       .post(Api.endpoint("users/create"), userData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
@@ -170,11 +170,15 @@ export default class User {
    */
   deleteSchedule(id) {
     axios
-      .post(Api.endpoint(`schedules/${id}/delete`), {}, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        Api.endpoint(`schedules/${id}/delete`),
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         if (response.status !== 200)
           throw new Error(`Falha ao excluir agendamento.`);
