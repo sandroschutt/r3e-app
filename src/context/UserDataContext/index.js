@@ -12,7 +12,7 @@ function UserDataContext({ children }) {
 
   useEffect(() => {
     if(userData === "") {
-      new User(52).data(setUserData);
+      new User(1).data(setUserData);
     }
   }, [userData])
 

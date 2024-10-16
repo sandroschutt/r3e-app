@@ -34,19 +34,18 @@ export default class Device {
   /**
    * Creates a new Device
    * @param {JSON} data A JSON object containing the request body
-   * @param {String} role The current user's role
    * */
-  static create(data, role) {
+  static create(data) {
     axios
       .post(Api.endpoint("devices/create"), data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
-        if (response.status === 200) {
-          window.location.reload();
-        } else throw new Error("Erro na requisição");
+        if (response.status !== 200) throw new Error("Erro na requisição");
+        alert("Dispositivo criado com sucesso!");
+        // window.location.reload();
       })
       .catch((error) => console.log(error));
   }

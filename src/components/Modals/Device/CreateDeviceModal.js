@@ -14,7 +14,7 @@ export function CreateDeviceModal(props) {
   const handleShow = () => setShow(true);
 
   const device = {
-    userId: userData.id,
+    userId: userData.id
   };
 
   useEffect(() => {
@@ -27,7 +27,15 @@ export function CreateDeviceModal(props) {
   }, [userData, userCanCreate]);
 
   function handleCreateDevice() {
-    Device.create(device, userData.role);
+    const formdata = new FormData();
+    formdata.append("userId", device.userId);
+    formdata.append("type", device.type);
+    formdata.append("brandId", device.brandId);
+    formdata.append("modelId", device.modelId);
+    formdata.append("state", device.state);
+    formdata.set("photo", device.photo);
+    
+    Device.create(formdata);
   }
 
   if (brands !== "" && models !== "" && userCanCreate)
@@ -54,7 +62,7 @@ export function CreateDeviceModal(props) {
             >
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="type">
-                  Tipo:
+                  <strong>Tipo:</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -88,7 +96,7 @@ export function CreateDeviceModal(props) {
               </div>
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="brand">
-                  Marca:
+                  <strong>Marca:</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -108,12 +116,12 @@ export function CreateDeviceModal(props) {
               </div>
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="model">
-                  Modelo:
+                  <strong>Modelo:</strong>
                 </label>
                 <select
                   className="form-control mb-3"
                   aria-label="Seleciona a marca do dispositivo"
-                  name="brand"
+                  name="model"
                   onChange={(event) => {
                     device.modelId = event.target.value;
                   }}
@@ -128,9 +136,9 @@ export function CreateDeviceModal(props) {
                   })}
                 </select>
               </div>
-              <div className="mb-5">
+              <div className="mb-3">
                 <label className="form-label my-2" htmlFor="state">
-                  Estado:
+                  <strong>Estado:</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -145,6 +153,18 @@ export function CreateDeviceModal(props) {
                   <option value={"regular"}>Regular</option>
                   <option value={"ruim"}>Ruim</option>
                 </select>
+              </div>
+              <div className="mb-5">
+                <label htmlFor="profilePicture" className="my-2">
+                  <strong>Foto:</strong>
+                </label>
+                <input
+                  className="mb-3 form-control"
+                  name="devicePhoto"
+                  type="file"
+                  accept="img/png, img/jpeg, img/jpg"
+                  onChange={(event) => (device.photo = event.target.files[0])}
+                />
               </div>
               <div>
                 <button className="btn btn-success me-2" onClick={handleClose}>

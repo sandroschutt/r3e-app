@@ -27,7 +27,7 @@ export default function UserProfileForm(props) {
           <Col className="profile-picture col-2">
             <div
               className="bg-light"
-              style={{ backgroundImage: `url(${avatar})` }}
+              style={{ backgroundImage: `url(${userData.avatar !== null ? avatar : r3eMascot})` }}
             ></div>
           </Col>
           <Col className="profile-info col-8">
