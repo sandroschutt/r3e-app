@@ -1,21 +1,37 @@
-import { Button, Col, Row } from "react-bootstrap";
 import "./style.scss";
+import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { brazilianStatesList } from "../json/brazilianStatesList.js";
 import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 import { validatePhones } from "../../../validations/validatePhones.js";
 import User from "../../../classes/User.js";
 import Api from "../../../classes/Api.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 export default function UserProfileForm(props) {
   const userData = props.user;
   const user = new User(userData.id);
-  const avatar = Api.endpoint(`uploads/avatar/${userData.avatar}`)
+  const [avatar, setAvatar] = useState("");
+  const params = useParams();
+
+  useEffect(() => {
+    if(avatar === "" && params.id === undefined) {
+      setAvatar(Api.endpoint(`uploads/avatar/${userData.avatar}`))
+      return;
+    }
+
+    if(avatar === "") setAvatar(Api.endpoint(`uploads/avatar/${user.avatar}`));
+  }, [avatar])
 
   function handleFormData(event) {
     event.preventDefault();
     user.update(userData.id, userData);
   }
+
+  console.log(userData)
 
   if (userData !== "") {
     return (
@@ -27,8 +43,31 @@ export default function UserProfileForm(props) {
           <Col className="profile-picture col-2">
             <div
               className="bg-light"
-              style={{ backgroundImage: `url(${userData.avatar !== null ? avatar : r3eMascot})` }}
-            ></div>
+              style={{
+                backgroundImage: `url(${
+                  userData.avatar !== null ? avatar : r3eMascot
+                })`,
+              }}
+            >
+              <FontAwesomeIcon
+                className="p-2 bg-secondary text-light rounded"
+                icon={faPenToSquare}
+                onClick={(event) => {
+                  event.target.nextElementSibling.click();
+                }}
+                style={{
+                  position: "relative",
+                  right: "-80px",
+                  fontSize: ".8em",
+                }}
+              />
+              <input
+                type="file"
+                accept="img/jpeg, img/jpg, img/png"
+                onChange={(event) => (userData.image = event.target.files[0])}
+                style={{ display: "none" }}
+              />
+            </div>
           </Col>
           <Col className="profile-info col-8">
             <h3>{userData.name}</h3>
@@ -65,7 +104,9 @@ export default function UserProfileForm(props) {
             <Form.Control
               type="email"
               placeholder={userData.secondaryEmail || "secondary@usermail.com"}
-              onChange={(event) => (userData.secondaryEmail = event.target.value)}
+              onChange={(event) =>
+                (userData.secondaryEmail = event.target.value)
+              }
             />
           </Form.Group>
 

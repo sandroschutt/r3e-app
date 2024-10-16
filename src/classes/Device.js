@@ -54,34 +54,43 @@ export default class Device {
    * Updates a single Device
    * @param {String|Number} user The current user's ID and role
    * @param {JSON} device A JSON object containing the request body
+   * @param {String|NULL} currentPhoto The Device's current photo label
    * */
-  static async update(user, device) {
+  static async update(user, device, currentPhoto) {
     if (user.id !== device.userId && user.role !== "Admin") {
       alert("Você não tem permissão para editar esse dispositivo");
       return;
     }
 
+    const formdata = new FormData();
+    formdata.append("type", device.type);
+    formdata.append("brandId", device.brandId);
+    formdata.append("modelId", device.modelId);
+    formdata.append("state", device.state);
+    formdata.append("currentPhoto", currentPhoto);
+    formdata.set("photo", device.photo);
+
     delete device["userId"];
 
     switch (device.state) {
       case "muito-bom":
-        device.returnProccessId = 5;
+        formdata.append("returnProccessId", 5);
         break;
 
       case "bom":
-        device.returnProccessId = 4;
+        formdata.append("returnProccessId", 4);
         break;
 
       case "regular":
-        device.returnProccessId = 3;
+        formdata.append("returnProccessId", 3);
         break;
 
       case "ruim":
-        device.returnProccessId = 2;
+        formdata.append("returnProccessId", 2);
         break;
 
       case "muito-ruim":
-        device.returnProccessId = 1;
+        formdata.append("returnProccessId", 1);
         break;
 
       default:
@@ -89,9 +98,9 @@ export default class Device {
     }
 
     await axios
-      .post(Api.endpoint(`devices/${device.id}/update`), device, {
+      .post(Api.endpoint(`devices/${device.id}/update`), formdata, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {

@@ -57,21 +57,32 @@ export default class User {
   /**
    * Updates the current User's data
    *
-   * @param id [String | Number] The User's ID
-   * @param data [JSON] A JSON object containing the new data
+   * @param {String|Number} id The User's ID
+   * @param {JSON} data A JSON object containing the new data
    */
-  async update(id, data = JSON) {
+  async update(id, data) {
+    const formdata = new FormData();
+
+    formdata.append("name", data.name);
+    formdata.append("role", data.role);
+    formdata.append("email", data.email);
+    formdata.append("phone", data.phone);
+    formdata.append("image", data.image);
+    formdata.append("currentAvatar", data.avatar);
+    formdata.append("document", JSON.stringify(data.document));
+    formdata.append("address", JSON.stringify(data.address));
+
     axios
-      .post(Api.endpoint(`users/update/${id}`), data, {
+      .post(Api.endpoint(`users/update/${id}`), formdata, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
         if (response.status !== 200)
           throw new Error(`Falha ao criar o usuário.`);
         alert(`Usuário ${id} atualizado com sucesso!`);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => {
         alert(error.message);

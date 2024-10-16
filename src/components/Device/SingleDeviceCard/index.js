@@ -65,8 +65,6 @@ export default function SingleDeviceCard(props) {
       return <DeviceEvaluation id={id} default={returnProcessId} />;
   }
 
-  console.log(props.device);
-
   if (props.device !== "") {
     const device = props.device;
     const avatar = Api.endpoint(`uploads/avatar/${device.user.avatar}`);
