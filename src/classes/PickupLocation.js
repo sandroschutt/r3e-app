@@ -44,7 +44,7 @@ export default class PickupLocation {
     axios
       .post(Api.endpoint("pickup-locations/create"), data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
@@ -69,7 +69,7 @@ export default class PickupLocation {
     axios
       .post(Api.endpoint(`pickup-locations/${id}/update`), data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
@@ -122,7 +122,6 @@ export default class PickupLocation {
     axios
       .get(Api.endpoint(`users/${id}/pickup-locations`))
       .then((response) => {
-        console.log(response)
         setLocations(response.data);
       })
       .catch((error) => console.log(error));
