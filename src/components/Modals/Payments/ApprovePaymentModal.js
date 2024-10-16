@@ -29,7 +29,7 @@ export function ApprovePaymentModal(props) {
     } catch (error) {
       console.error("Error downloading the image:", error);
     }
-  };
+  }
 
   function handleProofPayment() {
     Payments.approve(payment.id, approve);
@@ -65,7 +65,11 @@ export function ApprovePaymentModal(props) {
     let paymentNote = payment.paymentNote;
 
     if (paymentNote === null)
-      return <p>O cliente ainda não enviou a nota de pagamento</p>;
+      return (
+        <div class="alert alert-warning my-5" role="alert">
+          O cliente ainda não enviou o comprovante de pagamento.
+        </div>
+      );
 
     if (paymentNote !== null)
       paymentNote = Api.endpoint(`uploads/payment/${paymentNote}`);
@@ -81,7 +85,7 @@ export function ApprovePaymentModal(props) {
               download={payment.paymentNote}
               onClick={(event) => {
                 event.preventDefault();
-                handleDownloadImage(paymentNote, payment.paymentNote)
+                handleDownloadImage(paymentNote, payment.paymentNote);
               }}
             >
               Download
