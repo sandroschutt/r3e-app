@@ -12,12 +12,10 @@ export function SendProofModal(props) {
   const handleShow = () => setShow(true);
 
   function handleProofPayment() {
-    const data = {
-      paymentNote:
-        "https://centraldesuporte.levelup.com.br/Media/c84f3127-e578-4780-b9a7-5e3ba894cab3.PNG",
-    };
+    const formdata = new FormData();
+    formdata.set("proof", payment.proof);
 
-    Payments.proof(payment.id, data);
+    Payments.proof(payment.id, formdata);
   }
 
   return (
@@ -46,7 +44,7 @@ export function SendProofModal(props) {
                   accept="image/jpeg, image/png"
                   className="form-control"
                   onChange={(event) =>
-                    (payment.paymentNote = event.target.value)
+                    (payment.proof = event.target.files[0])
                   }
                 />
               </label>

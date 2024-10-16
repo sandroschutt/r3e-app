@@ -9,7 +9,10 @@ import { ApprovePaymentModal } from "../../../components/Modals/Payments/Approve
 import { SendProofModal } from "../../../components/Modals/Payments/SendProofModal.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import { currentUserRolePickupsRoute, currentUserRoleProfilesRoute } from "../../../helpers/navigationHelpers.js";
+import {
+  currentUserRolePickupsRoute,
+  currentUserRoleProfilesRoute,
+} from "../../../helpers/navigationHelpers.js";
 
 export default function SinglePayment() {
   const { userData } = useUserDataContext();
@@ -22,6 +25,13 @@ export default function SinglePayment() {
   }, [payment]);
 
   function handlePaymentOptions(payment) {
+    if (userData.role === "Empresa" || userData.role === "Ong")
+      return (
+        <div className="d-flex gap-3">
+          <ApprovePaymentModal payment={payment} userRole={userData.role} />
+        </div>
+      );
+
     if (userData.role === "Cliente" && payment.status === "pago") {
       return (
         <div className="d-flex gap-3">

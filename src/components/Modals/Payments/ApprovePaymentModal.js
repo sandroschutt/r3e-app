@@ -3,6 +3,7 @@ import { Form, Modal } from "react-bootstrap";
 import Payments from "../../../classes/Payments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileInvoiceDollar } from "@fortawesome/free-solid-svg-icons";
+import Api from "../../../classes/Api";
 
 export function ApprovePaymentModal(props) {
   const payment = props.payment;
@@ -11,6 +12,24 @@ export function ApprovePaymentModal(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  async function handleDownloadImage(paymentNote, label) {
+    try {
+      const response = await fetch(paymentNote);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = label;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading the image:", error);
+    }
+  };
 
   function handleProofPayment() {
     Payments.approve(payment.id, approve);
@@ -42,6 +61,37 @@ export function ApprovePaymentModal(props) {
     );
   }
 
+  function handlePaymentNote() {
+    let paymentNote = payment.paymentNote;
+
+    if (paymentNote === null)
+      return <p>O cliente ainda não enviou a nota de pagamento</p>;
+
+    if (paymentNote !== null)
+      paymentNote = Api.endpoint(`uploads/payment/${paymentNote}`);
+
+    return (
+      <>
+        <img src={paymentNote} width={450} />
+        <div className="d-flex justify-content-end my-3">
+          <button className="btn btn-primary">
+            <a
+              className="text-light text-decoration-none"
+              href={paymentNote}
+              download={payment.paymentNote}
+              onClick={(event) => {
+                event.preventDefault();
+                handleDownloadImage(paymentNote, payment.paymentNote)
+              }}
+            >
+              Download
+            </a>
+          </button>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <button
@@ -63,19 +113,14 @@ export function ApprovePaymentModal(props) {
               handleProofPayment();
             }}
           >
-            <div className="mb-5">
+            <div>
               <label htmlFor="price" className="form-label mb-2">
                 <strong>Comprovante:</strong>
               </label>
-              <img
-                src={
-                  "https://centraldesuporte.levelup.com.br/Media/c84f3127-e578-4780-b9a7-5e3ba894cab3.PNG"
-                }
-                width={450}
-              />
+              {handlePaymentNote()}
             </div>
             <div className="d-flex gap-3 justify-content-end">
-             {handleRoleActions(props.userRole)}
+              {handleRoleActions(props.userRole)}
             </div>
           </Form>
         </Modal.Body>

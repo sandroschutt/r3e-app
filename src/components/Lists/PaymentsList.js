@@ -12,7 +12,7 @@ export function PaymentsList(props) {
   const navigate = useNavigate();
 
   function handlePaymentOptions(payment) {
-    if (userData.role === "Cliente" && payment.status === "pago") {
+    if (userData.role !== "Cliente" && payment.status === "pago") {
       return (
         <div className="d-flex gap-3">
           <Button
