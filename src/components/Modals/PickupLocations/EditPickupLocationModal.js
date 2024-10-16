@@ -6,6 +6,7 @@ import PickupLocation from "../../../classes/PickupLocation";
 
 export function EditPickupLocationModal(props) {
   const location = props.location;
+  location.currentImage = location.image;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -20,6 +21,7 @@ export function EditPickupLocationModal(props) {
     formdata.append("phone", location.phone);
     formdata.append("cep", location.cep);
     formdata.append("number", location.number);
+    formdata.append("currentImage", location.currentImage)
     formdata.set("image", location.image);
 
     PickupLocation.update(location.id, formdata);
