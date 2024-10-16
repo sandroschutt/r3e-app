@@ -31,8 +31,6 @@ export default function UserProfileForm(props) {
     user.update(userData.id, userData);
   }
 
-  console.log(userData)
-
   if (userData !== "") {
     return (
       <Form

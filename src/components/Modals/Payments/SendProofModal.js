@@ -13,6 +13,7 @@ export function SendProofModal(props) {
 
   function handleProofPayment() {
     const formdata = new FormData();
+    formdata.append("currentProof", payment.paymentNote)
     formdata.set("proof", payment.proof);
 
     Payments.proof(payment.id, formdata);

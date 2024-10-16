@@ -122,6 +122,13 @@ export default function SinglePayment() {
                     className="d-flex justify-content-between mb-2 pb-2"
                     style={{ borderBottom: "1px solid lightgrey" }}
                   >
+                    <strong>Status:</strong>{" "}
+                    {payment.status}
+                  </p>
+                  <p
+                    className="d-flex justify-content-between mb-2 pb-2"
+                    style={{ borderBottom: "1px solid lightgrey" }}
+                  >
                     <strong>Método de pagamento:</strong>{" "}
                     {payment.method.toUpperCase()}
                   </p>
