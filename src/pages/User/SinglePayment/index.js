@@ -13,6 +13,8 @@ import {
   currentUserRolePickupsRoute,
   currentUserRoleProfilesRoute,
 } from "../../../helpers/navigationHelpers.js";
+import { EditPaymentModal } from "../../../components/Modals/Payments/EditPaymentModal.js";
+import { DeletePaymentModal } from "../../../components/Modals/Payments/DeletePaymentModal.js";
 
 export default function SinglePayment() {
   const { userData } = useUserDataContext();
@@ -25,6 +27,18 @@ export default function SinglePayment() {
   }, [payment]);
 
   function handlePaymentOptions(payment) {
+    if (userData.role === "Admin") {
+      return (
+        <div className="d-flex justify-content-between">
+          <ApprovePaymentModal payment={payment} userRole={userData.role} />
+          <div className="d-flex align-items-center gap-3">
+            <EditPaymentModal payment={payment} />
+            <DeletePaymentModal id={payment.id} />  
+          </div>
+        </div>
+      );
+    }
+
     if (userData.role === "Empresa" || userData.role === "Ong")
       return (
         <div className="d-flex gap-3">
@@ -122,8 +136,7 @@ export default function SinglePayment() {
                     className="d-flex justify-content-between mb-2 pb-2"
                     style={{ borderBottom: "1px solid lightgrey" }}
                   >
-                    <strong>Status:</strong>{" "}
-                    {payment.status}
+                    <strong>Status:</strong> {payment.status}
                   </p>
                   <p
                     className="d-flex justify-content-between mb-2 pb-2"

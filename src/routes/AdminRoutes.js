@@ -29,6 +29,7 @@ import PaymentsView from "../pages/User/PaymentsView/index.js";
 import ManageSchoolDeviceRequests from "../pages/Admin/ManageSchoolDeviceRequests/index.js";
 import SingleSchoolDeviceRequest from "../pages/User/SingleSchoolDeviceRequest/index.js";
 import AdminBoard from "../pages/Admin/AdminBoard/index.js";
+import SinglePayment from "../pages/User/SinglePayment/index.js";
 
 export default function AdminRoutes() {
   return (
@@ -50,6 +51,7 @@ export default function AdminRoutes() {
           <Route path={"/pickups"} element={<Pickups />} />
           <Route path={"/pickups/:id"} element={<SinglePickup />} />
           <Route path='/payments' element={<PaymentsView />} />
+          <Route path='/payments/:id' element={<SinglePayment />} />
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path={"/workshop"} element={<Workshop/>} />
