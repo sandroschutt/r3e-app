@@ -18,7 +18,7 @@ export function PickupLocationsList(props) {
   if (props.locations !== "")
     return (
       <>
-        <CreatePickupLocationModal userId={props.userId} />
+        <CreatePickupLocationModal />
         <Accordion defaultActiveKey="0">
           {props.locations.map((location, index) => {
             return (

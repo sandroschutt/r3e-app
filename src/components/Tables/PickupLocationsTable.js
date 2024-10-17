@@ -9,7 +9,6 @@ import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePicku
 import { useNavigate } from "react-router-dom";
 
 export default function PickupLocationsTable(props) {
-  const userId = props.userId;
   const navigate = useNavigate();
 
   function currentUserRoleProfilesRoute(userRole, id) {
@@ -19,7 +18,7 @@ export default function PickupLocationsTable(props) {
   if (props.locations !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
-        <CreatePickupLocationModal userId={userId} />
+        <CreatePickupLocationModal />
         <table>
           <thead>
             <tr className="bg-dark text-white">

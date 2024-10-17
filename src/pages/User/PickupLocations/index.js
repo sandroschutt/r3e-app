@@ -28,8 +28,8 @@ export default function PickupLocations() {
   }, [locations, search, searched, userData]);
 
   function handlePickupLocationTable() {
-    if(userData.role === "Admin") return <PickupLocationsTable userId={userData.id} locations={locations} />
-    return <PickupLocationsList locations={locations} userId={userData.id}/>
+    if(userData.role === "Admin") return <PickupLocationsTable locations={locations} />
+    return <PickupLocationsList locations={locations} />
   }
 
   return (

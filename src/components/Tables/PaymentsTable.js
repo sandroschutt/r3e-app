@@ -7,6 +7,9 @@ import { validateDate } from "../../validations/validateDate.js";
 import { CreatePaymentModal } from "../Modals/Payments/CreatePaymentModal.js";
 import { useUserDataContext } from "../../context/UserDataContext/index.js";
 import Admin from "../../classes/Admin.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { currentUserRolePaymentsRoute } from "../../helpers/navigationHelpers.js";
 
 export default function PaymentsTable(props) {
   const { userData } = useUserDataContext();
@@ -96,6 +99,7 @@ export default function PaymentsTable(props) {
                   <td>{payment.status}</td>
                   <td>{validateDate(payment.createdAt)}</td>
                   <td className="d-flex justify-content-center gap-3 align-items-center p-3">
+                    <FontAwesomeIcon icon={faEye} onClick={() => navigate(currentUserRolePaymentsRoute(userData.role, payment.id))}/>
                     <EditPaymentModal payment={payment} />
                     <DeletePaymentModal id={payment.id} />
                   </td>

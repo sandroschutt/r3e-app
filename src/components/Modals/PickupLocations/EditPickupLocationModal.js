@@ -6,24 +6,25 @@ import PickupLocation from "../../../classes/PickupLocation";
 
 export function EditPickupLocationModal(props) {
   const location = props.location;
+  location.currentImage = location.image;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleEditPickupLocation() {
-    const data = {
-      name: location.name,
-      description: location.description,
-      business: location.business,
-      email: location.email,
-      phone: location.phone,
-      cep: location.cep,
-      number: location.number,
-      image: location.image,
-    };
+    const formdata = new FormData();
+    formdata.append("name", location.name);
+    formdata.append("description", location.description);
+    formdata.append("business", location.business);
+    formdata.append("email", location.email);
+    formdata.append("phone", location.phone);
+    formdata.append("cep", location.cep);
+    formdata.append("number", location.number);
+    formdata.append("currentImage", location.currentImage)
+    formdata.set("image", location.image);
 
-    PickupLocation.update(location.id, data);
+    PickupLocation.update(location.id, formdata);
   }
 
   return (
@@ -52,6 +53,18 @@ export function EditPickupLocationModal(props) {
                   location.name = event.target.value;
                 }}
                 defaultValue={location.name}
+              />
+
+              <label className="mb-2" htmlFor="image">
+                <strong>Foto:</strong>
+              </label>
+              <input
+                type="file"
+                accept="img/jpeg, img/jpg, img/png"
+                className="form-control mb-3"
+                onChange={(event) => {
+                  location.image = event.target.files[0];
+                }}
               />
 
               <label className="mb-2" htmlFor="description">

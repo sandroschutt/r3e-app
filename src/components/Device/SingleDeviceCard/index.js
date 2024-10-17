@@ -1,5 +1,6 @@
 import "./style.scss";
 import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
+import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
@@ -13,11 +14,16 @@ import { useUserDataContext } from "../../../context/UserDataContext";
 import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
 import { validatePhones } from "../../../validations/validatePhones.js";
 import { DeviceEvaluation } from "../DeviceEvaluation/index.js";
+import Api from "../../../classes/Api.js";
+import { useNavigate } from "react-router-dom";
+import { currentUserRoleProfilesRoute } from "../../../helpers/navigationHelpers.js";
 
 export default function SingleDeviceCard(props) {
   const { userData } = useUserDataContext();
+  const deviceImage = Api.endpoint(`uploads/device/${props.device.photo}`);
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (brands === "") Brands.getAll(setBrands);
@@ -61,6 +67,8 @@ export default function SingleDeviceCard(props) {
 
   if (props.device !== "") {
     const device = props.device;
+    const avatar = Api.endpoint(`uploads/avatar/${device.user.avatar}`);
+
     return (
       <Row className="gap-3">
         <Card className="col col-6 px-0">
@@ -81,7 +89,7 @@ export default function SingleDeviceCard(props) {
             <Row className="single-device--card gap-3 mb-3">
               <Col className="ps-0 col-2">
                 <img
-                  src={dummyDeviceImg}
+                  src={deviceImage}
                   height={164}
                   style={{ width: "auto" }}
                   className="rounded"
@@ -159,17 +167,49 @@ export default function SingleDeviceCard(props) {
             <Card.Body className="p-4">
               <Row className="gap-5 align-items-center">
                 <Col className="col-2">
-                  <img
-                    src={dummyDeviceImg}
-                    height={100}
-                    width={100}
-                    className="rounded-circle"
-                  />
+                  <a
+                    href="#"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      navigate(
+                        currentUserRoleProfilesRoute(
+                          userData.role,
+                          device.user.id
+                        )
+                      );
+                    }}
+                  >
+                    <div
+                      className="rounded-circle"
+                      style={{
+                        backgroundImage: `url(${
+                          device.user.avatar !== null ? avatar : r3eMascot
+                        })`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "100px",
+                        height: "100px",
+                      }}
+                    ></div>
+                  </a>
                 </Col>
                 <Col>
                   <p className="mb-2 h5">
                     <strong>
-                      <a href="#">{device.user.name}</a>
+                      <a
+                        href="#"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          navigate(
+                            currentUserRoleProfilesRoute(
+                              userData.role,
+                              device.user.id
+                            )
+                          );
+                        }}
+                      >
+                        {device.user.name}
+                      </a>
                     </strong>
                   </p>
                   <p className="mb-1">email@teste.com</p>
@@ -182,7 +222,9 @@ export default function SingleDeviceCard(props) {
             <Card.Header>
               <div className="d-flex justify-content-between align-items-center">
                 <p className="h4 mb-0">Avaliação</p>
-                <Badge bg="primary">{device.returnProccess.finality.toUpperCase()}</Badge>
+                <Badge bg="primary">
+                  {device.returnProccess.finality.toUpperCase()}
+                </Badge>
               </div>
             </Card.Header>
             <Card.Body className="p-4">

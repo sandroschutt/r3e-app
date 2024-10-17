@@ -141,7 +141,7 @@ export default class Payments {
     axios
       .post(Api.endpoint(`payments/${id}/proof`), data, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {

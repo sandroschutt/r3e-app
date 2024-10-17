@@ -1,16 +1,15 @@
 import "./style.scss";
-import { UsersFilter } from "../../../components/Lists/Flters";
 import UserHeader from "../../../components/UserHeader";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import Admin from "../../../classes/Admin";
-import { NewUserModal } from "../../../components/Modals";
 import UsersTable from "../../../components/Tables/UsersTable";
 import {
   getSearchQueryParams,
   searchInObject,
   SearchResults,
 } from "../../../components/forms/SearchForm";
+import { CreateUserModal } from "../../../components/Modals/User/CreateUserModal";
 
 export default function ManageUsers() {
   const [users, setUsers] = useState("");
@@ -45,7 +44,7 @@ export default function ManageUsers() {
           <SearchResults search={search} />
         </Col>
         <Col className="admin-users--filters">
-          <NewUserModal />
+          <CreateUserModal />
           <UsersTable users={users} />
         </Col>
       </Row>

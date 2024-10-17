@@ -3,14 +3,15 @@ import { Modal } from "react-bootstrap";
 import PickupLocation from "../../../classes/PickupLocation";
 import { escapePhoneNumber } from "../../../validations/validatePhones";
 import { escapeZipcode } from "../../../validations/validateZipcode";
+import { useUserDataContext } from "../../../context/UserDataContext";
 
-export function CreatePickupLocationModal(props) {
+export function CreatePickupLocationModal() {
+  const {userData} = useUserDataContext();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const location = {
-    userId: props.userId,
     name: "",
     description: "",
     business: "",
@@ -25,7 +26,18 @@ export function CreatePickupLocationModal(props) {
     location.phone = escapePhoneNumber(location.phone);
     location.cep = escapeZipcode(location.cep);
 
-    PickupLocation.create(location);
+    const formdata = new FormData();
+    formdata.append("userId", userData.id)
+    formdata.append("name", location.name);
+    formdata.append("description", location.description);
+    formdata.append("business", location.business);
+    formdata.append("email", location.email);
+    formdata.append("phone", location.phone);
+    formdata.append("cep", location.cep);
+    formdata.append("number", location.number);
+    formdata.set("image", location.image);
+
+    PickupLocation.create(formdata);
   }
 
   return (
@@ -60,6 +72,18 @@ export function CreatePickupLocationModal(props) {
                 placeholder="Novo Local de Coleta"
                 onChange={(event) => {
                   location.name = event.target.value;
+                }}
+              />
+
+              <label className="mb-2" htmlFor="image">
+                <strong>Foto:</strong>
+              </label>
+              <input
+                type="file"
+                accept="img/jpeg, img/jpg, img/png"
+                className="form-control mb-3"
+                onChange={(event) => {
+                  location.image = event.target.files[0];
                 }}
               />
 

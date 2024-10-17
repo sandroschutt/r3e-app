@@ -10,13 +10,14 @@ export function EditDeviceModal(props) {
   const models = props.models;
   const brands = props.brands;
   const device = props.device;
+  const currentPhoto = props.device.photo;
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   function handleEditDevice() {
-    Device.update({id: userData.id, role: userData.role}, device);
+    Device.update({ id: userData.id, role: userData.role }, device, currentPhoto);
   }
 
   if (brands !== "" && models !== "")
@@ -114,7 +115,7 @@ export function EditDeviceModal(props) {
                   })}
                 </select>
               </div>
-              <div className="mb-5">
+              <div className="mb-3">
                 <label className="form-label my-2" htmlFor="state">
                   Estado:
                 </label>
@@ -132,6 +133,14 @@ export function EditDeviceModal(props) {
                   <option value={"regular"}>Regular</option>
                   <option value={"ruim"}>Ruim</option>
                 </select>
+                <div className="mb-5">
+                  <label className="form-label my-2" htmlFor="photo">
+                    Foto:
+                  </label>
+                  <input name="photo" className="form-control mb-3" type="file" accept="img/jpeg, img/jpg, img/png" onChange={(event) => {
+                    device.photo = event.target.files[0]
+                  }} />
+                </div>
               </div>
               <div>
                 <button className="btn btn-success me-2" onClick={handleClose}>
