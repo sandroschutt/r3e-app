@@ -47,8 +47,8 @@ export default function Pickups() {
   }, [userData, schedules, schedule]);
 
   function handleUserTable() {
-    if(userData.role === "Admin") return <SchedulesTable schedules={schedules} userRole={userData.role}/>
-    if(userData.role !== "Admin") return <PickupsList schedules={schedules} userRole={userData.role}/>
+    if(userData.role === "Admin" && schedules !== "") return <SchedulesTable schedules={schedules} userRole={userData.role}/>
+    if(userData.role !== "Admin" && schedules !== "") return <PickupsList schedules={schedules} userRole={userData.role}/>
   }
 
   if(schedules !== "" ) return (

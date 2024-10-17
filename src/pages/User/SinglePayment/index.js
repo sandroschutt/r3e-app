@@ -79,8 +79,8 @@ export default function SinglePayment() {
           <Card>
             <Card.Body>
               <div className="p-5">
-                <p>
-                  <strong>Beneficiário:</strong>{" "}
+                <p className="d-flex gap-2">
+                  <strong>Beneficiado:</strong>
                   <a
                     href="#"
                     onClick={(event) => {
@@ -96,8 +96,8 @@ export default function SinglePayment() {
                     {payment.schedule.client.name}
                   </a>
                 </p>
-                <p>
-                  <strong>Beneficiado:</strong>{" "}
+                <p className="d-flex gap-2">
+                  <strong>Beneficiário:</strong>
                   <a
                     href="#"
                     onClick={(event) => {

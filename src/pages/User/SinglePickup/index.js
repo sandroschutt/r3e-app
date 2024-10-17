@@ -1,14 +1,28 @@
 import "./style.scss";
 import { useEffect, useState } from "react";
 import UserHeader from "../../../components/UserHeader";
-import { Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import Pickup from "../../../classes/Pickup";
 import { ListViewMap } from "../../../components/Maps";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  currentUserRoleDevicesRoute,
+  currentUserRolePaymentsRoute,
+  currentUserRoleProfilesRoute,
+} from "../../../helpers/navigationHelpers";
+import { EditScheduleModal } from "../../../components/Modals/Schedule/EditScheduleModal";
+import { DeleteScheduleModal } from "../../../components/Modals/Schedule/DeleteScheduleModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import { validateDate } from "../../../validations/validateDate";
 
 export default function SinglePickup() {
+  const { userData } = useUserDataContext();
+  const navigate = useNavigate();
   const [schedule, setSchedule] = useState("");
-  let scheduleId = window.location.pathname.split("/");
-  scheduleId = scheduleId[scheduleId.length - 1];
+  const params = useParams();
+  let scheduleId = params.id;
 
   useEffect(() => {
     if (schedule === "") {
@@ -16,140 +30,232 @@ export default function SinglePickup() {
     }
   }, [schedule, scheduleId]);
 
-  if(schedule !== "") return (
-    <>
-      <Row>
-        <UserHeader pageTitle={"Coleta"} />
-      </Row>
-      <Row>
-        <Col className="schedule-data d-flex align-items-center mb-3">
-          <h3 className="me-3">Dados da coleta:</h3>
-          <span>
-            <strong>Status:</strong>
-            {schedule.status}
-          </span>
-          <span>
-            <strong>Data agendada:</strong>
-            {schedule.dateColect}
-          </span>
-          <span>
-            <strong>Data coletado:</strong>
-            {schedule.dateColected === null
-              ? "não coletado"
-              : schedule.dateColected}
-          </span>
-        </Col>
-      </Row>
-      <Row className="single-pickup">
-        <Col>
-          <h4 className="mb-4">Empresa</h4>
-          <div className="user-header d-flex flex-row gap-3 align-items-center mb-3">
-            <div className="user-avatar"></div>
-            <div className="user-info">
-              <h5 className="name">
-                <strong className="me-3">{schedule.vendor.name}</strong>
-                <span className="role">
-                  <strong>{schedule.vendor.role}</strong>
-                </span>
-              </h5>
-              <p className="email">
-                <strong className="me-2">E-mail:</strong>
-                {schedule.vendor.email}
-              </p>
-              <p className="email">
-                <strong className="me-2">Celular:</strong>
-                {schedule.vendor.phone}
-              </p>
-              <p className="email">
-                <strong className="me-2">Localização:</strong>
-                {`${schedule.vendor.address.street}, 666, ${schedule.vendor.address.city} - ${schedule.vendor.address.state}`}
-              </p>
-            </div>
-          </div>
-          <ListViewMap />
-        </Col>
-        <Col>
-          <h4 className="mb-4">Dispositivo</h4>
-          <div className="device-header d-flex flex-row gap-3 align-items-center mb-3">
-            <div className="device-image"></div>
-            <div className="device-info">
-              <h5 className="name">
-                <strong className="me-3">{schedule.device.model.name}</strong>
-              </h5>
-              <p>
-                <strong className="me-2">Marca:</strong>
-                {schedule.device.brand.name}
-              </p>
-              <p>
-                <strong className="me-2">Ano:</strong>
-                {schedule.device.model.year}
-              </p>
-              <p>
-                <strong className="me-2">Estado:</strong>
-                {schedule.device.state}
-              </p>
-            </div>
-          </div>
-          <div className="device-specifications">
-            <table className="w-100">
-              <thead>
-                <tr>
-                  <th style={{ fontSize: "1.2em" }}>
-                    <strong>Especificação</strong>
-                  </th>
-                  <th style={{ fontSize: "1.2em" }}>
-                    <strong>Valor</strong>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong className="me-2">Categoria</strong>
-                  </td>
-                  <td>{schedule.device.model.category}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">Sistema Operacional</strong>
-                  </td>
-                  <td>{schedule.device.model.OS}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">CPU</strong>
-                  </td>
-                  <td>{schedule.device.model.CPU}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">RAM</strong>
-                  </td>
-                  <td>{schedule.device.model.RAM}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">Bateria</strong>
-                  </td>
-                  <td>{schedule.device.model.battery}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">Network</strong>
-                  </td>
-                  <td>{schedule.device.model.network}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong className="me-2">Tela</strong>
-                  </td>
-                  <td>{schedule.device.model.screen}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </Col>
-      </Row>
-    </>
-  );
+  function handleScheduleAdminActions() {
+    if (userData.role === "Admin")
+      return (
+        <div className="d-flex justify-content-end gap-3 align-items-center">
+          <EditScheduleModal schedule={schedule} userRole={userData.role} />
+          <DeleteScheduleModal id={schedule.id} />
+        </div>
+      );
+  }
+
+  function handleScheduleRoleActions(schedule) {
+    if (
+      userData.role === "Cliente" &&
+      schedule.accepted === null &&
+      schedule.status === "não aceito"
+    ) {
+      return (
+        <div className="d-flex gap-3 p-3">
+          <button
+            type="button"
+            className="d-flex align-items-center gap-2 btn btn-outline-success"
+            onClick={() => Pickup.accept(schedule.id)}
+          >
+            <FontAwesomeIcon icon={faTruck} />
+            Aceitar
+          </button>
+          <button
+            type="button"
+            className="d-flex align-items-center gap-2 btn btn-outline-danger"
+            onClick={() => Pickup.deny(schedule.id)}
+          >
+            Rejeitar
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="d-flex gap-3 p-3">
+        <button
+          type="button"
+          className="d-flex align-items-center gap-2 btn btn-outline-primary"
+          onClick={() => {
+            navigate(currentUserRolePaymentsRoute(userData.role, schedule.paymentId))
+          }}
+        >
+          Pagamento
+        </button>
+        <button
+          type="button"
+          className="d-flex align-items-center gap-2 btn btn-outline-danger"
+          onClick={() => {
+            alert("cancelar coleta")
+          }}
+        >
+          Cancelar
+        </button>
+      </div>
+    );
+  }
+
+  if (schedule !== "")
+    return (
+      <>
+        <Row>
+          <UserHeader pageTitle={"Coleta"} />
+        </Row>
+        <Row className="single-pickup">
+          <Col>
+            <Row className="mb-3">
+              <Col className="ps-0 pe-0">
+                <Card>
+                  <Card.Header>
+                    <p className="h4">Dados da coleta</p>
+                  </Card.Header>
+                  <Card.Body>
+                    <p className="d-flex mb-1 gap-2">
+                      <strong>Status:</strong>
+                      {schedule.status}
+                    </p>
+                    <p className="d-flex mb-1 gap-2">
+                      <strong>Data agendada:</strong>
+                      {validateDate(schedule.dateColect)}
+                    </p>
+                    <p className="d-flex mb-1 gap-2">
+                      <strong>Data coletado:</strong>
+                      {schedule.dateColected === null
+                        ? "não coletado"
+                        : validateDate(schedule.dateColected)}
+                    </p>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            <Card>
+              <Card.Header className="d-flex justify-content-between align-items-center">
+                <p className="h4">Usuários</p>
+                {handleScheduleAdminActions()}
+              </Card.Header>
+              <Card.Body>
+                <div className="user-header d-flex flex-row gap-3 align-items-center mb-3 p-3">
+                  <div className="user-avatar rounded"></div>
+                  <div className="user-info">
+                    <h5 className="name">
+                      <strong className="me-3">
+                        <a
+                          href="#"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            navigate(
+                              currentUserRoleProfilesRoute(
+                                userData.role,
+                                schedule.vendor.id
+                              )
+                            );
+                          }}
+                        >
+                          {schedule.vendor.name}
+                        </a>
+                      </strong>
+                      <span className="role">
+                        <strong>{schedule.vendor.role}</strong>
+                      </span>
+                    </h5>
+                    <p className="email">
+                      <strong className="me-2">E-mail:</strong>
+                      {schedule.vendor.email}
+                    </p>
+                    <p className="email">
+                      <strong className="me-2">Celular:</strong>
+                      {schedule.vendor.phone}
+                    </p>
+                    <p className="email">
+                      <strong className="me-2">Localização:</strong>
+                      {`${schedule.vendor.address.street}, 666, ${schedule.vendor.address.city} - ${schedule.vendor.address.state}`}
+                    </p>
+                  </div>
+                </div>
+                <div className="user-header d-flex flex-row gap-3 align-items-center mb-3 p-3">
+                  <div className="user-avatar rounded"></div>
+                  <div className="user-info">
+                    <h5 className="name">
+                      <strong className="me-3">
+                        <a
+                          href="#"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            navigate(
+                              currentUserRoleProfilesRoute(
+                                userData.role,
+                                schedule.client.id
+                              )
+                            );
+                          }}
+                        >
+                          {schedule.client.name}
+                        </a>
+                      </strong>
+                      <span className="role">
+                        <strong>{schedule.client.role}</strong>
+                      </span>
+                    </h5>
+                    <p className="email">
+                      <strong className="me-2">E-mail:</strong>
+                      {schedule.client.email}
+                    </p>
+                    <p className="email">
+                      <strong className="me-2">Celular:</strong>
+                      {schedule.client.phone}
+                    </p>
+                    <p className="email">
+                      <strong className="me-2">Localização:</strong>
+                      {`${schedule.client.address.street}, 666, ${schedule.client.address.city} - ${schedule.client.address.state}`}
+                    </p>
+                  </div>
+                </div>
+                {handleScheduleRoleActions(schedule)}
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col>
+            <Card>
+              <Card.Header>
+                <p className="h4">Dispositivo</p>
+              </Card.Header>
+              <Card.Body>
+                <div className="device-header d-flex flex-row gap-3 align-items-center mb-3">
+                  <div className="device-image"></div>
+                  <div className="device-info">
+                    <h5 className="name">
+                      <strong className="me-3">
+                        <a
+                          href="#"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            navigate(
+                              currentUserRoleDevicesRoute(
+                                userData.role,
+                                schedule.deviceId
+                              )
+                            );
+                          }}
+                        >
+                          {`${schedule.device.brand.name} ${schedule.device.model.name}`}
+                        </a>
+                      </strong>
+                    </h5>
+                    <p>
+                      <strong className="me-2">Marca:</strong>
+                      {schedule.device.brand.name}
+                    </p>
+                    <p>
+                      <strong className="me-2">Ano:</strong>
+                      {schedule.device.model.year}
+                    </p>
+                    <p>
+                      <strong className="me-2">Estado:</strong>
+                      {schedule.device.state}
+                    </p>
+                  </div>
+                </div>
+                <ListViewMap />
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </>
+    );
 }

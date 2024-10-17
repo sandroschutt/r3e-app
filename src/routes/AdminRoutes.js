@@ -1,12 +1,5 @@
-/**
- * UserDataContext must fetch user data from the api
- * Attributes:
- *  name, email, address, phone
- */
-
 import { Routes, Route } from "react-router-dom";
 import { UserDataContext } from "../context/UserDataContext";
-import Dashboard from "../pages/Admin/Dashboard";
 import ManageUsers from "../pages/Admin/ManageUsers";
 import ManageStudents from "../pages/Admin/ManageStudents";
 import PublicDevices from "../pages/User/PublicDevices";
@@ -14,7 +7,6 @@ import SingleDevices from "../pages/User/SingleDevices";
 import Pickups from "../pages/User/Pickups";
 import PickupLocations from "../pages/User/PickupLocations";
 import SinglePickupLocation from "../pages/User/SinglePickupLocation";
-import MapView from "../pages/User/MapView";
 import SinglePickup from "../pages/User/SinglePickup";
 import UserLayout from "../layout/UserLayout";
 import { SettingsView } from "../pages/User/SettingsView";
@@ -55,7 +47,6 @@ export default function AdminRoutes() {
           <Route path={"/pickup-locations"} element={<PickupLocations />} />
           <Route path={"/pickup-locations/:id"} element={<SinglePickupLocation />} />
           <Route path={"/workshop"} element={<Workshop/>} />
-          <Route path="/map" element={<MapView />} />
           <Route path="/settings" element={<SettingsView />} />
           <Route path="/integrations" element={<Integrations/>}/>
           <Route path="/capabilities" element={<Capabilities/>}/>

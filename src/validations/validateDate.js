@@ -1,4 +1,10 @@
-export function validateDate(dateString = String) {
+/**
+ * Formats a date string
+ * 
+ * @param {String} datestring
+ * @returns {String} formattedDate
+*/
+export function validateDate(dateString) {
   const date = new Date(dateString);
 
   const day = String(date.getUTCDate()).padStart(2, "0");
