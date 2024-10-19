@@ -24,6 +24,7 @@ export function CreateUserModal() {
     address: {
       zipcode: "",
       street: "",
+      neighborhood: "",
       city: "",
       state: "",
       number: ""
@@ -38,6 +39,7 @@ export function CreateUserModal() {
       data.document.documentNumber === "" ||
       data.address.zipcode === "" ||
       data.address.street === "" ||
+      data.address.neighborhood === "" ||
       data.address.city === "" ||
       data.address.state === "" ||
       data.image === ""
@@ -183,8 +185,17 @@ export function CreateUserModal() {
               type="text"
               name="street"
               id="street"
-              placeholder="Rua Exemplo, 999:"
+              placeholder="Rua Exemplo:"
               onChange={(event) => (data.address.street = event.target.value)}
+            />
+            <Form.Label htmlFor="neighborhood">Bairro:</Form.Label>
+            <Form.Control
+              className="mb-3"
+              type="text"
+              name="neighborhood"
+              id="neighborhood"
+              placeholder="Jardim Exemplo:"
+              onChange={(event) => (data.address.neighborhood = event.target.value)}
             />
             <Form.Label htmlFor="addressNumber">Nº:</Form.Label>
             <Form.Control

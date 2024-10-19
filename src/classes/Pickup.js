@@ -2,7 +2,13 @@ import axios from "axios";
 import Api from "./Api";
 
 export default class Pickup {
-  static getPickup(id = String, setSchedule) {
+  /**
+   * Retrieves a single Schedule onbject from the database
+   * 
+   * @param {Number!String} id The Schedule's ID
+   * @param {CallableFunction} setSchedule A callback function that sets the Schedule's status
+  */
+  static getPickup(id, setSchedule) {
     axios
       .get(Api.endpoint(`schedules/${id}`))
       .then((response) => {

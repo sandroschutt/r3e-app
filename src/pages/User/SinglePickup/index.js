@@ -16,19 +16,27 @@ import { DeleteScheduleModal } from "../../../components/Modals/Schedule/DeleteS
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { validateDate } from "../../../validations/validateDate";
+import { validatePhones } from "../../../validations/validatePhones";
+import { GeolocationUtil } from "../../../helpers/GeolocationUtil";
+import Api from "../../../classes/Api";
+import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 
 export default function SinglePickup() {
   const { userData } = useUserDataContext();
   const navigate = useNavigate();
   const [schedule, setSchedule] = useState("");
+  const [geolocation, setGeolocation] = useState("");
   const params = useParams();
-  let scheduleId = params.id;
 
   useEffect(() => {
     if (schedule === "") {
-      Pickup.getPickup(scheduleId, setSchedule);
+      Pickup.getPickup(params.id, setSchedule);
     }
-  }, [schedule, scheduleId]);
+
+    if (schedule !== "" && geolocation === "") {
+      GeolocationUtil(schedule.client.address, setGeolocation);
+    }
+  }, [schedule, geolocation]);
 
   function handleScheduleAdminActions() {
     if (userData.role === "Admin")
@@ -73,7 +81,9 @@ export default function SinglePickup() {
           type="button"
           className="d-flex align-items-center gap-2 btn btn-outline-primary"
           onClick={() => {
-            navigate(currentUserRolePaymentsRoute(userData.role, schedule.paymentId))
+            navigate(
+              currentUserRolePaymentsRoute(userData.role, schedule.paymentId)
+            );
           }}
         >
           Pagamento
@@ -82,13 +92,21 @@ export default function SinglePickup() {
           type="button"
           className="d-flex align-items-center gap-2 btn btn-outline-danger"
           onClick={() => {
-            alert("cancelar coleta")
+            alert("cancelar coleta");
           }}
         >
           Cancelar
         </button>
       </div>
     );
+  }
+
+  function handleImages(image, source) {
+    if (image !== null) {
+      return <img src={source} className="user-avatar rounded" />;
+    }
+
+    return <img src={r3eMascot} className="user-avatar rounded" />;
   }
 
   if (schedule !== "")
@@ -102,8 +120,9 @@ export default function SinglePickup() {
             <Row className="mb-3">
               <Col className="ps-0 pe-0">
                 <Card>
-                  <Card.Header>
+                  <Card.Header className="d-flex justify-content-between align-items-center">
                     <p className="h4">Dados da coleta</p>
+                    {handleScheduleAdminActions()}
                   </Card.Header>
                   <Card.Body>
                     <p className="d-flex mb-1 gap-2">
@@ -125,13 +144,15 @@ export default function SinglePickup() {
               </Col>
             </Row>
             <Card>
-              <Card.Header className="d-flex justify-content-between align-items-center">
+              <Card.Header>
                 <p className="h4">Usuários</p>
-                {handleScheduleAdminActions()}
               </Card.Header>
               <Card.Body>
                 <div className="user-header d-flex flex-row gap-3 align-items-center mb-3 p-3">
-                  <div className="user-avatar rounded"></div>
+                  {handleImages(
+                    schedule.vendor.avatar,
+                    Api.endpoint(`uploads/avatar/${schedule.vendor.avatar}`)
+                  )}
                   <div className="user-info">
                     <h5 className="name">
                       <strong className="me-3">
@@ -160,16 +181,19 @@ export default function SinglePickup() {
                     </p>
                     <p className="email">
                       <strong className="me-2">Celular:</strong>
-                      {schedule.vendor.phone}
+                      {validatePhones(schedule.vendor.phone)}
                     </p>
                     <p className="email">
                       <strong className="me-2">Localização:</strong>
-                      {`${schedule.vendor.address.street}, 666, ${schedule.vendor.address.city} - ${schedule.vendor.address.state}`}
+                      {`${schedule.vendor.address.street}, ${schedule.vendor.address.number}, ${schedule.vendor.address.city} - ${schedule.vendor.address.state}`}
                     </p>
                   </div>
                 </div>
                 <div className="user-header d-flex flex-row gap-3 align-items-center mb-3 p-3">
-                  <div className="user-avatar rounded"></div>
+                  {handleImages(
+                    schedule.client.avatar,
+                    Api.endpoint(`uploads/avatar/${schedule.client.avatar}`)
+                  )}
                   <div className="user-info">
                     <h5 className="name">
                       <strong className="me-3">
@@ -198,11 +222,11 @@ export default function SinglePickup() {
                     </p>
                     <p className="email">
                       <strong className="me-2">Celular:</strong>
-                      {schedule.client.phone}
+                      {validatePhones(schedule.client.phone)}
                     </p>
                     <p className="email">
                       <strong className="me-2">Localização:</strong>
-                      {`${schedule.client.address.street}, 666, ${schedule.client.address.city} - ${schedule.client.address.state}`}
+                      {`${schedule.client.address.street}, ${schedule.client.address.number}, ${schedule.client.address.city} - ${schedule.client.address.state}`}
                     </p>
                   </div>
                 </div>
@@ -216,8 +240,11 @@ export default function SinglePickup() {
                 <p className="h4">Dispositivo</p>
               </Card.Header>
               <Card.Body>
-                <div className="device-header d-flex flex-row gap-3 align-items-center mb-3">
-                  <div className="device-image"></div>
+                <div className="device-header d-flex flex-row gap-3 align-items-top mb-3">
+                {handleImages(
+                    schedule.device.photo,
+                    Api.endpoint(`uploads/device/${schedule.device.photo}`)
+                  )}
                   <div className="device-info">
                     <h5 className="name">
                       <strong className="me-3">
@@ -251,7 +278,7 @@ export default function SinglePickup() {
                     </p>
                   </div>
                 </div>
-                <ListViewMap />
+                <ListViewMap geolocation={geolocation} />
               </Card.Body>
             </Card>
           </Col>

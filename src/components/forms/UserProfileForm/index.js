@@ -143,6 +143,26 @@ export default function UserProfileForm(props) {
               }
             />
           </Form.Group>
+          <Form.Group className="mb-3" controlId="userAddressNumber">
+            <Form.Label>Nº:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={userData.address.number}
+              onChange={(event) =>
+                (userData.address.number = event.target.value)
+              }
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="userNeighborhood">
+            <Form.Label>Bairro:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={userData.address.neighborhood}
+              onChange={(event) =>
+                (userData.address.neighborhood = event.target.value)
+              }
+            />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="userCity">
             <Form.Label>Cidade:</Form.Label>
             <Form.Control
