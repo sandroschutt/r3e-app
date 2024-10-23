@@ -38,7 +38,7 @@ export default function UsersTable(props) {
                   <td>{user.name}</td>
                   <td>{user.role}</td>
                   <td>{user.email}</td>
-                  <td>{user.address.city}</td>
+                  <td>{user.address.city}</td>  
                   <td>{user.active === true ? "ativo" : "inativo"}</td>
                   <td>{user.online === true ? "sim" : "não"}</td>
                   <td className="d-flex justify-content-between align-items-center p-3">
@@ -46,7 +46,7 @@ export default function UsersTable(props) {
                       className="action"
                       icon={faEye}
                       onClick={() => {
-                        navigate(`/admin/users/${user.id}`);
+                        navigate(`/app/users/${user.id}`);
                       }}
                     />
                     <FontAwesomeIcon

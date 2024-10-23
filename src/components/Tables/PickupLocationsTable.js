@@ -7,6 +7,8 @@ import PickupLocation from "../../classes/PickupLocation.js";
 import { DeletePickupLocationModal } from "../Modals/PickupLocations/DeletePickupLocationModal.js";
 import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePickupLocationModal.js";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 export default function PickupLocationsTable(props) {
   const navigate = useNavigate();
@@ -44,12 +46,18 @@ export default function PickupLocationsTable(props) {
                 >
                   <td>{location.id}</td>
                   <td>{location.name}</td>
-                  <td><a href="#" onClick={() => navigate(currentUserRoleProfilesRoute(props.userRole, location.id))}>{location.user.name}</a></td>
+                  <td><a href="#" onClick={(event) => {
+                    event.preventDefault();
+                    navigate(`/app/users/${location.userId}`);
+                  }}>{location.user.name}</a></td>
                   <td>{location.business}</td>
                   <td>{validatePhones(location.phone)}</td>
                   <td>{location.email}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
-                    <ViewPickupLocationModal location={location} />
+                    <FontAwesomeIcon icon={faEye} onClick={(event) => {
+                      event.preventDefault();
+                      navigate(`/app/pickup-locations/${location.id}`);
+                    }}/>
                     <EditPickupLocationModal location={location} />
                     <DeletePickupLocationModal id={location.id} />
                   </td>

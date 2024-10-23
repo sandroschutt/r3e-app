@@ -59,7 +59,10 @@ export function AdminDevicesTable(props) {
                     <td>{device.model.name}</td>
                     <td>{device.brand.name}</td>
                     <td>{device.model.year}</td>
-                    <td><a href="#" onClick={() => navigate(`/admin/users/${device.user.id}`)}>{device.user.name}</a></td>
+                    <td><a href="#" onClick={(event) => {
+                      event.preventDefault();
+                      navigate(`/app/users/${device.userId}`)
+                    }}>{device.user.name}</a></td>
                     <td>{device.state}</td>
                     <td>{validateDate(device.createdAt)}</td>
                     <td className="d-flex justify-content-around align-items-center">
@@ -67,7 +70,7 @@ export function AdminDevicesTable(props) {
                         className="action"
                         icon={faEye}
                         onClick={() => {
-                          navigate(`/admin/devices/${device.id}`);
+                          navigate(`/app/devices/${device.id}`);
                         }}
                       />
                       <EditDeviceModal device={device} models={models} brands={brands} />

@@ -171,12 +171,7 @@ export default function SingleDeviceCard(props) {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleProfilesRoute(
-                          userData.role,
-                          device.user.id
-                        )
-                      );
+                      navigate(`/app/users/${device.userId}`);
                     }}
                   >
                     <div
@@ -200,12 +195,7 @@ export default function SingleDeviceCard(props) {
                         href="#"
                         onClick={(event) => {
                           event.preventDefault();
-                          navigate(
-                            currentUserRoleProfilesRoute(
-                              userData.role,
-                              device.user.id
-                            )
-                          );
+                          navigate(`/app/users/${device.userId}`);
                         }}
                       >
                         {device.user.name}

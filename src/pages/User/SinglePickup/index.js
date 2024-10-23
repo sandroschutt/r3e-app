@@ -160,12 +160,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleProfilesRoute(
-                                userData.role,
-                                schedule.vendor.id
-                              )
-                            );
+                            navigate(`/app/users/${schedule.vendorId}`);
                           }}
                         >
                           {schedule.vendor.name}
@@ -201,12 +196,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleProfilesRoute(
-                                userData.role,
-                                schedule.client.id
-                              )
-                            );
+                            navigate(`/app/users/${schedule.clientId}`);
                           }}
                         >
                           {schedule.client.name}
@@ -252,12 +242,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleDevicesRoute(
-                                userData.role,
-                                schedule.deviceId
-                              )
-                            );
+                            navigate(`/app/devices/${schedule.deviceId}`);
                           }}
                         >
                           {`${schedule.device.brand.name} ${schedule.device.model.name}`}
