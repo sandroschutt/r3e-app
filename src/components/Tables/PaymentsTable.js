@@ -9,7 +9,6 @@ import { useUserDataContext } from "../../context/UserDataContext/index.js";
 import Admin from "../../classes/Admin.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { currentUserRolePaymentsRoute } from "../../helpers/navigationHelpers.js";
 
 export default function PaymentsTable(props) {
   const { userData } = useUserDataContext();
@@ -22,14 +21,10 @@ export default function PaymentsTable(props) {
       Admin.getAllSchedules(setSchedules);
   }, [schedules]);
 
-  function currentUserRoleProfilesRoute(userRole, id) {
-    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
-  }
-
   if (props.payments !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
-        <CreatePaymentModal userRole={userData.role} schedules={schedules}/>
+        <CreatePaymentModal userRole={userData.role} schedules={schedules} />
         <table>
           <thead>
             <tr className="bg-dark text-white">
@@ -59,13 +54,10 @@ export default function PaymentsTable(props) {
                   <td>
                     <a
                       href="#"
-                      onClick={() =>
-                        navigate(
-                          `/${window.location.pathname.split("/")[1]}/pickups/${
-                            payment.schedule.id
-                          }`
-                        )
-                      }
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigate(`/app/pickups/${payment.schedule.id}`)
+                      }}
                     >
                       {payment.schedule.id}
                     </a>
@@ -73,11 +65,10 @@ export default function PaymentsTable(props) {
                   <td>
                     <a
                       href="#"
-                      onClick={() =>
-                        navigate(
-                          currentUserRoleProfilesRoute(userData.role, payment.schedule.client.id)
-                        )
-                      }
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigate(`/app/users/${payment.schedule.client.id}`);
+                      }}
                     >
                       {payment.schedule.client.name}
                     </a>
@@ -85,11 +76,10 @@ export default function PaymentsTable(props) {
                   <td>
                     <a
                       href="#"
-                      onClick={() =>
-                        navigate(
-                          currentUserRoleProfilesRoute(userData.role, payment.schedule.vendor.id)
-                        )
-                      }
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigate(`/app/users/${payment.schedule.vendor.id}`)
+                      }}
                     >
                       {payment.schedule.vendor.name}
                     </a>
@@ -99,7 +89,13 @@ export default function PaymentsTable(props) {
                   <td>{payment.status}</td>
                   <td>{validateDate(payment.createdAt)}</td>
                   <td className="d-flex justify-content-center gap-3 align-items-center p-3">
-                    <FontAwesomeIcon icon={faEye} onClick={() => navigate(currentUserRolePaymentsRoute(userData.role, payment.id))}/>
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigate(`/app/payments/${payment.id}`);
+                      }}
+                    />
                     <EditPaymentModal payment={payment} />
                     <DeletePaymentModal id={payment.id} />
                   </td>

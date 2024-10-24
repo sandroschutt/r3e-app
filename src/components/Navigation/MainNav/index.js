@@ -34,7 +34,7 @@ export default function MainNav() {
   const [selectedOption, setSelectedOption] = useState("");
   const avatar = Api.endpoint(`uploads/avatar/${userData.avatar}`);
   const [userOptions, setUserOptions] = useState([
-    ["Home", "", faTableColumns],
+    ["Home", "dashboard", faTableColumns],
     ["Dispositivos", "devices", faTablet],
   ]);
 

@@ -1,16 +1,13 @@
 import "./style.scss";
-import { useEffect, useState } from "react";
+import Api from "../../../classes/Api";
+import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 import UserHeader from "../../../components/UserHeader";
-import { Card, Col, Row } from "react-bootstrap";
 import Pickup from "../../../classes/Pickup";
+import { useEffect, useState } from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import { ListViewMap } from "../../../components/Maps";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  currentUserRoleDevicesRoute,
-  currentUserRolePaymentsRoute,
-  currentUserRoleProfilesRoute,
-} from "../../../helpers/navigationHelpers";
 import { EditScheduleModal } from "../../../components/Modals/Schedule/EditScheduleModal";
 import { DeleteScheduleModal } from "../../../components/Modals/Schedule/DeleteScheduleModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,8 +15,6 @@ import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { validateDate } from "../../../validations/validateDate";
 import { validatePhones } from "../../../validations/validatePhones";
 import { GeolocationUtil } from "../../../helpers/GeolocationUtil";
-import Api from "../../../classes/Api";
-import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 
 export default function SinglePickup() {
   const { userData } = useUserDataContext();
@@ -80,10 +75,9 @@ export default function SinglePickup() {
         <button
           type="button"
           className="d-flex align-items-center gap-2 btn btn-outline-primary"
-          onClick={() => {
-            navigate(
-              currentUserRolePaymentsRoute(userData.role, schedule.paymentId)
-            );
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(`/app/payments/${schedule.paymentId}`);
           }}
         >
           Pagamento
@@ -160,12 +154,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleProfilesRoute(
-                                userData.role,
-                                schedule.vendor.id
-                              )
-                            );
+                            navigate(`/app/users/${schedule.vendorId}`);
                           }}
                         >
                           {schedule.vendor.name}
@@ -201,12 +190,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleProfilesRoute(
-                                userData.role,
-                                schedule.client.id
-                              )
-                            );
+                            navigate(`/app/users/${schedule.clientId}`);
                           }}
                         >
                           {schedule.client.name}
@@ -252,12 +236,7 @@ export default function SinglePickup() {
                           href="#"
                           onClick={(event) => {
                             event.preventDefault();
-                            navigate(
-                              currentUserRoleDevicesRoute(
-                                userData.role,
-                                schedule.deviceId
-                              )
-                            );
+                            navigate(`/app/devices/${schedule.deviceId}`);
                           }}
                         >
                           {`${schedule.device.brand.name} ${schedule.device.model.name}`}

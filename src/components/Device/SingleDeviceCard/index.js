@@ -16,7 +16,6 @@ import { validatePhones } from "../../../validations/validatePhones.js";
 import { DeviceEvaluation } from "../DeviceEvaluation/index.js";
 import Api from "../../../classes/Api.js";
 import { useNavigate } from "react-router-dom";
-import { currentUserRoleProfilesRoute } from "../../../helpers/navigationHelpers.js";
 
 export default function SingleDeviceCard(props) {
   const { userData } = useUserDataContext();
@@ -171,12 +170,7 @@ export default function SingleDeviceCard(props) {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleProfilesRoute(
-                          userData.role,
-                          device.user.id
-                        )
-                      );
+                      navigate(`/app/users/${device.userId}`);
                     }}
                   >
                     <div
@@ -200,12 +194,7 @@ export default function SingleDeviceCard(props) {
                         href="#"
                         onClick={(event) => {
                           event.preventDefault();
-                          navigate(
-                            currentUserRoleProfilesRoute(
-                              userData.role,
-                              device.user.id
-                            )
-                          );
+                          navigate(`/app/users/${device.userId}`);
                         }}
                       >
                         {device.user.name}

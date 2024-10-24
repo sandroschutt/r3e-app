@@ -8,7 +8,6 @@ import {
 import { validateDate } from "../../validations/validateDate";
 import { faThumbsDown, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import SchoolDeviceRequets from "../../classes/SchoolDeviceRequests";
-import { currentUserRoleProfilesRoute, currentUserRoleStudentsRoute, currentUserRoleDevicesRoute } from "../../helpers/navigationHelpers.js";
 
 export default function SchoolDeviceRequestsTable(props) {
   const navigate = useNavigate();
@@ -69,12 +68,7 @@ export default function SchoolDeviceRequestsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(
-                          currentUserRoleProfilesRoute(
-                            props.userRole,
-                            request.schoolId
-                          )
-                        );
+                        navigate(`/app/users/${request.schoolId}`);
                       }}
                     >
                       {request.school.name}
@@ -85,7 +79,7 @@ export default function SchoolDeviceRequestsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(currentUserRoleStudentsRoute(props.userRole));
+                        navigate(`/app/students/${request.studentId}`);
                       }}
                     >
                       {request.student.name}
@@ -96,12 +90,7 @@ export default function SchoolDeviceRequestsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(
-                          currentUserRoleDevicesRoute(
-                            props.userRole,
-                            request.deviceId
-                          )
-                        );
+                        navigate(`/app/school-device-request/${request.deviceId}`);
                       }}
                     >{`${request.device.brand.name} ${request.device.model.name}`}</a>
                   </td>
@@ -123,7 +112,10 @@ export default function SchoolDeviceRequestsTable(props) {
                   <td className="d-flex justify-content-center gap-3 align-items-center p-3" style={{fontSize: "1.2em"}}>
                     <FontAwesomeIcon
                       icon={faEye}
-                      onClick={() => navigate(`${request.id}`)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        navigate(`/app/school-device-request/${request.id}`)
+                      }}
                     />
                     {handleAdminActions(props.userRole, request.id)}
                   </td>

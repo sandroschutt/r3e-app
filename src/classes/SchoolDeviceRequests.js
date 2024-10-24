@@ -1,6 +1,5 @@
 import axios from "axios";
 import Api from "./Api";
-import { currentUserRoleSingleSchoolDeviceRequestRoute } from "../helpers/navigationHelpers";
 
 export default class SchoolDeviceRequets {
   static async getAll(setSchoolDeviceRequets) {
@@ -58,7 +57,7 @@ export default class SchoolDeviceRequets {
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         alert(`Pedido de doação criado com sucesso!`);
-        window.location.href = window.location.origin + currentUserRoleSingleSchoolDeviceRequestRoute(userRole, response.data.id);
+        window.location.href = window.location.origin + `/app/school-device-requests/${response.data.id}`;
       })
       .catch((error) => {
         alert(error.message);

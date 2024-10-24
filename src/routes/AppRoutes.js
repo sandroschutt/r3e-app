@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import AuthLayout from "../layout/AuthLayout";
 import AuthRoutes from "./AuthRoutes";
-import UserRoutes from "./UserRoutes";
-import AdminRoutes from "./AdminRoutes";
+import UserRoutes from "./UserRoutes.js";
 
 export default function AppRoutes() {
   return (
@@ -18,8 +17,7 @@ export default function AppRoutes() {
             </AuthLayout>
           }
         />
-        <Route path={"/user/*"} element={<UserRoutes />} />
-        <Route path={"/admin/*"} element={<AdminRoutes />} />
+        <Route path="/app/*" element={<UserRoutes/>} />
       </Routes>
     </BrowserRouter>
   );

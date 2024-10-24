@@ -1,21 +1,18 @@
 import "./style.scss";
-import { Card, Col, Row } from "react-bootstrap";
+import axios from "axios";
+import Api from "../../../classes/Api";
 import PickupLocation from "../../../classes/PickupLocation";
-import { useEffect, useState } from "react";
 import UserHeader from "../../../components/UserHeader";
 import dummyPickupLocationImage from "../../../assets/pickup-locations/pickup-locations.jpg";
+import { Card, Col, Row } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { currentUserRoleProfilesRoute } from "../../../helpers/navigationHelpers";
-import { useUserDataContext } from "../../../context/UserDataContext";
 import { EditPickupLocationModal } from "../../../components/Modals/PickupLocations/EditPickupLocationModal";
 import { DeletePickupLocationModal } from "../../../components/Modals/PickupLocations/DeletePickupLocationModal";
 import { SingleViewMap } from "../../../components/Maps";
-import axios from "axios";
-import Api from "../../../classes/Api";
 import { validatePhones } from "../../../validations/validatePhones";
 
 export default function SinglePickupLocation() {
-  const { userData } = useUserDataContext();
   const params = useParams();
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
@@ -108,12 +105,7 @@ export default function SinglePickupLocation() {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(
-                          currentUserRoleProfilesRoute(
-                            userData.role,
-                            location.userId
-                          )
-                        );
+                        navigate(`/app/users/${location.userId}`);
                       }}
                     >
                       {location.user.name}

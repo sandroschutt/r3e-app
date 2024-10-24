@@ -9,10 +9,6 @@ import { ApprovePaymentModal } from "../../../components/Modals/Payments/Approve
 import { SendProofModal } from "../../../components/Modals/Payments/SendProofModal.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import {
-  currentUserRolePickupsRoute,
-  currentUserRoleProfilesRoute,
-} from "../../../helpers/navigationHelpers.js";
 import { EditPaymentModal } from "../../../components/Modals/Payments/EditPaymentModal.js";
 import { DeletePaymentModal } from "../../../components/Modals/Payments/DeletePaymentModal.js";
 
@@ -85,12 +81,7 @@ export default function SinglePayment() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleProfilesRoute(
-                          userData.role,
-                          payment.schedule.client.id
-                        )
-                      );
+                      navigate(`/app/users/${payment.schedule.client.id}`);
                     }}
                   >
                     {payment.schedule.client.name}
@@ -102,12 +93,7 @@ export default function SinglePayment() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleProfilesRoute(
-                          userData.role,
-                          payment.schedule.vendor.id
-                        )
-                      );
+                      navigate(`/app/users/${payment.schedule.vendor.id}`);
                     }}
                   >
                     {payment.schedule.vendor.name}
@@ -123,12 +109,7 @@ export default function SinglePayment() {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(
-                          currentUserRolePickupsRoute(
-                            userData.role,
-                            payment.schedule.client.id
-                          )
-                        );
+                        navigate(`/app/devices/${payment.schedule.id}`);
                       }}
                     >{`Coleta #${payment.schedule.id}: ${payment.schedule.device.brand.name} ${payment.schedule.device.model.name}`}</a>
                   </p>
