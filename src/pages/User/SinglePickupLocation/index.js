@@ -7,15 +7,12 @@ import dummyPickupLocationImage from "../../../assets/pickup-locations/pickup-lo
 import { Card, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { currentUserRoleProfilesRoute } from "../../../helpers/navigationHelpers";
-import { useUserDataContext } from "../../../context/UserDataContext";
 import { EditPickupLocationModal } from "../../../components/Modals/PickupLocations/EditPickupLocationModal";
 import { DeletePickupLocationModal } from "../../../components/Modals/PickupLocations/DeletePickupLocationModal";
 import { SingleViewMap } from "../../../components/Maps";
 import { validatePhones } from "../../../validations/validatePhones";
 
 export default function SinglePickupLocation() {
-  const { userData } = useUserDataContext();
   const params = useParams();
   const navigate = useNavigate();
   const [location, setLocation] = useState("");

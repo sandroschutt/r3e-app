@@ -1,9 +1,6 @@
 import { Row } from "react-bootstrap";
 import { validatePhones } from "../../validations/validatePhones.js";
-import { ViewPickupLocationModal } from "../Modals/PickupLocations/ViewPickupLocationModal.js";
 import { EditPickupLocationModal } from "../Modals/PickupLocations/EditPickupLocationModal.js";
-import { useEffect, useState } from "react";
-import PickupLocation from "../../classes/PickupLocation.js";
 import { DeletePickupLocationModal } from "../Modals/PickupLocations/DeletePickupLocationModal.js";
 import { CreatePickupLocationModal } from "../Modals/PickupLocations/CreatePickupLocationModal.js";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +9,6 @@ import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 export default function PickupLocationsTable(props) {
   const navigate = useNavigate();
-
-  function currentUserRoleProfilesRoute(userRole, id) {
-    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
-  }
 
   if (props.locations !== "")
     return (

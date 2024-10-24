@@ -8,11 +8,6 @@ import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
 import { useNavigate, useParams } from "react-router-dom";
 import UserHeader from "../../../components/UserHeader";
 import { validatePhones } from "../../../validations/validatePhones";
-import {
-  currentUserRoleProfilesRoute,
-  currentUserRoleSingleStudentsRoute,
-  currentUserRoleDevicesRoute,
-} from "../../../helpers/navigationHelpers.js";
 import { validateDate } from "../../../validations/validateDate.js";
 
 export default function SingleSchoolDeviceRequest() {
@@ -110,12 +105,7 @@ export default function SingleSchoolDeviceRequest() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleSingleStudentsRoute(
-                          userData.role,
-                          singleDeviceRequest.studentId
-                        )
-                      );
+                      navigate(`/app/students/${singleDeviceRequest.studentId}`);
                     }}
                   >
                     {singleDeviceRequest.student.name}
@@ -167,12 +157,7 @@ export default function SingleSchoolDeviceRequest() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleProfilesRoute(
-                          userData.role,
-                          singleDeviceRequest.schoolId
-                        )
-                      );
+                      navigate(`/app/users/${singleDeviceRequest.schoolId}`);
                     }}
                   >
                     {singleDeviceRequest.school.name}
@@ -206,12 +191,7 @@ export default function SingleSchoolDeviceRequest() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(
-                        currentUserRoleDevicesRoute(
-                          userData.role,
-                          singleDeviceRequest.deviceId
-                        )
-                      );
+                      navigate(`/app/devices/${singleDeviceRequest.deviceId}`);
                     }}
                   >{`${singleDeviceRequest.device.brand.name} ${singleDeviceRequest.device.model.name}`}</a>
                 </Card.Title>

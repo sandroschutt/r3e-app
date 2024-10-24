@@ -1,5 +1,4 @@
-import { Button, Row } from "react-bootstrap";
-import { ViewScheduleModal } from "../Modals/Schedule/ViewScheduleModal";
+import { Row } from "react-bootstrap";
 import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
 import { DeleteScheduleModal } from "../Modals/Schedule/DeleteScheduleModal";
 import { useNavigate } from "react-router-dom";
@@ -8,10 +7,6 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default function SchedulesTable(props) {
   const navigate = useNavigate();
-
-  function currentUserRoleProfilesRoute(userRole, id) {
-    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
-  }
 
   function formatPaymentStatus(paymentStatus) {
     return paymentStatus.replace("-", " ");

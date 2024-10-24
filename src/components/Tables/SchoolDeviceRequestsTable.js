@@ -8,7 +8,6 @@ import {
 import { validateDate } from "../../validations/validateDate";
 import { faThumbsDown, faThumbsUp } from "@fortawesome/free-regular-svg-icons";
 import SchoolDeviceRequets from "../../classes/SchoolDeviceRequests";
-import { currentUserRoleProfilesRoute, currentUserRoleStudentsRoute, currentUserRoleDevicesRoute } from "../../helpers/navigationHelpers.js";
 
 export default function SchoolDeviceRequestsTable(props) {
   const navigate = useNavigate();
@@ -91,12 +90,7 @@ export default function SchoolDeviceRequestsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(
-                          currentUserRoleDevicesRoute(
-                            props.userRole,
-                            request.deviceId
-                          )
-                        );
+                        navigate(`/app/school-device-request/${request.deviceId}`);
                       }}
                     >{`${request.device.brand.name} ${request.device.model.name}`}</a>
                   </td>

@@ -9,10 +9,6 @@ import { ApprovePaymentModal } from "../../../components/Modals/Payments/Approve
 import { SendProofModal } from "../../../components/Modals/Payments/SendProofModal.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
-import {
-  currentUserRolePickupsRoute,
-  currentUserRoleProfilesRoute,
-} from "../../../helpers/navigationHelpers.js";
 import { EditPaymentModal } from "../../../components/Modals/Payments/EditPaymentModal.js";
 import { DeletePaymentModal } from "../../../components/Modals/Payments/DeletePaymentModal.js";
 

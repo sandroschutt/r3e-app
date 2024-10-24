@@ -9,7 +9,6 @@ import { useUserDataContext } from "../../context/UserDataContext/index.js";
 import Admin from "../../classes/Admin.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { currentUserRolePaymentsRoute } from "../../helpers/navigationHelpers.js";
 
 export default function PaymentsTable(props) {
   const { userData } = useUserDataContext();
@@ -21,10 +20,6 @@ export default function PaymentsTable(props) {
     if (schedules === "" && userData.role === "Admin")
       Admin.getAllSchedules(setSchedules);
   }, [schedules]);
-
-  function currentUserRoleProfilesRoute(userRole, id) {
-    return userRole === "Admin" ? `/admin/users/${id}` : `/user/profile/${id}`;
-  }
 
   if (props.payments !== "")
     return (
