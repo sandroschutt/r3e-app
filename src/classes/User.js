@@ -22,7 +22,7 @@ export default class User {
   async data(updateUserData) {
     try {
       axios.get(Api.endpoint(`users/${this.id}`)).then((response) => {
-        updateUserData(response.data);
+        updateUserData({...response.data.user, capabilities: response.data.capabilities});
       });
     } catch (error) {
       return error.message;
