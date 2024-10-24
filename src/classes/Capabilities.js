@@ -15,6 +15,19 @@ export default class Capabilities {
       })
   }
 
+  static async getOneByRole (role, setCapabilities) {
+    axios
+      .get(Api.endpoint(`capability/role/${role}`))
+      .then(response => {
+        if (response.status !== 200) throw new Error('Falha na requisição.')
+        setCapabilities(response.data)
+      })
+      .catch(error => {
+        alert(error.message)
+        console.error(error)
+      })
+  }
+
   static async update (id, data) {
     axios
       .post(Api.endpoint(`capability/${id}/update`), data, {
