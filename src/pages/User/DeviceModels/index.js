@@ -5,8 +5,12 @@ import ModelsTable from "../../../components/Tables/Devices/ModelsTable";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
 import DeviceModel from "../../../classes/DeviceModel";
 import Brands from "../../../classes/Brands";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function DeviceModels() {
+  const {userData} = useUserDataContext();
+  const navigate = useNavigate();
   const [models, setModels] = useState("");
   const [brands, setBrands] = useState([]);
 
@@ -25,6 +29,8 @@ export default function DeviceModels() {
       setSearched(true);
     }
   }, [models, brands, search, searched]);
+
+  if(userData.capabilities !== undefined && !userData.capabilities.manageDeviceModels) navigate(`/app/404`);
 
   return (
     <Row id="public-devices--view" className="flex-column">

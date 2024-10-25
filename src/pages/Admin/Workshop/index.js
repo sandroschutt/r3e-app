@@ -1,12 +1,15 @@
 import { Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
-import { FilterPublicDevices } from "../../../components/Lists/Flters";
 import { AdminDevicesTable } from "../../../components/Tables";
 import { useEffect, useState } from "react";
 import Admin from "../../../classes/Admin";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Workshop() {
+  const {userData} = useUserDataContext();
+  const navigate = useNavigate();
   const [devices, setDevices] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
@@ -25,6 +28,8 @@ export default function Workshop() {
       setSearched(true);
     }
   }, [devices, search, searched]);
+
+  if(userData.capabilities !== undefined && !userData.capabilities.manageAllDevices) navigate(`/app/404`);
 
   if (devices !== "") {
     return (

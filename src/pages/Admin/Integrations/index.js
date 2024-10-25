@@ -11,9 +11,11 @@ import {
   APIDevicesHeaders,
 } from "../../../components/forms/json/adminTables.js";
 import Associates from "../../../classes/Associates.js";
+import { useNavigate } from "react-router-dom";
 
 export default function Integrations() {
   const { userData } = useUserDataContext();
+  const navigate = useNavigate();
   const [token, setToken] = useState("");
   const [tokenAction, setTokenAction] = useState("");
 
@@ -31,6 +33,8 @@ export default function Integrations() {
 
     alert(token);
   }, [token])
+
+  if(userData.role !== "Admin" && userData.role !== "Empresa" && userData.role !== "Ong") navigate(`/app/404`);
 
   return (
     <Row id="public-devices--view" className="flex-column">

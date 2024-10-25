@@ -17,12 +17,18 @@ export default function SingleSchoolDeviceRequest() {
   const params = useParams();
 
   useEffect(() => {
+    if (userData.role !== "Admin" && userData.role !== "Escola")
+      navigate(`/app/404`);
+
     if (singleDeviceRequest === "")
       SchoolDeviceRequets.getOne(params.id, setSingleDeviceRequest);
   }, [singleDeviceRequest]);
 
   function handleAdminActions() {
-    if (userData.role === "Admin" && singleDeviceRequest.status === "em análise")
+    if (
+      userData.role === "Admin" &&
+      singleDeviceRequest.status === "em análise"
+    )
       return (
         <div className="d-flex gap-3">
           <Button
@@ -62,7 +68,11 @@ export default function SingleSchoolDeviceRequest() {
                 <p className="mb-2">
                   <strong>Retirada:</strong>
                 </p>
-                <p className="h4 text-info">{singleDeviceRequest.colect !== null ? singleDeviceRequest.colect : "não"}</p>
+                <p className="h4 text-info">
+                  {singleDeviceRequest.colect !== null
+                    ? singleDeviceRequest.colect
+                    : "não"}
+                </p>
               </Card.Body>
             </Card>
             <Card className="px-4 col col-2">
@@ -81,7 +91,9 @@ export default function SingleSchoolDeviceRequest() {
                   <strong>Data da coleta:</strong>
                 </p>
                 <p className="h4 text-info">
-                  {singleDeviceRequest.dateColect !== null ? validateDate(singleDeviceRequest.dateColect) : "não definida"}
+                  {singleDeviceRequest.dateColect !== null
+                    ? validateDate(singleDeviceRequest.dateColect)
+                    : "não definida"}
                 </p>
               </Card.Body>
             </Card>
@@ -91,7 +103,9 @@ export default function SingleSchoolDeviceRequest() {
                   <strong>Data da coleta:</strong>
                 </p>
                 <p className="h4 text-info">
-                  {singleDeviceRequest.dateColected !== null ? validateDate(singleDeviceRequest.dateColected) : "não definida"}
+                  {singleDeviceRequest.dateColected !== null
+                    ? validateDate(singleDeviceRequest.dateColected)
+                    : "não definida"}
                 </p>
               </Card.Body>
             </Card>
@@ -105,7 +119,9 @@ export default function SingleSchoolDeviceRequest() {
                     href="#"
                     onClick={(event) => {
                       event.preventDefault();
-                      navigate(`/app/students/${singleDeviceRequest.studentId}`);
+                      navigate(
+                        `/app/students/${singleDeviceRequest.studentId}`
+                      );
                     }}
                   >
                     {singleDeviceRequest.student.name}

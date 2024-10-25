@@ -10,9 +10,11 @@ import {
   SearchResults,
 } from "../../../components/forms/SearchForm";
 import SchoolDeviceRequestsTable from "../../../components/Tables/SchoolDeviceRequestsTable";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageSchoolDeviceRequests() {
   const { userData } = useUserDataContext();
+  const navigate = useNavigate();
   const [schoolDeviceRequets, setSchoolDeviceRequets] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
@@ -20,6 +22,7 @@ export default function ManageSchoolDeviceRequests() {
 
 
   useEffect(() => {
+    if (userData.role !== "Admin" && userData.role !== "Escola") navigate(`/app/404`);
     if (userData.role === "Admin" && schoolDeviceRequets === "") SchoolDeviceRequets.getAll(setSchoolDeviceRequets);
     if (userData.role === "Escola" && schoolDeviceRequets === "") SchoolDeviceRequets.getSchoolRequests(userData.id, setSchoolDeviceRequets);
 

@@ -7,15 +7,19 @@ import { getSearchQueryParams, searchInObject, SearchResults } from "../../../co
 import PickupLocation from "../../../classes/PickupLocation";
 import { useEffect, useState } from "react";
 import { PickupLocationsList } from "../../../components/Lists/PickupLocarionsList";
+import { useNavigate } from "react-router-dom";
 
 export default function PickupLocations() {
   const { userData } = useUserDataContext();
+  const navigate = useNavigate();
   const [locations, setLocations] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
 
   useEffect(() => {
+    if(userData.role !== undefined && userData.role === "Cliente") navigate(`/app/404`);
+     
     if (locations === "" && userData.role === "Admin") PickupLocation.getAll(setLocations);
 
     if (locations === "" && userData.role !== "Admin" && userData.id !== undefined) PickupLocation.getUserPickupLocations(userData.id, setLocations);

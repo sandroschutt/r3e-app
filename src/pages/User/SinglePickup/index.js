@@ -24,6 +24,9 @@ export default function SinglePickup() {
   const params = useParams();
 
   useEffect(() => {
+    if (userData.role !== undefined && userData.role === "Escola")
+      navigate(`/app/404`);
+    
     if (schedule === "") {
       Pickup.getPickup(params.id, setSchedule);
     }
@@ -225,7 +228,7 @@ export default function SinglePickup() {
               </Card.Header>
               <Card.Body>
                 <div className="device-header d-flex flex-row gap-3 align-items-top mb-3">
-                {handleImages(
+                  {handleImages(
                     schedule.device.photo,
                     Api.endpoint(`uploads/device/${schedule.device.photo}`)
                   )}

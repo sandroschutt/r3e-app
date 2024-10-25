@@ -63,8 +63,6 @@ export default function PublicDevices() {
     return <p>Aguardando dados...</p>;
   }
 
-  console.log(userData);
-
   if (devices !== "")
     return (
       <Row id="public-devices--view" className="flex-column">
