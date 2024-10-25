@@ -10,13 +10,21 @@ import {
   SearchResults,
 } from "../../../components/forms/SearchForm";
 import { CreateUserModal } from "../../../components/Modals/User/CreateUserModal";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageUsers() {
+  const {userData} = useUserDataContext();
+  const navigate = useNavigate();
   const [users, setUsers] = useState("");
   const [user, setUser] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
+
+  if(userData.capabilities !== undefined && userData.capabilities.manageUsers === false) {
+    navigate('/app/404')
+  }
 
   useEffect(() => {
     if (users === "") {

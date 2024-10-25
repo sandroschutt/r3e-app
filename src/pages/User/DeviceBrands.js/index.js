@@ -5,8 +5,12 @@ import BrandsTable from "../../../components/Tables/Devices/BrandsTable";
 import { useEffect, useState } from "react";
 import Brands from "../../../classes/Brands";
 import { getSearchQueryParams, searchInObject, SearchResults } from "../../../components/forms/SearchForm";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function DeviceBrands() {
+  const {userData} = useUserDataContext();
+  const navigate = useNavigate();
   const [brands, setBrands] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
@@ -21,6 +25,8 @@ export default function DeviceBrands() {
       setSearched(true);
     }
   }, [brands, search, searched]);
+
+  if(userData.capabilities !== undefined && !userData.capabilities.manageBrands) navigate(`/app/404`);
 
   return (
     <Row id="public-devices--view" className="flex-column">

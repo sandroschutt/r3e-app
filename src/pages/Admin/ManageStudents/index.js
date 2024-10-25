@@ -12,14 +12,20 @@ import {
   searchInObject,
 } from "../../../components/forms/SearchForm";
 import { useUserDataContext } from "../../../context/UserDataContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageStudents() {
   const { userData } = useUserDataContext();
+  const navigate = useNavigate();
   const [students, setStudents] = useState("");
   const [schools, setSchools] = useState("");
 
   const [search, setSearch] = useState(getSearchQueryParams());
   const [searched, setSearched] = useState(false);
+
+  if(userData.capabilities !== undefined && !userData.capabilities.manageStudents) {
+    navigate('/app/404')
+  }
 
   useEffect(() => {
     if (students === "" && userData.role === "Admin")
