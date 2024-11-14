@@ -3,7 +3,7 @@ import Api from './Api'
 
 export default class Notification {
       static async getAll(id, setNotifications){
-      axios.get(Api.endpoint(`/notifications/${id}`))
+      axios.get(Api.endpoint(`users/${id}/notifications`))
       .then(response => {
             if (response.status !== 200) throw new Error('Falha na requisição.')
             setNotifications(response.data)

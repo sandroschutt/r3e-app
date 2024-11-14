@@ -153,13 +153,16 @@ export function NotificationsModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const userId = props.id;
+  var callNotification = true;
 
   const [notificationList, setNotificationList] = useState([]);
 
   useEffect(()=> {
-    console.log(notificationList)
-    Notification.getAll(userId, setNotificationList)
-  }, [userId, notificationList])
+    if(callNotification){
+      Notification.getAll(userId, setNotificationList)
+      callNotification = false;
+    }
+  }, [userId, setNotificationList])
 
   function handleOnClick(notification){
     notification.read = 1;
