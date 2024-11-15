@@ -13,9 +13,9 @@ export default class Notification {
             })
       }
 
-      static async update (id, data) {
+      static async update (id, userId, data) {
             axios
-              .post(Api.endpoint(`/notification/${id}`), data, {
+              .post(Api.endpoint(`users/${userId}/notification/${id}`), data, {
                 headers: {
                   'Content-Type': 'application/json'
                 }

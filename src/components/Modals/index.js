@@ -166,9 +166,9 @@ export function NotificationsModal() {
   }, [ setNotificationList ])
 
   function handleOnClick(notification){
-    notification.read = 1;
+    notification.read = true;
     const{id} = notification;
-    Notification.update(id, notification);
+    Notification.update(id, userData.userData.id, notification);
     if (notification.url)
       window.location.href = notification.url;
   }
