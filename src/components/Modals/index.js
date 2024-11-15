@@ -8,6 +8,7 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import ReturnProcess from "../../classes/ReturnProcess";
 import { Badge } from "react-bootstrap";
 import Notification from "../../classes/Notification";
+import { useUserDataContext } from "../../context/UserDataContext";
 
 export function AdminAddReturnProcessModal() {
   const [show, setShow] = useState(false);
@@ -148,28 +149,28 @@ export function AdminAddReturnProcessModal() {
   );
 }
 
-export function NotificationsModal(props) {
+export function NotificationsModal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const userId = props.id;
   var callNotification = true;
+  const userData = useUserDataContext();
 
   const [notificationList, setNotificationList] = useState([]);
 
   useEffect(()=> {
     if(callNotification){
-      Notification.getAll(userId, setNotificationList)
+      Notification.getAll(userData.userData.id, setNotificationList)
       callNotification = false;
     }
-  }, [userId, setNotificationList])
+  }, [ setNotificationList ])
 
   function handleOnClick(notification){
     notification.read = 1;
-    const{id, data} = notification;
-    Notification.update(id, data);
-    if (data.url)
-      window.location.href = data.url;
+    const{id} = notification;
+    Notification.update(id, notification);
+    if (notification.url)
+      window.location.href = notification.url;
   }
 
   function handleNotificationsBadge(notificationList) {
@@ -222,7 +223,9 @@ export function NotificationsModal(props) {
               <li
                 key={index}
                 className="d-flex flex-column p-4 border"
-                onClick={() => handleOnClick(notification)}
+                onClick={() => {
+                  handleOnClick(notification);
+                }}
               >
                 <p className="mb-1">
                   <strong>Usuário dummy realizou uma ação</strong>
