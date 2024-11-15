@@ -1,12 +1,14 @@
 import "./style.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 import ReturnProcess from "../../classes/ReturnProcess";
 import { Badge } from "react-bootstrap";
+import Notification from "../../classes/Notification";
+import { useUserDataContext } from "../../context/UserDataContext";
 
 export function AdminAddReturnProcessModal() {
   const [show, setShow] = useState(false);
@@ -151,18 +153,31 @@ export function NotificationsModal() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  var callNotification = true;
+  const userData = useUserDataContext();
 
-  let dummyNotifications = [];
+  const [notificationList, setNotificationList] = useState([]);
 
-  for (let i = 0; i <= 10; i++) {
-    dummyNotifications.push(null);
+  useEffect(()=> {
+    if(callNotification){
+      Notification.getAll(userData.userData.id, setNotificationList)
+      callNotification = false;
+    }
+  }, [ setNotificationList ])
+
+  function handleOnClick(notification){
+    notification.read = true;
+    const{id} = notification;
+    Notification.update(id, userData.userData.id, notification);
+    if (notification.url)
+      window.location.href = notification.url;
   }
 
-  function handleNotificationsBadge(notifications) {
-    if (notifications.length > 1)
+  function handleNotificationsBadge(notificationList) {
+    if (notificationList.length > 1)
       return (
         <Badge bg="danger" className="rounded-circle p-2">
-          <p className="mb-0">{dummyNotifications.length}</p>
+          <p className="mb-0">{notificationList.length}</p>
         </Badge>
       );
   }
@@ -180,7 +195,7 @@ export function NotificationsModal() {
             fontSize: ".8em",
           }}
         >
-          {handleNotificationsBadge(dummyNotifications)}
+          {handleNotificationsBadge(notificationList)}
         </span>
         <FontAwesomeIcon
           className="notifications"
@@ -197,18 +212,20 @@ export function NotificationsModal() {
           closeButton
         >
           <p className="h4 me-3 mb-0">Notificações</p>
-          {handleNotificationsBadge(dummyNotifications)}
+          {handleNotificationsBadge(notificationList)}
         </Modal.Header>
         <Modal.Body className="p-0">
           <ul
             className="p-0 mb-0 overflow-y-scroll"
             style={{ height: "700px" }}
           >
-            {dummyNotifications.map((notification, index) => (
+            {notificationList.map((notification, index) => (
               <li
                 key={index}
                 className="d-flex flex-column p-4 border"
-                onClick={() => console.log(notification)}
+                onClick={() => {
+                  handleOnClick(notification);
+                }}
               >
                 <p className="mb-1">
                   <strong>Usuário dummy realizou uma ação</strong>
