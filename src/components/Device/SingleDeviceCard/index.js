@@ -167,11 +167,7 @@ export default function SingleDeviceCard(props) {
               <Row className="gap-5 align-items-center">
                 <Col className="col-2">
                   <a
-                    href="#"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(`/app/users/${device.userId}`);
-                    }}
+                    href={`/app/users/${device.userId}`}
                   >
                     <div
                       className="rounded-circle"
@@ -191,11 +187,7 @@ export default function SingleDeviceCard(props) {
                   <p className="mb-2 h5">
                     <strong>
                       <a
-                        href="#"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          navigate(`/app/users/${device.userId}`);
-                        }}
+                        href={`/app/users/${device.userId}`}
                       >
                         {device.user.name}
                       </a>

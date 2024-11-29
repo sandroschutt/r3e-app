@@ -11,6 +11,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useUserDataContext } from "../../context/UserDataContext";
 import Pickup from "../../classes/Pickup";
+import Api from "../../classes/Api";
 
 /**
  * A responsive dropdown list
@@ -48,11 +49,28 @@ export function PickupsList(props) {
       );
     }
 
-    if((userData.role === "Empresa" || userData.role === "Ong") && schedule.status === "aguardando-coleta") {
-      return <button className="btn btn-success d-flex align-items-center gap-2" onClick={() => Pickup.colect(schedule.id)}>
-        <FontAwesomeIcon icon={faCheck} />
-        Coletado
-      </button>
+    if (
+      (userData.role === "Empresa" || userData.role === "Ong") &&
+      schedule.status === "aguardando-coleta"
+    ) {
+      return (
+        <button
+          className="btn btn-success d-flex align-items-center gap-2"
+          onClick={() => Pickup.colect(schedule.id)}
+        >
+          <FontAwesomeIcon icon={faCheck} />
+          Coletado
+        </button>
+      );
+    }
+  }
+
+  function handleDeviceImage(photo) {
+    if (photo === null) {
+      return <img src={dummyDeviceImage} height={148} className="rounded" />;
+    } else {
+      let deviceImage = Api.endpoint(`uploads/device/${photo}`);
+      return <img src={deviceImage} height={148} className="rounded" />;
     }
   }
 
@@ -67,13 +85,7 @@ export function PickupsList(props) {
               </Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex gap-3 pb-4">
-                  <div>
-                    <img
-                      src={dummyDeviceImage}
-                      height={148}
-                      className="rounded"
-                    />
-                  </div>
+                  <div>{handleDeviceImage(schedule.device.photo)}</div>
                   <div>
                     <p className="mb-1">
                       <strong>Cliente:</strong> {schedule.client.name}
@@ -84,10 +96,7 @@ export function PickupsList(props) {
                     <p className="mb-1">
                       <strong>Pagamento:</strong>{" "}
                       <a
-                        href="#"
-                        onClick={() =>
-                          navigate(`/user/payments?s=${schedule.id}`)
-                        }
+                        href={`/app/payments/${schedule.paymentId}`}
                       >{`#${schedule.paymentId}`}</a>
                     </p>
                     <p className="mb-1">
@@ -107,7 +116,7 @@ export function PickupsList(props) {
                     <FontAwesomeIcon
                       icon={faEye}
                       onClick={() => {
-                        navigate(`/user/pickups/${schedule.id}`);
+                        navigate(`/app/pickups/${schedule.id}`);
                       }}
                     />
                     <EditScheduleModal

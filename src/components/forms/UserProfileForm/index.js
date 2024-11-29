@@ -10,9 +10,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useUserDataContext } from "../../../context/UserDataContext/index.js";
 
 export default function UserProfileForm(props) {
-  const userData = props.user;
+  const {userData} = useUserDataContext();
   const user = new User(userData.id);
   const [avatar, setAvatar] = useState("");
   const params = useParams();

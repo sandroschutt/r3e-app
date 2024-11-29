@@ -2,7 +2,6 @@ import { Accordion, Badge, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { validateDate } from "../../validations/validateDate";
 import { useUserDataContext } from "../../context/UserDataContext";
-import { SendProofModal } from "../Modals/Payments/SendProofModal";
 import { ApprovePaymentModal } from "../Modals/Payments/ApprovePaymentModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faKey } from "@fortawesome/free-solid-svg-icons";
@@ -39,12 +38,6 @@ export function PaymentsList(props) {
             <FontAwesomeIcon icon={faEye} />
             Ver
           </Button>
-          <button className="btn btn-outline-success d-flex align-items-center gap-2">
-            <FontAwesomeIcon icon={faKey} />
-            PIX
-          </button>
-          <SendProofModal payment={payment} />
-          <ApprovePaymentModal payment={payment} userRole={userData.role} />
           <button className="btn btn-outline-danger">Cancelar</button>
         </div>
       );
@@ -100,12 +93,7 @@ export function PaymentsList(props) {
                     <p className="mb-2">
                       <strong>Cliente:</strong>{" "}
                       <a
-                        href="#"
-                        onClick={() =>
-                          navigate(
-                            `/user/profile/${payment.schedule.client.id}`
-                          )
-                        }
+                        href={`/app/users/${payment.schedule.client.id}`}
                       >
                         {payment.schedule.client.name}
                       </a>
@@ -113,12 +101,7 @@ export function PaymentsList(props) {
                     <p className="mb-2">
                       <strong>Coletor:</strong>{" "}
                       <a
-                        href="#"
-                        onClick={() =>
-                          navigate(
-                            `/user/profile/${payment.schedule.vendor.id}`
-                          )
-                        }
+                        href={`/app/users/${payment.schedule.vendor.id}`}
                       >
                         {payment.schedule.vendor.name}
                       </a>
@@ -126,10 +109,7 @@ export function PaymentsList(props) {
                     <p className="mb-2">
                       <strong>Coleta:</strong>{" "}
                       <a
-                        href="#"
-                        onClick={() =>
-                          navigate(`/user/pickups/${payment.schedule.id}`)
-                        }
+                        href={`/app/pickups/${payment.schedule.id}`}
                       >{`#${payment.schedule.id}`}</a>
                     </p>
                     <p className="mb-2">

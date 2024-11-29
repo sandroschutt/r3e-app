@@ -139,7 +139,7 @@ export default class User {
         if (response.status !== 200)
           throw new Error(`Falha ao criar agendamento.`);
         alert(`Agendamento criado com sucesso!`);
-        window.location.href = `${window.location.origin}/user/pickups`;
+        window.location.href = `${window.location.origin}/app/pickups`;
       })
       .catch((error) => {
         alert(error.message);

@@ -29,7 +29,7 @@ export default function SinglePayment() {
           <ApprovePaymentModal payment={payment} userRole={userData.role} />
           <div className="d-flex align-items-center gap-3">
             <EditPaymentModal payment={payment} />
-            <DeletePaymentModal id={payment.id} />  
+            <DeletePaymentModal id={payment.id} />
           </div>
         </div>
       );
@@ -53,7 +53,7 @@ export default function SinglePayment() {
     if (userData.role === "Cliente") {
       return (
         <div className="d-flex gap-3">
-          <button className="btn btn-outline-success d-flex align-items-center gap-2">
+          <button className="btn btn-outline-success d-flex align-items-center gap-2" onClick={() => handleCopyPixKeyToClipboard(payment.schedule.vendor.pix)}>
             <FontAwesomeIcon icon={faKey} />
             Copiar chave PIX
           </button>
@@ -63,6 +63,11 @@ export default function SinglePayment() {
         </div>
       );
     }
+  }
+
+  function handleCopyPixKeyToClipboard(pixKey) {
+    navigator.clipboard.writeText(pixKey);
+    alert("Chave PIX copiada!");
   }
 
   if (payment !== "")
@@ -78,11 +83,7 @@ export default function SinglePayment() {
                 <p className="d-flex gap-2">
                   <strong>Beneficiado:</strong>
                   <a
-                    href="#"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(`/app/users/${payment.schedule.client.id}`);
-                    }}
+                    href={`/app/users/${payment.schedule.client.id}`}
                   >
                     {payment.schedule.client.name}
                   </a>
@@ -90,11 +91,7 @@ export default function SinglePayment() {
                 <p className="d-flex gap-2">
                   <strong>Beneficiário:</strong>
                   <a
-                    href="#"
-                    onClick={(event) => {
-                      event.preventDefault();
-                      navigate(`/app/users/${payment.schedule.vendor.id}`);
-                    }}
+                    href={`/app/users/${payment.schedule.vendor.id}`}
                   >
                     {payment.schedule.vendor.name}
                   </a>
@@ -130,7 +127,7 @@ export default function SinglePayment() {
                     className="d-flex justify-content-between mb-2 pb-2"
                     style={{ borderBottom: "1px solid lightgrey" }}
                   >
-                    <strong>Chave PIX:</strong> {"vendor@key.com"}
+                    <strong>Chave PIX:</strong> {payment.schedule.vendor.pix}
                   </p>
                   <p
                     className="d-flex justify-content-between mb-2 pb-2"

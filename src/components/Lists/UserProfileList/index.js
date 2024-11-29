@@ -4,7 +4,7 @@ import { validatePhones } from "../../../validations/validatePhones.js";
 import Api from "../../../classes/Api.js";
 
 export default function UserProfileList(props) {
-  const user = props.user;
+  const user = props.user.user;
   const avatar = Api.endpoint(`uploads/avatar/${user.avatar}`);
 
   return (

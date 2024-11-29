@@ -45,7 +45,7 @@ export default class Device {
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         alert("Dispositivo criado com sucesso!");
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => console.log(error));
   }

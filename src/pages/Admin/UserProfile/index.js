@@ -168,7 +168,7 @@ export default function UserProfile() {
                     {user.active === true ? "ativo" : "inativo"}
                   </li>
                   <li>
-                    <strong>Função:</strong> {user.role.toLowerCase()}
+                    <strong>Função:</strong> {user.role}
                   </li>
                   <li>
                     <strong>Coletas:</strong> 56

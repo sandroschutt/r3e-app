@@ -50,17 +50,11 @@ export default function PublicDevices() {
   }, [userData, devices, brands, models, params, search, searched]);
 
   function listRender(devices) {
-    if (devices !== "" && userData.role === "Admin")
+    if (devices !== "" && userData.role === "Admin") {
       return <AdminDevicesTable devices={devices} />;
-    if (
-      devices !== "" &&
-      userData.role !== "Admin" &&
-      userData.role !== "Escola"
-    )
-      return <DevicesList items={devices} brands={brands} models={models} />;
-    if (devices !== "" && userData.role === "Escola")
-      return <DevicesList items={devices} brands={brands} models={models} />;
-    return <p>Aguardando dados...</p>;
+    }
+
+    return <DevicesList devices={devices} brands={brands} models={models} />;
   }
 
   if (devices !== "")

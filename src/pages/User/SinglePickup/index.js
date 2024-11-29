@@ -26,7 +26,7 @@ export default function SinglePickup() {
   useEffect(() => {
     if (userData.role !== undefined && userData.role === "Escola")
       navigate(`/app/404`);
-    
+
     if (schedule === "") {
       Pickup.getPickup(params.id, setSchedule);
     }
@@ -123,6 +123,12 @@ export default function SinglePickup() {
                   </Card.Header>
                   <Card.Body>
                     <p className="d-flex mb-1 gap-2">
+                      <strong>Valor:</strong>
+                      {schedule.payment.price === null
+                        ? ""
+                        : `R$${parseFloat(schedule.payment.price)}`}
+                    </p>
+                    <p className="d-flex mb-1 gap-2">
                       <strong>Status:</strong>
                       {schedule.status}
                     </p>
@@ -154,11 +160,7 @@ export default function SinglePickup() {
                     <h5 className="name">
                       <strong className="me-3">
                         <a
-                          href="#"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            navigate(`/app/users/${schedule.vendorId}`);
-                          }}
+                          href={`/app/users/${schedule.vendorId}`}
                         >
                           {schedule.vendor.name}
                         </a>
@@ -190,11 +192,7 @@ export default function SinglePickup() {
                     <h5 className="name">
                       <strong className="me-3">
                         <a
-                          href="#"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            navigate(`/app/users/${schedule.clientId}`);
-                          }}
+                          href={`/app/users/${schedule.clientId}`}
                         >
                           {schedule.client.name}
                         </a>
@@ -236,11 +234,7 @@ export default function SinglePickup() {
                     <h5 className="name">
                       <strong className="me-3">
                         <a
-                          href="#"
-                          onClick={(event) => {
-                            event.preventDefault();
-                            navigate(`/app/devices/${schedule.deviceId}`);
-                          }}
+                          href={`/app/devices/${schedule.deviceId}`}
                         >
                           {`${schedule.device.brand.name} ${schedule.device.model.name}`}
                         </a>
