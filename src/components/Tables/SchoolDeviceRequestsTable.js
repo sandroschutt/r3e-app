@@ -114,7 +114,7 @@ export default function SchoolDeviceRequestsTable(props) {
                       icon={faEye}
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(`/app/school-device-request/${request.id}`)
+                        navigate(`/app/school-device-requests/${request.id}`)
                       }}
                     />
                     {handleAdminActions(props.userRole, request.id)}

@@ -1,8 +1,6 @@
 import "./style.scss";
-import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
+import smartphonePlaceholder from "../../../assets/images/smartphone-placeholder.avif";
 import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import { Badge, Button, Card, Col, Row } from "react-bootstrap";
 import { EditDeviceModal } from "../../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../../Modals/Device/DeleteDeviceModal";
@@ -11,18 +9,16 @@ import Brands from "../../../classes/Brands";
 import Models from "../../../classes/Models";
 import { CreateScheduleModal } from "../../Modals/Schedule/CreateScheduleModal";
 import { useUserDataContext } from "../../../context/UserDataContext";
-import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
 import { validatePhones } from "../../../validations/validatePhones.js";
 import { DeviceEvaluation } from "../DeviceEvaluation/index.js";
 import Api from "../../../classes/Api.js";
-import { useNavigate } from "react-router-dom";
+import { CreateSchoolDeviceRequestModal } from "../../Modals/Schedule/CreateSchoolDeviceRequestModal.js";
 
 export default function SingleDeviceCard(props) {
   const { userData } = useUserDataContext();
-  const deviceImage = Api.endpoint(`uploads/device/${props.device.photo}`);
+  const deviceImage = props.device.photo !== null ? Api.endpoint(`uploads/device/${props.device.photo}`) : smartphonePlaceholder;
   const [brands, setBrands] = useState("");
   const [models, setModels] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (brands === "") Brands.getAll(setBrands);
@@ -30,25 +26,8 @@ export default function SingleDeviceCard(props) {
   }, []);
 
   function renderButtons(device) {
-    if (userData.role === "Escola" && device.reserved === 0)
-      return (
-        <Button
-          variant="outline-success"
-          className="d-flex gap-2 align-items-center"
-          onClick={() => {
-            SchoolDeviceRequets.create(
-              {
-                schoolId: userData.id,
-                deviceId: props.device.id,
-              },
-              userData.role
-            );
-          }}
-        >
-          <FontAwesomeIcon icon={faTruck} />
-          Requisitar
-        </Button>
-      );
+    if (userData.role === "Escola" && device.reserved === false)
+      return <CreateSchoolDeviceRequestModal deviceId={props.device.id} schoolId={userData.id} />
 
     if (userData.role !== "Client" && userData.role !== "Escola") {
       return (
@@ -64,6 +43,16 @@ export default function SingleDeviceCard(props) {
       return <DeviceEvaluation id={id} default={returnProcessId} />;
   }
 
+  function handleClientDeviceActions(role, device) {
+    if (role === "Cliente" || role === "Admin")
+      return (
+        <div className="d-flex gap-3">
+          <EditDeviceModal device={device} models={models} brands={brands} />
+          <DeleteDeviceModal deviceId={device.id} />
+        </div>
+      );
+  }
+
   if (props.device !== "") {
     const device = props.device;
     const avatar = Api.endpoint(`uploads/avatar/${device.user.avatar}`);
@@ -74,19 +63,12 @@ export default function SingleDeviceCard(props) {
           <Card.Header>
             <div className="d-flex justify-content-between align-items-center">
               <p className="h4 mb-0">{`${device.brand.name} ${device.model.name} ${device.model.year}`}</p>
-              <div className="d-flex gap-3">
-                <EditDeviceModal
-                  device={device}
-                  models={models}
-                  brands={brands}
-                />
-                <DeleteDeviceModal deviceId={device.id} />
-              </div>
+              {handleClientDeviceActions(userData.role, device)}
             </div>
           </Card.Header>
           <Card.Body>
-            <Row className="single-device--card gap-3 mb-3">
-              <Col className="ps-0 col-2">
+            <Row className="single-device--card gap-0 mb-3">
+              <Col className="ps-0 col-3">
                 <img
                   src={deviceImage}
                   height={164}
@@ -120,16 +102,17 @@ export default function SingleDeviceCard(props) {
                     </span>{" "}
                     <span>7 anos</span>
                   </p>
-                  <p className="mb-2">
-                    <span>
-                      <strong>Tratativa:</strong>
-                    </span>{" "}
-                    <span>{device.returnProccess.finality}</span>
+                  <p className="d-flex justify-content-between mb-2">
+                    <div>
+                      <span>
+                        <strong>Tratativa:</strong>
+                      </span>{" "}
+                      <span>{device.returnProccess.finality}</span>
+                    </div>
+                    <div className="single-device--actions">
+                      {renderButtons(device)}
+                    </div>
                   </p>
-
-                  <div className="single-device--actions d-flex">
-                    {renderButtons(device)}
-                  </div>
                 </div>
               </Col>
             </Row>
@@ -166,9 +149,7 @@ export default function SingleDeviceCard(props) {
             <Card.Body className="p-4">
               <Row className="gap-5 align-items-center">
                 <Col className="col-2">
-                  <a
-                    href={`/app/users/${device.userId}`}
-                  >
+                  <a href={`/app/users/${device.userId}`}>
                     <div
                       className="rounded-circle"
                       style={{
@@ -186,9 +167,7 @@ export default function SingleDeviceCard(props) {
                 <Col>
                   <p className="mb-2 h5">
                     <strong>
-                      <a
-                        href={`/app/users/${device.userId}`}
-                      >
+                      <a href={`/app/users/${device.userId}`}>
                         {device.user.name}
                       </a>
                     </strong>

@@ -38,16 +38,12 @@ export default class SchoolDeviceRequets {
    * Creates a single SchoolDeviceRequest
    *
    * @param {JSON} data A JSON object containing the new SchoolDeviceRequest's data
-   * @param {String} userRole The current User's role
    */
-  static async create(data, userRole) {
+  static async create(data) {
     axios
       .post(
         Api.endpoint(`school-device-requests/create`),
-        {
-          schoolId: data.schoolId,
-          deviceId: data.deviceId
-        },
+        data,
         {
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +53,31 @@ export default class SchoolDeviceRequets {
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         alert(`Pedido de doação criado com sucesso!`);
-        window.location.href = window.location.origin + `/app/school-device-requests/${response.data.id}`;
+        window.location.href =
+          window.location.origin +
+          `/app/school-device-requests/${response.data.id}`;
+      })
+      .catch((error) => {
+        alert(error.message);
+        console.error(error);
+      });
+  }
+
+  static async update(id, data) {
+    axios
+      .post(
+        Api.endpoint(`school-device-requests/${id}/update`),
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status !== 200) throw new Error("Erro na requisição");
+        alert(`Pedido de doação #${id} atualizado com sucesso!`);
+        window.location.reload();
       })
       .catch((error) => {
         alert(error.message);
@@ -84,6 +104,7 @@ export default class SchoolDeviceRequets {
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         alert(`Pedido de doação #${id} excluído com sucesso!`);
+        window.location.reoload();
       })
       .catch((error) => {
         alert(error.message);

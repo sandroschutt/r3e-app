@@ -162,7 +162,7 @@ export function NotificationsModal() {
       Notification.getAll(userData.userData.id, setNotificationList);
   }, [notificationList, userData]);
 
-  function handleOnClick(notification) {
+  function handleOpenNotification(notification) {
     notification.read = true;
     const { id } = notification;
     Notification.update(id, userData.userData.id, notification);
@@ -170,10 +170,16 @@ export function NotificationsModal() {
   }
 
   function handleNotificationsBadge(notificationList) {
-    // notificationList = notificationList.filter((notification) => notification.read === false);
-    if (notificationList.length > 1)
+    notificationList = notificationList.filter(
+      (notification) => notification.read === false
+    );
+    if (notificationList.length > 0)
       return (
-        <Badge bg="danger" className="rounded-circle d-flex align-items-center justify-content-center" style={{minHeight: "24px", minWidth: "24px"}}>
+        <Badge
+          bg="danger"
+          className="rounded-circle d-flex align-items-center justify-content-center"
+          style={{ minHeight: "24px", minWidth: "24px" }}
+        >
           <p className="mb-0">{notificationList.length}</p>
         </Badge>
       );
@@ -181,7 +187,6 @@ export function NotificationsModal() {
 
   function notificationItemBackgroundColor(notification) {
     if (notification.read === false) {
-      console.log(notification.read);
       return "var(--bs-gray-200)";
     } else if (notification.read === true) return "white";
   }
@@ -221,18 +226,19 @@ export function NotificationsModal() {
           </Modal.Header>
           <Modal.Body className="p-0">
             <div className="p-0 mb-0 overflow-y-scroll">
-              <ul className="p-0" style={{ minHeight: "400px" }}>
+              <ul className="p-0" style={{ height: "600px" }}>
                 {notificationList.map((notification, index) => {
                   return (
                     <li
                       key={index}
-                      className="d-flex flex-column p-4 border"
+                      className="d-flex justify-content-between align-items-center px-4 py-2 border"
                       onClick={() => {
-                        handleOnClick(notification);
+                        handleOpenNotification(notification);
                       }}
                       style={{
                         backgroundColor:
                           notificationItemBackgroundColor(notification),
+                        minHeight: "80px",
                       }}
                     >
                       <a href="#" className="text-dark text-reset">
@@ -240,16 +246,21 @@ export function NotificationsModal() {
                           <strong>{notification.content}</strong>
                         </p>
                       </a>
-                      <p className="mb-0" style={{ textAlign: "right" }}>
+                      <p
+                        className="mb-0"
+                        style={{ textAlign: "right", fontSize: ".8em" }}
+                      >
                         {validateDate(notification.createdAt)}
                       </p>
                     </li>
                   );
                 })}
+                <li>
+                  <p className="text-center text-secondary py-3">
+                    Todas as notificações foram carregadas
+                  </p>
+                </li>
               </ul>
-              <p className="text-center text-secondary">
-                Todas as notificações foram carregadas
-              </p>
             </div>
           </Modal.Body>
         </Modal>

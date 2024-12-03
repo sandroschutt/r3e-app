@@ -67,10 +67,10 @@ export function ApprovePaymentModal(props) {
   }
 
   function handleRoleActions(role) {
-    if (role !== "Empresa") return;
+    if (role !== "Empresa" && role !== "Ong") return;
 
     return (
-      <>
+      <div className="d-flex justify-content-end gap-2">
         <button className="btn btn-outline-secondary" onClick={handleClose}>
           Cancelar
         </button>
@@ -88,7 +88,7 @@ export function ApprovePaymentModal(props) {
         >
           Aprovar
         </button>
-      </>
+      </div>
     );
   }
 

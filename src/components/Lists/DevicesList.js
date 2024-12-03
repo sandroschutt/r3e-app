@@ -20,8 +20,6 @@ export function DevicesList(props) {
                 key={index}
                 index={index}
                 device={device}
-                brands={props.brands}
-                models={props.models}
               />
             );
           })}

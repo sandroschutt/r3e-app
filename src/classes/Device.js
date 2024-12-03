@@ -47,7 +47,10 @@ export default class Device {
         alert("Dispositivo criado com sucesso!");
         window.location.reload();
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        let errorMsg = JSON.parse(error.request.response).error;
+        if(errorMsg === "No file uploaded") alert("Adicione uma foto do dispositivo para realizar o cadastro.");
+      });
   }
 
   /**
@@ -67,8 +70,11 @@ export default class Device {
     formdata.append("brandId", device.brandId);
     formdata.append("modelId", device.modelId);
     formdata.append("state", device.state);
-    formdata.append("currentPhoto", currentPhoto);
     formdata.set("photo", device.photo);
+
+    if (typeof currentPhoto === "object") {
+      formdata.append("currentPhoto", currentPhoto);
+    }
 
     delete device["userId"];
 
@@ -179,7 +185,7 @@ export default class Device {
 
   static evaluate(id, data) {
     axios
-      .post(Api.endpoint(`devices/${id}/update`), data)
+      .post(Api.endpoint(`devices/${id}/evaluate`), data)
       .then((response) => {
         if (response.status !== 200) throw new Error("Erro na requisição");
         alert(`Dispostivo ${id} avaliado com sucesso.`);

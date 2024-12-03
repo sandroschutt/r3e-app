@@ -1,49 +1,18 @@
 import "./style.css";
-import Cookies from "js-cookie";
 import ValidateInputs from "../../../validations/Inputs";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import User from "../../../classes/User";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
-  const [loginAttempt, setLoginAttempt] = useState(false);
+  const user = new User();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    async function login() {
-      try {
-        const tryToLogin = await fetch(`http://localhost:9000/auth/login`, {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: username,
-            password: password,
-          }),
-        });
-
-        const cookie = await tryToLogin.json();
-
-        if (tryToLogin.ok) {
-          Cookies.set('_r3e', JSON.stringify(cookie), {expires: 7});
-          navigate("/dashboard/role");
-        } else console.log("login failed")
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    if (loginAttempt) {
-      login();
-    }
-  }, [loginAttempt, username, password, navigate]);
 
   function handleUsername(event) {
     setUsername(event.target.value);
@@ -65,8 +34,15 @@ export default function LoginForm() {
 
     if (!isValidMail || !isValidPassword) {
       setValidationMessage("Dados inválidos");
-    } else {
-      setLoginAttempt(true);
+    }
+
+    let data = { email: username, password: password };
+
+    try {
+      user.login(data);
+      navigate("/app");
+    } catch (error) {
+      console.log(error);
     }
   }
 

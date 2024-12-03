@@ -1,14 +1,14 @@
-import {
-  useUserDataContext,
-  UserDataContext,
-} from "../../../context/UserDataContext";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { useUserDataContext } from "../../../context/UserDataContext";
+import { Alert, Button, Card, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import SchoolDeviceRequets from "../../../classes/SchoolDeviceRequests";
 import { useNavigate, useParams } from "react-router-dom";
 import UserHeader from "../../../components/UserHeader";
 import { validatePhones } from "../../../validations/validatePhones";
 import { validateDate } from "../../../validations/validateDate.js";
+import Api from "../../../classes/Api.js";
+import computerPlaceholder from "../../../assets/images/computer-placeholder.avif";
+import { EditSchoolDeviceRequestModal } from "../../../components/Modals/Schedule/EditSchoolDeviceRequestModal.js";
 
 export default function SingleSchoolDeviceRequest() {
   const { userData } = useUserDataContext();
@@ -16,8 +16,14 @@ export default function SingleSchoolDeviceRequest() {
   const navigate = useNavigate();
   const params = useParams();
 
+  console.log(singleDeviceRequest)
+
   useEffect(() => {
-    if (userData.role !== "Admin" && userData.role !== "Escola")
+    if (
+      userData !== "" &&
+      userData.role !== "Admin" &&
+      userData.role !== "Escola"
+    )
       navigate(`/app/404`);
 
     if (singleDeviceRequest === "")
@@ -27,7 +33,8 @@ export default function SingleSchoolDeviceRequest() {
   function handleAdminActions() {
     if (
       userData.role === "Admin" &&
-      singleDeviceRequest.status === "em análise"
+      singleDeviceRequest.status !== "aceito" &&
+      singleDeviceRequest.status !== "negado"
     )
       return (
         <div className="d-flex gap-3">
@@ -45,6 +52,40 @@ export default function SingleSchoolDeviceRequest() {
           </Button>
         </div>
       );
+  }
+
+  function handleDeviceImage(device) {
+    if (device.photo === null) {
+      return computerPlaceholder;
+    }
+
+    return Api.endpoint(`uploads/device/${device.photo}`);
+  }
+
+  function handleDeviceRequestStatus() {
+    if (
+      userData.role === "Admin" &&
+      singleDeviceRequest.status === "em análise"
+    )
+      return <EditSchoolDeviceRequestModal schoolRequest={singleDeviceRequest}/>;
+
+    const acceptedMsg = `O pedido de coleta foi aceito pelo administrador. Você pode retirar o dispositivo na oficina do R3E ou aguardar a entrega caso tenha optado por receber o dispositivo. Esperamos que o estudante ${singleDeviceRequest.student.name} aproveite seu novo computador para estudos!`;
+    const deniedMsg = `O pedido de coleta foi negado pelo administrador. Isso pode ter acontecido por conta das condições socioeconômicas do estudante, desempenho, ou porque o sistema identificou um estudante mais necessitado. Isso não impede que você requisite um novo dispositivo para o estudante ${singleDeviceRequest.student.name}.`;
+
+    if(singleDeviceRequest.status !== "em análise") return (
+      <Alert
+        variant={singleDeviceRequest.status === "aceito" ? "success" : "danger"}
+      >
+        <p className="mb-0 p-4">
+          {singleDeviceRequest.status === "aceito" ? acceptedMsg : deniedMsg}
+        </p>
+      </Alert>
+    );
+  }
+
+  function handleAdminEditRequest() {
+    if (userData.role === "Admin")
+      return <EditSchoolDeviceRequestModal schoolRequest={singleDeviceRequest}/>
   }
 
   if (singleDeviceRequest !== "")
@@ -69,8 +110,8 @@ export default function SingleSchoolDeviceRequest() {
                   <strong>Retirada:</strong>
                 </p>
                 <p className="h4 text-info">
-                  {singleDeviceRequest.colect !== null
-                    ? singleDeviceRequest.colect
+                  {singleDeviceRequest.colect !== null && singleDeviceRequest.colect !== false
+                    ? "sim"
                     : "não"}
                 </p>
               </Card.Body>
@@ -91,16 +132,16 @@ export default function SingleSchoolDeviceRequest() {
                   <strong>Data da coleta:</strong>
                 </p>
                 <p className="h4 text-info">
-                  {singleDeviceRequest.dateColect !== null
-                    ? validateDate(singleDeviceRequest.dateColect)
-                    : "não definida"}
+                  {singleDeviceRequest.dateColect === null
+                    ? "não definida"
+                    : validateDate(singleDeviceRequest.dateColect)}
                 </p>
               </Card.Body>
             </Card>
             <Card className="px-4 col col-2">
               <Card.Body>
                 <p className="mb-2">
-                  <strong>Data da coleta:</strong>
+                  <strong>Data coletado:</strong>
                 </p>
                 <p className="h4 text-info">
                   {singleDeviceRequest.dateColected !== null
@@ -112,7 +153,7 @@ export default function SingleSchoolDeviceRequest() {
           </Col>
           <Col className="d-flex flex-column gap-3">
             <Card>
-              <Card.Header as="h5">Estudante</Card.Header>
+              <Card.Header className="h5">Estudante</Card.Header>
               <Card.Body className="p-4">
                 <Card.Title>
                   <a
@@ -197,6 +238,7 @@ export default function SingleSchoolDeviceRequest() {
                 </ul>
               </Card.Body>
             </Card>
+            {handleDeviceRequestStatus()}
           </Col>
           <Col>
             <Card>
@@ -229,7 +271,7 @@ export default function SingleSchoolDeviceRequest() {
                 </div>
                 <div className="text-center">
                   <img
-                    src="https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6449/6449520_rd.jpg"
+                    src={handleDeviceImage(singleDeviceRequest.device)}
                     className="my-5"
                     style={{ width: "80%" }}
                   />

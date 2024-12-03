@@ -4,6 +4,7 @@
 
 import axios from "axios";
 import Api from "./Api.js";
+import Cookies from "js-cookie";
 
 export default class User {
   constructor(id = null) {
@@ -22,7 +23,10 @@ export default class User {
   async data(updateUserData) {
     try {
       axios.get(Api.endpoint(`users/${this.id}`)).then((response) => {
-        updateUserData({...response.data.user, capabilities: response.data.capabilities});
+        updateUserData({
+          ...response.data.user,
+          capabilities: response.data.capabilities,
+        });
       });
     } catch (error) {
       return error.message;
@@ -46,10 +50,8 @@ export default class User {
         if (response.status !== 200)
           throw new Error("Falha ao criar o usuário.");
         alert(`Usuário ${response.data.name} criado com sucesso!`);
-        // window.location.href = `/admin/users/${response.data.id}`;
       })
       .catch((error) => {
-        alert(error.message);
         console.error(error);
       });
   }
@@ -102,6 +104,22 @@ export default class User {
       })
       .catch((error) => {
         alert("Erro ao excluir o usuário.");
+        console.log(error);
+      });
+  }
+
+  static deactivate(id) {
+    axios
+      .post(Api.endpoint(`users/${this.id}/deactivate`))
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error("Não foi possível desativar o usuário.");
+        }
+        alert(`Usuário ${this.id} desativado com sucesso!`);
+        return true;
+      })
+      .catch((error) => {
+        alert("Erro ao desativar o usuário.");
         console.log(error);
       });
   }
@@ -198,6 +216,28 @@ export default class User {
       })
       .catch((error) => {
         alert(error.message);
+        console.error(error);
+      });
+  }
+
+  async login(data) {
+    axios
+      .post(Api.endpoint("auth/login"), {
+        email: data.email,
+        password: data.password
+      }, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      .then((response) => {
+        if (response.status !== 200)
+          throw new Error("Falha ao realizar login.");
+        console.log(response.data);
+        Cookies.set("_r3e", JSON.stringify(response.data), { expires: 7 });
+      })
+      .catch((error) => {
         console.error(error);
       });
   }

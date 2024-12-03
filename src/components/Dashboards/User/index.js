@@ -14,7 +14,7 @@ export default function UserDashboard() {
           <Row className="option gap-3 mb-3">
             <Col
               className="my-pickups h-100 text-light px-0"
-              onClick={() => navigate(`pickups`)}
+              onClick={() => navigate(`/app/pickups`)}
             >
               <Row className="option-content py-2 align-items-center">
                 <Col className="col-4"></Col>
@@ -30,7 +30,7 @@ export default function UserDashboard() {
             </Col>
             <Col
               className="my-devices h-100 px-0 text-light"
-              onClick={() => navigate(`public-devices`)}
+              onClick={() => navigate(`/app/devices`)}
             >
               <Row className="option-content p-2 align-items-center">
                 <Col className="col-4"></Col>
@@ -48,7 +48,7 @@ export default function UserDashboard() {
           <Row className="option gap-3 mb-3">
             <Col
               className="sustainable-map h-100 px-0 text-light"
-              onClick={() => navigate(`map`)}
+              onClick={() => navigate(`/app/map`)}
             >
               <Row className="option-content p-2 align-items-center">
                 <Col className="col-4"></Col>
@@ -64,7 +64,7 @@ export default function UserDashboard() {
             </Col>
             <Col
               className="pickup-locations h-100 px-0 text-light"
-              onClick={() => navigate(`pickup-locations`)}
+              onClick={() => navigate(`/app/pickup-locations`)}
             >
               <Row className="option-content p-2 align-items-center">
                 <Col className="col-4"></Col>
@@ -86,7 +86,7 @@ export default function UserDashboard() {
           <Row className="option w-50 gap-3 mb-3 align-items-center">
             <Col
               className="minor-option h-100 p-2 bg-success d-flex flex-column align-items-center justify-content-center"
-              onClick={() => navigate(`profile`)}
+              onClick={() => navigate(`/app/profile`)}
             >
               <FontAwesomeIcon
                 icon={faUserCircle}
@@ -96,7 +96,7 @@ export default function UserDashboard() {
             </Col>
             <Col
               className="minor-option h-100 p-2 bg-dark text-light d-flex flex-column align-items-center justify-content-center"
-              onClick={() => navigate(`settings`)}
+              onClick={() => navigate(`/app/settings`)}
             >
               <FontAwesomeIcon
                 className="text-secondary"

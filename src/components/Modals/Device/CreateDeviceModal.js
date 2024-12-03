@@ -14,7 +14,7 @@ export function CreateDeviceModal(props) {
   const handleShow = () => setShow(true);
 
   const device = {
-    userId: userData.id
+    userId: userData.id,
   };
 
   useEffect(() => {
@@ -27,15 +27,25 @@ export function CreateDeviceModal(props) {
   }, [userData, userCanCreate]);
 
   function handleCreateDevice() {
-    const formdata = new FormData();
-    formdata.append("userId", device.userId);
-    formdata.append("type", device.type);
-    formdata.append("brandId", device.brandId);
-    formdata.append("modelId", device.modelId);
-    formdata.append("state", device.state);
-    formdata.set("photo", device.photo);
-    
-    Device.create(formdata);
+    if (
+      device.type !== undefined &&
+      device.brandId !== undefined &&
+      device.modelId !== undefined &&
+      device.state !== undefined
+    ) {
+      const formdata = new FormData();
+      formdata.append("userId", device.userId);
+      formdata.append("type", device.type);
+      formdata.append("brandId", device.brandId);
+      formdata.append("modelId", device.modelId);
+      formdata.append("state", device.state);
+      formdata.set("photo", device.photo);
+
+      Device.create(formdata);
+      return;
+    }
+
+    alert("Preencha todos os campos obrigratórios (*) do formulário para criar o dispositivo.");
   }
 
   if (brands !== "" && models !== "" && userCanCreate)
@@ -62,7 +72,7 @@ export function CreateDeviceModal(props) {
             >
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="type">
-                  <strong>Tipo:</strong>
+                  <strong>Tipo: *</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -72,6 +82,7 @@ export function CreateDeviceModal(props) {
                     device.type = event.target.value;
                   }}
                   autoFocus
+                  required
                 >
                   <option>-- selecione</option>
                   <option key={Math.random()} value="smartphone">
@@ -96,13 +107,14 @@ export function CreateDeviceModal(props) {
               </div>
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="brand">
-                  <strong>Marca:</strong>
+                  <strong>Marca: *</strong>
                 </label>
                 <select
                   className="form-control mb-3"
                   aria-label="Seleciona a marca do dispositivo"
                   name="brand"
                   onChange={(event) => (device.brandId = event.target.value)}
+                  required
                 >
                   <option>-- selecione</option>
                   {brands.map((brand, index) => {
@@ -116,7 +128,7 @@ export function CreateDeviceModal(props) {
               </div>
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="model">
-                  <strong>Modelo:</strong>
+                  <strong>Modelo: *</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -125,6 +137,7 @@ export function CreateDeviceModal(props) {
                   onChange={(event) => {
                     device.modelId = event.target.value;
                   }}
+                  required
                 >
                   <option>-- selecione</option>
                   {models.map((model, index) => {
@@ -138,7 +151,7 @@ export function CreateDeviceModal(props) {
               </div>
               <div className="mb-3">
                 <label className="form-label my-2" htmlFor="state">
-                  <strong>Estado:</strong>
+                  <strong>Estado: *</strong>
                 </label>
                 <select
                   className="form-control mb-3"
@@ -147,6 +160,7 @@ export function CreateDeviceModal(props) {
                   onChange={(event) => {
                     device.state = event.target.value;
                   }}
+                  required
                 >
                   <option>-- selectione</option>]
                   <option value={"bom"}>Bom</option>

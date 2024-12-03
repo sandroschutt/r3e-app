@@ -1,0 +1,5 @@
+@import "../../../styles/mixins/cards";
+
+.user-profile--list-section {
+  @include card;
+}

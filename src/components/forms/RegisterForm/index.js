@@ -1,8 +1,10 @@
 import "./style.css";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import ValidateInputs from "../../../validations/Inputs";
 import { useUserAuthContext } from "../../../context/UserAuthenticationContext";
 import { useNavigate } from "react-router-dom";
+import Api from "../../../classes/Api";
 
 export default function RegisterForm() {
   const { userData, updateUserData } = useUserAuthContext();
@@ -11,37 +13,26 @@ export default function RegisterForm() {
   const [validationMessage, setValidationMessage] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function handleApiCall() {
-      await fetch(
-        `http://localhost:9000/auth/email?email=${encodeURIComponent(email)}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to initiate verification email");
-          }
-          return response.json();
-        })
-        .then(() => {
-          console.log("Verification email initiated successfully");
-          navigate("/auth/confirmation");
-        })
-        .catch((error) => {
-          setValidationMessage(`O email ${email} já está cadastrado`);
-          console.error(error);
-        });
-    }
+  // useEffect(() => {
+  //   async function handleApiCall() {
+  //     axios
+  //       .get(Api.endpoint(`auth/email?email=${encodeURIComponent(email)}`))
+  //       .then((response) => {
+  //         if (response.status !== 200)
+  //           throw new Error("Failed to initiate verification email");
+  //         console.log("Verification email initiated successfully");
+  //         navigate("/auth/address");
+  //       })
+  //       .catch((error) => {
+  //         setValidationMessage(`O email ${email} já está cadastrado`);
+  //         console.log(error);
+  //       });
+  //   }
 
-    if (userData.email !== "" && userData.email !== undefined) {
-      handleApiCall();
-    }
-  }, [email, userData, updateUserData, navigate]);
+  //   if (userData.email !== "" && userData.email !== undefined) {
+  //     handleApiCall();
+  //   }
+  // }, [email, userData, updateUserData, navigate]);
 
   function handleSubmit() {
     let isValidEmail = ValidateInputs.registrationEmail([
@@ -51,6 +42,7 @@ export default function RegisterForm() {
 
     if (isValidEmail.valid === true) {
       updateUserData({ email: email });
+      navigate("/auth/address");
     } else {
       setValidationMessage(isValidEmail.message);
     }

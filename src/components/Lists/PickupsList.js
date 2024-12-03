@@ -1,5 +1,5 @@
 import { Accordion } from "react-bootstrap";
-import dummyDeviceImage from "../../assets/images/motog2 1.jpg";
+import dummyDeviceImage from "../../assets/images/smartphone-placeholder.avif";
 import { EditScheduleModal } from "../Modals/Schedule/EditScheduleModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -74,6 +74,21 @@ export function PickupsList(props) {
     }
   }
 
+  function handleVendorActions(schedule) {
+    if (userData.role === "Empresa" || userData.role === "Ong")
+      return (
+        <>
+          <EditScheduleModal schedule={schedule} userRole={props.userRole} />
+          <FontAwesomeIcon
+            icon={faCircleXmark}
+            onClick={() => {
+              alert("Cancelamento ainda não implementado");
+            }}
+          />
+        </>
+      );
+  }
+
   if (props.schedules !== "")
     return (
       <Accordion defaultActiveKey="0">
@@ -119,16 +134,7 @@ export function PickupsList(props) {
                         navigate(`/app/pickups/${schedule.id}`);
                       }}
                     />
-                    <EditScheduleModal
-                      schedule={schedule}
-                      userRole={props.userRole}
-                    />
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      onClick={() => {
-                        alert("Cancelamento ainda não implementado");
-                      }}
-                    />
+                    {handleVendorActions(schedule)}
                   </div>
                 </div>
               </Accordion.Body>

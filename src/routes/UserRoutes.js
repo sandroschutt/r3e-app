@@ -65,7 +65,8 @@ export default function UserRoutes() {
           <Route path={"/workshop"} element={<Workshop />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/capabilities" element={<CapabilitiesComponent />} />
-          <Route path="/404" element={<NotFoundComponent />} />
+          <Route path="/logout" element={<NotFoundComponent />} />0
+          <Route path="/404" element={<NotFoundComponent />} />0
         </Routes>
       </UserLayout>
     </UserDataContext>

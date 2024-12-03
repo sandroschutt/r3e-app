@@ -27,7 +27,6 @@ export default class Notification {
           throw new Error(
             `Falha ao alterar status da notificação ${id} para lida.`
           );
-        alert(`Notificação atualizada!`);
       })
       .catch((error) => {
         alert(error.message);

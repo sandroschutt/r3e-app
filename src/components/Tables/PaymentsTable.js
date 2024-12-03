@@ -24,7 +24,9 @@ export default function PaymentsTable(props) {
   if (props.payments !== "")
     return (
       <Row className="admin-devices-table w-100 ps-0">
-        <CreatePaymentModal userRole={userData.role} schedules={schedules} />
+        <div className="d-flex justify-content-end px-0">
+          <CreatePaymentModal userRole={userData.role} schedules={schedules} />
+        </div>
         <table>
           <thead>
             <tr className="bg-dark text-white">
@@ -56,7 +58,7 @@ export default function PaymentsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(`/app/pickups/${payment.schedule.id}`)
+                        navigate(`/app/pickups/${payment.schedule.id}`);
                       }}
                     >
                       {payment.schedule.id}
@@ -78,7 +80,7 @@ export default function PaymentsTable(props) {
                       href="#"
                       onClick={(event) => {
                         event.preventDefault();
-                        navigate(`/app/users/${payment.schedule.vendor.id}`)
+                        navigate(`/app/users/${payment.schedule.vendor.id}`);
                       }}
                     >
                       {payment.schedule.vendor.name}

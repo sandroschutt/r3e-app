@@ -3,15 +3,12 @@ import Info from "./Info";
 import Address from "./Address";
 import ValidateInputs from "../../../validations/Inputs";
 import { Col, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { useUserAuthContext } from "../../../context/UserAuthenticationContext";
+import { useState } from "react";
 import { getFormValues, handleSubmissionEvaluation } from "./handles";
-import { checkAuthorizedCode } from "../../../validations/clientAuthorization";
 import { useNavigate } from "react-router-dom";
+import User from "../../../classes/User";
 
 export default function UserInfoForm() {
-  const { userData, updateUserData } = useUserAuthContext();
-  const [authorized, setAuthorized] = useState(false);
   const [reqBody, setReqBody] = useState({});
   const [info, setInfo] = useState([]);
   const [address, setAddress] = useState([]);
@@ -19,44 +16,6 @@ export default function UserInfoForm() {
   const navigate = useNavigate();
 
   const [termsAgreement, setTermsAgreement] = useState(false);
-
-  useEffect(() => {
-    if (!authorized) {
-      checkAuthorizedCode(userData, setAuthorized, navigate);
-    }
-
-    async function createUser(reqBody) {
-      try {
-        fetch("http://localhost:9000/user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(reqBody),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json(); // Parse the JSON response
-          })
-          .then((result) => {
-            updateUserData({...userData, registered: true})
-            navigate("/auth/registration-success")
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-        setReqBody({});
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    if (reqBody.userInfo !== undefined) {
-      createUser(reqBody);
-    }
-  }, [userData, updateUserData, authorized, reqBody, navigate]);
 
   function handleTermsAndConditions() {
     getFormValues(setInfo, setAddress);
@@ -106,10 +65,18 @@ export default function UserInfoForm() {
         };
 
         setReqBody({
-          userInfo: userInfo,
-          userAddress: userAddress,
-          userDocument: userDocument,
+          info: userInfo,
+          address: userAddress,
+          document: userDocument,
         });
+
+        let user = new User();
+        user.create({
+          info: userInfo,
+          address: userAddress,
+          document: userDocument,
+        });
+        navigate('/auth/login')
       } else {
         alert(ValidateInputs.formData([...info, ...address]).message);
       }

@@ -10,6 +10,7 @@ import User from "../../../classes/User";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { CreatePickupLocationFromSchoolModal } from "../../../components/Modals/PickupLocations/CreatePickupLocationFromSchoolModal";
 import UserProfileList from "../../../components/Lists/UserProfileList";
+import UserProfileFormAdmin from "../../../components/forms/UserProfileFormAdmin";
 
 export default function UserProfile() {
   const { userData } = useUserDataContext();
@@ -20,7 +21,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (userData.role !== "Admin" && user === "") setUser(userData);
-    if (user === "" && params.id !== undefined) Admin.getSingleUser(params.id, setUser);
+    if (user === "" && params.id !== undefined)
+      Admin.getSingleUser(params.id, setUser);
   }, [user]);
 
   function handleUserDeletion() {
@@ -32,9 +34,11 @@ export default function UserProfile() {
   }
 
   function handleProfileMainComponent() {
-    if(userData.role === "Admin") return <UserProfileForm user={user} />
-    if(userData.role !== "Admin" && params.id !== undefined) return <UserProfileList user={user} />
-    if(userData.role !== "Admin" && params.id === undefined) return <UserProfileForm user={user} />
+    if (userData.role === "Admin") return <UserProfileFormAdmin user={user} />;
+    if (userData.role !== "Admin" && params.id !== undefined)
+      return <UserProfileList user={user} />;
+    if (userData.role !== "Admin" && params.id === undefined)
+      return <UserProfileForm user={user} />;
   }
 
   function handleAdminOptions() {
@@ -112,7 +116,15 @@ export default function UserProfile() {
                   listas e mapas públicos. O usuário também perderá acesso ao
                   sistema, podendo reativar sua conta se efetuar um novo login.
                 </p>
-                <Button variant="secondary">Desativar</Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    User.deactivate(params.id);
+                    console.log(params.id)
+                  }}
+                >
+                  Desativar
+                </Button>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2" className="delete-user--accordion">
@@ -135,6 +147,8 @@ export default function UserProfile() {
       );
   }
 
+  console.log(user)
+
   if (user !== "") {
     return (
       <Row id="admin--single-user--view" className="flex-column">
@@ -144,9 +158,7 @@ export default function UserProfile() {
         <Col>
           <Row>
             <Col className="user-profile">
-              <Row className="user-form">
-                { handleProfileMainComponent() }
-              </Row>
+              <Row className="user-form">{handleProfileMainComponent()}</Row>
             </Col>
             <Col className="option-cards col-4 px-0">
               {handleAdminOptions(optionsCards)}
@@ -157,18 +169,18 @@ export default function UserProfile() {
                   <li>
                     <strong
                       className={
-                        user.online === true ? "text-success" : "text-danger"
+                        user.user.online === true ? "text-success" : "text-danger"
                       }
                     >
-                      {user.online === true ? "Online" : "Offline"}
+                      {user.user.online === true ? "Online" : "Offline"}
                     </strong>
                   </li>
                   <li>
                     <strong>Status:</strong>{" "}
-                    {user.active === true ? "ativo" : "inativo"}
+                    {user.user.active === true ? "ativo" : "inativo"}
                   </li>
                   <li>
-                    <strong>Função:</strong> {user.role}
+                    <strong>Função:</strong> {user.user.role}
                   </li>
                   <li>
                     <strong>Coletas:</strong> 56
@@ -177,15 +189,15 @@ export default function UserProfile() {
                     <strong>Dispositivos:</strong> 64
                   </li>
                   <li>
-                    <strong>Advertências:</strong> {user.strikes}
+                    <strong>Advertências:</strong> {user.user.strikes}
                   </li>
                   <li>
                     <strong>Data de cadastro:</strong>{" "}
-                    {validateDate(user.createdAt)}
+                    {validateDate(user.user.createdAt)}
                   </li>
                   <li>
                     <strong>Último acesso</strong>{" "}
-                    {validateDate(user.lastLogin)}
+                    {validateDate(user.user.lastLogin)}
                   </li>
                 </ul>
               </Row>

@@ -11,7 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { EditScheduleModal } from "../../../components/Modals/Schedule/EditScheduleModal";
 import { DeleteScheduleModal } from "../../../components/Modals/Schedule/DeleteScheduleModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTruck } from "@fortawesome/free-solid-svg-icons";
 import { validateDate } from "../../../validations/validateDate";
 import { validatePhones } from "../../../validations/validatePhones";
 import { GeolocationUtil } from "../../../helpers/GeolocationUtil";
@@ -22,6 +22,8 @@ export default function SinglePickup() {
   const [schedule, setSchedule] = useState("");
   const [geolocation, setGeolocation] = useState("");
   const params = useParams();
+
+  console.log(schedule);
 
   useEffect(() => {
     if (userData.role !== undefined && userData.role === "Escola")
@@ -37,7 +39,11 @@ export default function SinglePickup() {
   }, [schedule, geolocation]);
 
   function handleScheduleAdminActions() {
-    if (userData.role === "Admin")
+    if (
+      userData.role === "Admin" ||
+      userData.role === "Empresa" ||
+      userData.role === "Ong"
+    )
       return (
         <div className="d-flex justify-content-end gap-3 align-items-center">
           <EditScheduleModal schedule={schedule} userRole={userData.role} />
@@ -85,15 +91,7 @@ export default function SinglePickup() {
         >
           Pagamento
         </button>
-        <button
-          type="button"
-          className="d-flex align-items-center gap-2 btn btn-outline-danger"
-          onClick={() => {
-            alert("cancelar coleta");
-          }}
-        >
-          Cancelar
-        </button>
+        {handleScheduleCancel()}
       </div>
     );
   }
@@ -104,6 +102,45 @@ export default function SinglePickup() {
     }
 
     return <img src={r3eMascot} className="user-avatar rounded" />;
+  }
+
+  function handleScheduleColect() {
+    if (
+      (userData.role === "Empresa" || userData.role === "Ong") &&
+      schedule.status === "aguardando-coleta"
+    ) {
+      return (
+        <button
+          className="btn btn-outline-success d-flex align-items-center gap-2"
+          onClick={() => Pickup.colect(schedule.id)}
+        >
+          <FontAwesomeIcon icon={faCheck} />
+          Coletado
+        </button>
+      );
+    }
+  }
+
+  function handleScheduleCancel() {
+    if (
+      schedule.status === "coletado" ||
+      schedule.status === "não aceito" ||
+      schedule.status === "negado" ||
+      schedule.status === "cancelado"
+    )
+      return;
+
+    return (
+      <button
+        type="button"
+        className="d-flex align-items-center gap-2 btn btn-outline-danger"
+        onClick={() => {
+          alert("cancelar coleta");
+        }}
+      >
+        Cancelar
+      </button>
+    );
   }
 
   if (schedule !== "")
@@ -121,27 +158,30 @@ export default function SinglePickup() {
                     <p className="h4">Dados da coleta</p>
                     {handleScheduleAdminActions()}
                   </Card.Header>
-                  <Card.Body>
-                    <p className="d-flex mb-1 gap-2">
-                      <strong>Valor:</strong>
-                      {schedule.payment.price === null
-                        ? ""
-                        : `R$${parseFloat(schedule.payment.price)}`}
-                    </p>
-                    <p className="d-flex mb-1 gap-2">
-                      <strong>Status:</strong>
-                      {schedule.status}
-                    </p>
-                    <p className="d-flex mb-1 gap-2">
-                      <strong>Data agendada:</strong>
-                      {validateDate(schedule.dateColect)}
-                    </p>
-                    <p className="d-flex mb-1 gap-2">
-                      <strong>Data coletado:</strong>
-                      {schedule.dateColected === null
-                        ? "não coletado"
-                        : validateDate(schedule.dateColected)}
-                    </p>
+                  <Card.Body className="d-flex justify-content-between align-items-end">
+                    <div>
+                      <p className="d-flex mb-1 gap-2">
+                        <strong>Valor:</strong>
+                        {schedule.payment.price === null
+                          ? ""
+                          : `R$${parseFloat(schedule.payment.price)}`}
+                      </p>
+                      <p className="d-flex mb-1 gap-2">
+                        <strong>Status:</strong>
+                        {schedule.status}
+                      </p>
+                      <p className="d-flex mb-1 gap-2">
+                        <strong>Data agendada:</strong>
+                        {validateDate(schedule.dateColect)}
+                      </p>
+                      <p className="d-flex mb-1 gap-2">
+                        <strong>Data coletado:</strong>
+                        {schedule.dateColected === null
+                          ? "não coletado"
+                          : validateDate(schedule.dateColected)}
+                      </p>
+                    </div>
+                    <div>{handleScheduleColect()}</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -159,9 +199,7 @@ export default function SinglePickup() {
                   <div className="user-info">
                     <h5 className="name">
                       <strong className="me-3">
-                        <a
-                          href={`/app/users/${schedule.vendorId}`}
-                        >
+                        <a href={`/app/users/${schedule.vendorId}`}>
                           {schedule.vendor.name}
                         </a>
                       </strong>
@@ -191,9 +229,7 @@ export default function SinglePickup() {
                   <div className="user-info">
                     <h5 className="name">
                       <strong className="me-3">
-                        <a
-                          href={`/app/users/${schedule.clientId}`}
-                        >
+                        <a href={`/app/users/${schedule.clientId}`}>
                           {schedule.client.name}
                         </a>
                       </strong>
@@ -233,9 +269,7 @@ export default function SinglePickup() {
                   <div className="device-info">
                     <h5 className="name">
                       <strong className="me-3">
-                        <a
-                          href={`/app/devices/${schedule.deviceId}`}
-                        >
+                        <a href={`/app/devices/${schedule.deviceId}`}>
                           {`${schedule.device.brand.name} ${schedule.device.model.name}`}
                         </a>
                       </strong>

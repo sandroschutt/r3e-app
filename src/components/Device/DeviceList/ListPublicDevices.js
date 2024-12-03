@@ -1,4 +1,4 @@
-import dummyDeviceImg from "../../../assets/images/motog2 1.jpg";
+import dummyDeviceImg from "../../../assets/images/smartphone-placeholder.avif";
 
 export default function ListPublicDevices() {
   return (
