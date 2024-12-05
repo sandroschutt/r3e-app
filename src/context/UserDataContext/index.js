@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import User from "../../classes/User";
+import Cookies from "js-cookie";
 
 const UserContext = createContext();
 
@@ -12,8 +13,12 @@ function UserDataContext({ children }) {
 
   useEffect(() => {
     if (userData === "") {
-      let cookie = JSON.parse(getCookie("_r3e"));
-      new User(cookie.user).data(setUserData);
+      let r3eCookie = Cookies.get("_r3e");
+
+      if (r3eCookie !== undefined) {
+        let data = JSON.parse(r3eCookie);
+        new User(data.user).data(setUserData);
+      }
     }
   }, [userData]);
 
@@ -27,21 +32,5 @@ function UserDataContext({ children }) {
 const useUserDataContext = () => {
   return useContext(UserContext);
 };
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
 
 export { useUserDataContext, UserDataContext };

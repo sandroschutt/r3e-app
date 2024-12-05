@@ -120,7 +120,6 @@ export default function UserProfile() {
                   variant="secondary"
                   onClick={() => {
                     User.deactivate(params.id);
-                    console.log(params.id)
                   }}
                 >
                   Desativar
@@ -147,8 +146,6 @@ export default function UserProfile() {
       );
   }
 
-  console.log(user)
-
   if (user !== "") {
     return (
       <Row id="admin--single-user--view" className="flex-column">
@@ -169,18 +166,18 @@ export default function UserProfile() {
                   <li>
                     <strong
                       className={
-                        user.user.online === true ? "text-success" : "text-danger"
+                        user.online === true ? "text-success" : "text-danger"
                       }
                     >
-                      {user.user.online === true ? "Online" : "Offline"}
+                      {user.online === true ? "Online" : "Offline"}
                     </strong>
                   </li>
                   <li>
                     <strong>Status:</strong>{" "}
-                    {user.user.active === true ? "ativo" : "inativo"}
+                    {user.active === true ? "ativo" : "inativo"}
                   </li>
                   <li>
-                    <strong>Função:</strong> {user.user.role}
+                    <strong>Função:</strong> {user.role}
                   </li>
                   <li>
                     <strong>Coletas:</strong> 56
@@ -189,15 +186,15 @@ export default function UserProfile() {
                     <strong>Dispositivos:</strong> 64
                   </li>
                   <li>
-                    <strong>Advertências:</strong> {user.user.strikes}
+                    <strong>Advertências:</strong> {user.strikes}
                   </li>
                   <li>
                     <strong>Data de cadastro:</strong>{" "}
-                    {validateDate(user.user.createdAt)}
+                    {validateDate(user.createdAt)}
                   </li>
                   <li>
                     <strong>Último acesso</strong>{" "}
-                    {validateDate(user.user.lastLogin)}
+                    {validateDate(user.lastLogin)}
                   </li>
                 </ul>
               </Row>

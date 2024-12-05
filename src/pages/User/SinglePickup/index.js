@@ -23,8 +23,6 @@ export default function SinglePickup() {
   const [geolocation, setGeolocation] = useState("");
   const params = useParams();
 
-  console.log(schedule);
-
   useEffect(() => {
     if (userData.role !== undefined && userData.role === "Escola")
       navigate(`/app/404`);

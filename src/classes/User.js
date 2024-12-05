@@ -234,8 +234,8 @@ export default class User {
       .then((response) => {
         if (response.status !== 200)
           throw new Error("Falha ao realizar login.");
-        console.log(response.data);
         Cookies.set("_r3e", JSON.stringify(response.data), { expires: 7 });
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);

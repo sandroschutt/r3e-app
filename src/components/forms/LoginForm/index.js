@@ -12,7 +12,6 @@ export default function LoginForm() {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const [validationMessage, setValidationMessage] = useState("");
   const user = new User();
-  const navigate = useNavigate();
 
   function handleUsername(event) {
     setUsername(event.target.value);
@@ -29,18 +28,10 @@ export default function LoginForm() {
   }
 
   function handleSubmit() {
-    const isValidMail = ValidateInputs.loginEmail(username);
-    const isValidPassword = ValidateInputs.password(password);
-
-    if (!isValidMail || !isValidPassword) {
-      setValidationMessage("Dados inválidos");
-    }
-
     let data = { email: username, password: password };
 
     try {
       user.login(data);
-      navigate("/app");
     } catch (error) {
       console.log(error);
     }

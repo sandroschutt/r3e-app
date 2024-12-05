@@ -96,7 +96,7 @@ export function PickupsList(props) {
           return (
             <Accordion.Item eventKey={index} key={index}>
               <Accordion.Header>
-                <p className="h6">{`${schedule.device.model.name} ${schedule.device.model.name}`}</p>
+                <p className="h6">{`${schedule.device.brand.name} ${schedule.device.model.name}`}</p>
               </Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex gap-3 pb-4">

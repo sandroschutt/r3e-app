@@ -67,8 +67,8 @@ export default function SingleDeviceCard(props) {
             </div>
           </Card.Header>
           <Card.Body>
-            <Row className="single-device--card gap-0 mb-3">
-              <Col className="ps-0 col-3">
+            <Row className="d-flex single-device--card gap-0 mb-3">
+              <Col className="ps-0 col-4">
                 <img
                   src={deviceImage}
                   height={164}

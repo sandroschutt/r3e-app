@@ -13,7 +13,7 @@ export function DeleteUserModal(props) {
     function handleDeleteUser(userId) {
       const user = new User(userId);
       user.delete();
-      window.location.href = "/admin/users"
+      window.location.href = "/app/users"
       return;
     }
   
