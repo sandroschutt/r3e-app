@@ -1,7 +1,6 @@
 import "./style.scss";
 import { Col, Row } from "react-bootstrap";
 import UserHeader from "../../../components/UserHeader";
-import { StudentsFilter } from "../../../components/Lists/Flters";
 import { useEffect, useState } from "react";
 import Student from "../../../classes/Student";
 import StudentsTable from "../../../components/Tables/StudentsTable";
@@ -53,9 +52,6 @@ export default function ManageStudents() {
 
         <Col id="admin-users--view">
           <Row className="justify-content-between pb-3">
-            <Col>
-              <StudentsFilter />
-            </Col>
             <Col style={{ textAlign: "right" }}>
               <CreateStudentModal
                 schools={schools}

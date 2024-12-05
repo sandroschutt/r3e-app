@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import User from "../../classes/User";
+import Cookies from "js-cookie";
 
 const UserContext = createContext();
 
@@ -11,10 +12,15 @@ function UserDataContext({ children }) {
   };
 
   useEffect(() => {
-    if(userData === "") {
-      new User(1).data(setUserData);
+    if (userData === "") {
+      let r3eCookie = Cookies.get("_r3e");
+
+      if (r3eCookie !== undefined) {
+        let data = JSON.parse(r3eCookie);
+        new User(data.user).data(setUserData);
+      }
     }
-  }, [userData])
+  }, [userData]);
 
   return (
     <UserContext.Provider value={{ userData, updateUserData }}>

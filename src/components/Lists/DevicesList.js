@@ -9,19 +9,17 @@ import { CreateDeviceModal } from "../Modals/Device/CreateDeviceModal";
  * @prop {JSX} content The list items' custom content
  */
 export function DevicesList(props) {
-  if (props.items !== "")
+  if (props.devices !== "")
     return (
       <>
         <CreateDeviceModal brands={props.brands} models={props.models} />
         <Accordion defaultActiveKey="0">
-          {props.items.map((item, index) => {
+          {props.devices.map((device, index) => {
             return (
               <DeviceAccordionItems
                 key={index}
                 index={index}
-                device={item}
-                brands={props.brands}
-                models={props.models}
+                device={device}
               />
             );
           })}

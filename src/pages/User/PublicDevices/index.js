@@ -33,7 +33,7 @@ export default function PublicDevices() {
         Device.getUserDevices(userData.id, setDevices);
       if (userData.role === "Empresa" || userData.role === "Ong")
         Device.getPublicDevices(setDevices);
-      if (userData.role === "Escola" || userData.role === "Ong")
+      if (userData.role === "Escola")
         Device.getStudentEligibleDevices(setDevices);
     }
 
@@ -49,18 +49,12 @@ export default function PublicDevices() {
     if (models === "") Models.getAll(setModels);
   }, [userData, devices, brands, models, params, search, searched]);
 
-  function listRender(devices) {
-    if (devices !== "" && userData.role === "Admin")
+  function listRender() {
+    if (devices !== "" && userData.role === "Admin") {
       return <AdminDevicesTable devices={devices} />;
-    if (
-      devices !== "" &&
-      userData.role !== "Admin" &&
-      userData.role !== "Escola"
-    )
-      return <DevicesList items={devices} brands={brands} models={models} />;
-    if (devices !== "" && userData.role === "Escola")
-      return <DevicesList items={devices} brands={brands} models={models} />;
-    return <p>Aguardando dados...</p>;
+    }
+
+    return <DevicesList devices={devices} brands={brands} models={models} />;
   }
 
   if (devices !== "")
@@ -70,7 +64,7 @@ export default function PublicDevices() {
           <UserHeader pageTitle={"Dispositivos"} />
           <SearchResults search={search} />
         </Col>
-        <Col>{listRender(devices)}</Col>
+        <Col>{listRender()}</Col>
       </Row>
     );
 }

@@ -1,10 +1,6 @@
 import { Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage, faUser } from "@fortawesome/free-regular-svg-icons";
-import {
-  faCircleXmark,
-  faHandHoldingMedical,
-} from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { DeleteStudentModal } from "../Modals/Student/DeleteStudentModal";
 import { EditStudentModal } from "../Modals/Student/EditStudentModal";
 import { ViewStudentModal } from "../Modals/Student/ViewStudentModal";
@@ -55,24 +51,8 @@ export default function StudentsTable(props) {
                   <td>{student.benefited ? "sim" : "não"}</td>
                   <td>{student.returned ? "sim" : "não"}</td>
                   <td className="d-flex justify-content-between gap-1 align-items-center p-3">
-                    <ViewStudentModal student={student}/>
-                    <EditStudentModal student={student} schools={schools}/>
-                    <FontAwesomeIcon
-                      icon={faMessage}
-                      onClick={() =>
-                        alert("There is a modal somewhere for messaging users.")
-                      }
-                    />
-                    <FontAwesomeIcon
-                      icon={faHandHoldingMedical}
-                      onClick={() =>
-                        alert("Contempla estudante e muda benefited para true")
-                      }
-                    />
-                    <FontAwesomeIcon
-                      icon={faCircleXmark}
-                      onClick={() => alert("Reprova o estudante")}
-                    />
+                    <ViewStudentModal student={student} />
+                    <EditStudentModal student={student} schools={schools} />
                     <DeleteStudentModal id={student.id} name={student.name} />
                   </td>
                 </tr>

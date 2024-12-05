@@ -31,15 +31,46 @@ export function ApprovePaymentModal(props) {
     }
   }
 
+  function handleClientProofImageDownload(paymentNote, role) {
+    if (role === "Empresa" || role === undefined) return;
+
+    return (
+      <div className="d-flex justify-content-end my-3 gap-2">
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={() => {
+            alert("Removendo comprovante (fake)...");
+          }}
+        >
+          Remover
+        </button>
+        <button className="btn btn-primary">
+          <a
+            className="text-light text-decoration-none"
+            href={paymentNote}
+            download={payment.paymentNote}
+            onClick={(event) => {
+              event.preventDefault();
+              handleDownloadImage(paymentNote, payment.paymentNote);
+            }}
+          >
+            Download
+          </a>
+        </button>
+      </div>
+    );
+  }
+
   function handleProofPayment() {
     Payments.approve(payment.id, approve);
   }
 
   function handleRoleActions(role) {
-    if (role !== "Empresa") return;
+    if (role !== "Empresa" && role !== "Ong") return;
 
     return (
-      <>
+      <div className="d-flex justify-content-end gap-2">
         <button className="btn btn-outline-secondary" onClick={handleClose}>
           Cancelar
         </button>
@@ -57,16 +88,16 @@ export function ApprovePaymentModal(props) {
         >
           Aprovar
         </button>
-      </>
+      </div>
     );
   }
 
-  function handlePaymentNote() {
+  function handlePaymentNote(role) {
     let paymentNote = payment.paymentNote;
 
     if (paymentNote === null)
       return (
-        <div class="alert alert-warning my-5" role="alert">
+        <div className="alert alert-warning my-5" role="alert">
           O cliente ainda não enviou o comprovante de pagamento.
         </div>
       );
@@ -77,20 +108,8 @@ export function ApprovePaymentModal(props) {
     return (
       <>
         <img src={paymentNote} width={450} />
-        <div className="d-flex justify-content-end my-3">
-          <button className="btn btn-primary">
-            <a
-              className="text-light text-decoration-none"
-              href={paymentNote}
-              download={payment.paymentNote}
-              onClick={(event) => {
-                event.preventDefault();
-                handleDownloadImage(paymentNote, payment.paymentNote);
-              }}
-            >
-              Download
-            </a>
-          </button>
+        <div className="d-flex gap-3 justify-content-end pt-5">
+          {handleClientProofImageDownload(paymentNote, role)}
         </div>
       </>
     );
@@ -121,11 +140,9 @@ export function ApprovePaymentModal(props) {
               <label htmlFor="price" className="form-label mb-2">
                 <strong>Comprovante:</strong>
               </label>
-              {handlePaymentNote()}
+              {handlePaymentNote(props.userRole)}
             </div>
-            <div className="d-flex gap-3 justify-content-end">
-              {handleRoleActions(props.userRole)}
-            </div>
+            <div>{handleRoleActions(props.userRole)}</div>
           </Form>
         </Modal.Body>
       </Modal>

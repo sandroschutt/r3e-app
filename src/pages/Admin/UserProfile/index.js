@@ -10,6 +10,7 @@ import User from "../../../classes/User";
 import { useUserDataContext } from "../../../context/UserDataContext";
 import { CreatePickupLocationFromSchoolModal } from "../../../components/Modals/PickupLocations/CreatePickupLocationFromSchoolModal";
 import UserProfileList from "../../../components/Lists/UserProfileList";
+import UserProfileFormAdmin from "../../../components/forms/UserProfileFormAdmin";
 
 export default function UserProfile() {
   const { userData } = useUserDataContext();
@@ -20,7 +21,8 @@ export default function UserProfile() {
 
   useEffect(() => {
     if (userData.role !== "Admin" && user === "") setUser(userData);
-    if (user === "" && params.id !== undefined) Admin.getSingleUser(params.id, setUser);
+    if (user === "" && params.id !== undefined)
+      Admin.getSingleUser(params.id, setUser);
   }, [user]);
 
   function handleUserDeletion() {
@@ -32,9 +34,11 @@ export default function UserProfile() {
   }
 
   function handleProfileMainComponent() {
-    if(userData.role === "Admin") return <UserProfileForm user={user} />
-    if(userData.role !== "Admin" && params.id !== undefined) return <UserProfileList user={user} />
-    if(userData.role !== "Admin" && params.id === undefined) return <UserProfileForm user={user} />
+    if (userData.role === "Admin") return <UserProfileFormAdmin user={user} />;
+    if (userData.role !== "Admin" && params.id !== undefined)
+      return <UserProfileList user={user} />;
+    if (userData.role !== "Admin" && params.id === undefined)
+      return <UserProfileForm user={user} />;
   }
 
   function handleAdminOptions() {
@@ -112,7 +116,14 @@ export default function UserProfile() {
                   listas e mapas públicos. O usuário também perderá acesso ao
                   sistema, podendo reativar sua conta se efetuar um novo login.
                 </p>
-                <Button variant="secondary">Desativar</Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    User.deactivate(params.id);
+                  }}
+                >
+                  Desativar
+                </Button>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2" className="delete-user--accordion">
@@ -144,9 +155,7 @@ export default function UserProfile() {
         <Col>
           <Row>
             <Col className="user-profile">
-              <Row className="user-form">
-                { handleProfileMainComponent() }
-              </Row>
+              <Row className="user-form">{handleProfileMainComponent()}</Row>
             </Col>
             <Col className="option-cards col-4 px-0">
               {handleAdminOptions(optionsCards)}
@@ -168,7 +177,7 @@ export default function UserProfile() {
                     {user.active === true ? "ativo" : "inativo"}
                   </li>
                   <li>
-                    <strong>Função:</strong> {user.role.toLowerCase()}
+                    <strong>Função:</strong> {user.role}
                   </li>
                   <li>
                     <strong>Coletas:</strong> 56

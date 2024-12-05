@@ -16,7 +16,7 @@ export function EditDeviceModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  function handleEditDevice() {
+  function handleEditDevice() { 
     Device.update({ id: userData.id, role: userData.role }, device, currentPhoto);
   }
 

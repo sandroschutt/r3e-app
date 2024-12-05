@@ -4,23 +4,20 @@ import Form from "react-bootstrap/Form";
 import { brazilianStatesList } from "../json/brazilianStatesList.js";
 import r3eMascot from "../../../assets/images/r3d3_profile_avatar.png";
 import { validatePhones } from "../../../validations/validatePhones.js";
-import User from "../../../classes/User.js";
 import Api from "../../../classes/Api.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useUserDataContext } from "../../../context/UserDataContext/index.js";
 
-export default function UserProfileForm(props) {
-  const {userData} = useUserDataContext();
-  const user = new User(userData.id);
+export default function UserProfileFormAdmin(props) {
   const [avatar, setAvatar] = useState("");
   const params = useParams();
+  const user = props.user.user;
 
   useEffect(() => {
     if(avatar === "" && params.id === undefined) {
-      setAvatar(Api.endpoint(`uploads/avatar/${userData.avatar}`))
+      setAvatar(Api.endpoint(`uploads/avatar/${user.avatar}`))
       return;
     }
 
@@ -29,10 +26,10 @@ export default function UserProfileForm(props) {
 
   function handleFormData(event) {
     event.preventDefault();
-    user.update(userData.id, userData);
+    user.update(user.id, user);
   }
 
-  if (userData !== "") {
+  if (user !== "") {
     return (
       <Form
         className="user-profile--form px-0"
@@ -44,7 +41,7 @@ export default function UserProfileForm(props) {
               className="bg-light"
               style={{
                 backgroundImage: `url(${
-                  userData.avatar !== null ? avatar : r3eMascot
+                  user.avatar !== null ? avatar : r3eMascot
                 })`,
               }}
             >
@@ -63,13 +60,13 @@ export default function UserProfileForm(props) {
               <input
                 type="file"
                 accept="img/jpeg, img/jpg, img/png"
-                onChange={(event) => (userData.image = event.target.files[0])}
+                onChange={(event) => (user.image = event.target.files[0])}
                 style={{ display: "none" }}
               />
             </div>
           </Col>
           <Col className="profile-info col-8">
-            <h3>{userData.name}</h3>
+            <h3>{user.name}</h3>
           </Col>
           <Col className="profile-main-action col-2">
             <Button type="submit" variant="success">
@@ -84,8 +81,8 @@ export default function UserProfileForm(props) {
             <Form.Label>Nome:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.name}
-              onChange={(event) => (userData.name = event.target.value)}
+              placeholder={user.name}
+              onChange={(event) => (user.name = event.target.value)}
             />
           </Form.Group>
 
@@ -93,8 +90,8 @@ export default function UserProfileForm(props) {
             <Form.Label>E-mail:</Form.Label>
             <Form.Control
               type="email"
-              placeholder={userData.email}
-              onChange={(event) => (userData.email = event.target.value)}
+              placeholder={user.email}
+              onChange={(event) => (user.email = event.target.value)}
             />
           </Form.Group>
 
@@ -102,9 +99,9 @@ export default function UserProfileForm(props) {
             <Form.Label>E-mail:</Form.Label>
             <Form.Control
               type="email"
-              placeholder={userData.secondaryEmail || "secondary@usermail.com"}
+              placeholder={user.secondaryEmail || "secondary@usermail.com"}
               onChange={(event) =>
-                (userData.secondaryEmail = event.target.value)
+                (user.secondaryEmail = event.target.value)
               }
             />
           </Form.Group>
@@ -113,8 +110,8 @@ export default function UserProfileForm(props) {
             <Form.Label>Celular:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={validatePhones(userData.phone)}
-              onChange={(event) => (userData.phone = event.target.value)}
+              placeholder={validatePhones(user.phone)}
+              onChange={(event) => (user.phone = event.target.value)}
               maxLength={15}
             />
           </Form.Group>
@@ -127,9 +124,9 @@ export default function UserProfileForm(props) {
             <Form.Label>CEP:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.address.zipcode}
+              placeholder={user.address.zipcode}
               onChange={(event) =>
-                (userData.address.zipcode = event.target.value)
+                (user.address.zipcode = event.target.value)
               }
               maxLength={9}
             />
@@ -138,9 +135,9 @@ export default function UserProfileForm(props) {
             <Form.Label>Rua:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.address.street}
+              placeholder={user.address.street}
               onChange={(event) =>
-                (userData.address.street = event.target.value)
+                (user.address.street = event.target.value)
               }
             />
           </Form.Group>
@@ -148,9 +145,9 @@ export default function UserProfileForm(props) {
             <Form.Label>Nº:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.address.number}
+              placeholder={user.address.number}
               onChange={(event) =>
-                (userData.address.number = event.target.value)
+                (user.address.number = event.target.value)
               }
             />
           </Form.Group>
@@ -158,9 +155,9 @@ export default function UserProfileForm(props) {
             <Form.Label>Bairro:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.address.neighborhood}
+              placeholder={user.address.neighborhood}
               onChange={(event) =>
-                (userData.address.neighborhood = event.target.value)
+                (user.address.neighborhood = event.target.value)
               }
             />
           </Form.Group>
@@ -168,17 +165,17 @@ export default function UserProfileForm(props) {
             <Form.Label>Cidade:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.address.city}
-              onChange={(event) => (userData.address.city = event.target.value)}
+              placeholder={user.address.city}
+              onChange={(event) => (user.address.city = event.target.value)}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="userState">
             <Form.Label>Estado:</Form.Label>
             <Form.Select
               aria-label="Estado"
-              defaultValue={userData.address.state}
+              defaultValue={user.address.state}
               onChange={(event) =>
-                (userData.address.state = event.target.value)
+                (user.address.state = event.target.value)
               }
             >
               {brazilianStatesList.map((state, index) => {
@@ -199,9 +196,9 @@ export default function UserProfileForm(props) {
             <Form.Label>Tipo:</Form.Label>
             <Form.Select
               aria-label="doctype"
-              defaultValue={userData.document.type}
+              // defaultValue={user.document.type}
               onChange={(event) =>
-                (userData.document.type = event.target.value)
+                (user.document.type = event.target.value)
               }
             >
               <option value="rg">RG</option>
@@ -214,9 +211,9 @@ export default function UserProfileForm(props) {
             <Form.Label>Número do documento:</Form.Label>
             <Form.Control
               type="text"
-              placeholder={userData.document.documentNumber}
+              placeholder={user.document.documentNumber}
               onChange={(event) =>
-                (userData.document.documentNumber = event.target.value)
+                (user.document.documentNumber = event.target.value)
               }
             />
           </Form.Group>

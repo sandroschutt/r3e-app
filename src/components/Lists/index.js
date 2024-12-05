@@ -1,5 +1,5 @@
 import "./style.scss";
-import dummyDeviceImg from "../../assets/images/motog2 1.jpg";
+import dummyDeviceImg from "../../assets/images/smartphone-placeholder.avif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import { Col, Row } from "react-bootstrap";

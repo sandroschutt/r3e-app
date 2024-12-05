@@ -12,11 +12,11 @@ export default function ZipcodeForm() {
   const inputRef = createRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if(!authorized) {
-      checkAuthorizedCode(userData, setAuthorized, navigate);
-    }
-  }, [userData, updateUserData, authorized, setAuthorized, navigate]);
+  // useEffect(() => {
+  //   if(!authorized) {
+  //     checkAuthorizedCode(userData, setAuthorized, navigate);
+  //   }
+  // }, [userData, updateUserData, authorized, setAuthorized, navigate]);
 
   function handleUserZipcode(event) {
     let zipcodeValue = event.target.value;

@@ -1,34 +1,74 @@
 import { Accordion, Button } from "react-bootstrap";
-import dummyDeviceImage from "../../assets/images/motog2 1.jpg";
+import dummyDeviceImage from "../../assets/images/smartphone-placeholder.avif";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { EditDeviceModal } from "../Modals/Device/EditDeviceModal";
 import { DeleteDeviceModal } from "../Modals/Device/DeleteDeviceModal";
 import { useNavigate } from "react-router-dom";
 import { CreateScheduleModal } from "../Modals/Schedule/CreateScheduleModal";
 import { useUserDataContext } from "../../context/UserDataContext";
-import SchoolDeviceRequets from "../../classes/SchoolDeviceRequests";
+import Api from "../../classes/Api";
+import { CreateSchoolDeviceRequestModal } from "../Modals/Schedule/CreateSchoolDeviceRequestModal";
 
 export function DeviceAccordionItems(props) {
   const { userData } = useUserDataContext();
+  const deviceImage = Api.endpoint(`uploads/device/${props.device.photo}`);
   const device = props.device;
   const navigate = useNavigate();
 
-  function handleSchoolDeviceRequestButton(schoolId, deviceId, userRole) {
+  function handleSchoolDeviceRequestButton() {
     if (userData.role === "Escola")
       return (
-        <Button
-          variant="success"
-          onClick={() => {
-            SchoolDeviceRequets.create({
-              schoolId: schoolId,
-              deviceId: deviceId,
-            }, userRole);
-          }}
-        >
-          Requisitar
-        </Button>
+        <CreateSchoolDeviceRequestModal
+          deviceId={device.id}
+          schoolId={userData.id}
+        />
       );
+  }
+
+  function handleDeviceImage() {
+    if (props.device.photo !== null) {
+      return <img src={deviceImage} height={148} className="rounded" />;
+    } else
+      return <img src={dummyDeviceImage} height={148} className="rounded" />;
+  }
+
+  function handleClientDeleteDevice() {
+    if (userData.role === "Cliente")
+      return <DeleteDeviceModal deviceId={device.id} role={userData.role} />;
+  }
+
+  function handleClientDeviceActions(role) {
+    if (role === "Cliente" || role === "Escola")
+      return (
+        <div className="d-flex justify-between">
+          <div className="col col-6">
+            {handleSchoolDeviceRequestButton()}
+            <CreateScheduleModal device={device} />
+          </div>
+          <div className="d-flex col col-6 justify-content-end gap-3 align-items-center">
+            <FontAwesomeIcon
+              icon={faEye}
+              onClick={() => {
+                navigate(`/app/devices/${device.id}`);
+              }}
+            />
+            { handleClientDeleteDevice() }
+          </div>
+        </div>
+      );
+
+    return (
+      <div className="d-flex justify-content-end">
+        <div className="justify-content-end align-items-center">
+          <FontAwesomeIcon
+            icon={faEye}
+            onClick={() => {
+              navigate(`/app/devices/${device.id}`);
+            }}
+          />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -38,9 +78,7 @@ export function DeviceAccordionItems(props) {
       </Accordion.Header>
       <Accordion.Body>
         <div className="d-flex gap-3 pb-4">
-          <div>
-            <img src={dummyDeviceImage} height={148} className="rounded" />
-          </div>
+          <div>{handleDeviceImage()}</div>
           <div>
             <p className="mb-1">
               <strong>Marca:</strong> {device.brand.name}
@@ -60,26 +98,7 @@ export function DeviceAccordionItems(props) {
             </p>
           </div>
         </div>
-        <div className="d-flex justify-between">
-          <div className="col col-6">
-            {handleSchoolDeviceRequestButton(userData.id, device.id, userData.role)}
-            <CreateScheduleModal device={device} />
-          </div>
-          <div className="d-flex col col-6 justify-content-end gap-3 align-items-center">
-            <FontAwesomeIcon
-              icon={faEye}
-              onClick={() => {
-                navigate(`/user/devices/${device.id}`);
-              }}
-            />
-            <EditDeviceModal
-              device={device}
-              brands={props.brands}
-              models={props.models}
-            />
-            <DeleteDeviceModal deviceId={device.id} />
-          </div>
-        </div>
+        {handleClientDeviceActions(userData.role)}
       </Accordion.Body>
     </Accordion.Item>
   );

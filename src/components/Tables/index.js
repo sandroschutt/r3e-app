@@ -25,7 +25,7 @@ export function AdminDevicesTable(props) {
   if (props.devices !== "") {
     return (
       <>
-        <Row>
+        <Row className="justify-content-end">
           <CreateDeviceModal models={models} brands={brands}/>
         </Row>
         <Row className="admin-devices-table w-100">

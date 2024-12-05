@@ -23,51 +23,69 @@ import Workshop from "../pages/Admin/Workshop";
 import CapabilitiesComponent from "../components/capabilities";
 import { Route, Routes } from "react-router-dom";
 import NotFoundComponent from "../pages/404.js";
+import Logout from "../components/Logout/index.js";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
 export default function UserRoutes() {
-  return (
-    <UserDataContext>
-      <UserLayout>
-        <Routes>
-          <Route path="/" element={<Dashboard user={"user"} />} />
-          <Route path="/dashboard" element={<Dashboard user={"user"} />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/devices" element={<PublicDevices />} />
-          <Route path="/devices/:id" element={<SingleDevices />} />
-          <Route path={"/pickups"} element={<Pickups />} />
-          <Route path={"/pickups/:id"} element={<SinglePickup />} />
-          <Route path="/payments" element={<PaymentsView />} />
-          <Route path="/payments/:id" element={<SinglePayment />} />
-          <Route path={"/pickup-locations"} element={<PickupLocations />} />
-          <Route
-            path={"/pickup-locations/:id"}
-            element={<SinglePickupLocation />}
-          />
-          <Route path="/settings" element={<SettingsView />} />
-          <Route path="/integrations" element={<Integrations />} />
-          <Route
-            path="/school-device-requests"
-            element={<ManageSchoolDeviceRequests />}
-          />
-          <Route
-            path="/school-device-requests/:id"
-            element={<SingleSchoolDeviceRequest />}
-          />
-          {/* Admin routes */}
-          <Route path="/users" element={<ManageUsers />} />
-          <Route path="/users/:id" element={<UserProfile />} />
-          <Route path="/users/:id/devices" element={<PublicDevices />} />
-          <Route path="/users/:id/pickups" element={<Pickups />} />
-          <Route path="/students" element={<ManageStudents />} />
-          <Route path="/recycling-settings" element={<ManageReturnProcess />} />
-          <Route path="/device-brands" element={<DeviceBrands />} />
-          <Route path="/device-models" element={<DeviceModels />} />
-          <Route path={"/workshop"} element={<Workshop />} />
-          <Route path="/integrations" element={<Integrations />} />
-          <Route path="/capabilities" element={<CapabilitiesComponent />} />
-          <Route path="/404" element={<NotFoundComponent />} />
-        </Routes>
-      </UserLayout>
-    </UserDataContext>
-  );
+  const [authorization, setAuthorization] = useState(false);
+
+  const r3eCookie = Cookies.get("_r3e");
+
+  useEffect(() => {
+    if (r3eCookie === undefined && authorization === false) {
+      window.location.href = "/";
+    } else setAuthorization(true);
+  }, []);
+
+  if (authorization)
+    return (
+      <UserDataContext>
+        <UserLayout>
+          <Routes>
+            <Route path="/" element={<Dashboard user={"user"} />} />
+            <Route path="/dashboard" element={<Dashboard user={"user"} />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/devices" element={<PublicDevices />} />
+            <Route path="/devices/:id" element={<SingleDevices />} />
+            <Route path={"/pickups"} element={<Pickups />} />
+            <Route path={"/pickups/:id"} element={<SinglePickup />} />
+            <Route path="/payments" element={<PaymentsView />} />
+            <Route path="/payments/:id" element={<SinglePayment />} />
+            <Route path={"/pickup-locations"} element={<PickupLocations />} />
+            <Route
+              path={"/pickup-locations/:id"}
+              element={<SinglePickupLocation />}
+            />
+            <Route path="/settings" element={<SettingsView />} />
+            <Route path="/integrations" element={<Integrations />} />
+            <Route
+              path="/school-device-requests"
+              element={<ManageSchoolDeviceRequests />}
+            />
+            <Route
+              path="/school-device-requests/:id"
+              element={<SingleSchoolDeviceRequest />}
+            />
+            {/* Admin routes */}
+            <Route path="/users" element={<ManageUsers />} />
+            <Route path="/users/:id" element={<UserProfile />} />
+            <Route path="/users/:id/devices" element={<PublicDevices />} />
+            <Route path="/users/:id/pickups" element={<Pickups />} />
+            <Route path="/students" element={<ManageStudents />} />
+            <Route
+              path="/recycling-settings"
+              element={<ManageReturnProcess />}
+            />
+            <Route path="/device-brands" element={<DeviceBrands />} />
+            <Route path="/device-models" element={<DeviceModels />} />
+            <Route path={"/workshop"} element={<Workshop />} />
+            <Route path="/integrations" element={<Integrations />} />
+            <Route path="/capabilities" element={<CapabilitiesComponent />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/404" element={<NotFoundComponent />} />
+          </Routes>
+        </UserLayout>
+      </UserDataContext>
+    );
 }

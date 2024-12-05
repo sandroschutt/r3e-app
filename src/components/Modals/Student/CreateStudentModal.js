@@ -37,6 +37,7 @@ export function CreateStudentModal(props) {
   function handleFormSubmit() {
     if (props.user.role === "Escola") newStudent.info.schoolId = props.user.id;
     Student.create(newStudent);
+    window.location.reload();
   }
 
   function handleSchoolSelect(userRole, schools) {

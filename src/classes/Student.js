@@ -22,12 +22,10 @@ export default class Student {
         if (!response.status === 200) {
           throw new Error();
         }
-        alert(`Estudante ${response.data.name} criado com sucesso!`);
-        window.location.reload();
+        alert(`Estudante criado com sucesso!`);
       })
       .catch((error) => {
         console.error(error);
-        alert(error.response.data);
       });
   }
 
@@ -100,5 +98,34 @@ export default class Student {
         setStudents(response.data);
       })
       .catch((error) => console.log(error));
+  }
+
+  /**
+   * Contemplates a Student with a device
+   *
+   * @param { String|Number } id The current Student's ID
+   * */
+  static contemplate(id) {
+    axios
+      .post(
+        Api.endpoint(`students/${id}/update`),
+        { benefited: 1 },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (!response.status === 200) {
+          throw new Error();
+        }
+        alert(`Estudante ${id} contemplado!`);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert(error.response.data.errors[0].message);
+      });
   }
 }

@@ -8,6 +8,7 @@ import axios from "axios";
  * @returns {Array} geolocation A array containing the latitude and longitude for the address
  */
 export async function GeolocationUtil(address, setGeolocation) {
+  console.log(address)
   const requestUrl = `https://nominatim.openstreetmap.org/search?q=${
     address.number
   }+${toQueryString(address.street)},${toQueryString(

@@ -54,7 +54,7 @@ export function PickupLocationsList(props) {
                     <FontAwesomeIcon
                       icon={faEye}
                       onClick={() => {
-                        navigate(`/user/pickup-locations/${location.id}`);
+                        navigate(`/app/pickup-locations/${location.id}`);
                       }}
                     />
                     <EditPickupLocationModal location={location} />

@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import User from "../../../classes/User";
+import { validateInputDateValue } from "../../../validations/validateDate";
 
 export function EditScheduleModal(props) {
   const schedule = props.schedule;
@@ -67,7 +68,9 @@ export function EditScheduleModal(props) {
   }
 
   function handleDefaultDate(date) {
-    return new Date(date);
+    console.log(date)
+    let formatedDate = new Date(date);
+    return formatedDate;
   }
 
   function handleEditableFields(userCanEdit, schedule) {
@@ -148,7 +151,7 @@ export function EditScheduleModal(props) {
                   onChange={(event) => {
                     schedule.dateColect = event.target.value;
                   }}
-                  defaultValue={handleDefaultDate(schedule.dateColect)}
+                  defaultValue={validateInputDateValue(schedule.dateColect)}
                 />
 
                 {handleCancelReasonSelect(schedule.status)}
